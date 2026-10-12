@@ -1,0 +1,1488 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Mukesh Weds Puja | Wedding Invitation" description="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Dugda, Bokaro.">
+
+  <!-- ========== GRAND OPENING ENVELOPE CINEMATIC ========== -->
+  <div id="opening-cinematic" class="fixed inset-0 z-[10000] flex flex-col justify-between items-center p-4 sm:p-6 select-none transition-all duration-1000" style="background:#0B0A1A;">
+    <!-- Background Radial Ambient Glow -->
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at 50% 50%, rgba(59,10,30,0.6) 0%, rgba(11,10,26,0.95) 70%, #0B0A1A 100%);"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at 50% 30%, rgba(224,184,79,0.14) 0%, transparent 60%);"></div>
+
+    <!-- Top Header Bar -->
+    <div class="relative z-10 w-full max-w-4xl flex items-center justify-between pt-1 sm:pt-2">
+      <div class="flex items-center gap-2">
+        <span class="text-[#E0B84F] text-xs">✦</span>
+        <span class="font-['Playfair_Display'] text-[#FED467] text-xs sm:text-sm tracking-widest uppercase">॥ श्री गणेशाय नमः ॥</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="cinematic-unmute-btn" class="px-3 py-1.5 rounded-full text-[10px] tracking-wider uppercase font-['Montserrat'] font-semibold flex items-center gap-1.5 transition-all hover:bg-white/10" style="background:rgba(31,30,47,0.8);border:1px solid rgba(224,184,79,0.3);color:#FED467;">
+          <span id="cinematic-sound-icon" class="flex items-center">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </span>
+          <span id="cinematic-sound-text">Unmute</span>
+        </button>
+        <button id="cinematic-skip-btn" class="px-3.5 py-1.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold transition-all hover:bg-white/10" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.25);color:#D1C5B1;">
+          Skip Intro →
+        </button>
+      </div>
+    </div>
+
+    <!-- Center Stage: Royal Video Frame -->
+    <div class="relative z-10 my-auto flex flex-col items-center">
+      <div class="text-center mb-2.5 sm:mb-3">
+        <div class="w-12 h-12 mx-auto mb-2 p-1 rounded-full bg-[#1F1E2F]/80 border border-[#E0B84F]/40 shadow-lg flex items-center justify-center">
+          <img src="/images/seal.png" alt="M&P Seal" class="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(254,212,103,0.5)]" />
+        </div>
+        <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-[#E0B84F] mb-1">A Royal Beginning</p>
+        <h2 class="font-['Playfair_Display'] text-xl sm:text-2xl md:text-3xl font-semibold text-[#FED467]">Mukesh Ojha &amp; Puja</h2>
+      </div>
+
+      <!-- Video Container with Luxury Golden Border & Shadow -->
+      <div class="relative group cursor-pointer w-[280px] xs:w-[320px] sm:w-[350px] md:w-[380px] aspect-[768/1344] max-h-[62vh] sm:max-h-[66vh] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(224,184,79,0.35),0_20px_40px_rgba(0,0,0,0.8)] border-2 border-[#E0B84F]/50 bg-[#0B0A1A]" id="video-card">
+        <video
+          id="opening-video"
+          playsinline
+          autoplay
+          muted
+          poster="/images/video_thumb.jpg"
+          class="w-full h-full object-cover"
+        >
+          <source src="/videos/opening.mp4" type="video/mp4" />
+        </video>
+
+        <!-- Tap to Unmute Overlay Hint -->
+        <div id="unmute-badge" class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[9px] font-['Montserrat'] font-semibold tracking-wider uppercase flex items-center gap-1.5 transition-opacity" style="background:rgba(11,10,26,0.85);backdrop-filter:blur(8px);border:1px solid rgba(224,184,79,0.3);color:#FED467;">
+          <svg class="w-3 h-3 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span>Tap for sound</span>
+        </div>
+
+        <!-- Video Progress Bar at Bottom of Video Frame -->
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+          <div id="video-progress-fill" class="h-full bg-gradient-to-r from-[#FED467] to-[#E0B84F] transition-all duration-100" style="width:0%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Action Area -->
+    <div class="relative z-10 w-full max-w-md flex flex-col items-center pb-2 text-center">
+      <button id="cinematic-enter-btn" class="w-full sm:w-auto px-8 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden shadow-[0_0_30px_rgba(224,184,79,0.4)]" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;">
+        Open Royal Invitation · प्रवेश करें ✦
+      </button>
+      <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-widest text-[#D1C5B1] opacity-70 mt-2">
+        11th December 2026 · Dugda, Bokaro · #MukeshWedsPuja
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== FLOATING PETALS CANVAS ========== -->
+  <canvas id="petals-canvas" class="fixed inset-0 pointer-events-none z-[6]" style="opacity:0.7;"></canvas>
+
+  <!-- ========== THREE.JS HERO BG ========== -->
+  <canvas id="hero-three" class="fixed inset-0 pointer-events-none z-[2]"></canvas>
+
+  <!-- ========== NAVBAR ========== -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background:rgba(11,10,26,0.0);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-3">
+      <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 group">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E0B84F]/40 p-0.5 flex items-center justify-center flex-shrink-0 bg-[#0B0A1A]">
+          <img src="/images/seal.png" alt="M&P Royal Seal" class="w-full h-full object-contain" />
+        </div>
+        <div>
+          <p class="font-['Playfair_Display'] text-[#FED467] text-sm sm:text-base font-semibold leading-tight">Mukesh &amp; Puja</p>
+          <p class="text-[9px] sm:text-[10px] tracking-[0.18em] sm:tracking-[0.2em] uppercase text-[#D1C5B1] opacity-70">11 Dec 2026 · Bokaro</p>
+        </div>
+      </a>
+      <nav class="hidden xl:flex items-center gap-1 px-3 py-2 rounded-full text-xs" style="background:rgba(11,10,26,0.6);backdrop-filter:blur(12px);border:1px solid rgba(224,184,79,0.15);">
+        {['Blessings','Couple','Story','Events','Venue','Gallery','RSVP'].map(s => (
+          <a href={`#${s.toLowerCase()}`} class="px-3 py-1.5 rounded-full tracking-[0.15em] uppercase font-['Montserrat'] font-semibold text-[10px] text-[#D1C5B1] hover:text-[#FED467] hover:bg-white/5 transition-all duration-300">{s}</a>
+        ))}
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="audio-toggle" aria-label="Toggle music" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full text-[10px] tracking-[0.15em] uppercase font-semibold transition-all duration-300 magnetic-btn ripple-btn" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.25);color:#E0B84F;">
+          <span id="audio-icon" class="flex items-center">
+            <svg class="w-3.5 h-3.5 text-[#E0B84F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </span>
+          <span class="hidden md:inline">Shehnai</span>
+        </button>
+        <a href="#rsvp" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.2em] uppercase font-['Montserrat'] font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden" style="background:linear-gradient(135deg,#F4E3B5 0%,#E0B84F 50%,#B88E28 100%);color:#251A00;box-shadow:0 0 20px rgba(224,184,79,0.35);">RSVP</a>
+        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" class="xl:hidden w-9 h-9 rounded-full flex flex-col items-center justify-center gap-1 border border-[#E0B84F]/30 bg-[#0B0A1A]/80 text-[#E0B84F] ripple-btn">
+          <span class="w-4 h-0.5 bg-[#E0B84F] transition-transform duration-300" id="m-bar-1"></span>
+          <span class="w-4 h-0.5 bg-[#E0B84F] transition-opacity duration-300" id="m-bar-2"></span>
+          <span class="w-4 h-0.5 bg-[#E0B84F] transition-transform duration-300" id="m-bar-3"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-drawer" class="fixed inset-0 z-40 bg-[#0B0A1A]/95 backdrop-blur-2xl hidden flex-col justify-between p-6 pt-24 transition-all duration-300">
+    <div class="flex flex-col items-center text-center space-y-3 my-auto">
+      <div class="w-14 h-14 rounded-full border border-[#E0B84F]/50 p-1 flex items-center justify-center mb-1 shadow-lg bg-[#0B0A1A]">
+        <img src="/images/seal.png" alt="M&P Seal" class="w-full h-full object-contain" />
+      </div>
+      <p class="font-['Playfair_Display'] text-[#FED467] text-2xl font-semibold">Mukesh Ojha &amp; Puja</p>
+      <p class="text-[10px] tracking-[0.2em] uppercase text-[#D1C5B1]">11 December 2026 · Dugda, Bokaro</p>
+      <div class="h-px w-24 my-2" style="background:linear-gradient(90deg,transparent,#E0B84F,transparent);"></div>
+      <nav class="flex flex-col items-center space-y-2.5 pt-2">
+        {[
+          {name:'Divine Blessings', href:'#blessings'},
+          {name:'The Royal Duo', href:'#couple'},
+          {name:'Sacred Story', href:'#story'},
+          {name:'Festivities & Itinerary', href:'#events'},
+          {name:'Royal Venue', href:'#venue'},
+          {name:'Cinematic Gallery', href:'#gallery'},
+          {name:'Confirm RSVP', href:'#rsvp'},
+        ].map(item => (
+          <a href={item.href} class="mobile-nav-link text-sm font-['Montserrat'] uppercase tracking-[0.2em] font-medium text-[#E4E0F7] hover:text-[#FED467] py-1 transition-colors">
+            ✦ {item.name}
+          </a>
+        ))}
+      </nav>
+    </div>
+    <div class="flex flex-col items-center gap-3 pb-6">
+      <a href="#rsvp" class="mobile-nav-link w-full max-w-xs py-3.5 text-center rounded-full text-xs tracking-[0.2em] uppercase font-['Montserrat'] font-bold ripple-btn shine-btn" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;box-shadow:0 0 20px rgba(224,184,79,0.35);">
+        Confirm RSVP ✦
+      </a>
+      <p class="text-[10px] text-[#D1C5B1]/70 tracking-widest uppercase">#MukeshWedsPuja</p>
+    </div>
+  </div>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden pt-20">
+    <!-- Parallax layers -->
+    <div class="parallax-layer absolute inset-0 z-[3]" data-depth="0.05" style="background:radial-gradient(ellipse at 50% 60%,rgba(59,10,30,0.5) 0%,transparent 70%);"></div>
+    <div class="parallax-layer absolute inset-0 z-[3]" data-depth="0.1" style="background:radial-gradient(ellipse at 30% 40%,rgba(224,184,79,0.08) 0%,transparent 60%);"></div>
+
+    <!-- Palace silhouette SVG layers -->
+    <div class="parallax-layer absolute bottom-0 left-0 right-0 z-[4]" data-depth="0.3">
+      <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" class="w-full opacity-20">
+        <path d="M0,400 L0,200 Q60,150 120,200 L120,120 Q150,80 180,120 L180,80 Q200,40 220,80 L220,120 Q250,80 280,120 L280,200 Q340,150 400,200 L400,250 Q460,200 520,250 Q580,200 640,180 Q700,160 760,180 Q820,200 880,220 Q940,200 1000,220 Q1060,200 1120,180 L1120,120 Q1150,80 1180,120 L1180,80 Q1200,40 1220,80 L1220,120 Q1250,80 1280,120 L1280,200 Q1340,150 1400,200 L1440,180 L1440,400 Z" fill="#E0B84F"/>
+      </svg>
+    </div>
+    <div class="parallax-layer absolute bottom-0 left-0 right-0 z-[4]" data-depth="0.5">
+      <svg viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" class="w-full opacity-15">
+        <path d="M0,300 L0,150 Q80,100 160,150 L160,80 Q190,40 220,80 L220,150 Q300,100 380,150 Q460,100 540,130 Q620,100 700,120 Q780,100 860,130 Q940,100 1020,120 Q1100,100 1180,130 L1180,80 Q1210,40 1240,80 L1240,150 Q1320,100 1400,150 L1440,130 L1440,300 Z" fill="#FFB1C7"/>
+      </svg>
+    </div>
+
+    <!-- Rotating Mandala SVG -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-[4]">
+      <svg id="hero-mandala" width="600" height="600" viewBox="0 0 600 600" class="opacity-10" style="animation: spin 60s linear infinite;">
+        <defs>
+          <style>@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>
+        </defs>
+        <g transform="translate(300,300)">
+          {Array.from({length: 16}).map((_, i) => (
+            <g transform={`rotate(${i * 22.5})`}>
+              <ellipse cx="0" cy="-200" rx="8" ry="40" fill="none" stroke="#E0B84F" stroke-width="0.8" opacity="0.8"/>
+              <circle cx="0" cy="-160" r="4" fill="none" stroke="#E0B84F" stroke-width="0.6" opacity="0.6"/>
+              <path d={`M0,-240 Q10,-220 0,-200 Q-10,-220 0,-240`} fill="#E0B84F" opacity="0.4"/>
+            </g>
+          ))}
+          <circle cx="0" cy="0" r="80" fill="none" stroke="#E0B84F" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="0" cy="0" r="120" fill="none" stroke="#E0B84F" stroke-width="0.5" opacity="0.4" stroke-dasharray="8,8"/>
+          <circle cx="0" cy="0" r="160" fill="none" stroke="#E0B84F" stroke-width="0.4" opacity="0.3"/>
+          <circle cx="0" cy="0" r="20" fill="#E0B84F" opacity="0.15"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-[8] max-w-5xl mx-auto flex flex-col items-center">
+      <div id="hero-tag" class="inline-flex items-center gap-3 px-5 py-2 rounded-full mb-8 opacity-0" style="background:rgba(31,30,47,0.6);backdrop-filter:blur(12px);border:1px solid rgba(224,184,79,0.2);">
+        <span class="text-[#E0B84F]">✦</span>
+        <span class="font-['Playfair_Display'] text-[#E0B84F] text-base tracking-widest">॥ श्री गणेशाय नमः ॥</span>
+        <span class="text-[#E0B84F]">✦</span>
+      </div>
+
+      <p id="hero-subtitle" class="font-['Montserrat'] text-[11px] tracking-[0.35em] uppercase text-[#D1C5B1] mb-6 opacity-0">The Auspicious Wedding Of</p>
+
+      <div class="mb-4">
+        <h1 id="hero-groom" class="font-['Playfair_Display'] font-semibold leading-none text-[#FED467] opacity-0 flex justify-center flex-wrap" style="font-size:clamp(32px,7.5vw,84px);letter-spacing:0.03em;text-shadow:0 0 35px rgba(254,212,103,0.4);">
+          {"Mukesh Ojha".split("").map((ch) => (
+            <span class="hero-char-groom inline-block">{ch === " " ? "\u00A0" : ch}</span>
+          ))}
+        </h1>
+        <div id="hero-amp" class="flex items-center justify-center gap-3 sm:gap-6 my-2 sm:my-4 opacity-0">
+          <div class="h-px w-16 sm:w-40" style="background:linear-gradient(90deg,transparent,#E0B84F);"></div>
+          <span class="font-['Playfair_Display'] italic text-[#FFB1C7]" style="font-size:clamp(22px,3.5vw,42px);">&amp;</span>
+          <div class="h-px w-16 sm:w-40" style="background:linear-gradient(270deg,transparent,#E0B84F);"></div>
+        </div>
+        <h1 id="hero-bride" class="font-['Playfair_Display'] font-semibold leading-none text-[#FFB1C7] opacity-0 flex justify-center flex-wrap" style="font-size:clamp(32px,7.5vw,84px);letter-spacing:0.03em;text-shadow:0 0 35px rgba(255,177,199,0.4);">
+          {"Puja".split("").map((ch) => (
+            <span class="hero-char-bride inline-block">{ch === " " ? "\u00A0" : ch}</span>
+          ))}
+        </h1>
+      </div>
+
+      <!-- Imperial Crest Seal Badge from Stitch -->
+      <div class="w-14 h-14 sm:w-16 sm:h-16 my-2 p-1 rounded-full bg-[#1F1E2F]/80 border border-[#E0B84F]/40 shadow-xl flex items-center justify-center">
+        <img alt="Mukesh & Puja Royal Wedding Seal" class="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-[0_0_10px_rgba(254,212,103,0.5)]" src="/images/seal.png" />
+      </div>
+
+      <p id="hero-invite" class="font-['Montserrat'] font-light text-[#D1C5B1] max-w-2xl leading-relaxed mb-6 opacity-0 px-2" style="font-size:clamp(13px,1.5vw,17px);">
+        Cordially invite you to celebrate our sacred union amidst palatial grace, ancestral rites, and celestial splendour.
+      </p>
+
+      <div id="hero-date" class="inline-flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl sm:rounded-full mb-8 sm:mb-10 opacity-0" style="background:rgba(31,30,47,0.7);border:1px solid rgba(224,184,79,0.25);">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span class="font-['Playfair_Display'] text-[#FED467] font-semibold text-sm sm:text-lg">Friday, 11th December 2026</span>
+        </div>
+        <span class="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#E0B84F]"></span>
+        <span class="font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-[#D1C5B1]">Dugda, Bokaro</span>
+      </div>
+
+      <!-- Flip-Clock Countdown -->
+      <div id="countdown" class="grid grid-cols-4 gap-2 sm:gap-4 mb-8 sm:mb-10 opacity-0 max-w-xs sm:max-w-md w-full justify-items-center">
+        {['days','hours','minutes','seconds'].map(u => (
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="flip-clock-card" id={`cd-${u}`} style="width:clamp(56px,18vw,88px);height:clamp(70px,20vw,104px);font-size:clamp(1.4rem,4vw,2.5rem);">
+              <span id={`cd-${u}-val`}>0</span>
+            </div>
+            <span class="font-['Montserrat'] text-[8px] sm:text-[9px] tracking-[0.18em] uppercase text-[#D1C5B1]">{u}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA Buttons -->
+      <div id="hero-ctas" class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-2xl opacity-0">
+        <a href="#events" class="w-full sm:w-auto text-center px-7 py-3 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden magnetic-btn" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;box-shadow:0 0 25px rgba(224,184,79,0.4);">
+          Explore Celebrations
+        </a>
+        <button id="replay-envelope-btn" class="w-full sm:w-auto text-center justify-center px-6 py-3 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2" style="background:rgba(59,10,30,0.6);border:1px solid rgba(255,177,199,0.4);color:#FFB1C7;">
+          <svg class="w-3.5 h-3.5 text-[#FFB1C7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <span>Replay Envelope</span>
+        </button>
+        <button id="add-to-cal-btn" class="w-full sm:w-auto text-center justify-center px-7 py-3 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2" style="background:rgba(31,30,47,0.7);border:1px solid rgba(224,184,79,0.3);color:#E0B84F;">
+          <svg class="w-3.5 h-3.5 text-[#E0B84F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span>Save the Date</span>
+        </button>
+        <a id="whatsapp-share" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%2C%20Bokaro%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center justify-center px-7 py-3 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2" style="background:rgba(37,99,40,0.7);border:1px solid rgba(37,211,102,0.4);color:#25d366;">
+          <svg class="w-3.5 h-3.5 text-[#25d366] fill-current" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+          </svg>
+          <span>WhatsApp Invite</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div id="scroll-indicator" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 z-[8]">
+      <span class="font-['Montserrat'] text-[9px] tracking-[0.25em] uppercase text-[#D1C5B1]">Scroll</span>
+      <div class="w-0.5 h-12 relative overflow-hidden" style="background:rgba(224,184,79,0.2);">
+        <div class="w-full h-1/2 absolute top-0" style="background:#E0B84F;animation:scroll-pulse 1.5s ease-in-out infinite;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BLESSINGS / SHLOKA ========== -->
+  <section id="blessings" class="py-16 sm:py-24 px-4 sm:px-6 relative">
+    <div class="max-w-4xl mx-auto text-center glass-card rounded-2xl p-6 sm:p-12 md:p-16 relative overflow-hidden reveal-section">
+      <div class="absolute -top-20 -left-20 w-60 h-60 rounded-full pointer-events-none" style="background:rgba(224,184,79,0.08);filter:blur(60px);"></div>
+      <!-- SVG Mandala border drawing -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <rect x="1" y="1" width="98" height="98" rx="2" fill="none" stroke="#E0B84F" stroke-width="0.3" stroke-dasharray="400" stroke-dashoffset="400" class="svg-draw-rect opacity-40"/>
+      </svg>
+      <div class="relative z-10">
+        <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-[#E0B84F] mb-3 sm:mb-4">Divine Invocation</p>
+        <p class="font-['Playfair_Display'] text-[#FED467] leading-relaxed mb-4 sm:mb-6 font-semibold typewriter-text" style="font-size:clamp(16px,2.5vw,24px);">
+          वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br/>
+          निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥
+        </p>
+        <div class="w-24 sm:w-32 h-px mx-auto mb-4 sm:mb-6" style="background:linear-gradient(90deg,transparent,#E0B84F,transparent);"></div>
+        <p class="font-['Montserrat'] font-light text-[#D1C5B1] italic max-w-xl mx-auto leading-relaxed text-xs sm:text-sm">
+          "O Lord Ganesha, with the curved trunk and monumental aura, whose brilliance equals millions of rising suns — bless our sacred voyage obstacle-free and eternal."
+        </p>
+        <div class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#E0B84F]/10">
+          <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs sm:text-sm leading-relaxed">
+            Under the celestial vault of auspicious stars and with the timeless blessings of our ancestors,<br class="hidden sm:inline"/>
+            two families unite in love, devotion, and sacred companionship.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARQUEE HASHTAG ========== -->
+  <div class="py-3 sm:py-4 overflow-hidden" style="background:rgba(11,10,26,0.8);border-top:1px solid rgba(224,184,79,0.1);border-bottom:1px solid rgba(224,184,79,0.1);">
+    <div class="marquee-inner">
+      {Array.from({length: 20}).map((_, i) => (
+        <span class="inline-flex items-center gap-4 sm:gap-6 px-3 sm:px-4">
+          <span class="font-['Playfair_Display'] text-[#E0B84F] font-semibold text-xs sm:text-base tracking-widest">#MukeshWedsPuja</span>
+          <span class="text-[#FFB1C7] opacity-60 text-xs sm:text-sm">✦</span>
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- ========== MEET THE COUPLE ========== -->
+  <section id="couple" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 sm:mb-16">
+        <p class="section-tag mb-2">✦ The Royal Duo ✦</p>
+        <h2 class="section-title">Meet The Bride &amp; Groom</h2>
+        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-md mx-auto">Two sovereign hearts woven by sacred vows, devotion, and celestial destiny.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-11 gap-6 sm:gap-8 items-center">
+        <!-- Groom -->
+        <div class="lg:col-span-5 couple-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center relative overflow-hidden group hover:border-[#E0B84F]/40 transition-all duration-500" style="border:1px solid rgba(224,184,79,0.2);">
+          <div class="absolute top-0 right-0 w-32 h-32 rounded-bl-full pointer-events-none" style="background:rgba(224,184,79,0.06);"></div>
+          <div class="w-44 h-64 sm:w-52 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-2xl relative bg-[#1F1E2F] border border-[#E0B84F]/30" style="clip-path:polygon(0% 100%,0% 25%,5% 12%,15% 3%,30% 0%,50% 0%,70% 0%,85% 3%,95% 12%,100% 25%,100% 100%);">
+            <img src="/images/groom.jpg" alt="Mukesh Ojha - The Royal Groom" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A]/80 via-transparent to-transparent"></div>
+          </div>
+          <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold mb-3" style="background:rgba(224,184,79,0.15);color:#E0B84F;">The Royal Groom</span>
+          <h3 class="font-['Playfair_Display'] text-[#FED467] text-2xl font-semibold mb-1">Mukesh Ojha</h3>
+          <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-[#D1C5B1] mb-4">Son of Smt. &amp; Shri Ojha</p>
+          <p class="font-['Montserrat'] font-light text-[#D1C5B1] italic text-xs sm:text-sm max-w-xs mb-4">"In her smile, I discovered my kingdom, my guiding star, and my eternal sanctuary."</p>
+          <div class="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-semibold" style="color:#E0B84F;">
+            <svg class="w-3.5 h-3.5 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Bokaro, Jharkhand</span>
+          </div>
+          <!-- Gold heart glow on hover -->
+          <div class="couple-glow absolute inset-0 rounded-2xl opacity-0 pointer-events-none transition-opacity duration-500" style="background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(224,184,79,0.12) 0%, transparent 70%);"></div>
+        </div>
+
+        <!-- Center heart knot -->
+        <div class="lg:col-span-1 flex items-center justify-center my-2 lg:my-0">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl" style="background:rgba(113,54,74,0.6);box-shadow:0 0 30px rgba(255,177,199,0.3);border:1px solid rgba(255,177,199,0.3);">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#FFB1C7]" viewBox="0 0 24 24" fill="currentColor" style="animation:pulse 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(255,177,199,0.6));">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Bride -->
+        <div class="lg:col-span-5 couple-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center relative overflow-hidden group hover:border-[#FFB1C7]/30 transition-all duration-500" style="border:1px solid rgba(255,177,199,0.15);">
+          <div class="absolute top-0 left-0 w-32 h-32 rounded-br-full pointer-events-none" style="background:rgba(255,177,199,0.06);"></div>
+          <div class="w-44 h-64 sm:w-52 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-2xl relative bg-[#1F1E2F] border border-[#FFB1C7]/30" style="clip-path:polygon(0% 100%,0% 25%,5% 12%,15% 3%,30% 0%,50% 0%,70% 0%,85% 3%,95% 12%,100% 25%,100% 100%);">
+            <img src="/images/bride.jpg" alt="Puja - The Radiant Bride" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A]/80 via-transparent to-transparent"></div>
+          </div>
+          <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold mb-3" style="background:rgba(113,54,74,0.4);color:#FFB1C7;">The Radiant Bride</span>
+          <h3 class="font-['Playfair_Display'] text-[#FFB1C7] text-2xl font-semibold mb-1">Puja</h3>
+          <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-[#D1C5B1] mb-4">Daughter of Smt. &amp; Shri Family</p>
+          <p class="font-['Montserrat'] font-light text-[#D1C5B1] italic text-xs sm:text-sm max-w-xs mb-4">"In his eyes, I found my quiet peace, my boundless confidant, and my forever companion."</p>
+          <div class="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-semibold" style="color:#FFB1C7;">
+            <svg class="w-3.5 h-3.5 text-[#FFB1C7] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L21.6 12l-7.2 2.8L12 22l-2.4-7.2L2.4 12l7.2-2.8L12 2z"/></svg>
+            <span>Grace &amp; Serenity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== OUR STORY TIMELINE ========== -->
+  <section id="story" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(13,12,28,0.4);">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12 sm:mb-16">
+        <p class="section-tag mb-2">Sacred Chronicles</p>
+        <h2 class="section-title">A Journey Written In The Stars</h2>
+        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3">Every step a blessing, every moment a cherished memory.</p>
+      </div>
+      <div class="relative">
+        <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px" style="background:linear-gradient(to bottom,#E0B84F,#FFB1C7,transparent);"></div>
+        <div class="space-y-8 sm:space-y-16">
+          {[
+            {num:'I',date:'Winter 2024',title:'The First Gaze',desc:'Destinies gracefully aligned in Bokaro. What began as an auspicious introduction blossomed into an unspoken bond of pure companionship.',color:'#E0B84F',dir:'right',img:'/images/stitch/story_1_first_gaze.jpg'},
+            {num:'II',date:'Spring 2025',title:'The Sacred Promise',desc:'A tranquil evening beneath starry skies. Two souls whispered the promise that would bind lifetimes.',color:'#FFB1C7',dir:'left',img:'/images/stitch/story_2_sacred_promise.jpg'},
+            {num:'III',date:'Autumn 2025',title:'The Auspicious Roka',desc:'The families gathered under radiant blessings, exchanging traditional sweets, golden chunnis, and heartfelt celebratory vows.',color:'#E0B84F',dir:'right',img:'/images/stitch/story_3_auspicious_roka.jpg'},
+            {num:'IV',date:'11th Dec 2026',title:'The Royal Union',desc:'The grand wedding bells ring across Dugda, Bokaro. The holy saat phere around the agni sealing our eternal bond.',color:'#FED467',dir:'left',img:'/images/stitch/story_4_royal_union.jpg'},
+          ].map((s, i) => (
+            <div class={`relative flex flex-col ${s.dir === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-4 md:gap-8 story-item glass-card md:bg-transparent rounded-2xl p-5 md:p-0 border border-[#E0B84F]/10 md:border-none`}>
+              <div class={`w-full md:w-[45%] text-center ${s.dir === 'left' ? 'md:text-left' : 'md:text-right'}`}>
+                <span class="font-['Montserrat'] text-[9px] tracking-[0.2em] uppercase font-bold block mb-1" style={`color:${s.color}`}>Chapter {s.num} · {s.date}</span>
+                <h3 class="font-['Playfair_Display'] text-[#E4E0F7] text-lg sm:text-xl font-semibold mb-2">{s.title}</h3>
+                <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs sm:text-sm leading-relaxed">{s.desc}</p>
+              </div>
+              <div class="z-10 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-2xl flex-shrink-0" style={`background:rgba(31,30,47,0.9);border:1px solid ${s.color}60;box-shadow:0 0 20px ${s.color}30;`}>
+                <span class="font-['Playfair_Display'] font-bold text-sm sm:text-base tracking-wider" style={`color:${s.color}`}>{s.num}</span>
+              </div>
+              <div class="w-full md:w-[45%]">
+                <div class="h-32 sm:h-40 rounded-xl overflow-hidden shadow-xl group/story relative bg-[#1F1E2F] border border-[#E0B84F]/20">
+                  <img src={s.img} alt={s.title} class="w-full h-full object-cover transition-transform duration-700 group-hover/story:scale-105" loading="lazy" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A]/70 via-transparent to-transparent"></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== EVENTS ========== -->
+  <section id="events" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12 sm:mb-16">
+        <p class="section-tag mb-2">The Royal Festivities</p>
+        <h2 class="section-title">Ceremonies &amp; Itinerary</h2>
+        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-xl mx-auto">Please grace each auspicious function with your presence and blessings.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {[
+          {
+            num:'01',name:'Haldi Utsav',title:'Auspicious Haldi Ceremony',desc:'Anointing of pure turmeric, fragrant sandalwood paste, and blissful folk songs with family.',date:'Wed, 9th Dec 2026',time:'10:00 AM Onwards',venue:'Royal Courtyard, Dugda, Bokaro',dress:'Sunny Yellow & Marigold',color:'#FED467',
+            svg:'<svg class="w-6 h-6 text-[#FED467]" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41" stroke="#FED467" stroke-width="2" stroke-linecap="round"/></svg>'
+          },
+          {
+            num:'02',name:'Mehendi',title:'Heena & Folk Rhythms',desc:'Intricate henna designs, traditional dholak beats, and lively festive folk dances under canopies.',date:'Wed, 9th Dec 2026',time:'04:00 PM Onwards',venue:'Gulab Bagh Lawn, Dugda',dress:'Emerald Green & Mint',color:'#A1E6CF',
+            svg:'<svg class="w-6 h-6 text-[#A1E6CF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>'
+          },
+          {
+            num:'03',name:'Sangeet',title:'Musical Night & Sangeet',desc:'An unforgettable evening of high-voltage family performances, live Sufi melodies, and dance.',date:'Thu, 10th Dec 2026',time:'07:30 PM Onwards',venue:'Sheesh Mahal Ballroom, Dugda',dress:'Royal Navy & Gold Sparkle',color:'#FFB1C7',
+            svg:'<svg class="w-6 h-6 text-[#FFB1C7]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>'
+          },
+          {
+            num:'05',name:'Reception',title:'Grand Reception & Gala',desc:'An opulent royal feast celebrating the newlyweds with global cuisine, blessings, and photography.',date:'Sat, 12th Dec 2026',time:'08:00 PM Onwards',venue:'Crystal Palace Gardens, Dugda',dress:'Black Tie & Velvet Elegance',color:'#FED467',
+            svg:'<svg class="w-6 h-6 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M5 3h14l-2 9a5 5 0 0 1-10 0L5 3z"/></svg>'
+          },
+        ].map((ev) => (
+          <div class="event-card glass-card rounded-xl p-5 sm:p-6 flex flex-col justify-between group relative overflow-hidden" style={`border-color:rgba(224,184,79,0.15);`}>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-full text-[9px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold" style={`background:${ev.color}20;color:${ev.color};`}>{ev.num} · {ev.name}</span>
+                <div class="flex items-center" set:html={ev.svg}></div>
+              </div>
+              <h3 class="font-['Playfair_Display'] text-[#E4E0F7] text-lg font-medium mb-2">{ev.title}</h3>
+              <p class="font-['Montserrat'] text-[#D1C5B1] text-xs leading-relaxed mb-4 font-light">{ev.desc}</p>
+              <div class="space-y-1.5 mb-4">
+                <div class="flex items-center gap-2 text-xs text-[#D1C5B1]">
+                  <svg class="w-3.5 h-3.5 flex-shrink-0" style={`color:${ev.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span>{ev.date}</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-[#D1C5B1]">
+                  <svg class="w-3.5 h-3.5 flex-shrink-0" style={`color:${ev.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>{ev.time}</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-[#D1C5B1]">
+                  <svg class="w-3.5 h-3.5 flex-shrink-0" style={`color:${ev.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>{ev.venue}</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between px-3 py-2 rounded-lg mb-3" style="background:rgba(11,10,26,0.5);">
+                <span class="text-[9px] tracking-[0.1em] uppercase font-['Montserrat'] text-[#D1C5B1]">Dress Code</span>
+                <span class="text-[9px] font-semibold font-['Montserrat']" style={`color:${ev.color}`}>{ev.dress}</span>
+              </div>
+              <button class="w-full py-2.5 rounded-full text-[9px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold transition-all duration-300 ripple-btn" style={`border:1px solid ${ev.color}40;color:${ev.color};background:${ev.color}10;`} onmouseover={`this.style.background='${ev.color}';this.style.color='#251A00'`} onmouseout={`this.style.background='${ev.color}10';this.style.color='${ev.color}'`}>
+                Add to Schedule ✦
+              </button>
+            </div>
+            <!-- Gold trace border on hover -->
+            <div class="event-gold-trace absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={`box-shadow:inset 0 0 0 1px ${ev.color}60;`}></div>
+          </div>
+        ))}
+
+        <!-- Main Wedding Card (wide) -->
+        <div class="md:col-span-2 lg:col-span-2 glass-card rounded-xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group" style="border:1px solid rgba(224,184,79,0.35);background:linear-gradient(135deg,rgba(18,14,38,0.85),rgba(59,10,30,0.3));">
+          <div class="absolute top-0 right-0 w-48 h-48 rounded-bl-full pointer-events-none" style="background:rgba(224,184,79,0.06);"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold" style="background:#E0B84F;color:#251A00;">04 · The Auspicious Vivah ✦</span>
+              <svg class="w-7 h-7 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="animation:pulse 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(254,212,103,0.5));">
+                <circle cx="12" cy="14" r="7"></circle>
+                <polygon points="12 3 9 7 15 7 12 3" fill="#FED467"></polygon>
+              </svg>
+            </div>
+            <h3 class="font-['Playfair_Display'] text-[#FED467] text-xl sm:text-2xl font-semibold mb-2">The Royal Wedding: Saat Phere &amp; Varmala</h3>
+            <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs sm:text-sm mb-6 max-w-xl">The sacred Vedic marriage ceremony, royal Baraat procession, garland exchange, and holy circumambulation around the consecrated sacred fire.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
+              <div class="space-y-2">
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#D1C5B1]">
+                  <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span class="font-medium">Friday, 11th December 2026</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#D1C5B1]">
+                  <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"></circle><path d="M10 22v-6l-2-2v-4l4-2 4 2v4l-2 2v6"></path></svg>
+                  <span>Baraat Procession: 06:00 PM IST</span>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#D1C5B1]">
+                  <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>Saat Phere: 07:00 PM IST (Muhurat)</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#D1C5B1]">
+                  <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span class="font-medium">Grand Rajwada Mandap, Dugda, Bokaro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-[#E0B84F]/20 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-2.5 sm:gap-3">
+              <span class="text-[9px] uppercase tracking-[0.1em] font-['Montserrat'] text-[#D1C5B1]">Dress Code:</span>
+              <span class="px-2.5 sm:px-3 py-1 rounded-full text-[9px] font-semibold font-['Montserrat']" style="background:rgba(113,54,74,0.4);color:#FFB1C7;">Traditional Silks &amp; Royal Burgundy</span>
+            </div>
+            <a href="#rsvp" class="w-full sm:w-auto text-center px-6 py-2.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;box-shadow:0 0 20px rgba(224,184,79,0.4);">
+              Witness The Vows ✦
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VENUE ========== -->
+  <section id="venue" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(13,12,28,0.5);">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10 sm:mb-16">
+        <p class="section-tag mb-2">Destination &amp; Hospitality</p>
+        <h2 class="section-title">The Royal Venue · Dugda, Bokaro</h2>
+        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-lg mx-auto">Convenient travel directions and luxury hospitality arranged for all esteemed guests.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        <div class="lg:col-span-7 flex flex-col gap-4">
+          <div class="w-full rounded-2xl overflow-hidden shadow-2xl relative h-72 sm:h-96" style="border:1px solid rgba(224,184,79,0.2);">
+            <iframe
+              src="https://maps.google.com/maps?q=Dugda,+Bokaro,+Jharkhand&z=14&output=embed"
+              width="100%"
+              height="100%"
+              style="border:0;filter:invert(90%) hue-rotate(180deg);"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Wedding Venue Location"
+            ></iframe>
+            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top,rgba(11,10,26,0.6),transparent 50%);"></div>
+            <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3.5 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style="background:rgba(11,10,26,0.9);backdrop-filter:blur(12px);border:1px solid rgba(224,184,79,0.25);">
+              <div class="flex-1 min-w-0">
+                <p class="font-['Playfair_Display'] text-[#FED467] font-semibold text-sm sm:text-base">Rajwada Palace &amp; Grounds</p>
+                <p class="font-['Montserrat'] text-[#D1C5B1] text-[11px] sm:text-xs mt-0.5 truncate sm:whitespace-normal">Main Road, Dugda, Bokaro, Jharkhand - 828404</p>
+              </div>
+              <a href="https://maps.google.com/maps?q=Dugda,+Bokaro,+Jharkhand" target="_blank" rel="noopener noreferrer" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform hover:scale-110 ripple-btn magnetic-btn flex-shrink-0 self-end sm:self-center" style="background:#E0B84F;color:#251A00;" aria-label="Open in Google Maps">
+                <svg class="w-5 h-5 text-[#251A00]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="p-3.5 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style="background:rgba(31,30,47,0.6);border:1px solid rgba(224,184,79,0.15);">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <div>
+                <p class="font-['Montserrat'] text-[10px] tracking-[0.15em] uppercase text-[#E0B84F]">Hospitality Helpdesk</p>
+                <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs">+91 98765 43210 · +91 91234 56789</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full text-[9px] uppercase tracking-wider font-['Montserrat'] self-start sm:self-auto" style="background:rgba(11,10,26,0.5);color:#D1C5B1;border:1px solid rgba(224,184,79,0.15);">24/7 Concierge</span>
+          </div>
+        </div>
+        <div class="lg:col-span-5 space-y-3 sm:space-y-4">
+          {[
+            {
+              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#FED467] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 20.5 3c-1-1-3-.5-4.5 1L12.5 7.5 4.3 5.7c-.5-.1-.9.1-1.2.4l-.8.8c-.4.4-.3 1.1.2 1.4l5.5 3.3L5 15l-2.5-.5c-.4-.1-.8.1-1 .4l-.4.4c-.3.3-.2.8.2 1l2.5 1.5 1.5 2.5c.2.4.7.5 1 .2l.4-.4c.3-.2.5-.6.4-1L6.6 17l3.4-3 3.3 5.5c.3.5 1 .6 1.4.2l.8-.8c.3-.3.5-.7.4-1.2l-1.8-8.2z"/></svg>',
+              title:'By Flight',desc:'Nearest hub is Kazi Nazrul Islam Airport (Durgapur, ~75 km) and Birsa Munda Airport (Ranchi, ~120 km). Royal shuttle cabs available upon RSVP request.'
+            },
+            {
+              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#FED467] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"></rect><path d="M4 11h16"></path><path d="M12 3v8"></path><circle cx="8" cy="15" r="1"></circle><circle cx="16" cy="15" r="1"></circle><path d="M6 19l-2 2"></path><path d="M18 19l2 2"></path></svg>',
+              title:'By Train',desc:'Direct express connectivity via Bokaro Steel City (BKSC) and Dhanbad Junction (DHN). Dedicated reception chauffeurs stationed at arrivals.'
+            },
+            {
+              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#FED467] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path><path d="M9 7h1"></path><path d="M9 11h1"></path><path d="M9 15h1"></path><path d="M14 7h1"></path><path d="M14 11h1"></path><path d="M14 15h1"></path></svg>',
+              title:'Accommodations',desc:'Complimentary suites reserved at Hotel Rajwada & Royal Residency Suites, Bokaro. Check-in assistance available.'
+            },
+          ].map(t => (
+            <div class="p-5 sm:p-6 rounded-xl glass-card">
+              <div class="flex items-center gap-3 mb-2.5 sm:mb-3">
+                <div class="flex items-center" set:html={t.svg}></div>
+                <h3 class="font-['Playfair_Display'] text-[#E4E0F7] text-base sm:text-lg font-semibold">{t.title}</h3>
+              </div>
+              <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs leading-relaxed" set:html={t.desc}></p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALLERY ========== -->
+  <section id="gallery" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10 sm:mb-16">
+        <p class="section-tag mb-2">Captured Moments</p>
+        <h2 class="section-title">Cinematic Royal Gallery</h2>
+        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-md mx-auto">Vignettes of timeless affection, royal portraits, and golden laughter.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+        {[
+          {label:'Palace Balcony Whispers',sub:'Udaipur Courtyard Chronicles',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/images/stitch/gallery_balcony.jpg',color:'#FED467'},
+          {label:'The Sacred Ring',sub:'Promises for Eternity',col:'col-span-1 h-64 sm:h-80',img:'/images/stitch/gallery_rings.jpg',color:'#FFB1C7'},
+          {label:'Radiant Grace',sub:'The Timeless Smile',col:'col-span-1 h-64 sm:h-80',img:'/images/stitch/gallery_grace.jpg',color:'#FED467'},
+          {label:'The Imperial Chariot',sub:'Vintage Heritage',col:'col-span-1 h-64 sm:h-80',img:'/images/stitch/gallery_car.jpg',color:'#FFB1C7'},
+          {label:'Candlelit Palatial Stroll',sub:'Lantern Reflections',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/images/stitch/gallery_night_stroll.jpg',color:'#FED467'},
+          {label:'Pure Bliss',sub:'Unscripted Laughter',col:'col-span-1 h-64 sm:h-80',img:'/images/stitch/gallery_laughter.jpg',color:'#FFB1C7'},
+        ].map((g, idx) => (
+          <div class={`${g.col} rounded-2xl overflow-hidden shadow-2xl relative group cursor-pointer gallery-item`} data-src={g.img} data-title={g.label} data-sub={g.sub} style="background:rgba(31,30,47,0.6);border:1px solid rgba(224,184,79,0.2);">
+            <img src={g.img} alt={g.label} class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A]/90 via-[#0B0A1A]/30 to-transparent p-4 sm:p-6 flex flex-col justify-end transition-opacity duration-300">
+              <span class="font-['Playfair_Display'] font-semibold text-base sm:text-lg text-white group-hover:text-[#FED467] transition-colors">{g.label}</span>
+              <span class="font-['Montserrat'] text-[#D1C5B1] text-[11px] sm:text-xs mt-0.5 sm:mt-1">{g.sub}</span>
+            </div>
+            <!-- Gold shine shimmer on hover -->
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" style="background:linear-gradient(135deg,transparent 40%,rgba(224,184,79,0.14) 60%,transparent 80%);"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Gallery Lightbox Modal -->
+    <div id="gallery-lightbox" class="fixed inset-0 z-[10001] bg-[#0B0A1A]/95 backdrop-blur-xl hidden flex-col items-center justify-center p-4 sm:p-6">
+      <button id="lightbox-close" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-[#E0B84F] hover:text-[#FED467] w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/5 border border-[#E0B84F]/30 transition-transform hover:scale-110" aria-label="Close Lightbox">
+        <svg class="w-5 h-5 text-[#E0B84F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="max-w-4xl max-h-[85vh] flex flex-col items-center">
+        <img id="lightbox-img" src="" alt="Gallery Preview" class="max-h-[60vh] sm:max-h-[70vh] max-w-[92vw] w-auto rounded-xl shadow-2xl border border-[#E0B84F]/40 object-contain" />
+        <div class="mt-3 sm:mt-4 text-center px-4">
+          <p id="lightbox-title" class="font-['Playfair_Display'] text-[#FED467] text-xl sm:text-2xl font-semibold"></p>
+          <p id="lightbox-sub" class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-1"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RSVP ========== -->
+  <section id="rsvp" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(13,12,28,0.4);">
+    <div class="max-w-3xl mx-auto glass-card rounded-2xl p-5 sm:p-10 md:p-14 relative overflow-hidden">
+      <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none" style="background:rgba(224,184,79,0.06);filter:blur(60px);"></div>
+      <div class="text-center mb-8 sm:mb-10">
+        <div class="w-14 h-14 mx-auto mb-3 p-1 rounded-full bg-[#1F1E2F]/80 border border-[#E0B84F]/40 shadow-md flex items-center justify-center">
+          <img src="/images/seal.png" alt="Royal Wedding Seal" class="w-12 h-12 object-contain" />
+        </div>
+        <p class="section-tag mb-2">Royal Confirmation</p>
+        <h2 class="section-title">RSVP · Honour Us With Your Presence</h2>
+        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3">Kindly respond by <strong class="text-[#E0B84F]">15th November 2026</strong> to ensure personalized royal hospitality.</p>
+      </div>
+      <form id="rsvp-form" class="space-y-5 sm:space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          <div class="relative floating-label-wrap">
+            <input id="rsvp-name" type="text" placeholder=" " required class="w-full px-4 pt-5 pb-2 rounded-xl text-sm text-[#E4E0F7] peer focus:outline-none focus:ring-1 focus:ring-[#E0B84F] transition-all" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);" />
+            <label for="rsvp-name" class="absolute top-3 left-4 text-[10px] tracking-[0.15em] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[10px]" style="color:#D1C5B1;">Full Name *</label>
+          </div>
+          <div class="relative floating-label-wrap">
+            <input id="rsvp-phone" type="tel" placeholder=" " required class="w-full px-4 pt-5 pb-2 rounded-xl text-sm text-[#E4E0F7] peer focus:outline-none focus:ring-1 focus:ring-[#E0B84F] transition-all" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);" />
+            <label for="rsvp-phone" class="absolute top-3 left-4 text-[10px] tracking-[0.15em] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[10px]" style="color:#D1C5B1;">WhatsApp Number *</label>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          <div>
+            <label class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#D1C5B1;">Number of Guests</label>
+            <select id="rsvp-guests" class="w-full px-4 py-3 rounded-xl text-sm text-[#E4E0F7] focus:outline-none focus:ring-1 focus:ring-[#E0B84F]" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);">
+              <option>1 Esteemed Guest</option>
+              <option>2 Guests (Couple)</option>
+              <option>3 Guests (With Family)</option>
+              <option>4+ Guests (Royal Retinue)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#D1C5B1;">Culinary Preference</label>
+            <select id="rsvp-food" class="w-full px-4 py-3 rounded-xl text-sm text-[#E4E0F7] focus:outline-none focus:ring-1 focus:ring-[#E0B84F]" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);">
+              <option>Royal Rajputana Pure Vegetarian</option>
+              <option>Sattvic & Jain Vegetarian</option>
+              <option>Imperial Mughlai Delights</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <p class="text-[10px] tracking-[0.15em] uppercase mb-2.5 sm:mb-3 font-['Montserrat']" style="color:#D1C5B1;">Ceremonies You Shall Grace</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
+            {['Haldi (9 Dec)','Mehendi (9 Dec)','Sangeet (10 Dec)','Wedding (11 Dec)','Reception (12 Dec)'].map(c => (
+              <label class="flex items-center gap-2.5 p-3 rounded-xl cursor-pointer transition-all hover:border-[#E0B84F]/40" style="background:rgba(11,10,26,0.5);border:1px solid rgba(224,184,79,0.12);">
+                <input type="checkbox" checked class="w-4 h-4 rounded" style="accent-color:#E0B84F;" />
+                <span class="font-['Montserrat'] text-xs text-[#D1C5B1]">{c}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div>
+          <label for="rsvp-wishes" class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#D1C5B1;">Warm Wishes for Mukesh &amp; Puja</label>
+          <textarea id="rsvp-wishes" rows={3} placeholder="Pour your holy blessings, poetry, or joyful wishes here..." class="w-full px-4 py-3 rounded-xl text-sm text-[#E4E0F7] resize-none focus:outline-none focus:ring-1 focus:ring-[#E0B84F] transition-all" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);"></textarea>
+        </div>
+        <button type="submit" id="rsvp-submit" class="w-full py-3.5 sm:py-4 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.25em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden magnetic-btn" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;box-shadow:0 0 25px rgba(224,184,79,0.35);">
+          Confirm Royal Presence ✦
+        </button>
+        <p id="rsvp-success" class="text-center font-['Montserrat'] text-xs sm:text-sm text-[#E0B84F] hidden">
+          ✦ Thank you! Your gracious response has been recorded with honor. ✦
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========== FAMILY BLESSINGS ========== -->
+  <section id="family" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10 sm:mb-16">
+        <p class="section-tag mb-2">Sovereign Lineage</p>
+        <h2 class="section-title">With The Blessings Of Our Families</h2>
+        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-md mx-auto">Whose unconditional affection and moral wisdom light our path ahead.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {[
+          {
+            side:'Groom\'s Side',family:'The Ojha Family',color:'#FED467',
+            svg:'<svg class="w-6 h-6 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+            items:['Revered Grandparents: Late Shri & Smt. Ojha','Loving Parents: Smt. & Shri Ojha','Brothers & Family: Ojha Brothers & Sisters','All Relatives & Kin: Ojha Parivar, Bokaro']
+          },
+          {
+            side:'Bride\'s Side',family:'The Bride\'s Family',color:'#FFB1C7',
+            svg:'<svg class="w-6 h-6 text-[#FFB1C7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
+            items:['Revered Elders: Shri & Smt. Senior Grandparents','Loving Parents: Smt. & Shri Family','Beloved Siblings: Sisters & Brothers','All Relatives & Well-wishers']
+          },
+        ].map(f => (
+          <div class="p-6 sm:p-8 rounded-2xl glass-card">
+            <div class="flex items-center gap-3 mb-5 sm:mb-6">
+              <div class="flex items-center" set:html={f.svg}></div>
+              <div>
+                <p class="font-['Montserrat'] text-[9px] tracking-[0.2em] uppercase" style={`color:${f.color}`}>{f.side}</p>
+                <h3 class="font-['Playfair_Display'] text-[#E4E0F7] text-lg sm:text-xl font-semibold">{f.family}</h3>
+              </div>
+            </div>
+            <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs sm:text-sm mb-4 sm:mb-5">With eternal reverence to our esteemed ancestors and elders, welcoming you with folded hands:</p>
+            <ul class="space-y-2.5 sm:space-y-3">
+              {f.items.map(item => (
+                <li class="flex items-start gap-2.5 sm:gap-3 font-['Montserrat'] text-xs sm:text-sm text-[#D1C5B1]">
+                  <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5" style={`background:${f.color}`}></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-8 sm:mt-12 p-5 sm:p-6 rounded-2xl glass-card max-w-xl mx-auto">
+        <p class="font-['Playfair_Display'] text-[#E0B84F] italic text-base sm:text-lg">Darshanabhilashi</p>
+        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs mt-1.5">All near, dear relatives & friends of Ojha & Family Parivar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HASHTAG + SHARE ========== -->
+  <section class="py-16 sm:py-24 px-4 sm:px-6 text-center relative reveal-section">
+    <div class="max-w-3xl mx-auto">
+      <p class="section-tag mb-4 sm:mb-6">Celebrate Our Union Online</p>
+      <div id="copy-hashtag" class="inline-flex items-center gap-2.5 sm:gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-full cursor-pointer transition-all duration-300 hover:shadow-[0_0_30px_rgba(224,184,79,0.4)] mb-6 sm:mb-8" style="background:rgba(31,30,47,0.7);border:1px solid rgba(224,184,79,0.25);">
+        <span class="font-['Playfair_Display'] font-bold text-[#FED467] text-xl sm:text-2xl tracking-wider">#MukeshWedsPuja</span>
+        <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        <span id="copy-toast" class="text-[#FFB1C7] text-xs hidden">Copied!</span>
+      </div>
+      <p class="font-['Montserrat'] font-light text-[#D1C5B1] max-w-xl mx-auto mb-8 sm:mb-10 text-xs sm:text-sm leading-relaxed px-2">Share your lovely photographs, heartfelt stories, and ceremonial greetings across social media using our official royal wedding hashtag.</p>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
+        <a id="wa-share-bottom" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%2C%20Bokaro%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase font-semibold transition-all hover:opacity-90 ripple-btn magnetic-btn flex items-center justify-center gap-2" style="background:rgba(37,99,40,0.6);border:1px solid rgba(37,211,102,0.3);color:#25d366;">
+          <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+          <span>Share On WhatsApp</span>
+        </a>
+        <button id="add-to-cal-2" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase font-semibold transition-all hover:opacity-90 ripple-btn magnetic-btn flex items-center justify-center gap-2" style="background:rgba(31,30,47,0.7);border:1px solid rgba(224,184,79,0.3);color:#E0B84F;">
+          <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <span>Add to Calendar</span>
+        </button>
+      </div>
+      <div class="mt-12 sm:mt-16 pt-6 sm:pt-8" style="border-top:1px solid rgba(224,184,79,0.1);">
+        <p class="font-['Playfair_Display'] text-[#E4E0F7] italic text-base sm:text-lg font-light px-2">"May your steps be blessed, and may your presence illuminate our celebration forever."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="relative pt-12 sm:pt-16 pb-8 sm:pb-10" style="background:#0B0A1A;border-top:1px solid rgba(224,184,79,0.12);box-shadow:0 -12px 40px rgba(0,0,0,0.7);">
+    <!-- Floating lanterns -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      {Array.from({length: 8}).map((_, i) => (
+        <div class="absolute opacity-30 text-[#FED467]" style={`left:${10+i*12}%;bottom:0;animation:lantern-rise ${4+i}s ease-in-out infinite;animation-delay:${i*0.5}s;`}>
+          <svg class="w-5 h-5 text-[#FED467] drop-shadow-[0_0_8px_rgba(254,212,103,0.8)]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2c-.5 2-2 4-2 6a4 4 0 0 0 8 0c0-2-1.5-4-2-6h-4zm-9 14c0 3.3 4 6 9 6s9-2.7 9-6H3z"/>
+          </svg>
+        </div>
+      ))}
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div class="flex items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div class="h-px w-16 sm:w-48" style="background:linear-gradient(90deg,transparent,#E0B84F);"></div>
+        <span class="font-['Playfair_Display'] text-[#E0B84F] text-xl sm:text-2xl">M &amp; P</span>
+        <div class="h-px w-16 sm:w-48" style="background:linear-gradient(270deg,transparent,#E0B84F);"></div>
+      </div>
+      <div class="text-center space-y-2 mb-8 sm:mb-10 px-2">
+        <p class="font-['Playfair_Display'] text-[#E4E0F7] text-lg sm:text-xl font-semibold">Mukesh Ojha &amp; Puja</p>
+        <p class="font-['Montserrat'] text-[#E0B84F] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase">11th December 2026 · Dugda, Bokaro, Jharkhand</p>
+        <p class="font-['Montserrat'] font-light text-[#D1C5B1] italic text-xs sm:text-sm max-w-md mx-auto">"With the blessings of our ancestors and divine grace, we invite you to honor our auspicious royal union."</p>
+        <p class="font-['Montserrat'] text-[#FFB1C7] text-[11px] sm:text-xs tracking-widest uppercase pt-2">#MukeshWedsPuja</p>
+      </div>
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[#D1C5B1] text-[9px] sm:text-[10px] font-['Montserrat'] text-center sm:text-left" style="border-top:1px solid rgba(224,184,79,0.1);">
+        <span>© 2026 The Royal Wedding of Mukesh &amp; Puja. All rights reserved.</span>
+        <span>Ceremony &amp; Celebrations at Dugda, Bokaro</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Audio element (muted by default) -->
+  <audio id="bg-audio" loop preload="none">
+    <!-- Add shehnai audio src here -->
+  </audio>
+
+  <!-- Scroll-to-top -->
+  <a href="#hero" id="scroll-top-btn" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 magnetic-btn ripple-btn text-sm sm:text-base" style="background:rgba(11,10,26,0.85);border:1px solid rgba(224,184,79,0.4);color:#E0B84F;backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,0.6),0 0 18px rgba(224,184,79,0.2);" aria-label="Back to top">
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+  </a>
+
+  <!-- Music widget -->
+  <div class="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40">
+    <div id="music-widget" class="flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full" style="background:rgba(11,10,26,0.85);backdrop-filter:blur(20px);border:1px solid rgba(224,184,79,0.25);box-shadow:0 8px 32px rgba(0,0,0,0.6),0 0 16px rgba(224,184,79,0.1);">
+      <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" style="animation:pulse 2s ease-in-out infinite;">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+      <div class="flex flex-col">
+        <span class="font-['Montserrat'] text-[9px] sm:text-[10px] text-[#E0B84F] tracking-widest uppercase leading-none">Raag Mangalam</span>
+        <span class="font-['Montserrat'] text-[7px] sm:text-[8px] text-[#D1C5B1] uppercase tracking-widest leading-none mt-0.5 hidden xs:inline">Royal Shehnai</span>
+      </div>
+      <div class="flex items-center gap-0.5 ml-0.5 sm:ml-1">
+        {[3,4,2].map(h => (
+          <span class="w-0.5 bg-[#E0B84F] rounded-full" style={`height:${h*4}px;animation:music-bar 0.8s ease-in-out infinite alternate;`}></span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</Layout>
+
+<style>
+@keyframes scroll-pulse {
+  0% { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+@keyframes lantern-rise {
+  0% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-40vh) scale(1.1) translateX(10px); opacity: 0.5; }
+  100% { transform: translateY(-80vh) scale(0.8) translateX(-5px); opacity: 0; }
+}
+@keyframes music-bar {
+  from { transform: scaleY(0.4); }
+  to { transform: scaleY(1); }
+}
+</style>
+
+<script>
+  // ── GSAP + ScrollTrigger animations ──────────────────────────────
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import Lenis from 'lenis';
+  import { royalAudio } from '../lib/audio';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Lenis smooth scroll
+  const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  // ── GRAND OPENING ENVELOPE CINEMATIC & HERO REVEAL ────────────────
+  const openingCinematic = document.getElementById('opening-cinematic');
+  const openingVideo = document.getElementById('opening-video') as HTMLVideoElement | null;
+  const unmuteBtn = document.getElementById('cinematic-unmute-btn');
+  const soundIcon = document.getElementById('cinematic-sound-icon');
+  const soundText = document.getElementById('cinematic-sound-text');
+  const unmuteBadge = document.getElementById('unmute-badge');
+  const skipBtn = document.getElementById('cinematic-skip-btn');
+  const enterBtn = document.getElementById('cinematic-enter-btn');
+  const videoProgressFill = document.getElementById('video-progress-fill');
+  const videoCard = document.getElementById('video-card');
+  const replayEnvelopeBtn = document.getElementById('replay-envelope-btn');
+
+  let heroRevealed = false;
+  let introDismissed = false;
+
+  function triggerRevealHero() {
+    if (heroRevealed) return;
+    heroRevealed = true;
+    revealHero();
+  }
+
+  function dismissIntro() {
+    if (introDismissed) return;
+    introDismissed = true;
+
+    if (openingVideo) {
+      openingVideo.pause();
+    }
+
+    if (openingCinematic) {
+      openingCinematic.style.transition = 'opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)';
+      openingCinematic.style.opacity = '0';
+      openingCinematic.style.transform = 'scale(1.04)';
+      openingCinematic.style.pointerEvents = 'none';
+      setTimeout(() => {
+        openingCinematic.style.display = 'none';
+      }, 950);
+    }
+
+    // Play golden wedding chime
+    royalAudio.playDoorOpenSound();
+
+    // Trigger celebratory confetti burst
+    try {
+      import('canvas-confetti').then(mod => {
+        const confetti = mod.default;
+        confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 }, colors: ['#E0B84F','#FED467','#FFB1C7','#FFF3A3'] });
+      });
+    } catch(e) {}
+
+    triggerRevealHero();
+  }
+
+  const soundOnSvg = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>';
+  const soundOffSvg = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
+
+  function toggleVideoSound() {
+    if (!openingVideo) return;
+    openingVideo.muted = !openingVideo.muted;
+    if (!openingVideo.muted) {
+      openingVideo.volume = 1;
+      openingVideo.play().catch(() => {});
+      if (soundIcon) soundIcon.innerHTML = soundOnSvg;
+      if (soundText) soundText.textContent = 'Mute';
+      if (unmuteBadge) unmuteBadge.style.opacity = '0';
+    } else {
+      if (soundIcon) soundIcon.innerHTML = soundOffSvg;
+      if (soundText) soundText.textContent = 'Unmute';
+      if (unmuteBadge) unmuteBadge.style.opacity = '1';
+    }
+  }
+
+  videoCard?.addEventListener('click', () => {
+    if (openingVideo && openingVideo.muted) {
+      toggleVideoSound();
+    } else {
+      dismissIntro();
+    }
+  });
+
+  unmuteBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleVideoSound();
+  });
+
+  skipBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dismissIntro();
+  });
+
+  enterBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dismissIntro();
+  });
+
+  if (openingVideo) {
+    openingVideo.addEventListener('timeupdate', () => {
+      if (openingVideo.duration && videoProgressFill) {
+        const pct = (openingVideo.currentTime / openingVideo.duration) * 100;
+        videoProgressFill.style.width = pct + '%';
+      }
+    });
+
+    openingVideo.addEventListener('ended', () => {
+      setTimeout(() => {
+        dismissIntro();
+      }, 600);
+    });
+
+    // Auto-play muted video immediately
+    openingVideo.play().catch(() => {});
+  }
+
+  // Replay envelope video from hero section
+  replayEnvelopeBtn?.addEventListener('click', () => {
+    if (!openingCinematic || !openingVideo) return;
+    introDismissed = false;
+    openingCinematic.style.display = 'flex';
+    openingCinematic.style.pointerEvents = 'auto';
+    openingVideo.currentTime = 0;
+    openingVideo.muted = false; // with sound!
+    if (soundIcon) soundIcon.innerHTML = soundOnSvg;
+    if (soundText) soundText.textContent = 'Mute';
+    if (unmuteBadge) unmuteBadge.style.opacity = '0';
+    requestAnimationFrame(() => {
+      openingCinematic.style.opacity = '1';
+      openingCinematic.style.transform = 'scale(1)';
+      openingVideo.play().catch(() => {});
+    });
+  });
+
+  // Safety fallback after 12 seconds in case user never clicks or video fails
+  setTimeout(() => {
+    if (!introDismissed) dismissIntro();
+  }, 12000);
+
+  function revealHero() {
+    const tl = gsap.timeline();
+    tl.to('#hero-tag', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
+      .to('#hero-subtitle', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+      .to('#hero-groom', { opacity: 1, duration: 0.2 }, '-=0.3')
+      .fromTo('.hero-char-groom', 
+        { opacity: 0, y: 40, rotateX: -60, scale: 0.8 }, 
+        { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.7, stagger: 0.05, ease: 'back.out(1.7)' }, '-=0.2')
+      .to('#hero-amp', { opacity: 1, duration: 0.6 }, '-=0.3')
+      .to('#hero-bride', { opacity: 1, duration: 0.2 }, '-=0.3')
+      .fromTo('.hero-char-bride', 
+        { opacity: 0, y: 40, rotateX: -60, scale: 0.8 }, 
+        { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.7, stagger: 0.06, ease: 'back.out(1.7)' }, '-=0.2')
+      .to('#hero-invite', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.4')
+      .to('#hero-date', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
+      .to('#countdown', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.2')
+      .to('#hero-ctas', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
+      .to('#scroll-indicator', { opacity: 1, duration: 0.6 }, '-=0.1');
+  }
+
+  // Set initial states
+  gsap.set(['#hero-tag','#hero-subtitle','#hero-groom','#hero-amp','#hero-bride','#hero-invite','#hero-date','#countdown','#hero-ctas','#scroll-indicator'], {
+    y: 30, opacity: 0
+  });
+
+  // ── NAVBAR scroll behavior ─────────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  ScrollTrigger.create({
+    start: 'top -80px',
+    onEnter: () => navbar && (navbar.style.background = 'rgba(11,10,26,0.92)', navbar.style.backdropFilter = 'blur(20px)', (navbar.style as any).borderBottom = '1px solid rgba(224,184,79,0.1)'),
+    onLeaveBack: () => navbar && (navbar.style.background = 'rgba(11,10,26,0.0)', navbar.style.backdropFilter = '', (navbar.style as any).borderBottom = ''),
+  });
+
+  // ── SCROLL-TO-TOP button ─────────────────────────────────────────
+  const scrollTopBtn = document.getElementById('scroll-top-btn');
+  ScrollTrigger.create({
+    start: 'top -400px',
+    onEnter: () => scrollTopBtn && gsap.to(scrollTopBtn, { opacity: 1, duration: 0.3 }),
+    onLeaveBack: () => scrollTopBtn && gsap.to(scrollTopBtn, { opacity: 0, duration: 0.3 }),
+  });
+
+  // ── REVEAL SECTIONS on scroll ─────────────────────────────────────
+  document.querySelectorAll('.reveal-section').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 60 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none reverse' }
+      }
+    );
+  });
+
+  // Story items stagger
+  gsap.fromTo('.story-item', { opacity: 0, y: 40 }, {
+    opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: 'power2.out',
+    scrollTrigger: { trigger: '#story', start: 'top 70%' }
+  });
+
+  // Event cards stagger
+  gsap.fromTo('.event-card', { opacity: 0, y: 50, scale: 0.95 }, {
+    opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.1, ease: 'power2.out',
+    scrollTrigger: { trigger: '#events', start: 'top 70%' }
+  });
+
+  // SVG border draw
+  document.querySelectorAll('.svg-draw-rect').forEach(el => {
+    ScrollTrigger.create({
+      trigger: el.closest('section') || el,
+      start: 'top 70%',
+      onEnter: () => gsap.to(el, { 'stroke-dashoffset': 0, duration: 2, ease: 'power2.out' }),
+    });
+  });
+
+  // Couple card cursor glow
+  document.querySelectorAll('.couple-card').forEach(card => {
+    const glow = card.querySelector('.couple-glow') as HTMLElement | null;
+    card.addEventListener('mousemove', (e: Event) => {
+      if (!glow) return;
+      const mouseEvent = e as MouseEvent;
+      const rect = (card as HTMLElement).getBoundingClientRect();
+      const x = ((mouseEvent.clientX - rect.left) / rect.width) * 100;
+      const y = ((mouseEvent.clientY - rect.top) / rect.height) * 100;
+      glow.style.setProperty('--mx', `${x}%`);
+      glow.style.setProperty('--my', `${y}%`);
+      glow.style.opacity = '1';
+    });
+    card.addEventListener('mouseleave', () => {
+      if (glow) glow.style.opacity = '0';
+    });
+  });
+
+  // Event card tilt
+  document.querySelectorAll('.event-card').forEach(card => {
+    card.addEventListener('mousemove', (e: Event) => {
+      const mouseEvent = e as MouseEvent;
+      const el = card as HTMLElement;
+      const rect = el.getBoundingClientRect();
+      const x = (mouseEvent.clientX - rect.left) / rect.width - 0.5;
+      const y = (mouseEvent.clientY - rect.top) / rect.height - 0.5;
+      el.style.transform = `perspective(1000px) rotateX(${y * -8}deg) rotateY(${x * 8}deg) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      (card as HTMLElement).style.transform = '';
+    });
+  });
+
+  // Parallax on mouse move
+  document.addEventListener('mousemove', (e) => {
+    const xPct = (e.clientX / window.innerWidth - 0.5) * 2;
+    const yPct = (e.clientY / window.innerHeight - 0.5) * 2;
+    document.querySelectorAll<HTMLElement>('.parallax-layer').forEach(el => {
+      const depth = parseFloat(el.dataset.depth || '0.1');
+      gsap.to(el, { x: xPct * 40 * depth, y: yPct * 40 * depth, duration: 1, ease: 'power1.out' });
+    });
+    const mandala = document.getElementById('hero-mandala');
+    if (mandala) {
+      gsap.to(mandala, { x: xPct * 20, y: yPct * 20, duration: 2, ease: 'power1.out' });
+    }
+  });
+
+  // ── COUNTDOWN FLIP-CLOCK ──────────────────────────────────────────
+  const weddingDate = new Date('2026-12-11T19:00:00+05:30').getTime();
+  const prevVals: Record<string, number> = { days: -1, hours: -1, minutes: -1, seconds: -1 };
+
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = weddingDate - now;
+    if (diff <= 0) return;
+    const vals = {
+      days: Math.floor(diff / 86400000),
+      hours: Math.floor((diff % 86400000) / 3600000),
+      minutes: Math.floor((diff % 3600000) / 60000),
+      seconds: Math.floor((diff % 60000) / 1000),
+    };
+    Object.entries(vals).forEach(([key, val]) => {
+      const el = document.getElementById(`cd-${key}-val`);
+      const card = document.getElementById(`cd-${key}`);
+      if (el && val !== prevVals[key]) {
+        prevVals[key] = val;
+        el.textContent = String(val).padStart(2, '0');
+        if (card) {
+          gsap.fromTo(card, { rotateX: -20, scale: 0.95 }, { rotateX: 0, scale: 1, duration: 0.3, ease: 'power2.out' });
+        }
+      }
+    });
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // ── PETALS CANVAS ─────────────────────────────────────────────────
+  const canvas = document.getElementById('petals-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d')!;
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const PETALS = Array.from({ length: 30 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * -window.innerHeight,
+      size: 6 + Math.random() * 10,
+      speed: 0.5 + Math.random() * 1.5,
+      drift: (Math.random() - 0.5) * 0.8,
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 2,
+      opacity: 0.3 + Math.random() * 0.5,
+      color: Math.random() > 0.5 ? '#E0B84F' : '#FF9CB4',
+    }));
+
+    let mouseInfluence = { x: 0, y: 0 };
+    document.addEventListener('mousemove', (e) => {
+      mouseInfluence.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseInfluence.y = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    function drawPetals() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      PETALS.forEach(p => {
+        p.y += p.speed;
+        p.x += p.drift + mouseInfluence.x * 0.5;
+        p.rot += p.rotSpeed;
+        if (p.y > window.innerHeight + 20) {
+          p.y = -20;
+          p.x = Math.random() * window.innerWidth;
+        }
+        if (p.x > window.innerWidth + 20) p.x = -20;
+        if (p.x < -20) p.x = window.innerWidth + 20;
+
+        ctx.save();
+        ctx.globalAlpha = p.opacity;
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rot * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.size / 2, p.size, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+      requestAnimationFrame(drawPetals);
+    }
+    drawPetals();
+  }
+
+  // ── THREE.JS DIYA SCENE ─────────────────────────────────────────
+  async function initThree() {
+    try {
+      const THREE = await import('three');
+      const threeCanvas = document.getElementById('hero-three') as HTMLCanvasElement;
+      if (!threeCanvas) return;
+
+      const renderer = new THREE.WebGLRenderer({ canvas: threeCanvas, alpha: true, antialias: false });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 5;
+
+      // Golden particle field (diyas)
+      const geo = new THREE.BufferGeometry();
+      const N = 200;
+      const positions = new Float32Array(N * 3);
+      const colors = new Float32Array(N * 3);
+      const sizes = new Float32Array(N);
+      const goldColor = new THREE.Color('#E0B84F');
+      const roseColor = new THREE.Color('#FFB1C7');
+
+      for (let i = 0; i < N; i++) {
+        positions[i*3] = (Math.random() - 0.5) * 20;
+        positions[i*3+1] = (Math.random() - 0.5) * 15;
+        positions[i*3+2] = (Math.random() - 0.5) * 10;
+        const c = Math.random() > 0.7 ? roseColor : goldColor;
+        colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
+        sizes[i] = 2 + Math.random() * 4;
+      }
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+      const mat = new THREE.PointsMaterial({
+        size: 0.15, vertexColors: true, transparent: true, opacity: 0.6,
+        sizeAttenuation: true,
+      });
+      const points = new THREE.Points(geo, mat);
+      scene.add(points);
+
+      window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      });
+
+      const clock = new THREE.Clock();
+      function animateThree() {
+        requestAnimationFrame(animateThree);
+        const t = clock.getElapsedTime();
+        points.rotation.y = t * 0.05;
+        points.rotation.x = Math.sin(t * 0.03) * 0.1;
+        // Flicker opacity
+        mat.opacity = 0.4 + Math.sin(t * 2) * 0.15;
+        renderer.render(scene, camera);
+      }
+      animateThree();
+    } catch (e) {
+      console.warn('Three.js failed, continuing without 3D:', e);
+    }
+  }
+
+  // Only load Three on non-mobile or capable devices
+  if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    initThree();
+  }
+
+  // ── ICS DOWNLOAD ──────────────────────────────────────────────────
+  function downloadICS() {
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//MukeshWedsPuja//Wedding//EN',
+      'BEGIN:VEVENT',
+      'UID:mukesh-weds-puja-2026@wedding',
+      'DTSTART:20261211T130000Z',
+      'DTEND:20261211T203000Z',
+      'SUMMARY:Mukesh Ojha weds Puja | #MukeshWedsPuja',
+      'DESCRIPTION:The Royal Wedding of Mukesh Ojha & Puja. #MukeshWedsPuja',
+      'LOCATION:Grand Rajwada Mandap\\, Dugda\\, Bokaro\\, Jharkhand - 828404',
+      'STATUS:CONFIRMED',
+      'END:VEVENT',
+      'END:VCALENDAR',
+    ].join('\r\n');
+    const blob = new Blob([ics], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'MukeshWedsPuja.ics'; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('add-to-cal-btn')?.addEventListener('click', downloadICS);
+  document.getElementById('add-to-cal-2')?.addEventListener('click', downloadICS);
+
+  // ── HASHTAG COPY ──────────────────────────────────────────────────
+  document.getElementById('copy-hashtag')?.addEventListener('click', () => {
+    navigator.clipboard.writeText('#MukeshWedsPuja').then(() => {
+      const toast = document.getElementById('copy-toast');
+      if (toast) { toast.classList.remove('hidden'); setTimeout(() => toast.classList.add('hidden'), 2000); }
+    });
+  });
+
+  // ── RSVP FORM ────────────────────────────────────────────────────
+  document.getElementById('rsvp-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('rsvp-submit') as HTMLButtonElement;
+    const name = (document.getElementById('rsvp-name') as HTMLInputElement).value;
+    btn.textContent = 'Sending... ✦';
+    btn.disabled = true;
+
+    // Confetti burst
+    try {
+      const confetti = (await import('canvas-confetti')).default;
+      confetti({ particleCount: 120, spread: 80, colors: ['#E0B84F','#FFB1C7','#FED467','#FFDF95'], origin: { y: 0.7 } });
+      setTimeout(() => confetti({ particleCount: 60, spread: 120, angle: 60, colors: ['#E0B84F','#FFB1C7'] }), 300);
+      setTimeout(() => confetti({ particleCount: 60, spread: 120, angle: 120, colors: ['#E0B84F','#FFB1C7'] }), 500);
+    } catch (e) {}
+
+    // Simulate submit (replace with your backend endpoint)
+    await new Promise(r => setTimeout(r, 1000));
+    (document.getElementById('rsvp-form') as HTMLFormElement).reset();
+    btn.textContent = 'Confirm Royal Presence ✦';
+    btn.disabled = false;
+    const success = document.getElementById('rsvp-success');
+    if (success) success.classList.remove('hidden');
+    setTimeout(() => success?.classList.add('hidden'), 5000);
+  });
+
+  // ── GALLERY LIGHTBOX ─────────────────────────────────────────────
+  const lightbox = document.getElementById('gallery-lightbox');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxSub = document.getElementById('lightbox-sub');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const el = item as HTMLElement;
+      const src = el.dataset.src || '';
+      const title = el.dataset.title || '';
+      const sub = el.dataset.sub || '';
+      if (lightbox && lightboxImg) {
+        lightboxImg.src = src;
+        if (lightboxTitle) lightboxTitle.textContent = title;
+        if (lightboxSub) lightboxSub.textContent = sub;
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+      }
+    });
+  });
+
+  function closeLightbox() {
+    if (lightbox) {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+    }
+  }
+
+  lightboxClose?.addEventListener('click', closeLightbox);
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ── AUDIO CONTROLS (HOWLER / WEB AUDIO SYNTH) ─────────────────────
+  const audioToggle = document.getElementById('audio-toggle');
+  const audioIcon = document.getElementById('audio-icon');
+  const musicWidget = document.getElementById('music-widget');
+
+  function updateAudioUI(isPlaying: boolean) {
+    if (audioIcon) {
+      audioIcon.innerHTML = isPlaying
+        ? '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>'
+        : '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>';
+    }
+    if (audioToggle) {
+      audioToggle.style.borderColor = isPlaying ? 'rgba(254,212,103,0.8)' : 'rgba(224,184,79,0.25)';
+      audioToggle.style.boxShadow = isPlaying ? '0 0 16px rgba(254,212,103,0.3)' : 'none';
+    }
+    if (musicWidget) {
+      musicWidget.style.borderColor = isPlaying ? 'rgba(254,212,103,0.8)' : 'rgba(224,184,79,0.25)';
+      musicWidget.style.boxShadow = isPlaying ? '0 0 24px rgba(254,212,103,0.35)' : 'none';
+    }
+  }
+
+  const handleToggleMusic = () => {
+    royalAudio.toggleMusic((isPlaying) => {
+      updateAudioUI(isPlaying);
+    });
+  };
+
+  audioToggle?.addEventListener('click', handleToggleMusic);
+  musicWidget?.addEventListener('click', handleToggleMusic);
+  if (musicWidget) musicWidget.style.cursor = 'pointer';
+
+  // ── MOBILE MENU DRAWER ───────────────────────────────────────────
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const mBar1 = document.getElementById('m-bar-1');
+  const mBar2 = document.getElementById('m-bar-2');
+  const mBar3 = document.getElementById('m-bar-3');
+  let isMobileMenuOpen = false;
+
+  function toggleMobileMenu(forceClose?: boolean) {
+    if (!mobileDrawer) return;
+    isMobileMenuOpen = forceClose ? false : !isMobileMenuOpen;
+
+    if (isMobileMenuOpen) {
+      mobileDrawer.classList.remove('hidden');
+      mobileDrawer.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      if (mBar1) mBar1.style.transform = 'translateY(6px) rotate(45deg)';
+      if (mBar2) mBar2.style.opacity = '0';
+      if (mBar3) mBar3.style.transform = 'translateY(-6px) rotate(-45deg)';
+    } else {
+      mobileDrawer.classList.add('hidden');
+      mobileDrawer.classList.remove('flex');
+      document.body.style.overflow = '';
+      if (mBar1) mBar1.style.transform = '';
+      if (mBar2) mBar2.style.opacity = '1';
+      if (mBar3) mBar3.style.transform = '';
+    }
+  }
+
+  mobileMenuBtn?.addEventListener('click', () => toggleMobileMenu());
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => toggleMobileMenu(true));
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1280 && isMobileMenuOpen) {
+      toggleMobileMenu(true);
+    }
+  });
+</script>

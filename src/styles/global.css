@@ -1,0 +1,436 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gold: #E0B84F;
+    --gold-light: #FED467;
+    --gold-dim: #EAC258;
+    --gold-dark: #B88E28;
+    --midnight: #0B0A1A;
+    --surface: #131222;
+    --surface-low: #1B1A2A;
+    --surface-container: #1F1E2F;
+    --surface-high: #292839;
+    --surface-highest: #343345;
+    --burgundy: #3B0A1E;
+    --rose: #FFB1C7;
+    --on-surface: #E4E0F7;
+    --on-surface-variant: #D1C5B1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  
+  body {
+    background-color: var(--surface);
+    color: var(--on-surface);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    body {
+      cursor: none;
+    }
+  }
+
+  @media (hover: none) or (pointer: coarse) {
+    #cursor-dot, #cursor-ring {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: #251A00;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--midnight);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 9999px;
+  }
+}
+
+/* ========== CUSTOM CURSOR ========== */
+#cursor-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(224, 184, 79, 0.4);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: screen;
+}
+
+#cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(224, 184, 79, 0.6);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, border-color 0.2s ease;
+}
+
+body:has(a:hover) #cursor-dot,
+body:has(button:hover) #cursor-dot {
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 0 30px var(--gold), 0 0 60px rgba(224, 184, 79, 0.5);
+}
+
+/* ========== SCROLL PROGRESS BAR ========== */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FED467, #E0B84F, #B88E28);
+  z-index: 9999;
+  transform-origin: left;
+  box-shadow: 0 0 10px rgba(224, 184, 79, 0.8);
+}
+
+/* ========== FILM GRAIN OVERLAY ========== */
+.film-grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.035;
+}
+
+/* ========== VIGNETTE ========== */
+.vignette::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ========== GOLD SHIMMER TEXT ========== */
+@keyframes gold-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.gold-shimmer {
+  background: linear-gradient(90deg, #B88E28 0%, #FED467 25%, #FFDF95 50%, #FED467 75%, #B88E28 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 4s linear infinite;
+}
+
+/* ========== GOLD GLOW ========== */
+.gold-glow {
+  text-shadow: 0 0 20px rgba(224, 184, 79, 0.6), 0 0 40px rgba(224, 184, 79, 0.3);
+}
+
+/* ========== GLASS CARD ========== */
+.glass-card {
+  background: rgba(18, 14, 38, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(224, 184, 79, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(224, 184, 79, 0.08);
+}
+
+/* ========== GOLD BORDER TRACE ========== */
+@keyframes border-trace {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.svg-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: border-trace 2s ease forwards;
+}
+
+/* ========== PRELOADER ========== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--midnight);
+  overflow: hidden;
+}
+
+.palace-door {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(135deg, #1a1525, #0d0c1c);
+  border: 1px solid rgba(224, 184, 79, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: left center;
+  transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.palace-door.left {
+  left: 0;
+  transform-origin: left center;
+}
+
+.palace-door.right {
+  right: 0;
+  transform-origin: right center;
+}
+
+.preloader-open .palace-door.left,
+.palace-door.left.preloader-open,
+#preloader.preloader-open #door-left {
+  transform: perspective(1200px) rotateY(-115deg);
+}
+
+.preloader-open .palace-door.right,
+.palace-door.right.preloader-open,
+#preloader.preloader-open #door-right {
+  transform: perspective(1200px) rotateY(115deg);
+}
+
+/* ========== FLIP CLOCK ========== */
+.flip-clock-digit {
+  position: relative;
+  perspective: 400px;
+}
+
+.flip-clock-card {
+  position: relative;
+  width: 80px;
+  height: 100px;
+  background: rgba(18, 14, 38, 0.9);
+  border: 1px solid rgba(224, 184, 79, 0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #FED467;
+  box-shadow: 0 0 20px rgba(224, 184, 79, 0.15), inset 0 1px 0 rgba(224, 184, 79, 0.1);
+}
+
+@keyframes flip-top {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-90deg); }
+}
+
+@keyframes flip-bottom {
+  0% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+.flip-animate-top {
+  animation: flip-top 0.3s ease-in forwards;
+}
+
+.flip-animate-bottom {
+  animation: flip-bottom 0.3s ease-out 0.3s forwards;
+}
+
+/* ========== ARCH FRAME ========== */
+.arch-frame {
+  clip-path: polygon(0% 100%, 0% 30%, 5% 15%, 15% 5%, 30% 0%, 50% 0%, 70% 0%, 85% 5%, 95% 15%, 100% 30%, 100% 100%);
+}
+
+/* ========== MARQUEE ========== */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-inner {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+/* ========== DIYA FLAME ========== */
+@keyframes diya-flicker {
+  0%, 100% { transform: scaleY(1) skewX(0deg); opacity: 1; }
+  25% { transform: scaleY(1.1) skewX(3deg); opacity: 0.9; }
+  50% { transform: scaleY(0.9) skewX(-2deg); opacity: 0.95; }
+  75% { transform: scaleY(1.05) skewX(1deg); opacity: 0.85; }
+}
+
+.diya-flame {
+  animation: diya-flicker 1.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* ========== FLOATING PETALS ========== */
+@keyframes petal-fall {
+  0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(100vh) rotate(720deg) translateX(80px); opacity: 0; }
+}
+
+.petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 6;
+  font-size: 1.2rem;
+  animation: petal-fall linear infinite;
+}
+
+/* ========== MAGNETIC BUTTON ========== */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ========== RIPPLE ========== */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-btn::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ========== GRADIENT SHINE ========== */
+@keyframes shine-sweep {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.shine-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shine-sweep 3s linear infinite;
+}
+
+/* ========== TILT CARD ========== */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease;
+}
+
+/* ========== LENIS SMOOTH SCROLL ========== */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* ========== SECTION TITLE ========== */
+.section-tag {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 500;
+  color: var(--on-surface);
+  letter-spacing: 0.02em;
+}
+
+/* ========== REVEAL ANIMATION ========== */
+.reveal-word {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.reveal-word span {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* ========== PREFERS REDUCED MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  
+  #cursor-dot, #cursor-ring { display: none; }
+  body { cursor: auto; }
+  .marquee-inner { animation: none; }
+  .diya-flame { animation: none; }
+  .petal { display: none; }
+}
+
+/* ========== MOBILE OVERRIDES ========== */
+@media (max-width: 768px) {
+  #cursor-dot, #cursor-ring { display: none; }
+  body { cursor: auto; }
+  .flip-clock-card { width: 60px; height: 75px; font-size: 1.8rem; }
+}

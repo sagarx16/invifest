@@ -1,0 +1,202 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'Mukesh Weds Puja | Wedding Invitation',
+  description = 'With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Dugda, Bokaro.',
+  image = '/og-image.jpg',
+} = Astro.props;
+
+const siteUrl = 'https://mukeshwedspuja.com';
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Mukesh Weds Puja, Mukesh Ojha Wedding, Royal Indian Wedding, Wedding Invitation, Bokaro Wedding, MukeshWedsPuja" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${image}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Mukesh Weds Puja" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${image}`} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "Royal Wedding of Mukesh Ojha & Puja",
+        "startDate": "2026-12-11T19:00:00+05:30",
+        "endDate": "2026-12-12T02:00:00+05:30",
+        "location": {
+          "@type": "Place",
+          "name": "Grand Rajwada Mandap, Dugda",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Main Road, Dugda",
+            "addressLocality": "Bokaro",
+            "addressRegion": "Jharkhand",
+            "postalCode": "828404",
+            "addressCountry": "IN"
+          }
+        },
+        "description": "The Royal Wedding of Mukesh Ojha & Puja",
+        "hashtag": "#MukeshWedsPuja"
+      }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="film-grain vignette bg-[#131222] text-[#E4E0F7] min-h-screen overflow-x-hidden">
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" style="width: 0%"></div>
+
+    <slot />
+
+    <!-- Global Scripts -->
+    <script>
+      import { royalAudio } from '../lib/audio';
+
+      // Custom Cursor
+      const dot = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      let mouseX = 0, mouseY = 0;
+      let ringX = 0, ringY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (dot) {
+          dot.style.left = mouseX + 'px';
+          dot.style.top = mouseY + 'px';
+        }
+      });
+
+      // Smooth ring follow with diya lotus bloom on hover
+      function animateRing() {
+        ringX += (mouseX - ringX) * 0.14;
+        ringY += (mouseY - ringY) * 0.14;
+        if (ring) {
+          ring.style.left = ringX + 'px';
+          ring.style.top = ringY + 'px';
+        }
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      // Expand cursor on interactive hover
+      const interactiveElements = 'a, button, input, textarea, select, .event-card, .couple-card, .flip-clock-card';
+      document.querySelectorAll(interactiveElements).forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          if (ring) {
+            ring.style.width = '54px';
+            ring.style.height = '54px';
+            ring.style.borderColor = '#FED467';
+            ring.style.backgroundColor = 'rgba(224, 184, 79, 0.15)';
+            ring.style.boxShadow = '0 0 25px rgba(254, 212, 103, 0.5)';
+          }
+        });
+        el.addEventListener('mouseleave', () => {
+          if (ring) {
+            ring.style.width = '36px';
+            ring.style.height = '36px';
+            ring.style.borderColor = 'rgba(224, 184, 79, 0.6)';
+            ring.style.backgroundColor = 'transparent';
+            ring.style.boxShadow = 'none';
+          }
+        });
+      });
+
+      // Scroll Progress
+      const progressBar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = (scrollTop / docHeight) * 100;
+        if (progressBar) progressBar.style.width = pct + '%';
+      });
+
+      // Ripple effect on buttons + golden chime sound
+      document.querySelectorAll('.ripple-btn, button, .magnetic-btn').forEach(btn => {
+        btn.addEventListener('click', function(e: Event) {
+          royalAudio.playClickSound();
+
+          const mouseEvent = e as MouseEvent;
+          const el = this as HTMLElement;
+          const ripple = document.createElement('span');
+          const rect = el.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.28);
+            width: ${size}px;
+            height: ${size}px;
+            left: ${mouseEvent.clientX - rect.left - size/2}px;
+            top: ${mouseEvent.clientY - rect.top - size/2}px;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+          `;
+          el.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 700);
+        });
+      });
+
+      // Magnetic buttons
+      document.querySelectorAll('.magnetic-btn').forEach(el => {
+        const htmlEl = el as HTMLElement;
+        htmlEl.addEventListener('mousemove', (e: Event) => {
+          const mouseEvent = e as MouseEvent;
+          const rect = htmlEl.getBoundingClientRect();
+          const x = mouseEvent.clientX - rect.left - rect.width / 2;
+          const y = mouseEvent.clientY - rect.top - rect.height / 2;
+          htmlEl.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        htmlEl.addEventListener('mouseleave', () => {
+          htmlEl.style.transform = '';
+        });
+      });
+    </script>
+  </body>
+</html>
