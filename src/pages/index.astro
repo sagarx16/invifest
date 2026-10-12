@@ -31,48 +31,6 @@ import Layout from '../layouts/Layout.astro';
       </video>
     </div>
 
-    <!-- Soft Vignette & Subtle Gradient for Controls Readability -->
-    <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/50 via-transparent to-black/60 z-10"></div>
-
-    <!-- Top Floating Header Bar (Overlay) -->
-    <div class="relative z-20 w-full px-4 sm:px-8 pt-4 sm:pt-6 flex items-center justify-between pointer-events-none">
-      <div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full pointer-events-auto shadow-lg" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.45);">
-        <span class="text-[#B8860B] text-xs">✦</span>
-        <span class="font-['Playfair_Display'] text-[#8C6219] text-xs sm:text-sm tracking-widest uppercase font-semibold">॥ श्री गणेशाय नमः ॥</span>
-      </div>
-
-      <div class="flex items-center gap-2.5 pointer-events-auto">
-        <button id="cinematic-unmute-btn" class="px-3.5 py-1.5 rounded-full text-[10px] tracking-wider uppercase font-['Montserrat'] font-semibold flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 shadow-lg" style="background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border:1px solid rgba(197,148,55,0.45);color:#8C6219;">
-          <span id="cinematic-sound-icon" class="flex items-center">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-            </svg>
-          </span>
-          <span id="cinematic-sound-text">Sound ON</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Center Stage: Empty spacer -->
-    <div class="relative z-10 pointer-events-none my-auto"></div>
-
-    <!-- Bottom Floating Bar & Enter Button -->
-    <div class="relative z-20 w-full px-4 pb-6 sm:pb-8 flex flex-col items-center pointer-events-none">
-      <button id="cinematic-enter-btn" class="pointer-events-auto px-8 sm:px-12 py-3.5 sm:py-4 rounded-full font-['Montserrat'] text-[11px] sm:text-xs tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn hover:scale-105 active:scale-95 shadow-[0_8px_30px_rgba(0,0,0,0.4)]" style="background:linear-gradient(135deg,#D4AF37,#B8860B,#996515);color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);">
-        Open Royal Invitation · प्रवेश करें ✦
-      </button>
-      <div class="flex items-center gap-2 mt-3 px-3.5 py-1 rounded-full pointer-events-auto shadow-md" style="background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border:1px solid rgba(212,175,55,0.35);">
-        <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-widest text-[#261E19] font-medium">
-          Mukesh Ojha &amp; Puja • 11th Dec 2026 • Bokaro
-        </p>
-      </div>
-    </div>
-
-    <!-- Full-Width Bottom Progress Bar -->
-    <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-black/30 z-30">
-      <div id="video-progress-fill" class="h-full bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-[#B8860B] transition-all duration-100" style="width:0%;"></div>
-    </div>
   </div>
 
 
@@ -975,6 +933,9 @@ import Layout from '../layouts/Layout.astro';
 
   videoCard?.addEventListener('click', () => {
     enforceAllSoundActive();
+    if (openingVideo && openingVideo.paused) {
+      openingVideo.play().catch(() => {});
+    }
   });
 
   unmuteBtn?.addEventListener('click', (e) => {
