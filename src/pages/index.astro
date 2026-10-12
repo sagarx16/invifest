@@ -162,8 +162,22 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- ========== HERO SECTION ========== -->
   <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden pt-20">
+    <!-- Hero Royal Background Image (Mukesh & Puja) -->
+    <div class="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
+      <img
+        src="/hero.jpg"
+        alt="Mukesh & Puja Royal Portrait"
+        class="w-full h-full object-cover object-center sm:object-[center_30%] scale-105 transition-transform duration-1000"
+      />
+      <!-- Luxury Dark Night & Royal Gold/Burgundy Tint Overlays for Royal Contrast -->
+      <div class="absolute inset-0 bg-[#0B0A1A]/70 mix-blend-multiply"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A] via-[#0B0A1A]/45 to-[#0B0A1A]/80"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0B0A1A]/75 via-transparent to-[#0B0A1A]/75"></div>
+      <div class="absolute inset-0" style="background:radial-gradient(circle at 50% 45%, rgba(59,10,30,0.4) 0%, rgba(11,10,26,0.85) 80%);"></div>
+    </div>
+
     <!-- Parallax layers -->
-    <div class="parallax-layer absolute inset-0 z-[3]" data-depth="0.05" style="background:radial-gradient(ellipse at 50% 60%,rgba(59,10,30,0.5) 0%,transparent 70%);"></div>
+    <div class="parallax-layer absolute inset-0 z-[3]" data-depth="0.05" style="background:radial-gradient(ellipse at 50% 60%,rgba(59,10,30,0.4) 0%,transparent 70%);"></div>
     <div class="parallax-layer absolute inset-0 z-[3]" data-depth="0.1" style="background:radial-gradient(ellipse at 30% 40%,rgba(224,184,79,0.08) 0%,transparent 60%);"></div>
 
     <!-- Palace silhouette SVG layers -->
@@ -637,12 +651,14 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
         {[
-          {label:'Palace Balcony Whispers',sub:'Udaipur Courtyard Chronicles',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/images/stitch/gallery_balcony.jpg',color:'#FED467'},
-          {label:'The Sacred Ring',sub:'Promises for Eternity',col:'col-span-1 h-64 sm:h-80',img:'/images/stitch/gallery_rings.jpg',color:'#FFB1C7'},
-          {label:'Radiant Grace',sub:'The Timeless Smile',col:'col-span-1 h-64 sm:h-80',img:'/images/stitch/gallery_grace.jpg',color:'#FED467'},
-          {label:'The Imperial Chariot',sub:'Vintage Heritage',col:'col-span-1 h-64 sm:h-80',img:'/images/stitch/gallery_car.jpg',color:'#FFB1C7'},
-          {label:'Candlelit Palatial Stroll',sub:'Lantern Reflections',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/images/stitch/gallery_night_stroll.jpg',color:'#FED467'},
-          {label:'Pure Bliss',sub:'Unscripted Laughter',col:'col-span-1 h-64 sm:h-80',img:'/images/stitch/gallery_laughter.jpg',color:'#FFB1C7'},
+          {label:'Royal Splendour',sub:'Auspicious Grace & Tradition',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/memories/cc7f98dcb558f7d4f05efb9cc798a047.jpg',color:'#FED467'},
+          {label:'Cherished Gaze',sub:'Whispers of Eternity',col:'col-span-1 h-64 sm:h-80',img:'/memories/bd9fd23d5c1011c8b5705e4edbbbec45.jpg',color:'#FFB1C7'},
+          {label:'Golden Twilight',sub:'Timeless Pre-Wedding Moments',col:'col-span-1 h-64 sm:h-80',img:'/memories/e285f4072a66959a4ac997041a145c6a.jpg',color:'#FED467'},
+          {label:'Soulful Radiance',sub:'Joyful Courtyard Serenade',col:'col-span-1 h-64 sm:h-80',img:'/memories/69dad278c9429aecc1134a09a8c1174e.jpg',color:'#FFB1C7'},
+          {label:'Sacred Togetherness',sub:'Palace Garden Reverie',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/memories/55bb27790893c4c7dc4499806a76d4d3.jpg',color:'#FED467'},
+          {label:'Pure Bliss',sub:'Unscripted Festive Harmony',col:'col-span-1 h-64 sm:h-80',img:'/memories/24f400fef8883f79fbc2ce3b7f9cc4dc.jpg',color:'#FFB1C7'},
+          {label:'Endless Laughter',sub:'Cherished Festive Feasts',col:'col-span-1 h-64 sm:h-80',img:'/memories/268c82ee4b857fdee4525f5c0afeb094.jpg',color:'#FED467'},
+          {label:'Sacred Vows',sub:'Destinies Entwined Forever',col:'col-span-1 h-64 sm:h-80',img:'/memories/1895d267590687463755e06e95b1a3c2.jpg',color:'#FFB1C7'},
         ].map((g, idx) => (
           <div class={`${g.col} rounded-2xl overflow-hidden shadow-2xl relative group cursor-pointer gallery-item`} data-src={g.img} data-title={g.label} data-sub={g.sub} style="background:rgba(31,30,47,0.6);border:1px solid rgba(224,184,79,0.2);">
             <img src={g.img} alt={g.label} class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy" />
