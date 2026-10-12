@@ -2,20 +2,20 @@
 
 @layer base {
   :root {
-    --gold: #E0B84F;
-    --gold-light: #FED467;
-    --gold-dim: #EAC258;
-    --gold-dark: #B88E28;
-    --midnight: #0B0A1A;
-    --surface: #131222;
-    --surface-low: #1B1A2A;
-    --surface-container: #1F1E2F;
-    --surface-high: #292839;
-    --surface-highest: #343345;
-    --burgundy: #3B0A1E;
-    --rose: #FFB1C7;
-    --on-surface: #E4E0F7;
-    --on-surface-variant: #D1C5B1;
+    --gold: #B8860B;
+    --gold-light: #D4AF37;
+    --gold-dim: #996515;
+    --gold-dark: #7A5008;
+    --midnight: #FAF6F0;
+    --surface: #FAF6F0;
+    --surface-low: #F4EDE2;
+    --surface-container: #FFFFFF;
+    --surface-high: #EAE1D3;
+    --surface-highest: #DFCFC1;
+    --burgundy: #7A1C30;
+    --rose: #B8506D;
+    --on-surface: #261E19;
+    --on-surface-variant: #6E5F55;
   }
 
   html {
@@ -56,8 +56,8 @@
   }
 
   ::selection {
-    background: var(--gold);
-    color: #251A00;
+    background: #D4AF37;
+    color: #FFFFFF;
   }
 
   ::-webkit-scrollbar {
@@ -66,11 +66,11 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--midnight);
+    background: #FAF6F0;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--gold);
+    background: #D4AF37;
     border-radius: 9999px;
   }
 }
@@ -141,7 +141,7 @@ body:has(button:hover) #cursor-dot {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%);
+  background: radial-gradient(ellipse at center, transparent 70%, rgba(195, 170, 140, 0.2) 100%);
   pointer-events: none;
   z-index: 5;
 }
@@ -153,7 +153,7 @@ body:has(button:hover) #cursor-dot {
 }
 
 .gold-shimmer {
-  background: linear-gradient(90deg, #B88E28 0%, #FED467 25%, #FFDF95 50%, #FED467 75%, #B88E28 100%);
+  background: linear-gradient(90deg, #8C6219 0%, #D4AF37 25%, #E5C365 50%, #D4AF37 75%, #8C6219 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -163,16 +163,16 @@ body:has(button:hover) #cursor-dot {
 
 /* ========== GOLD GLOW ========== */
 .gold-glow {
-  text-shadow: 0 0 20px rgba(224, 184, 79, 0.6), 0 0 40px rgba(224, 184, 79, 0.3);
+  text-shadow: 0 0 16px rgba(212, 175, 55, 0.4), 0 0 32px rgba(212, 175, 55, 0.2);
 }
 
 /* ========== GLASS CARD ========== */
 .glass-card {
-  background: rgba(18, 14, 38, 0.65);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(224, 184, 79, 0.2);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(224, 184, 79, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  box-shadow: 0 12px 35px rgba(180, 150, 120, 0.12), 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 /* ========== GOLD BORDER TRACE ========== */
@@ -204,8 +204,8 @@ body:has(button:hover) #cursor-dot {
   top: 0;
   height: 100%;
   width: 50%;
-  background: linear-gradient(135deg, #1a1525, #0d0c1c);
-  border: 1px solid rgba(224, 184, 79, 0.3);
+  background: linear-gradient(135deg, #FAF6EE, #ECE2CD);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -245,17 +245,17 @@ body:has(button:hover) #cursor-dot {
   position: relative;
   width: 80px;
   height: 100px;
-  background: rgba(18, 14, 38, 0.9);
-  border: 1px solid rgba(224, 184, 79, 0.3);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   font-weight: 600;
-  color: #FED467;
-  box-shadow: 0 0 20px rgba(224, 184, 79, 0.15), inset 0 1px 0 rgba(224, 184, 79, 0.1);
+  color: #8C6219;
+  box-shadow: 0 8px 25px rgba(180, 150, 120, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 @keyframes flip-top {
@@ -390,14 +390,14 @@ html.lenis, html.lenis body {
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: #996515;
 }
 
 .section-title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(28px, 4vw, 44px);
-  font-weight: 500;
-  color: var(--on-surface);
+  font-weight: 600;
+  color: #261E19;
   letter-spacing: 0.02em;
 }
 

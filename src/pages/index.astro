@@ -4,107 +4,103 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Mukesh Weds Puja | Wedding Invitation" description="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Dugda, Bokaro.">
 
-  <!-- ========== GRAND OPENING ENVELOPE CINEMATIC ========== -->
-  <div id="opening-cinematic" class="fixed inset-0 z-[10000] flex flex-col justify-between items-center p-4 sm:p-6 select-none transition-all duration-1000" style="background:#0B0A1A;">
-    <!-- Background Radial Ambient Glow -->
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at 50% 50%, rgba(59,10,30,0.6) 0%, rgba(11,10,26,0.95) 70%, #0B0A1A 100%);"></div>
-    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at 50% 30%, rgba(224,184,79,0.14) 0%, transparent 60%);"></div>
+  <!-- ========== GRAND OPENING ENVELOPE CINEMATIC (FULL WINDOW) ========== -->
+  <div id="opening-cinematic" class="fixed inset-0 z-[10000] w-screen h-screen overflow-hidden select-none transition-all duration-1000 flex flex-col justify-between" style="background:#150D0A;">
+    <!-- Ambient Blur Background Video Layer (fills widescreen behind) -->
+    <video
+      id="opening-video-ambient"
+      playsinline
+      autoplay
+      muted
+      loop
+      class="absolute inset-0 w-full h-full object-cover filter blur-3xl opacity-50 scale-110 pointer-events-none"
+    >
+      <source src="/videos/opening.mp4" type="video/mp4" />
+    </video>
 
-    <!-- Top Header Bar -->
-    <div class="relative z-10 w-full max-w-4xl flex items-center justify-between pt-1 sm:pt-2">
-      <div class="flex items-center gap-2">
-        <span class="text-[#E0B84F] text-xs">✦</span>
-        <span class="font-['Playfair_Display'] text-[#FED467] text-xs sm:text-sm tracking-widest uppercase">॥ श्री गणेशाय नमः ॥</span>
+    <!-- Main Full-Window Video Container -->
+    <div class="absolute inset-0 w-full h-full flex items-center justify-center cursor-pointer" id="video-card">
+      <video
+        id="opening-video"
+        playsinline
+        autoplay
+        poster="/images/video_thumb.jpg"
+        class="w-full h-full object-cover sm:object-contain md:object-cover pointer-events-auto"
+      >
+        <source src="/videos/opening.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Soft Vignette & Subtle Gradient for Controls Readability -->
+    <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/50 via-transparent to-black/60 z-10"></div>
+
+    <!-- Top Floating Header Bar (Overlay) -->
+    <div class="relative z-20 w-full px-4 sm:px-8 pt-4 sm:pt-6 flex items-center justify-between pointer-events-none">
+      <div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full pointer-events-auto shadow-lg" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.45);">
+        <span class="text-[#B8860B] text-xs">✦</span>
+        <span class="font-['Playfair_Display'] text-[#8C6219] text-xs sm:text-sm tracking-widest uppercase font-semibold">॥ श्री गणेशाय नमः ॥</span>
       </div>
-      <div class="flex items-center gap-2">
-        <button id="cinematic-unmute-btn" class="px-3 py-1.5 rounded-full text-[10px] tracking-wider uppercase font-['Montserrat'] font-semibold flex items-center gap-1.5 transition-all hover:bg-white/10" style="background:rgba(31,30,47,0.8);border:1px solid rgba(224,184,79,0.3);color:#FED467;">
+
+      <div class="flex items-center gap-2.5 pointer-events-auto">
+        <button id="cinematic-unmute-btn" class="px-3.5 py-1.5 rounded-full text-[10px] tracking-wider uppercase font-['Montserrat'] font-semibold flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 shadow-lg" style="background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border:1px solid rgba(197,148,55,0.45);color:#8C6219;">
           <span id="cinematic-sound-icon" class="flex items-center">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <line x1="23" y1="9" x2="17" y2="15"></line>
-              <line x1="17" y1="9" x2="23" y2="15"></line>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
             </svg>
           </span>
-          <span id="cinematic-sound-text">Unmute</span>
+          <span id="cinematic-sound-text">Sound ON</span>
         </button>
-        <button id="cinematic-skip-btn" class="px-3.5 py-1.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold transition-all hover:bg-white/10" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.25);color:#D1C5B1;">
+
+        <button id="cinematic-skip-btn" class="px-4 py-1.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold transition-all hover:scale-105 active:scale-95 shadow-lg" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(16px);border:1px solid rgba(197,148,55,0.4);color:#261E19;">
           Skip Intro →
         </button>
       </div>
     </div>
 
-    <!-- Center Stage: Royal Video Frame -->
-    <div class="relative z-10 my-auto flex flex-col items-center">
-      <div class="text-center mb-2.5 sm:mb-3">
-        <div class="w-12 h-12 mx-auto mb-2 p-1 rounded-full bg-[#1F1E2F]/80 border border-[#E0B84F]/40 shadow-lg flex items-center justify-center">
-          <img src="/images/seal.png" alt="M&P Seal" class="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(254,212,103,0.5)]" />
-        </div>
-        <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-[#E0B84F] mb-1">A Royal Beginning</p>
-        <h2 class="font-['Playfair_Display'] text-xl sm:text-2xl md:text-3xl font-semibold text-[#FED467]">Mukesh Ojha &amp; Puja</h2>
-      </div>
+    <!-- Center Stage: Empty spacer -->
+    <div class="relative z-10 pointer-events-none my-auto"></div>
 
-      <!-- Video Container with Luxury Golden Border & Shadow -->
-      <div class="relative group cursor-pointer w-[280px] xs:w-[320px] sm:w-[350px] md:w-[380px] aspect-[768/1344] max-h-[62vh] sm:max-h-[66vh] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(224,184,79,0.35),0_20px_40px_rgba(0,0,0,0.8)] border-2 border-[#E0B84F]/50 bg-[#0B0A1A]" id="video-card">
-        <video
-          id="opening-video"
-          playsinline
-          autoplay
-          muted
-          poster="/images/video_thumb.jpg"
-          class="w-full h-full object-cover"
-        >
-          <source src="/videos/opening.mp4" type="video/mp4" />
-        </video>
-
-        <!-- Tap to Unmute Overlay Hint -->
-        <div id="unmute-badge" class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[9px] font-['Montserrat'] font-semibold tracking-wider uppercase flex items-center gap-1.5 transition-opacity" style="background:rgba(11,10,26,0.85);backdrop-filter:blur(8px);border:1px solid rgba(224,184,79,0.3);color:#FED467;">
-          <svg class="w-3 h-3 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          </svg>
-          <span>Tap for sound</span>
-        </div>
-
-        <!-- Video Progress Bar at Bottom of Video Frame -->
-        <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-          <div id="video-progress-fill" class="h-full bg-gradient-to-r from-[#FED467] to-[#E0B84F] transition-all duration-100" style="width:0%;"></div>
-        </div>
+    <!-- Bottom Floating Bar & Enter Button -->
+    <div class="relative z-20 w-full px-4 pb-6 sm:pb-8 flex flex-col items-center pointer-events-none">
+      <button id="cinematic-enter-btn" class="pointer-events-auto px-8 sm:px-12 py-3.5 sm:py-4 rounded-full font-['Montserrat'] text-[11px] sm:text-xs tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn hover:scale-105 active:scale-95 shadow-[0_8px_30px_rgba(0,0,0,0.4)]" style="background:linear-gradient(135deg,#D4AF37,#B8860B,#996515);color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);">
+        Open Royal Invitation · प्रवेश करें ✦
+      </button>
+      <div class="flex items-center gap-2 mt-3 px-3.5 py-1 rounded-full pointer-events-auto shadow-md" style="background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border:1px solid rgba(212,175,55,0.35);">
+        <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-widest text-[#261E19] font-medium">
+          Mukesh Ojha &amp; Puja • 11th Dec 2026 • Bokaro
+        </p>
       </div>
     </div>
 
-    <!-- Bottom Action Area -->
-    <div class="relative z-10 w-full max-w-md flex flex-col items-center pb-2 text-center">
-      <button id="cinematic-enter-btn" class="w-full sm:w-auto px-8 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden shadow-[0_0_30px_rgba(224,184,79,0.4)]" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;">
-        Open Royal Invitation · प्रवेश करें ✦
-      </button>
-      <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-widest text-[#D1C5B1] opacity-70 mt-2">
-        11th December 2026 · Dugda, Bokaro · #MukeshWedsPuja
-      </p>
+    <!-- Full-Width Bottom Progress Bar -->
+    <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-black/30 z-30">
+      <div id="video-progress-fill" class="h-full bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-[#B8860B] transition-all duration-100" style="width:0%;"></div>
     </div>
   </div>
 
 
   <!-- ========== NAVBAR ========== -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background:rgba(11,10,26,0.0);">
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background:rgba(250,246,240,0.0);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-3">
       <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 group">
-        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E0B84F]/40 p-0.5 flex items-center justify-center flex-shrink-0 bg-[#0B0A1A]">
-          <img src="/images/seal.png" alt="M&P Royal Seal" class="w-full h-full object-contain" />
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#D4AF37]/50 p-0.5 flex items-center justify-center flex-shrink-0 bg-white shadow-sm overflow-hidden">
+          <img src="/images/seal.png" alt="M&P Royal Seal" class="w-full h-full object-cover" />
         </div>
         <div>
-          <p class="font-['Playfair_Display'] text-[#FED467] text-sm sm:text-base font-semibold leading-tight">Mukesh &amp; Puja</p>
-          <p class="text-[9px] sm:text-[10px] tracking-[0.18em] sm:tracking-[0.2em] uppercase text-[#D1C5B1] opacity-70">11 Dec 2026 · Bokaro</p>
+          <p class="font-['Playfair_Display'] text-[#261E19] text-sm sm:text-base font-semibold leading-tight">Mukesh &amp; Puja</p>
+          <p class="text-[9px] sm:text-[10px] tracking-[0.18em] sm:tracking-[0.2em] uppercase text-[#6E5F55]">11 Dec 2026 · Bokaro</p>
         </div>
       </a>
-      <nav class="hidden xl:flex items-center gap-1 px-3 py-2 rounded-full text-xs" style="background:rgba(11,10,26,0.6);backdrop-filter:blur(12px);border:1px solid rgba(224,184,79,0.15);">
+      <nav class="hidden xl:flex items-center gap-1 px-3 py-2 rounded-full text-xs" style="background:rgba(255,255,255,0.88);backdrop-filter:blur(12px);border:1px solid rgba(212,175,55,0.3);box-shadow:0 4px 16px rgba(0,0,0,0.05);">
         {['Blessings','Couple','Story','Events','Venue','Gallery','RSVP'].map(s => (
-          <a href={`#${s.toLowerCase()}`} class="px-3 py-1.5 rounded-full tracking-[0.15em] uppercase font-['Montserrat'] font-semibold text-[10px] text-[#D1C5B1] hover:text-[#FED467] hover:bg-white/5 transition-all duration-300">{s}</a>
+          <a href={`#${s.toLowerCase()}`} class="px-3 py-1.5 rounded-full tracking-[0.15em] uppercase font-['Montserrat'] font-semibold text-[10px] text-[#5C4D42] hover:text-[#8C6219] hover:bg-[#FAF6EE] transition-all duration-300">{s}</a>
         ))}
       </nav>
       <div class="flex items-center gap-2 sm:gap-3">
-        <button id="audio-toggle" aria-label="Toggle music" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full text-[10px] tracking-[0.15em] uppercase font-semibold transition-all duration-300 magnetic-btn ripple-btn" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.25);color:#E0B84F;">
+        <button id="audio-toggle" aria-label="Toggle music" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full text-[10px] tracking-[0.15em] uppercase font-semibold transition-all duration-300 magnetic-btn ripple-btn" style="background:rgba(255,255,255,0.9);border:1px solid rgba(212,175,55,0.35);color:#8C6219;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
           <span id="audio-icon" class="flex items-center">
-            <svg class="w-3.5 h-3.5 text-[#E0B84F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="w-3.5 h-3.5 text-[#8C6219]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M9 18V5l12-2v13"></path>
               <circle cx="6" cy="18" r="3"></circle>
               <circle cx="18" cy="16" r="3"></circle>
@@ -112,25 +108,25 @@ import Layout from '../layouts/Layout.astro';
           </span>
           <span class="hidden md:inline">Shehnai</span>
         </button>
-        <a href="#rsvp" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.2em] uppercase font-['Montserrat'] font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden" style="background:linear-gradient(135deg,#F4E3B5 0%,#E0B84F 50%,#B88E28 100%);color:#251A00;box-shadow:0 0 20px rgba(224,184,79,0.35);">RSVP</a>
-        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" class="xl:hidden w-9 h-9 rounded-full flex flex-col items-center justify-center gap-1 border border-[#E0B84F]/30 bg-[#0B0A1A]/80 text-[#E0B84F] ripple-btn">
-          <span class="w-4 h-0.5 bg-[#E0B84F] transition-transform duration-300" id="m-bar-1"></span>
-          <span class="w-4 h-0.5 bg-[#E0B84F] transition-opacity duration-300" id="m-bar-2"></span>
-          <span class="w-4 h-0.5 bg-[#E0B84F] transition-transform duration-300" id="m-bar-3"></span>
+        <a href="#rsvp" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.2em] uppercase font-['Montserrat'] font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden" style="background:linear-gradient(135deg,#D4AF37 0%,#B8860B 50%,#996515 100%);color:#FFFFFF;box-shadow:0 2px 12px rgba(184,134,11,0.3);">RSVP</a>
+        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" class="xl:hidden w-9 h-9 rounded-full flex flex-col items-center justify-center gap-1 border border-[#D4AF37]/40 bg-white/90 text-[#8C6219] ripple-btn shadow-sm">
+          <span class="w-4 h-0.5 bg-[#8C6219] transition-transform duration-300" id="m-bar-1"></span>
+          <span class="w-4 h-0.5 bg-[#8C6219] transition-opacity duration-300" id="m-bar-2"></span>
+          <span class="w-4 h-0.5 bg-[#8C6219] transition-transform duration-300" id="m-bar-3"></span>
         </button>
       </div>
     </div>
   </header>
 
   <!-- Mobile Drawer Menu -->
-  <div id="mobile-drawer" class="fixed inset-0 z-40 bg-[#0B0A1A]/95 backdrop-blur-2xl hidden flex-col justify-between p-6 pt-24 transition-all duration-300">
+  <div id="mobile-drawer" class="fixed inset-0 z-40 bg-[#FAF6EE]/98 backdrop-blur-2xl hidden flex-col justify-between p-6 pt-24 transition-all duration-300">
     <div class="flex flex-col items-center text-center space-y-3 my-auto">
-      <div class="w-14 h-14 rounded-full border border-[#E0B84F]/50 p-1 flex items-center justify-center mb-1 shadow-lg bg-[#0B0A1A]">
-        <img src="/images/seal.png" alt="M&P Seal" class="w-full h-full object-contain" />
+      <div class="w-14 h-14 rounded-full border border-[#D4AF37]/50 p-1 flex items-center justify-center mb-1 shadow-md bg-white overflow-hidden">
+        <img src="/images/seal.png" alt="M&P Seal" class="w-full h-full object-cover" />
       </div>
-      <p class="font-['Playfair_Display'] text-[#FED467] text-2xl font-semibold">Mukesh Ojha &amp; Puja</p>
-      <p class="text-[10px] tracking-[0.2em] uppercase text-[#D1C5B1]">11 December 2026 · Dugda, Bokaro</p>
-      <div class="h-px w-24 my-2" style="background:linear-gradient(90deg,transparent,#E0B84F,transparent);"></div>
+      <p class="font-['Playfair_Display'] text-[#261E19] text-2xl font-semibold">Mukesh Ojha &amp; Puja</p>
+      <p class="text-[10px] tracking-[0.2em] uppercase text-[#6E5F55]">11 December 2026 · Dugda, Bokaro</p>
+      <div class="h-px w-24 my-2" style="background:linear-gradient(90deg,transparent,#D4AF37,transparent);"></div>
       <nav class="flex flex-col items-center space-y-2.5 pt-2">
         {[
           {name:'Divine Blessings', href:'#blessings'},
@@ -141,17 +137,17 @@ import Layout from '../layouts/Layout.astro';
           {name:'Cinematic Gallery', href:'#gallery'},
           {name:'Confirm RSVP', href:'#rsvp'},
         ].map(item => (
-          <a href={item.href} class="mobile-nav-link text-sm font-['Montserrat'] uppercase tracking-[0.2em] font-medium text-[#E4E0F7] hover:text-[#FED467] py-1 transition-colors">
+          <a href={item.href} class="mobile-nav-link text-sm font-['Montserrat'] uppercase tracking-[0.2em] font-medium text-[#5C4D42] hover:text-[#8C6219] py-1 transition-colors">
             ✦ {item.name}
           </a>
         ))}
       </nav>
     </div>
     <div class="flex flex-col items-center gap-3 pb-6">
-      <a href="#rsvp" class="mobile-nav-link w-full max-w-xs py-3.5 text-center rounded-full text-xs tracking-[0.2em] uppercase font-['Montserrat'] font-bold ripple-btn shine-btn" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;box-shadow:0 0 20px rgba(224,184,79,0.35);">
+      <a href="#rsvp" class="mobile-nav-link w-full max-w-xs py-3.5 text-center rounded-full text-xs tracking-[0.2em] uppercase font-['Montserrat'] font-bold ripple-btn shine-btn" style="background:linear-gradient(135deg,#D4AF37,#B8860B,#996515);color:#FFFFFF;box-shadow:0 4px 20px rgba(184,134,11,0.3);">
         Confirm RSVP ✦
       </a>
-      <p class="text-[10px] text-[#D1C5B1]/70 tracking-widest uppercase">#MukeshWedsPuja</p>
+      <p class="text-[10px] text-[#6E5F55] tracking-widest uppercase">#MukeshWedsPuja</p>
     </div>
   </div>
 
@@ -166,51 +162,51 @@ import Layout from '../layouts/Layout.astro';
         class="w-full h-full object-cover object-[center_20%] sm:object-[center_28%] scale-100 transition-transform duration-1000"
       />
       <!-- Clean, Minimal Vignette: Soft top fade for navbar and gentle bottom fade to next section -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A] via-transparent to-[#0B0A1A]/75 pointer-events-none"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-[#0B0A1A]/40 via-transparent to-[#0B0A1A]/40 pointer-events-none"></div>
-      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(11,10,26,0.1) 0%, rgba(11,10,26,0.5) 100%);"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#FAF6F0] via-transparent to-[#FAF6F0]/60 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#FAF6F0]/25 via-transparent to-[#FAF6F0]/25 pointer-events-none"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(250,246,240,0.0) 0%, rgba(250,246,240,0.35) 100%);"></div>
     </div>
 
     <!-- Content: Elegant Royal Typography Floating Over The Portrait -->
     <div class="relative z-[8] max-w-4xl mx-auto flex flex-col items-center">
       <!-- Auspicious Invocation Pill -->
-      <div id="hero-tag" class="inline-flex items-center gap-2.5 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full mb-3 sm:mb-4 opacity-0" style="background:rgba(11,10,26,0.55);backdrop-filter:blur(16px);border:1px solid rgba(224,184,79,0.4);box-shadow:0 8px 32px rgba(0,0,0,0.5);">
-        <span class="text-[#E0B84F] text-xs">✦</span>
-        <span class="font-['Playfair_Display'] text-[#FED467] text-xs sm:text-sm tracking-[0.25em] uppercase font-semibold">॥ श्री गणेशाय नमः ॥</span>
-        <span class="text-[#E0B84F] text-xs">✦</span>
+      <div id="hero-tag" class="inline-flex items-center gap-2.5 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full mb-3 sm:mb-4 opacity-0" style="background:rgba(255,255,255,0.88);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.45);box-shadow:0 8px 30px rgba(180,150,120,0.18);">
+        <span class="text-[#8C6219] text-xs">✦</span>
+        <span class="font-['Playfair_Display'] text-[#8C6219] text-xs sm:text-sm tracking-[0.25em] uppercase font-semibold">॥ श्री गणेशाय नमः ॥</span>
+        <span class="text-[#8C6219] text-xs">✦</span>
       </div>
 
-      <p id="hero-subtitle" class="font-['Montserrat'] text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#F4E3B5] mb-3 sm:mb-5 opacity-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-medium">
+      <p id="hero-subtitle" class="font-['Montserrat'] text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#8C6219] mb-3 sm:mb-5 opacity-0 drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)] font-semibold">
         The Auspicious Wedding Of
       </p>
 
       <!-- Royal Names -->
       <div class="mb-3 sm:mb-5 text-center">
-        <h1 id="hero-groom" class="font-['Playfair_Display'] font-bold leading-none opacity-0 flex justify-center flex-wrap" style="font-size:clamp(36px,8vw,90px);letter-spacing:0.02em;color:#FED467;text-shadow:0 4px 24px rgba(0,0,0,0.95), 0 0 35px rgba(254,212,103,0.4);">
+        <h1 id="hero-groom" class="font-['Playfair_Display'] font-bold leading-none opacity-0 flex justify-center flex-wrap" style="font-size:clamp(36px,8vw,90px);letter-spacing:0.02em;color:#261E19;text-shadow:0 2px 20px rgba(255,255,255,0.95), 0 0 10px rgba(212,175,55,0.35);">
           {"Mukesh Ojha".split("").map((ch) => (
             <span class="hero-char-groom inline-block">{ch === " " ? "\u00A0" : ch}</span>
           ))}
         </h1>
         <div id="hero-amp" class="flex items-center justify-center gap-3 sm:gap-6 my-1.5 sm:my-2.5 opacity-0">
-          <div class="h-px w-14 sm:w-32" style="background:linear-gradient(90deg,transparent,#FED467);"></div>
-          <span class="font-['Playfair_Display'] italic text-[#FFB1C7] text-2xl sm:text-4xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">&amp;</span>
-          <div class="h-px w-14 sm:w-32" style="background:linear-gradient(270deg,transparent,#FED467);"></div>
+          <div class="h-px w-14 sm:w-32" style="background:linear-gradient(90deg,transparent,#D4AF37);"></div>
+          <span class="font-['Playfair_Display'] italic text-[#A62C4E] text-2xl sm:text-4xl drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">&amp;</span>
+          <div class="h-px w-14 sm:w-32" style="background:linear-gradient(270deg,transparent,#D4AF37);"></div>
         </div>
-        <h1 id="hero-bride" class="font-['Playfair_Display'] font-bold leading-none opacity-0 flex justify-center flex-wrap" style="font-size:clamp(36px,8vw,90px);letter-spacing:0.02em;color:#FFB1C7;text-shadow:0 4px 24px rgba(0,0,0,0.95), 0 0 35px rgba(255,177,199,0.4);">
+        <h1 id="hero-bride" class="font-['Playfair_Display'] font-bold leading-none opacity-0 flex justify-center flex-wrap" style="font-size:clamp(36px,8vw,90px);letter-spacing:0.02em;color:#7A1C30;text-shadow:0 2px 20px rgba(255,255,255,0.95), 0 0 10px rgba(219,103,137,0.35);">
           {"Puja".split("").map((ch) => (
             <span class="hero-char-bride inline-block">{ch === " " ? "\u00A0" : ch}</span>
           ))}
         </h1>
       </div>
 
-      <p id="hero-invite" class="font-['Montserrat'] font-light text-[#FFFFFF] max-w-lg leading-relaxed mb-5 sm:mb-7 opacity-0 px-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]" style="font-size:clamp(12px,1.4vw,15px);">
+      <p id="hero-invite" class="font-['Montserrat'] font-light text-[#3C3028] max-w-lg leading-relaxed mb-5 sm:mb-7 opacity-0 px-3 drop-shadow-[0_1px_6px_rgba(255,255,255,0.9)] font-medium" style="font-size:clamp(12px,1.4vw,15px);">
         Cordially invite you to celebrate our sacred union amidst palatial grace, ancestral rites, and celestial splendour.
       </p>
 
       <!-- Date & Venue Pill with Frosted Glass -->
-      <div id="hero-date" class="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-7 sm:py-3 rounded-full mb-6 sm:mb-8 opacity-0" style="background:rgba(11,10,26,0.6);backdrop-filter:blur(20px);border:1px solid rgba(224,184,79,0.35);box-shadow:0 8px 32px rgba(0,0,0,0.6);">
-        <div class="flex items-center gap-2 text-[#FED467]">
-          <svg class="w-4 h-4 text-[#FED467] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div id="hero-date" class="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-7 sm:py-3 rounded-full mb-6 sm:mb-8 opacity-0" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(20px);border:1px solid rgba(212,175,55,0.4);box-shadow:0 8px 30px rgba(180,150,120,0.18);">
+        <div class="flex items-center gap-2 text-[#8C6219]">
+          <svg class="w-4 h-4 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
             <line x1="16" y1="2" x2="16" y2="6"></line>
             <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -218,9 +214,9 @@ import Layout from '../layouts/Layout.astro';
           </svg>
           <span class="font-['Playfair_Display'] font-semibold text-sm sm:text-base tracking-wide">Friday, 11th December 2026</span>
         </div>
-        <span class="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#E0B84F]"></span>
-        <div class="flex items-center gap-1.5 text-[#D1C5B1] text-xs sm:text-sm uppercase tracking-wider font-['Montserrat']">
-          <svg class="w-3.5 h-3.5 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <span class="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span>
+        <div class="flex items-center gap-1.5 text-[#5C4D42] text-xs sm:text-sm uppercase tracking-wider font-['Montserrat']">
+          <svg class="w-3.5 h-3.5 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
           <span>Dugda, Bokaro</span>
         </div>
       </div>
@@ -229,28 +225,28 @@ import Layout from '../layouts/Layout.astro';
       <div id="countdown" class="grid grid-cols-4 gap-2.5 sm:gap-4 mb-8 sm:mb-10 opacity-0 max-w-xs sm:max-w-md w-full justify-items-center">
         {['days','hours','minutes','seconds'].map(u => (
           <div class="flex flex-col items-center gap-1.5">
-            <div class="flip-clock-card" id={`cd-${u}`} style="background:rgba(11,10,26,0.55);backdrop-filter:blur(16px);border:1px solid rgba(224,184,79,0.3);box-shadow:0 8px 30px rgba(0,0,0,0.6);width:clamp(56px,18vw,86px);height:clamp(68px,20vw,98px);font-size:clamp(1.4rem,4vw,2.4rem);">
+            <div class="flip-clock-card" id={`cd-${u}`} style="background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.45);box-shadow:0 8px 24px rgba(180,150,120,0.18);width:clamp(56px,18vw,86px);height:clamp(68px,20vw,98px);font-size:clamp(1.4rem,4vw,2.4rem);color:#8C6219;">
               <span id={`cd-${u}-val`}>0</span>
             </div>
-            <span class="font-['Montserrat'] text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-[#D1C5B1] font-medium">{u}</span>
+            <span class="font-['Montserrat'] text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-[#6E5F55] font-semibold">{u}</span>
           </div>
         ))}
       </div>
 
       <!-- Clean Action Buttons -->
       <div id="hero-ctas" class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-2xl opacity-0">
-        <a href="#events" class="w-full sm:w-auto text-center px-7 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden magnetic-btn shadow-[0_0_25px_rgba(224,184,79,0.35)]" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;">
+        <a href="#events" class="w-full sm:w-auto text-center px-7 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden magnetic-btn shadow-[0_4px_20px_rgba(184,134,11,0.3)]" style="background:linear-gradient(135deg,#D4AF37,#B8860B,#996515);color:#FFFFFF;">
           Explore Celebrations
         </a>
-        <button id="replay-envelope-btn" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-[#FFB1C7]/20" style="background:rgba(59,10,30,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,177,199,0.4);color:#FFB1C7;">
-          <svg class="w-3.5 h-3.5 text-[#FFB1C7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button id="replay-envelope-btn" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-[#A62C4E]/10" style="background:rgba(255,245,248,0.92);backdrop-filter:blur(12px);border:1px solid rgba(219,103,137,0.45);color:#A62C4E;box-shadow:0 4px 16px rgba(219,103,137,0.15);">
+          <svg class="w-3.5 h-3.5 text-[#A62C4E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
           <span>Replay Envelope</span>
         </button>
-        <button id="add-to-cal-btn" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-white/10" style="background:rgba(11,10,26,0.55);backdrop-filter:blur(12px);border:1px solid rgba(224,184,79,0.35);color:#FED467;">
-          <svg class="w-3.5 h-3.5 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button id="add-to-cal-btn" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-black/5" style="background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border:1px solid rgba(212,175,55,0.45);color:#8C6219;box-shadow:0 4px 16px rgba(180,150,120,0.15);">
+          <svg class="w-3.5 h-3.5 text-[#8C6219]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
             <line x1="16" y1="2" x2="16" y2="6"></line>
             <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -258,8 +254,8 @@ import Layout from '../layouts/Layout.astro';
           </svg>
           <span>Save The Date</span>
         </button>
-        <a id="whatsapp-share" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%2C%20Bokaro%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-[#25d366]/20" style="background:rgba(37,99,40,0.55);backdrop-filter:blur(12px);border:1px solid rgba(37,211,102,0.4);color:#25d366;">
-          <svg class="w-3.5 h-3.5 text-[#25d366] fill-current" viewBox="0 0 24 24">
+        <a id="whatsapp-share" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%2C%20Bokaro%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-[#25d366]/10" style="background:rgba(240,253,244,0.95);backdrop-filter:blur(12px);border:1px solid rgba(34,197,94,0.45);color:#15803d;box-shadow:0 4px 16px rgba(34,197,94,0.15);">
+          <svg class="w-3.5 h-3.5 text-[#15803d] fill-current" viewBox="0 0 24 24">
             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
           </svg>
           <span>WhatsApp Invite</span>
@@ -269,9 +265,9 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Scroll indicator -->
     <div id="scroll-indicator" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 z-[8]">
-      <span class="font-['Montserrat'] text-[9px] tracking-[0.25em] uppercase text-[#D1C5B1]">Scroll</span>
-      <div class="w-0.5 h-12 relative overflow-hidden" style="background:rgba(224,184,79,0.2);">
-        <div class="w-full h-1/2 absolute top-0" style="background:#E0B84F;animation:scroll-pulse 1.5s ease-in-out infinite;"></div>
+      <span class="font-['Montserrat'] text-[9px] tracking-[0.25em] uppercase text-[#6E5F55] font-semibold">Scroll</span>
+      <div class="w-0.5 h-12 relative overflow-hidden" style="background:rgba(212,175,55,0.25);">
+        <div class="w-full h-1/2 absolute top-0" style="background:#D4AF37;animation:scroll-pulse 1.5s ease-in-out infinite;"></div>
       </div>
     </div>
   </section>
@@ -279,23 +275,23 @@ import Layout from '../layouts/Layout.astro';
   <!-- ========== BLESSINGS / SHLOKA ========== -->
   <section id="blessings" class="py-16 sm:py-24 px-4 sm:px-6 relative">
     <div class="max-w-4xl mx-auto text-center glass-card rounded-2xl p-6 sm:p-12 md:p-16 relative overflow-hidden reveal-section">
-      <div class="absolute -top-20 -left-20 w-60 h-60 rounded-full pointer-events-none" style="background:rgba(224,184,79,0.08);filter:blur(60px);"></div>
+      <div class="absolute -top-20 -left-20 w-60 h-60 rounded-full pointer-events-none" style="background:rgba(212,175,55,0.08);filter:blur(60px);"></div>
       <!-- SVG Mandala border drawing -->
       <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <rect x="1" y="1" width="98" height="98" rx="2" fill="none" stroke="#E0B84F" stroke-width="0.3" stroke-dasharray="400" stroke-dashoffset="400" class="svg-draw-rect opacity-40"/>
+        <rect x="1" y="1" width="98" height="98" rx="2" fill="none" stroke="#D4AF37" stroke-width="0.3" stroke-dasharray="400" stroke-dashoffset="400" class="svg-draw-rect opacity-40"/>
       </svg>
       <div class="relative z-10">
-        <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-[#E0B84F] mb-3 sm:mb-4">Divine Invocation</p>
-        <p class="font-['Playfair_Display'] text-[#FED467] leading-relaxed mb-4 sm:mb-6 font-semibold typewriter-text" style="font-size:clamp(16px,2.5vw,24px);">
+        <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-[#8C6219] font-semibold mb-3 sm:mb-4">Divine Invocation</p>
+        <p class="font-['Playfair_Display'] text-[#8C6219] leading-relaxed mb-4 sm:mb-6 font-semibold typewriter-text" style="font-size:clamp(16px,2.5vw,24px);">
           वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br/>
           निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥
         </p>
-        <div class="w-24 sm:w-32 h-px mx-auto mb-4 sm:mb-6" style="background:linear-gradient(90deg,transparent,#E0B84F,transparent);"></div>
-        <p class="font-['Montserrat'] font-light text-[#D1C5B1] italic max-w-xl mx-auto leading-relaxed text-xs sm:text-sm">
+        <div class="w-24 sm:w-32 h-px mx-auto mb-4 sm:mb-6" style="background:linear-gradient(90deg,transparent,#D4AF37,transparent);"></div>
+        <p class="font-['Montserrat'] font-light text-[#5C4D42] italic max-w-xl mx-auto leading-relaxed text-xs sm:text-sm">
           "O Lord Ganesha, with the curved trunk and monumental aura, whose brilliance equals millions of rising suns — bless our sacred voyage obstacle-free and eternal."
         </p>
-        <div class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#E0B84F]/10">
-          <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs sm:text-sm leading-relaxed">
+        <div class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#D4AF37]/20">
+          <p class="font-['Montserrat'] font-light text-[#5C4D42] text-xs sm:text-sm leading-relaxed">
             Under the celestial vault of auspicious stars and with the timeless blessings of our ancestors,<br class="hidden sm:inline"/>
             two families unite in love, devotion, and sacred companionship.
           </p>
@@ -305,12 +301,12 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- ========== MARQUEE HASHTAG ========== -->
-  <div class="py-3 sm:py-4 overflow-hidden" style="background:rgba(11,10,26,0.8);border-top:1px solid rgba(224,184,79,0.1);border-bottom:1px solid rgba(224,184,79,0.1);">
+  <div class="py-3 sm:py-4 overflow-hidden" style="background:rgba(247,241,232,0.95);border-top:1px solid rgba(212,175,55,0.25);border-bottom:1px solid rgba(212,175,55,0.25);">
     <div class="marquee-inner">
       {Array.from({length: 20}).map((_, i) => (
         <span class="inline-flex items-center gap-4 sm:gap-6 px-3 sm:px-4">
-          <span class="font-['Playfair_Display'] text-[#E0B84F] font-semibold text-xs sm:text-base tracking-widest">#MukeshWedsPuja</span>
-          <span class="text-[#FFB1C7] opacity-60 text-xs sm:text-sm">✦</span>
+          <span class="font-['Playfair_Display'] text-[#8C6219] font-semibold text-xs sm:text-base tracking-widest">#MukeshWedsPuja</span>
+          <span class="text-[#A62C4E] opacity-70 text-xs sm:text-sm">✦</span>
         </span>
       ))}
     </div>
@@ -322,51 +318,51 @@ import Layout from '../layouts/Layout.astro';
       <div class="text-center mb-12 sm:mb-16">
         <p class="section-tag mb-2">✦ The Royal Duo ✦</p>
         <h2 class="section-title">Meet The Bride &amp; Groom</h2>
-        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-md mx-auto">Two sovereign hearts woven by sacred vows, devotion, and celestial destiny.</p>
+        <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-md mx-auto">Two sovereign hearts woven by sacred vows, devotion, and celestial destiny.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-11 gap-6 sm:gap-8 items-center">
         <!-- Groom -->
-        <div class="lg:col-span-5 couple-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center relative overflow-hidden group hover:border-[#E0B84F]/40 transition-all duration-500" style="border:1px solid rgba(224,184,79,0.2);">
-          <div class="absolute top-0 right-0 w-32 h-32 rounded-bl-full pointer-events-none" style="background:rgba(224,184,79,0.06);"></div>
-          <div class="w-44 h-64 sm:w-52 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-2xl relative bg-[#1F1E2F] border border-[#E0B84F]/30" style="clip-path:polygon(0% 100%,0% 25%,5% 12%,15% 3%,30% 0%,50% 0%,70% 0%,85% 3%,95% 12%,100% 25%,100% 100%);">
+        <div class="lg:col-span-5 couple-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center relative overflow-hidden group hover:border-[#D4AF37]/50 transition-all duration-500" style="border:1px solid rgba(212,175,55,0.3);">
+          <div class="absolute top-0 right-0 w-32 h-32 rounded-bl-full pointer-events-none" style="background:rgba(212,175,55,0.06);"></div>
+          <div class="w-44 h-64 sm:w-52 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-2xl relative bg-[#F5EFE6] border border-[#D4AF37]/35" style="clip-path:polygon(0% 100%,0% 25%,5% 12%,15% 3%,30% 0%,50% 0%,70% 0%,85% 3%,95% 12%,100% 25%,100% 100%);">
             <img src="/images/groom.jpg" alt="Mukesh Ojha - The Royal Groom" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A]/80 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
           </div>
-          <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold mb-3" style="background:rgba(224,184,79,0.15);color:#E0B84F;">The Royal Groom</span>
-          <h3 class="font-['Playfair_Display'] text-[#FED467] text-2xl font-semibold mb-1">Mukesh Ojha</h3>
-          <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-[#D1C5B1] mb-4">Son of Smt. &amp; Shri Ojha</p>
-          <p class="font-['Montserrat'] font-light text-[#D1C5B1] italic text-xs sm:text-sm max-w-xs mb-4">"In her smile, I discovered my kingdom, my guiding star, and my eternal sanctuary."</p>
-          <div class="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-semibold" style="color:#E0B84F;">
-            <svg class="w-3.5 h-3.5 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold mb-3" style="background:rgba(212,175,55,0.15);color:#8C6219;">The Royal Groom</span>
+          <h3 class="font-['Playfair_Display'] text-[#261E19] text-2xl font-semibold mb-1">Mukesh Ojha</h3>
+          <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-[#6E5F55] mb-4">Son of Smt. &amp; Shri Ojha</p>
+          <p class="font-['Montserrat'] font-light text-[#5C4D42] italic text-xs sm:text-sm max-w-xs mb-4">"In her smile, I discovered my kingdom, my guiding star, and my eternal sanctuary."</p>
+          <div class="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-semibold" style="color:#8C6219;">
+            <svg class="w-3.5 h-3.5 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
             <span>Bokaro, Jharkhand</span>
           </div>
           <!-- Gold heart glow on hover -->
-          <div class="couple-glow absolute inset-0 rounded-2xl opacity-0 pointer-events-none transition-opacity duration-500" style="background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(224,184,79,0.12) 0%, transparent 70%);"></div>
+          <div class="couple-glow absolute inset-0 rounded-2xl opacity-0 pointer-events-none transition-opacity duration-500" style="background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(212,175,55,0.12) 0%, transparent 70%);"></div>
         </div>
 
         <!-- Center heart knot -->
         <div class="lg:col-span-1 flex items-center justify-center my-2 lg:my-0">
-          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl" style="background:rgba(113,54,74,0.6);box-shadow:0 0 30px rgba(255,177,199,0.3);border:1px solid rgba(255,177,199,0.3);">
-            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#FFB1C7]" viewBox="0 0 24 24" fill="currentColor" style="animation:pulse 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(255,177,199,0.6));">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-xl" style="background:rgba(255,240,245,0.95);box-shadow:0 0 25px rgba(219,103,137,0.2);border:1px solid rgba(219,103,137,0.35);">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#C4556F]" viewBox="0 0 24 24" fill="currentColor" style="animation:pulse 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(219,103,137,0.4));">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
           </div>
         </div>
 
         <!-- Bride -->
-        <div class="lg:col-span-5 couple-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center relative overflow-hidden group hover:border-[#FFB1C7]/30 transition-all duration-500" style="border:1px solid rgba(255,177,199,0.15);">
-          <div class="absolute top-0 left-0 w-32 h-32 rounded-br-full pointer-events-none" style="background:rgba(255,177,199,0.06);"></div>
-          <div class="w-44 h-64 sm:w-52 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-2xl relative bg-[#1F1E2F] border border-[#FFB1C7]/30" style="clip-path:polygon(0% 100%,0% 25%,5% 12%,15% 3%,30% 0%,50% 0%,70% 0%,85% 3%,95% 12%,100% 25%,100% 100%);">
+        <div class="lg:col-span-5 couple-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center relative overflow-hidden group hover:border-[#C4556F]/40 transition-all duration-500" style="border:1px solid rgba(219,103,137,0.3);">
+          <div class="absolute top-0 left-0 w-32 h-32 rounded-br-full pointer-events-none" style="background:rgba(219,103,137,0.06);"></div>
+          <div class="w-44 h-64 sm:w-52 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-2xl relative bg-[#FFF0F4] border border-[#C4556F]/35" style="clip-path:polygon(0% 100%,0% 25%,5% 12%,15% 3%,30% 0%,50% 0%,70% 0%,85% 3%,95% 12%,100% 25%,100% 100%);">
             <img src="/images/bride.jpg" alt="Puja - The Radiant Bride" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A]/80 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
           </div>
-          <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold mb-3" style="background:rgba(113,54,74,0.4);color:#FFB1C7;">The Radiant Bride</span>
-          <h3 class="font-['Playfair_Display'] text-[#FFB1C7] text-2xl font-semibold mb-1">Puja</h3>
-          <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-[#D1C5B1] mb-4">Daughter of Smt. &amp; Shri Family</p>
-          <p class="font-['Montserrat'] font-light text-[#D1C5B1] italic text-xs sm:text-sm max-w-xs mb-4">"In his eyes, I found my quiet peace, my boundless confidant, and my forever companion."</p>
-          <div class="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-semibold" style="color:#FFB1C7;">
-            <svg class="w-3.5 h-3.5 text-[#FFB1C7] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L21.6 12l-7.2 2.8L12 22l-2.4-7.2L2.4 12l7.2-2.8L12 2z"/></svg>
+          <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold mb-3" style="background:rgba(219,103,137,0.15);color:#A62C4E;">The Radiant Bride</span>
+          <h3 class="font-['Playfair_Display'] text-[#7A1C30] text-2xl font-semibold mb-1">Puja</h3>
+          <p class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-[#6E5F55] mb-4">Daughter of Smt. &amp; Shri Family</p>
+          <p class="font-['Montserrat'] font-light text-[#5C4D42] italic text-xs sm:text-sm max-w-xs mb-4">"In his eyes, I found my quiet peace, my boundless confidant, and my forever companion."</p>
+          <div class="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-semibold" style="color:#A62C4E;">
+            <svg class="w-3.5 h-3.5 text-[#A62C4E] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L21.6 12l-7.2 2.8L12 22l-2.4-7.2L2.4 12l7.2-2.8L12 2z"/></svg>
             <span>Grace &amp; Serenity</span>
           </div>
         </div>
@@ -375,35 +371,35 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- ========== OUR STORY TIMELINE ========== -->
-  <section id="story" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(13,12,28,0.4);">
+  <section id="story" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(247,242,234,0.6);">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-12 sm:mb-16">
         <p class="section-tag mb-2">Sacred Chronicles</p>
         <h2 class="section-title">A Journey Written In The Stars</h2>
-        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3">Every step a blessing, every moment a cherished memory.</p>
+        <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3">Every step a blessing, every moment a cherished memory.</p>
       </div>
       <div class="relative">
-        <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px" style="background:linear-gradient(to bottom,#E0B84F,#FFB1C7,transparent);"></div>
+        <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px" style="background:linear-gradient(to bottom,#D4AF37,#C4556F,transparent);"></div>
         <div class="space-y-8 sm:space-y-16">
           {[
-            {num:'I',date:'Winter 2024',title:'The First Gaze',desc:'Destinies gracefully aligned in Bokaro. What began as an auspicious introduction blossomed into an unspoken bond of pure companionship.',color:'#E0B84F',dir:'right',img:'/images/stitch/story_1_first_gaze.jpg'},
-            {num:'II',date:'Spring 2025',title:'The Sacred Promise',desc:'A tranquil evening beneath starry skies. Two souls whispered the promise that would bind lifetimes.',color:'#FFB1C7',dir:'left',img:'/images/stitch/story_2_sacred_promise.jpg'},
-            {num:'III',date:'Autumn 2025',title:'The Auspicious Roka',desc:'The families gathered under radiant blessings, exchanging traditional sweets, golden chunnis, and heartfelt celebratory vows.',color:'#E0B84F',dir:'right',img:'/images/stitch/story_3_auspicious_roka.jpg'},
-            {num:'IV',date:'11th Dec 2026',title:'The Royal Union',desc:'The grand wedding bells ring across Dugda, Bokaro. The holy saat phere around the agni sealing our eternal bond.',color:'#FED467',dir:'left',img:'/images/stitch/story_4_royal_union.jpg'},
+            {num:'I',date:'Winter 2024',title:'The First Gaze',desc:'Destinies gracefully aligned in Bokaro. What began as an auspicious introduction blossomed into an unspoken bond of pure companionship.',color:'#8C6219',dir:'right',img:'/images/stitch/story_1_first_gaze.jpg'},
+            {num:'II',date:'Spring 2025',title:'The Sacred Promise',desc:'A tranquil evening beneath starry skies. Two souls whispered the promise that would bind lifetimes.',color:'#A62C4E',dir:'left',img:'/images/stitch/story_2_sacred_promise.jpg'},
+            {num:'III',date:'Autumn 2025',title:'The Auspicious Roka',desc:'The families gathered under radiant blessings, exchanging traditional sweets, golden chunnis, and heartfelt celebratory vows.',color:'#8C6219',dir:'right',img:'/images/stitch/story_3_auspicious_roka.jpg'},
+            {num:'IV',date:'11th Dec 2026',title:'The Royal Union',desc:'The grand wedding bells ring across Dugda, Bokaro. The holy saat phere around the agni sealing our eternal bond.',color:'#D4AF37',dir:'left',img:'/images/stitch/story_4_royal_union.jpg'},
           ].map((s, i) => (
-            <div class={`relative flex flex-col ${s.dir === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-4 md:gap-8 story-item glass-card md:bg-transparent rounded-2xl p-5 md:p-0 border border-[#E0B84F]/10 md:border-none`}>
+            <div class={`relative flex flex-col ${s.dir === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-4 md:gap-8 story-item glass-card md:bg-transparent rounded-2xl p-5 md:p-0 border border-[#D4AF37]/20 md:border-none`}>
               <div class={`w-full md:w-[45%] text-center ${s.dir === 'left' ? 'md:text-left' : 'md:text-right'}`}>
                 <span class="font-['Montserrat'] text-[9px] tracking-[0.2em] uppercase font-bold block mb-1" style={`color:${s.color}`}>Chapter {s.num} · {s.date}</span>
-                <h3 class="font-['Playfair_Display'] text-[#E4E0F7] text-lg sm:text-xl font-semibold mb-2">{s.title}</h3>
-                <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs sm:text-sm leading-relaxed">{s.desc}</p>
+                <h3 class="font-['Playfair_Display'] text-[#261E19] text-lg sm:text-xl font-semibold mb-2">{s.title}</h3>
+                <p class="font-['Montserrat'] font-light text-[#5C4D42] text-xs sm:text-sm leading-relaxed">{s.desc}</p>
               </div>
-              <div class="z-10 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-2xl flex-shrink-0" style={`background:rgba(31,30,47,0.9);border:1px solid ${s.color}60;box-shadow:0 0 20px ${s.color}30;`}>
+              <div class="z-10 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-xl flex-shrink-0" style={`background:rgba(255,255,255,0.95);border:1px solid ${s.color}80;box-shadow:0 4px 15px ${s.color}25;`}>
                 <span class="font-['Playfair_Display'] font-bold text-sm sm:text-base tracking-wider" style={`color:${s.color}`}>{s.num}</span>
               </div>
               <div class="w-full md:w-[45%]">
-                <div class="h-32 sm:h-40 rounded-xl overflow-hidden shadow-xl group/story relative bg-[#1F1E2F] border border-[#E0B84F]/20">
+                <div class="h-32 sm:h-40 rounded-xl overflow-hidden shadow-lg group/story relative bg-[#F5EFE6] border border-[#D4AF37]/25">
                   <img src={s.img} alt={s.title} class="w-full h-full object-cover transition-transform duration-700 group-hover/story:scale-105" loading="lazy" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A]/70 via-transparent to-transparent"></div>
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                 </div>
               </div>
             </div>
@@ -420,56 +416,56 @@ import Layout from '../layouts/Layout.astro';
       <div class="text-center mb-12 sm:mb-16">
         <p class="section-tag mb-2">The Royal Festivities</p>
         <h2 class="section-title">Ceremonies &amp; Itinerary</h2>
-        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-xl mx-auto">Please grace each auspicious function with your presence and blessings.</p>
+        <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-xl mx-auto">Please grace each auspicious function with your presence and blessings.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {[
           {
-            num:'01',name:'Haldi Utsav',title:'Auspicious Haldi Ceremony',desc:'Anointing of pure turmeric, fragrant sandalwood paste, and blissful folk songs with family.',date:'Wed, 9th Dec 2026',time:'10:00 AM Onwards',venue:'Royal Courtyard, Dugda, Bokaro',dress:'Sunny Yellow & Marigold',color:'#FED467',
-            svg:'<svg class="w-6 h-6 text-[#FED467]" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41" stroke="#FED467" stroke-width="2" stroke-linecap="round"/></svg>'
+            num:'01',name:'Haldi Utsav',title:'Auspicious Haldi Ceremony',desc:'Anointing of pure turmeric, fragrant sandalwood paste, and blissful folk songs with family.',date:'Wed, 9th Dec 2026',time:'10:00 AM Onwards',venue:'Royal Courtyard, Dugda, Bokaro',dress:'Sunny Yellow & Marigold',color:'#B8860B',
+            svg:'<svg class="w-6 h-6 text-[#B8860B]" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/></svg>'
           },
           {
-            num:'02',name:'Mehendi',title:'Heena & Folk Rhythms',desc:'Intricate henna designs, traditional dholak beats, and lively festive folk dances under canopies.',date:'Wed, 9th Dec 2026',time:'04:00 PM Onwards',venue:'Gulab Bagh Lawn, Dugda',dress:'Emerald Green & Mint',color:'#A1E6CF',
-            svg:'<svg class="w-6 h-6 text-[#A1E6CF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>'
+            num:'02',name:'Mehendi',title:'Heena & Folk Rhythms',desc:'Intricate henna designs, traditional dholak beats, and lively festive folk dances under canopies.',date:'Wed, 9th Dec 2026',time:'04:00 PM Onwards',venue:'Gulab Bagh Lawn, Dugda',dress:'Emerald Green & Mint',color:'#0D7A5F',
+            svg:'<svg class="w-6 h-6 text-[#0D7A5F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>'
           },
           {
-            num:'03',name:'Sangeet',title:'Musical Night & Sangeet',desc:'An unforgettable evening of high-voltage family performances, live Sufi melodies, and dance.',date:'Thu, 10th Dec 2026',time:'07:30 PM Onwards',venue:'Sheesh Mahal Ballroom, Dugda',dress:'Royal Navy & Gold Sparkle',color:'#FFB1C7',
-            svg:'<svg class="w-6 h-6 text-[#FFB1C7]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>'
+            num:'03',name:'Sangeet',title:'Musical Night & Sangeet',desc:'An unforgettable evening of high-voltage family performances, live Sufi melodies, and dance.',date:'Thu, 10th Dec 2026',time:'07:30 PM Onwards',venue:'Sheesh Mahal Ballroom, Dugda',dress:'Royal Navy & Gold Sparkle',color:'#A62C4E',
+            svg:'<svg class="w-6 h-6 text-[#A62C4E]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>'
           },
           {
-            num:'05',name:'Reception',title:'Grand Reception & Gala',desc:'An opulent royal feast celebrating the newlyweds with global cuisine, blessings, and photography.',date:'Sat, 12th Dec 2026',time:'08:00 PM Onwards',venue:'Crystal Palace Gardens, Dugda',dress:'Black Tie & Velvet Elegance',color:'#FED467',
-            svg:'<svg class="w-6 h-6 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M5 3h14l-2 9a5 5 0 0 1-10 0L5 3z"/></svg>'
+            num:'05',name:'Reception',title:'Grand Reception & Gala',desc:'An opulent royal feast celebrating the newlyweds with global cuisine, blessings, and photography.',date:'Sat, 12th Dec 2026',time:'08:00 PM Onwards',venue:'Crystal Palace Gardens, Dugda',dress:'Black Tie & Velvet Elegance',color:'#8C6219',
+            svg:'<svg class="w-6 h-6 text-[#8C6219]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M5 3h14l-2 9a5 5 0 0 1-10 0L5 3z"/></svg>'
           },
         ].map((ev) => (
-          <div class="event-card glass-card rounded-xl p-5 sm:p-6 flex flex-col justify-between group relative overflow-hidden" style={`border-color:rgba(224,184,79,0.15);`}>
+          <div class="event-card glass-card rounded-xl p-5 sm:p-6 flex flex-col justify-between group relative overflow-hidden" style="border: 1px solid rgba(212,175,55,0.25);">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="px-3 py-1 rounded-full text-[9px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold" style={`background:${ev.color}20;color:${ev.color};`}>{ev.num} · {ev.name}</span>
+                <span class="px-3 py-1 rounded-full text-[9px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold" style={`background:${ev.color}15;color:${ev.color};`}>{ev.num} · {ev.name}</span>
                 <div class="flex items-center" set:html={ev.svg}></div>
               </div>
-              <h3 class="font-['Playfair_Display'] text-[#E4E0F7] text-lg font-medium mb-2">{ev.title}</h3>
-              <p class="font-['Montserrat'] text-[#D1C5B1] text-xs leading-relaxed mb-4 font-light">{ev.desc}</p>
+              <h3 class="font-['Playfair_Display'] text-[#261E19] text-lg font-medium mb-2">{ev.title}</h3>
+              <p class="font-['Montserrat'] text-[#5C4D42] text-xs leading-relaxed mb-4 font-light">{ev.desc}</p>
               <div class="space-y-1.5 mb-4">
-                <div class="flex items-center gap-2 text-xs text-[#D1C5B1]">
+                <div class="flex items-center gap-2 text-xs text-[#5C4D42]">
                   <svg class="w-3.5 h-3.5 flex-shrink-0" style={`color:${ev.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                   <span>{ev.date}</span>
                 </div>
-                <div class="flex items-center gap-2 text-xs text-[#D1C5B1]">
+                <div class="flex items-center gap-2 text-xs text-[#5C4D42]">
                   <svg class="w-3.5 h-3.5 flex-shrink-0" style={`color:${ev.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                   <span>{ev.time}</span>
                 </div>
-                <div class="flex items-center gap-2 text-xs text-[#D1C5B1]">
+                <div class="flex items-center gap-2 text-xs text-[#5C4D42]">
                   <svg class="w-3.5 h-3.5 flex-shrink-0" style={`color:${ev.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                   <span>{ev.venue}</span>
                 </div>
               </div>
             </div>
             <div>
-              <div class="flex items-center justify-between px-3 py-2 rounded-lg mb-3" style="background:rgba(11,10,26,0.5);">
-                <span class="text-[9px] tracking-[0.1em] uppercase font-['Montserrat'] text-[#D1C5B1]">Dress Code</span>
+              <div class="flex items-center justify-between px-3 py-2 rounded-lg mb-3" style="background:rgba(247,241,232,0.85);border:1px solid rgba(212,175,55,0.18);">
+                <span class="text-[9px] tracking-[0.1em] uppercase font-['Montserrat'] text-[#6E5F55]">Dress Code</span>
                 <span class="text-[9px] font-semibold font-['Montserrat']" style={`color:${ev.color}`}>{ev.dress}</span>
               </div>
-              <button class="w-full py-2.5 rounded-full text-[9px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold transition-all duration-300 ripple-btn" style={`border:1px solid ${ev.color}40;color:${ev.color};background:${ev.color}10;`} onmouseover={`this.style.background='${ev.color}';this.style.color='#251A00'`} onmouseout={`this.style.background='${ev.color}10';this.style.color='${ev.color}'`}>
+              <button class="w-full py-2.5 rounded-full text-[9px] tracking-[0.15em] uppercase font-['Montserrat'] font-semibold transition-all duration-300 ripple-btn" style={`border:1px solid ${ev.color}80;color:${ev.color};background:${ev.color}15;`} onmouseover={`this.style.background='${ev.color}';this.style.color='#FFFFFF'`} onmouseout={`this.style.background='${ev.color}15';this.style.color='${ev.color}'`}>
                 Add to Schedule ✦
               </button>
             </div>
@@ -479,47 +475,47 @@ import Layout from '../layouts/Layout.astro';
         ))}
 
         <!-- Main Wedding Card (wide) -->
-        <div class="md:col-span-2 lg:col-span-2 glass-card rounded-xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group" style="border:1px solid rgba(224,184,79,0.35);background:linear-gradient(135deg,rgba(18,14,38,0.85),rgba(59,10,30,0.3));">
-          <div class="absolute top-0 right-0 w-48 h-48 rounded-bl-full pointer-events-none" style="background:rgba(224,184,79,0.06);"></div>
+        <div class="md:col-span-2 lg:col-span-2 glass-card rounded-xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group" style="border:1px solid rgba(212,175,55,0.45);background:linear-gradient(135deg,rgba(255,255,255,0.95),rgba(255,246,242,0.92));box-shadow:0 10px 35px rgba(180,150,120,0.18);">
+          <div class="absolute top-0 right-0 w-48 h-48 rounded-bl-full pointer-events-none" style="background:rgba(212,175,55,0.06);"></div>
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold" style="background:#E0B84F;color:#251A00;">04 · The Auspicious Vivah ✦</span>
-              <svg class="w-7 h-7 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="animation:pulse 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(254,212,103,0.5));">
+              <span class="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold" style="background:#D4AF37;color:#FFFFFF;">04 · The Auspicious Vivah ✦</span>
+              <svg class="w-7 h-7 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="animation:pulse 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(212,175,55,0.4));">
                 <circle cx="12" cy="14" r="7"></circle>
-                <polygon points="12 3 9 7 15 7 12 3" fill="#FED467"></polygon>
+                <polygon points="12 3 9 7 15 7 12 3" fill="#D4AF37"></polygon>
               </svg>
             </div>
-            <h3 class="font-['Playfair_Display'] text-[#FED467] text-xl sm:text-2xl font-semibold mb-2">The Royal Wedding: Saat Phere &amp; Varmala</h3>
-            <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs sm:text-sm mb-6 max-w-xl">The sacred Vedic marriage ceremony, royal Baraat procession, garland exchange, and holy circumambulation around the consecrated sacred fire.</p>
+            <h3 class="font-['Playfair_Display'] text-[#7A1C30] text-xl sm:text-2xl font-semibold mb-2">The Royal Wedding: Saat Phere &amp; Varmala</h3>
+            <p class="font-['Montserrat'] font-light text-[#5C4D42] text-xs sm:text-sm mb-6 max-w-xl">The sacred Vedic marriage ceremony, royal Baraat procession, garland exchange, and holy circumambulation around the consecrated sacred fire.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
               <div class="space-y-2">
-                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#D1C5B1]">
-                  <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                  <span class="font-medium">Friday, 11th December 2026</span>
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#261E19]">
+                  <svg class="w-4 h-4 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span class="font-semibold">Friday, 11th December 2026</span>
                 </div>
-                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#D1C5B1]">
-                  <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"></circle><path d="M10 22v-6l-2-2v-4l4-2 4 2v4l-2 2v6"></path></svg>
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#5C4D42]">
+                  <svg class="w-4 h-4 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"></circle><path d="M10 22v-6l-2-2v-4l4-2 4 2v4l-2 2v6"></path></svg>
                   <span>Baraat Procession: 06:00 PM IST</span>
                 </div>
               </div>
               <div class="space-y-2">
-                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#D1C5B1]">
-                  <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#5C4D42]">
+                  <svg class="w-4 h-4 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                   <span>Saat Phere: 07:00 PM IST (Muhurat)</span>
                 </div>
-                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#D1C5B1]">
-                  <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span class="font-medium">Grand Rajwada Mandap, Dugda, Bokaro</span>
+                <div class="flex items-center gap-2 text-xs sm:text-sm text-[#261E19]">
+                  <svg class="w-4 h-4 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span class="font-semibold">Grand Rajwada Mandap, Dugda, Bokaro</span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="pt-4 border-t border-[#E0B84F]/20 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div class="pt-4 border-t border-[#D4AF37]/25 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div class="flex items-center gap-2.5 sm:gap-3">
-              <span class="text-[9px] uppercase tracking-[0.1em] font-['Montserrat'] text-[#D1C5B1]">Dress Code:</span>
-              <span class="px-2.5 sm:px-3 py-1 rounded-full text-[9px] font-semibold font-['Montserrat']" style="background:rgba(113,54,74,0.4);color:#FFB1C7;">Traditional Silks &amp; Royal Burgundy</span>
+              <span class="text-[9px] uppercase tracking-[0.1em] font-['Montserrat'] text-[#6E5F55]">Dress Code:</span>
+              <span class="px-2.5 sm:px-3 py-1 rounded-full text-[9px] font-semibold font-['Montserrat']" style="background:rgba(219,103,137,0.15);color:#A62C4E;">Traditional Silks &amp; Royal Burgundy</span>
             </div>
-            <a href="#rsvp" class="w-full sm:w-auto text-center px-6 py-2.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;box-shadow:0 0 20px rgba(224,184,79,0.4);">
+            <a href="#rsvp" class="w-full sm:w-auto text-center px-6 py-2.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden" style="background:linear-gradient(135deg,#D4AF37,#B8860B,#996515);color:#FFFFFF;box-shadow:0 4px 20px rgba(184,134,11,0.3);">
               Witness The Vows ✦
             </a>
           </div>
@@ -529,71 +525,71 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- ========== VENUE ========== -->
-  <section id="venue" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(13,12,28,0.5);">
+  <section id="venue" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(245,239,230,0.6);">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10 sm:mb-16">
         <p class="section-tag mb-2">Destination &amp; Hospitality</p>
         <h2 class="section-title">The Royal Venue · Dugda, Bokaro</h2>
-        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-lg mx-auto">Convenient travel directions and luxury hospitality arranged for all esteemed guests.</p>
+        <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-lg mx-auto">Convenient travel directions and luxury hospitality arranged for all esteemed guests.</p>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         <div class="lg:col-span-7 flex flex-col gap-4">
-          <div class="w-full rounded-2xl overflow-hidden shadow-2xl relative h-72 sm:h-96" style="border:1px solid rgba(224,184,79,0.2);">
+          <div class="w-full rounded-2xl overflow-hidden shadow-xl relative h-72 sm:h-96" style="border:1px solid rgba(212,175,55,0.35);">
             <iframe
               src="https://maps.google.com/maps?q=Dugda,+Bokaro,+Jharkhand&z=14&output=embed"
               width="100%"
               height="100%"
-              style="border:0;filter:invert(90%) hue-rotate(180deg);"
+              style="border:0;filter:contrast(102%) brightness(98%);"
               allowfullscreen
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               title="Wedding Venue Location"
             ></iframe>
-            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top,rgba(11,10,26,0.6),transparent 50%);"></div>
-            <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3.5 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style="background:rgba(11,10,26,0.9);backdrop-filter:blur(12px);border:1px solid rgba(224,184,79,0.25);">
+            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top,rgba(250,246,238,0.4),transparent 50%);"></div>
+            <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3.5 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style="background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border:1px solid rgba(212,175,55,0.35);box-shadow:0 8px 24px rgba(180,150,120,0.12);">
               <div class="flex-1 min-w-0">
-                <p class="font-['Playfair_Display'] text-[#FED467] font-semibold text-sm sm:text-base">Rajwada Palace &amp; Grounds</p>
-                <p class="font-['Montserrat'] text-[#D1C5B1] text-[11px] sm:text-xs mt-0.5 truncate sm:whitespace-normal">Main Road, Dugda, Bokaro, Jharkhand - 828404</p>
+                <p class="font-['Playfair_Display'] text-[#261E19] font-semibold text-sm sm:text-base">Rajwada Palace &amp; Grounds</p>
+                <p class="font-['Montserrat'] text-[#5C4D42] text-[11px] sm:text-xs mt-0.5 truncate sm:whitespace-normal">Main Road, Dugda, Bokaro, Jharkhand - 828404</p>
               </div>
-              <a href="https://maps.google.com/maps?q=Dugda,+Bokaro,+Jharkhand" target="_blank" rel="noopener noreferrer" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform hover:scale-110 ripple-btn magnetic-btn flex-shrink-0 self-end sm:self-center" style="background:#E0B84F;color:#251A00;" aria-label="Open in Google Maps">
-                <svg class="w-5 h-5 text-[#251A00]" viewBox="0 0 24 24" fill="currentColor">
+              <a href="https://maps.google.com/maps?q=Dugda,+Bokaro,+Jharkhand" target="_blank" rel="noopener noreferrer" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform hover:scale-110 ripple-btn magnetic-btn flex-shrink-0 self-end sm:self-center" style="background:#D4AF37;color:#FFFFFF;box-shadow:0 4px 15px rgba(184,134,11,0.3);" aria-label="Open in Google Maps">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
               </a>
             </div>
           </div>
-          <div class="p-3.5 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style="background:rgba(31,30,47,0.6);border:1px solid rgba(224,184,79,0.15);">
+          <div class="p-3.5 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style="background:rgba(255,255,255,0.9);border:1px solid rgba(212,175,55,0.3);box-shadow:0 4px 16px rgba(180,150,120,0.08);">
             <div class="flex items-center gap-3">
-              <svg class="w-5 h-5 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <svg class="w-5 h-5 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               <div>
-                <p class="font-['Montserrat'] text-[10px] tracking-[0.15em] uppercase text-[#E0B84F]">Hospitality Helpdesk</p>
-                <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs">+91 98765 43210 · +91 91234 56789</p>
+                <p class="font-['Montserrat'] text-[10px] tracking-[0.15em] uppercase text-[#8C6219] font-semibold">Hospitality Helpdesk</p>
+                <p class="font-['Montserrat'] font-light text-[#261E19] text-xs">+91 98765 43210 · +91 91234 56789</p>
               </div>
             </div>
-            <span class="px-3 py-1 rounded-full text-[9px] uppercase tracking-wider font-['Montserrat'] self-start sm:self-auto" style="background:rgba(11,10,26,0.5);color:#D1C5B1;border:1px solid rgba(224,184,79,0.15);">24/7 Concierge</span>
+            <span class="px-3 py-1 rounded-full text-[9px] uppercase tracking-wider font-['Montserrat'] self-start sm:self-auto font-medium" style="background:rgba(247,241,232,0.9);color:#6E5F55;border:1px solid rgba(212,175,55,0.25);">24/7 Concierge</span>
           </div>
         </div>
         <div class="lg:col-span-5 space-y-3 sm:space-y-4">
           {[
             {
-              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#FED467] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 20.5 3c-1-1-3-.5-4.5 1L12.5 7.5 4.3 5.7c-.5-.1-.9.1-1.2.4l-.8.8c-.4.4-.3 1.1.2 1.4l5.5 3.3L5 15l-2.5-.5c-.4-.1-.8.1-1 .4l-.4.4c-.3.3-.2.8.2 1l2.5 1.5 1.5 2.5c.2.4.7.5 1 .2l.4-.4c.3-.2.5-.6.4-1L6.6 17l3.4-3 3.3 5.5c.3.5 1 .6 1.4.2l.8-.8c.3-.3.5-.7.4-1.2l-1.8-8.2z"/></svg>',
+              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 20.5 3c-1-1-3-.5-4.5 1L12.5 7.5 4.3 5.7c-.5-.1-.9.1-1.2.4l-.8.8c-.4.4-.3 1.1.2 1.4l5.5 3.3L5 15l-2.5-.5c-.4-.1-.8.1-1 .4l-.4.4c-.3.3-.2.8.2 1l2.5 1.5 1.5 2.5c.2.4.7.5 1 .2l.4-.4c.3-.2.5-.6.4-1L6.6 17l3.4-3 3.3 5.5c.3.5 1 .6 1.4.2l.8-.8c.3-.3.5-.7.4-1.2l-1.8-8.2z"/></svg>',
               title:'By Flight',desc:'Nearest hub is Kazi Nazrul Islam Airport (Durgapur, ~75 km) and Birsa Munda Airport (Ranchi, ~120 km). Royal shuttle cabs available upon RSVP request.'
             },
             {
-              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#FED467] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"></rect><path d="M4 11h16"></path><path d="M12 3v8"></path><circle cx="8" cy="15" r="1"></circle><circle cx="16" cy="15" r="1"></circle><path d="M6 19l-2 2"></path><path d="M18 19l2 2"></path></svg>',
+              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"></rect><path d="M4 11h16"></path><path d="M12 3v8"></path><circle cx="8" cy="15" r="1"></circle><circle cx="16" cy="15" r="1"></circle><path d="M6 19l-2 2"></path><path d="M18 19l2 2"></path></svg>',
               title:'By Train',desc:'Direct express connectivity via Bokaro Steel City (BKSC) and Dhanbad Junction (DHN). Dedicated reception chauffeurs stationed at arrivals.'
             },
             {
-              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#FED467] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path><path d="M9 7h1"></path><path d="M9 11h1"></path><path d="M9 15h1"></path><path d="M14 7h1"></path><path d="M14 11h1"></path><path d="M14 15h1"></path></svg>',
+              svg:'<svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path><path d="M9 7h1"></path><path d="M9 11h1"></path><path d="M9 15h1"></path><path d="M14 7h1"></path><path d="M14 11h1"></path><path d="M14 15h1"></path></svg>',
               title:'Accommodations',desc:'Complimentary suites reserved at Hotel Rajwada & Royal Residency Suites, Bokaro. Check-in assistance available.'
             },
           ].map(t => (
             <div class="p-5 sm:p-6 rounded-xl glass-card">
               <div class="flex items-center gap-3 mb-2.5 sm:mb-3">
                 <div class="flex items-center" set:html={t.svg}></div>
-                <h3 class="font-['Playfair_Display'] text-[#E4E0F7] text-base sm:text-lg font-semibold">{t.title}</h3>
+                <h3 class="font-['Playfair_Display'] text-[#261E19] text-base sm:text-lg font-semibold">{t.title}</h3>
               </div>
-              <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs leading-relaxed" set:html={t.desc}></p>
+              <p class="font-['Montserrat'] font-light text-[#5C4D42] text-xs leading-relaxed" set:html={t.desc}></p>
             </div>
           ))}
         </div>
@@ -607,74 +603,74 @@ import Layout from '../layouts/Layout.astro';
       <div class="text-center mb-10 sm:mb-16">
         <p class="section-tag mb-2">Captured Moments</p>
         <h2 class="section-title">Cinematic Royal Gallery</h2>
-        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-md mx-auto">Vignettes of timeless affection, royal portraits, and golden laughter.</p>
+        <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-md mx-auto">Vignettes of timeless affection, royal portraits, and golden laughter.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
         {[
-          {label:'Royal Splendour',sub:'Auspicious Grace & Tradition',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/memories/cc7f98dcb558f7d4f05efb9cc798a047.jpg',color:'#FED467'},
-          {label:'Cherished Gaze',sub:'Whispers of Eternity',col:'col-span-1 h-64 sm:h-80',img:'/memories/bd9fd23d5c1011c8b5705e4edbbbec45.jpg',color:'#FFB1C7'},
-          {label:'Golden Twilight',sub:'Timeless Pre-Wedding Moments',col:'col-span-1 h-64 sm:h-80',img:'/memories/e285f4072a66959a4ac997041a145c6a.jpg',color:'#FED467'},
-          {label:'Soulful Radiance',sub:'Joyful Courtyard Serenade',col:'col-span-1 h-64 sm:h-80',img:'/memories/69dad278c9429aecc1134a09a8c1174e.jpg',color:'#FFB1C7'},
-          {label:'Sacred Togetherness',sub:'Palace Garden Reverie',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/memories/55bb27790893c4c7dc4499806a76d4d3.jpg',color:'#FED467'},
-          {label:'Pure Bliss',sub:'Unscripted Festive Harmony',col:'col-span-1 h-64 sm:h-80',img:'/memories/24f400fef8883f79fbc2ce3b7f9cc4dc.jpg',color:'#FFB1C7'},
-          {label:'Endless Laughter',sub:'Cherished Festive Feasts',col:'col-span-1 h-64 sm:h-80',img:'/memories/268c82ee4b857fdee4525f5c0afeb094.jpg',color:'#FED467'},
-          {label:'Sacred Vows',sub:'Destinies Entwined Forever',col:'col-span-1 h-64 sm:h-80',img:'/memories/1895d267590687463755e06e95b1a3c2.jpg',color:'#FFB1C7'},
+          {label:'Royal Splendour',sub:'Auspicious Grace & Tradition',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/memories/cc7f98dcb558f7d4f05efb9cc798a047.jpg',color:'#8C6219'},
+          {label:'Cherished Gaze',sub:'Whispers of Eternity',col:'col-span-1 h-64 sm:h-80',img:'/memories/bd9fd23d5c1011c8b5705e4edbbbec45.jpg',color:'#A62C4E'},
+          {label:'Golden Twilight',sub:'Timeless Pre-Wedding Moments',col:'col-span-1 h-64 sm:h-80',img:'/memories/e285f4072a66959a4ac997041a145c6a.jpg',color:'#8C6219'},
+          {label:'Soulful Radiance',sub:'Joyful Courtyard Serenade',col:'col-span-1 h-64 sm:h-80',img:'/memories/69dad278c9429aecc1134a09a8c1174e.jpg',color:'#A62C4E'},
+          {label:'Sacred Togetherness',sub:'Palace Garden Reverie',col:'col-span-1 md:col-span-2 lg:col-span-2 h-64 sm:h-80',img:'/memories/55bb27790893c4c7dc4499806a76d4d3.jpg',color:'#8C6219'},
+          {label:'Pure Bliss',sub:'Unscripted Festive Harmony',col:'col-span-1 h-64 sm:h-80',img:'/memories/24f400fef8883f79fbc2ce3b7f9cc4dc.jpg',color:'#A62C4E'},
+          {label:'Endless Laughter',sub:'Cherished Festive Feasts',col:'col-span-1 h-64 sm:h-80',img:'/memories/268c82ee4b857fdee4525f5c0afeb094.jpg',color:'#8C6219'},
+          {label:'Sacred Vows',sub:'Destinies Entwined Forever',col:'col-span-1 h-64 sm:h-80',img:'/memories/1895d267590687463755e06e95b1a3c2.jpg',color:'#A62C4E'},
         ].map((g, idx) => (
-          <div class={`${g.col} rounded-2xl overflow-hidden shadow-2xl relative group cursor-pointer gallery-item`} data-src={g.img} data-title={g.label} data-sub={g.sub} style="background:rgba(31,30,47,0.6);border:1px solid rgba(224,184,79,0.2);">
+          <div class={`${g.col} rounded-2xl overflow-hidden shadow-xl relative group cursor-pointer gallery-item`} data-src={g.img} data-title={g.label} data-sub={g.sub} style="background:rgba(255,255,255,0.9);border:1px solid rgba(212,175,55,0.28);">
             <img src={g.img} alt={g.label} class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A]/90 via-[#0B0A1A]/30 to-transparent p-4 sm:p-6 flex flex-col justify-end transition-opacity duration-300">
-              <span class="font-['Playfair_Display'] font-semibold text-base sm:text-lg text-white group-hover:text-[#FED467] transition-colors">{g.label}</span>
-              <span class="font-['Montserrat'] text-[#D1C5B1] text-[11px] sm:text-xs mt-0.5 sm:mt-1">{g.sub}</span>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent p-4 sm:p-6 flex flex-col justify-end transition-opacity duration-300">
+              <span class="font-['Playfair_Display'] font-semibold text-base sm:text-lg text-white group-hover:text-[#F4E3B5] transition-colors">{g.label}</span>
+              <span class="font-['Montserrat'] text-[#E0D5C7] text-[11px] sm:text-xs mt-0.5 sm:mt-1">{g.sub}</span>
             </div>
             <!-- Gold shine shimmer on hover -->
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" style="background:linear-gradient(135deg,transparent 40%,rgba(224,184,79,0.14) 60%,transparent 80%);"></div>
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" style="background:linear-gradient(135deg,transparent 40%,rgba(212,175,55,0.18) 60%,transparent 80%);"></div>
           </div>
         ))}
       </div>
     </div>
 
     <!-- Gallery Lightbox Modal -->
-    <div id="gallery-lightbox" class="fixed inset-0 z-[10001] bg-[#0B0A1A]/95 backdrop-blur-xl hidden flex-col items-center justify-center p-4 sm:p-6">
-      <button id="lightbox-close" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-[#E0B84F] hover:text-[#FED467] w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/5 border border-[#E0B84F]/30 transition-transform hover:scale-110" aria-label="Close Lightbox">
-        <svg class="w-5 h-5 text-[#E0B84F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    <div id="gallery-lightbox" class="fixed inset-0 z-[10001] bg-[#FAF6EE]/96 backdrop-blur-xl hidden flex-col items-center justify-center p-4 sm:p-6">
+      <button id="lightbox-close" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-[#8C6219] hover:text-[#261E19] w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/90 border border-[#D4AF37]/40 shadow-md transition-transform hover:scale-110" aria-label="Close Lightbox">
+        <svg class="w-5 h-5 text-[#8C6219]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
       <div class="max-w-4xl max-h-[85vh] flex flex-col items-center">
-        <img id="lightbox-img" src="" alt="Gallery Preview" class="max-h-[60vh] sm:max-h-[70vh] max-w-[92vw] w-auto rounded-xl shadow-2xl border border-[#E0B84F]/40 object-contain" />
+        <img id="lightbox-img" src="" alt="Gallery Preview" class="max-h-[60vh] sm:max-h-[70vh] max-w-[92vw] w-auto rounded-xl shadow-2xl border border-[#D4AF37]/50 object-contain" />
         <div class="mt-3 sm:mt-4 text-center px-4">
-          <p id="lightbox-title" class="font-['Playfair_Display'] text-[#FED467] text-xl sm:text-2xl font-semibold"></p>
-          <p id="lightbox-sub" class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-1"></p>
+          <p id="lightbox-title" class="font-['Playfair_Display'] text-[#261E19] text-xl sm:text-2xl font-semibold"></p>
+          <p id="lightbox-sub" class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-1"></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ========== RSVP ========== -->
-  <section id="rsvp" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(13,12,28,0.4);">
+  <section id="rsvp" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="background:rgba(247,242,234,0.6);">
     <div class="max-w-3xl mx-auto glass-card rounded-2xl p-5 sm:p-10 md:p-14 relative overflow-hidden">
-      <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none" style="background:rgba(224,184,79,0.06);filter:blur(60px);"></div>
+      <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none" style="background:rgba(212,175,55,0.06);filter:blur(60px);"></div>
       <div class="text-center mb-8 sm:mb-10">
-        <div class="w-14 h-14 mx-auto mb-3 p-1 rounded-full bg-[#1F1E2F]/80 border border-[#E0B84F]/40 shadow-md flex items-center justify-center">
-          <img src="/images/seal.png" alt="Royal Wedding Seal" class="w-12 h-12 object-contain" />
+        <div class="w-14 h-14 mx-auto mb-3 p-1 rounded-full bg-white/90 border border-[#D4AF37]/40 shadow-sm flex items-center justify-center overflow-hidden">
+          <img src="/images/seal.png" alt="Royal Wedding Seal" class="w-full h-full object-cover" />
         </div>
         <p class="section-tag mb-2">Royal Confirmation</p>
         <h2 class="section-title">RSVP · Honour Us With Your Presence</h2>
-        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3">Kindly respond by <strong class="text-[#E0B84F]">15th November 2026</strong> to ensure personalized royal hospitality.</p>
+        <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3">Kindly respond by <strong class="text-[#8C6219]">15th November 2026</strong> to ensure personalized royal hospitality.</p>
       </div>
       <form id="rsvp-form" class="space-y-5 sm:space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           <div class="relative floating-label-wrap">
-            <input id="rsvp-name" type="text" placeholder=" " required class="w-full px-4 pt-5 pb-2 rounded-xl text-sm text-[#E4E0F7] peer focus:outline-none focus:ring-1 focus:ring-[#E0B84F] transition-all" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);" />
-            <label for="rsvp-name" class="absolute top-3 left-4 text-[10px] tracking-[0.15em] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[10px]" style="color:#D1C5B1;">Full Name *</label>
+            <input id="rsvp-name" type="text" placeholder=" " required class="w-full px-4 pt-5 pb-2 rounded-xl text-sm text-[#261E19] peer focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all" style="background:rgba(255,255,255,0.95);border:1px solid rgba(212,175,55,0.35);" />
+            <label for="rsvp-name" class="absolute top-3 left-4 text-[10px] tracking-[0.15em] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[10px]" style="color:#7A6B60;">Full Name *</label>
           </div>
           <div class="relative floating-label-wrap">
-            <input id="rsvp-phone" type="tel" placeholder=" " required class="w-full px-4 pt-5 pb-2 rounded-xl text-sm text-[#E4E0F7] peer focus:outline-none focus:ring-1 focus:ring-[#E0B84F] transition-all" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);" />
-            <label for="rsvp-phone" class="absolute top-3 left-4 text-[10px] tracking-[0.15em] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[10px]" style="color:#D1C5B1;">WhatsApp Number *</label>
+            <input id="rsvp-phone" type="tel" placeholder=" " required class="w-full px-4 pt-5 pb-2 rounded-xl text-sm text-[#261E19] peer focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all" style="background:rgba(255,255,255,0.95);border:1px solid rgba(212,175,55,0.35);" />
+            <label for="rsvp-phone" class="absolute top-3 left-4 text-[10px] tracking-[0.15em] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[10px]" style="color:#7A6B60;">WhatsApp Number *</label>
           </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           <div>
-            <label class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#D1C5B1;">Number of Guests</label>
-            <select id="rsvp-guests" class="w-full px-4 py-3 rounded-xl text-sm text-[#E4E0F7] focus:outline-none focus:ring-1 focus:ring-[#E0B84F]" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);">
+            <label class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#7A6B60;">Number of Guests</label>
+            <select id="rsvp-guests" class="w-full px-4 py-3 rounded-xl text-sm text-[#261E19] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]" style="background:rgba(255,255,255,0.95);border:1px solid rgba(212,175,55,0.35);">
               <option>1 Esteemed Guest</option>
               <option>2 Guests (Couple)</option>
               <option>3 Guests (With Family)</option>
@@ -682,33 +678,33 @@ import Layout from '../layouts/Layout.astro';
             </select>
           </div>
           <div>
-            <label class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#D1C5B1;">Culinary Preference</label>
-            <select id="rsvp-food" class="w-full px-4 py-3 rounded-xl text-sm text-[#E4E0F7] focus:outline-none focus:ring-1 focus:ring-[#E0B84F]" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);">
+            <label class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#7A6B60;">Culinary Preference</label>
+            <select id="rsvp-food" class="w-full px-4 py-3 rounded-xl text-sm text-[#261E19] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]" style="background:rgba(255,255,255,0.95);border:1px solid rgba(212,175,55,0.35);">
               <option>Royal Rajputana Pure Vegetarian</option>
-              <option>Sattvic & Jain Vegetarian</option>
+              <option>Sattvic &amp; Jain Vegetarian</option>
               <option>Imperial Mughlai Delights</option>
             </select>
           </div>
         </div>
         <div>
-          <p class="text-[10px] tracking-[0.15em] uppercase mb-2.5 sm:mb-3 font-['Montserrat']" style="color:#D1C5B1;">Ceremonies You Shall Grace</p>
+          <p class="text-[10px] tracking-[0.15em] uppercase mb-2.5 sm:mb-3 font-['Montserrat']" style="color:#7A6B60;">Ceremonies You Shall Grace</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
             {['Haldi (9 Dec)','Mehendi (9 Dec)','Sangeet (10 Dec)','Wedding (11 Dec)','Reception (12 Dec)'].map(c => (
-              <label class="flex items-center gap-2.5 p-3 rounded-xl cursor-pointer transition-all hover:border-[#E0B84F]/40" style="background:rgba(11,10,26,0.5);border:1px solid rgba(224,184,79,0.12);">
-                <input type="checkbox" checked class="w-4 h-4 rounded" style="accent-color:#E0B84F;" />
-                <span class="font-['Montserrat'] text-xs text-[#D1C5B1]">{c}</span>
+              <label class="flex items-center gap-2.5 p-3 rounded-xl cursor-pointer transition-all hover:border-[#D4AF37]/50" style="background:rgba(255,255,255,0.85);border:1px solid rgba(212,175,55,0.25);">
+                <input type="checkbox" checked class="w-4 h-4 rounded" style="accent-color:#D4AF37;" />
+                <span class="font-['Montserrat'] text-xs text-[#5C4D42]">{c}</span>
               </label>
             ))}
           </div>
         </div>
         <div>
-          <label for="rsvp-wishes" class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#D1C5B1;">Warm Wishes for Mukesh &amp; Puja</label>
-          <textarea id="rsvp-wishes" rows={3} placeholder="Pour your holy blessings, poetry, or joyful wishes here..." class="w-full px-4 py-3 rounded-xl text-sm text-[#E4E0F7] resize-none focus:outline-none focus:ring-1 focus:ring-[#E0B84F] transition-all" style="background:rgba(11,10,26,0.7);border:1px solid rgba(224,184,79,0.2);"></textarea>
+          <label for="rsvp-wishes" class="block text-[10px] tracking-[0.15em] uppercase mb-1.5 sm:mb-2 font-['Montserrat']" style="color:#7A6B60;">Warm Wishes for Mukesh &amp; Puja</label>
+          <textarea id="rsvp-wishes" rows={3} placeholder="Pour your holy blessings, poetry, or joyful wishes here..." class="w-full px-4 py-3 rounded-xl text-sm text-[#261E19] resize-none focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all" style="background:rgba(255,255,255,0.95);border:1px solid rgba(212,175,55,0.35);"></textarea>
         </div>
-        <button type="submit" id="rsvp-submit" class="w-full py-3.5 sm:py-4 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.25em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden magnetic-btn" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;box-shadow:0 0 25px rgba(224,184,79,0.35);">
+        <button type="submit" id="rsvp-submit" class="w-full py-3.5 sm:py-4 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.25em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden magnetic-btn" style="background:linear-gradient(135deg,#D4AF37,#B8860B,#996515);color:#FFFFFF;box-shadow:0 6px 25px rgba(184,134,11,0.35);">
           Confirm Royal Presence ✦
         </button>
-        <p id="rsvp-success" class="text-center font-['Montserrat'] text-xs sm:text-sm text-[#E0B84F] hidden">
+        <p id="rsvp-success" class="text-center font-['Montserrat'] text-xs sm:text-sm text-[#8C6219] font-medium hidden">
           ✦ Thank you! Your gracious response has been recorded with honor. ✦
         </p>
       </form>
@@ -721,18 +717,18 @@ import Layout from '../layouts/Layout.astro';
       <div class="text-center mb-10 sm:mb-16">
         <p class="section-tag mb-2">Sovereign Lineage</p>
         <h2 class="section-title">With The Blessings Of Our Families</h2>
-        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs sm:text-sm mt-3 max-w-md mx-auto">Whose unconditional affection and moral wisdom light our path ahead.</p>
+        <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-md mx-auto">Whose unconditional affection and moral wisdom light our path ahead.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         {[
           {
-            side:'Groom\'s Side',family:'The Ojha Family',color:'#FED467',
-            svg:'<svg class="w-6 h-6 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+            side:'Groom\'s Side',family:'The Ojha Family',color:'#8C6219',
+            svg:'<svg class="w-6 h-6 text-[#8C6219]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
             items:['Revered Grandparents: Late Shri & Smt. Ojha','Loving Parents: Smt. & Shri Ojha','Brothers & Family: Ojha Brothers & Sisters','All Relatives & Kin: Ojha Parivar, Bokaro']
           },
           {
-            side:'Bride\'s Side',family:'The Bride\'s Family',color:'#FFB1C7',
-            svg:'<svg class="w-6 h-6 text-[#FFB1C7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
+            side:'Bride\'s Side',family:'The Bride\'s Family',color:'#A62C4E',
+            svg:'<svg class="w-6 h-6 text-[#A62C4E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
             items:['Revered Elders: Shri & Smt. Senior Grandparents','Loving Parents: Smt. & Shri Family','Beloved Siblings: Sisters & Brothers','All Relatives & Well-wishers']
           },
         ].map(f => (
@@ -740,14 +736,14 @@ import Layout from '../layouts/Layout.astro';
             <div class="flex items-center gap-3 mb-5 sm:mb-6">
               <div class="flex items-center" set:html={f.svg}></div>
               <div>
-                <p class="font-['Montserrat'] text-[9px] tracking-[0.2em] uppercase" style={`color:${f.color}`}>{f.side}</p>
-                <h3 class="font-['Playfair_Display'] text-[#E4E0F7] text-lg sm:text-xl font-semibold">{f.family}</h3>
+                <p class="font-['Montserrat'] text-[9px] tracking-[0.2em] uppercase font-bold" style={`color:${f.color}`}>{f.side}</p>
+                <h3 class="font-['Playfair_Display'] text-[#261E19] text-lg sm:text-xl font-semibold">{f.family}</h3>
               </div>
             </div>
-            <p class="font-['Montserrat'] font-light text-[#D1C5B1] text-xs sm:text-sm mb-4 sm:mb-5">With eternal reverence to our esteemed ancestors and elders, welcoming you with folded hands:</p>
+            <p class="font-['Montserrat'] font-light text-[#5C4D42] text-xs sm:text-sm mb-4 sm:mb-5">With eternal reverence to our esteemed ancestors and elders, welcoming you with folded hands:</p>
             <ul class="space-y-2.5 sm:space-y-3">
               {f.items.map(item => (
-                <li class="flex items-start gap-2.5 sm:gap-3 font-['Montserrat'] text-xs sm:text-sm text-[#D1C5B1]">
+                <li class="flex items-start gap-2.5 sm:gap-3 font-['Montserrat'] text-xs sm:text-sm text-[#5C4D42]">
                   <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5" style={`background:${f.color}`}></span>
                   <span>{item}</span>
                 </li>
@@ -757,8 +753,8 @@ import Layout from '../layouts/Layout.astro';
         ))}
       </div>
       <div class="text-center mt-8 sm:mt-12 p-5 sm:p-6 rounded-2xl glass-card max-w-xl mx-auto">
-        <p class="font-['Playfair_Display'] text-[#E0B84F] italic text-base sm:text-lg">Darshanabhilashi</p>
-        <p class="font-['Montserrat'] text-[#D1C5B1] text-xs mt-1.5">All near, dear relatives & friends of Ojha & Family Parivar.</p>
+        <p class="font-['Playfair_Display'] text-[#8C6219] italic text-base sm:text-lg font-semibold">Darshanabhilashi</p>
+        <p class="font-['Montserrat'] text-[#5C4D42] text-xs mt-1.5">All near, dear relatives &amp; friends of Ojha &amp; Family Parivar.</p>
       </div>
     </div>
   </section>
@@ -767,53 +763,56 @@ import Layout from '../layouts/Layout.astro';
   <section class="py-16 sm:py-24 px-4 sm:px-6 text-center relative reveal-section">
     <div class="max-w-3xl mx-auto">
       <p class="section-tag mb-4 sm:mb-6">Celebrate Our Union Online</p>
-      <div id="copy-hashtag" class="inline-flex items-center gap-2.5 sm:gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-full cursor-pointer transition-all duration-300 hover:shadow-[0_0_30px_rgba(224,184,79,0.4)] mb-6 sm:mb-8" style="background:rgba(31,30,47,0.7);border:1px solid rgba(224,184,79,0.25);">
-        <span class="font-['Playfair_Display'] font-bold text-[#FED467] text-xl sm:text-2xl tracking-wider">#MukeshWedsPuja</span>
-        <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-        <span id="copy-toast" class="text-[#FFB1C7] text-xs hidden">Copied!</span>
+      <div id="copy-hashtag" class="inline-flex items-center gap-2.5 sm:gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-full cursor-pointer transition-all duration-300 hover:shadow-[0_4px_25px_rgba(180,150,120,0.25)] mb-6 sm:mb-8" style="background:rgba(255,255,255,0.92);border:1px solid rgba(212,175,55,0.4);box-shadow:0 4px 20px rgba(180,150,120,0.15);">
+        <span class="font-['Playfair_Display'] font-bold text-[#8C6219] text-xl sm:text-2xl tracking-wider">#MukeshWedsPuja</span>
+        <svg class="w-4 h-4 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        <span id="copy-toast" class="text-[#A62C4E] text-xs font-semibold hidden">Copied!</span>
       </div>
-      <p class="font-['Montserrat'] font-light text-[#D1C5B1] max-w-xl mx-auto mb-8 sm:mb-10 text-xs sm:text-sm leading-relaxed px-2">Share your lovely photographs, heartfelt stories, and ceremonial greetings across social media using our official royal wedding hashtag.</p>
+      <p class="font-['Montserrat'] font-light text-[#5C4D42] max-w-xl mx-auto mb-8 sm:mb-10 text-xs sm:text-sm leading-relaxed px-2">Share your lovely photographs, heartfelt stories, and ceremonial greetings across social media using our official royal wedding hashtag.</p>
       <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
-        <a id="wa-share-bottom" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%2C%20Bokaro%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase font-semibold transition-all hover:opacity-90 ripple-btn magnetic-btn flex items-center justify-center gap-2" style="background:rgba(37,99,40,0.6);border:1px solid rgba(37,211,102,0.3);color:#25d366;">
+        <a id="wa-share-bottom" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%2C%20Bokaro%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase font-semibold transition-all hover:opacity-90 ripple-btn magnetic-btn flex items-center justify-center gap-2" style="background:#25D366;border:1px solid #22c55e;color:#FFFFFF;box-shadow:0 4px 15px rgba(37,211,102,0.25);">
           <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
           <span>Share On WhatsApp</span>
         </a>
-        <button id="add-to-cal-2" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase font-semibold transition-all hover:opacity-90 ripple-btn magnetic-btn flex items-center justify-center gap-2" style="background:rgba(31,30,47,0.7);border:1px solid rgba(224,184,79,0.3);color:#E0B84F;">
+        <button id="add-to-cal-2" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase font-semibold transition-all hover:opacity-90 ripple-btn magnetic-btn flex items-center justify-center gap-2" style="background:rgba(255,255,255,0.92);border:1px solid rgba(212,175,55,0.4);color:#8C6219;box-shadow:0 4px 15px rgba(180,150,120,0.12);">
           <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
           <span>Add to Calendar</span>
         </button>
       </div>
-      <div class="mt-12 sm:mt-16 pt-6 sm:pt-8" style="border-top:1px solid rgba(224,184,79,0.1);">
-        <p class="font-['Playfair_Display'] text-[#E4E0F7] italic text-base sm:text-lg font-light px-2">"May your steps be blessed, and may your presence illuminate our celebration forever."</p>
+      <div class="mt-12 sm:mt-16 pt-6 sm:pt-8" style="border-top:1px solid rgba(212,175,55,0.2);">
+        <p class="font-['Playfair_Display'] text-[#261E19] italic text-base sm:text-lg font-normal px-2">"May your steps be blessed, and may your presence illuminate our celebration forever."</p>
       </div>
     </div>
   </section>
 
   <!-- ========== FOOTER ========== -->
-  <footer class="relative pt-12 sm:pt-16 pb-8 sm:pb-10" style="background:#0B0A1A;border-top:1px solid rgba(224,184,79,0.12);box-shadow:0 -12px 40px rgba(0,0,0,0.7);">
+  <footer class="relative pt-12 sm:pt-16 pb-8 sm:pb-10" style="background:linear-gradient(to bottom, #FAF6EE, #F2E8D8);border-top:1px solid rgba(212,175,55,0.3);box-shadow:0 -6px 30px rgba(180,150,120,0.12);">
     <!-- Floating lanterns -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       {Array.from({length: 8}).map((_, i) => (
-        <div class="absolute opacity-30 text-[#FED467]" style={`left:${10+i*12}%;bottom:0;animation:lantern-rise ${4+i}s ease-in-out infinite;animation-delay:${i*0.5}s;`}>
-          <svg class="w-5 h-5 text-[#FED467] drop-shadow-[0_0_8px_rgba(254,212,103,0.8)]" viewBox="0 0 24 24" fill="currentColor">
+        <div class="absolute opacity-30 text-[#D4AF37]" style={`left:${10+i*12}%;bottom:0;animation:lantern-rise ${4+i}s ease-in-out infinite;animation-delay:${i*0.5}s;`}>
+          <svg class="w-5 h-5 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2c-.5 2-2 4-2 6a4 4 0 0 0 8 0c0-2-1.5-4-2-6h-4zm-9 14c0 3.3 4 6 9 6s9-2.7 9-6H3z"/>
           </svg>
         </div>
       ))}
     </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full border border-[#D4AF37]/50 p-1 flex items-center justify-center bg-white shadow-md overflow-hidden">
+        <img src="/images/seal.png" alt="M&P Wedding Seal" class="w-full h-full object-cover" />
+      </div>
       <div class="flex items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
-        <div class="h-px w-16 sm:w-48" style="background:linear-gradient(90deg,transparent,#E0B84F);"></div>
-        <span class="font-['Playfair_Display'] text-[#E0B84F] text-xl sm:text-2xl">M &amp; P</span>
-        <div class="h-px w-16 sm:w-48" style="background:linear-gradient(270deg,transparent,#E0B84F);"></div>
+        <div class="h-px w-16 sm:w-48" style="background:linear-gradient(90deg,transparent,#D4AF37);"></div>
+        <span class="font-['Playfair_Display'] text-[#8C6219] font-semibold text-xl sm:text-2xl">M &amp; P</span>
+        <div class="h-px w-16 sm:w-48" style="background:linear-gradient(270deg,transparent,#D4AF37);"></div>
       </div>
       <div class="text-center space-y-2 mb-8 sm:mb-10 px-2">
-        <p class="font-['Playfair_Display'] text-[#E4E0F7] text-lg sm:text-xl font-semibold">Mukesh Ojha &amp; Puja</p>
-        <p class="font-['Montserrat'] text-[#E0B84F] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase">11th December 2026 · Dugda, Bokaro, Jharkhand</p>
-        <p class="font-['Montserrat'] font-light text-[#D1C5B1] italic text-xs sm:text-sm max-w-md mx-auto">"With the blessings of our ancestors and divine grace, we invite you to honor our auspicious royal union."</p>
-        <p class="font-['Montserrat'] text-[#FFB1C7] text-[11px] sm:text-xs tracking-widest uppercase pt-2">#MukeshWedsPuja</p>
+        <p class="font-['Playfair_Display'] text-[#261E19] text-lg sm:text-xl font-semibold">Mukesh Ojha &amp; Puja</p>
+        <p class="font-['Montserrat'] text-[#8C6219] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold">11th December 2026 · Dugda, Bokaro, Jharkhand</p>
+        <p class="font-['Montserrat'] font-light text-[#5C4D42] italic text-xs sm:text-sm max-w-md mx-auto">"With the blessings of our ancestors and divine grace, we invite you to honor our auspicious royal union."</p>
+        <p class="font-['Montserrat'] text-[#A62C4E] text-[11px] sm:text-xs tracking-widest uppercase font-semibold pt-2">#MukeshWedsPuja</p>
       </div>
-      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[#D1C5B1] text-[9px] sm:text-[10px] font-['Montserrat'] text-center sm:text-left" style="border-top:1px solid rgba(224,184,79,0.1);">
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[#7A6B60] text-[9px] sm:text-[10px] font-['Montserrat'] text-center sm:text-left" style="border-top:1px solid rgba(212,175,55,0.2);">
         <span>© 2026 The Royal Wedding of Mukesh &amp; Puja. All rights reserved.</span>
         <span>Ceremony &amp; Celebrations at Dugda, Bokaro</span>
       </div>
@@ -826,23 +825,23 @@ import Layout from '../layouts/Layout.astro';
   </audio>
 
   <!-- Scroll-to-top -->
-  <a href="#hero" id="scroll-top-btn" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 magnetic-btn ripple-btn text-sm sm:text-base" style="background:rgba(11,10,26,0.85);border:1px solid rgba(224,184,79,0.4);color:#E0B84F;backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,0.6),0 0 18px rgba(224,184,79,0.2);" aria-label="Back to top">
+  <a href="#hero" id="scroll-top-btn" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 magnetic-btn ripple-btn text-sm sm:text-base" style="background:rgba(255,255,255,0.92);border:1px solid rgba(212,175,55,0.45);color:#8C6219;backdrop-filter:blur(12px);box-shadow:0 6px 20px rgba(180,150,120,0.2);" aria-label="Back to top">
     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
   </a>
 
   <!-- Music widget -->
   <div class="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40">
-    <div id="music-widget" class="flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full" style="background:rgba(11,10,26,0.85);backdrop-filter:blur(20px);border:1px solid rgba(224,184,79,0.25);box-shadow:0 8px 32px rgba(0,0,0,0.6),0 0 16px rgba(224,184,79,0.1);">
-      <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" style="animation:pulse 2s ease-in-out infinite;">
+    <div id="music-widget" class="flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full" style="background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border:1px solid rgba(212,175,55,0.4);box-shadow:0 6px 20px rgba(180,150,120,0.2);">
+      <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" style="animation:pulse 2s ease-in-out infinite;">
         <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
       </svg>
       <div class="flex flex-col">
-        <span class="font-['Montserrat'] text-[9px] sm:text-[10px] text-[#E0B84F] tracking-widest uppercase leading-none font-semibold">Aaj Sajeya</span>
-        <span class="font-['Montserrat'] text-[7px] sm:text-[8px] text-[#D1C5B1] uppercase tracking-widest leading-none mt-0.5 hidden xs:inline">Wedding Song</span>
+        <span class="font-['Montserrat'] text-[9px] sm:text-[10px] text-[#8C6219] tracking-widest uppercase leading-none font-semibold">Aaj Sajeya</span>
+        <span class="font-['Montserrat'] text-[7px] sm:text-[8px] text-[#7A6B60] uppercase tracking-widest leading-none mt-0.5 hidden xs:inline font-medium">Wedding Song</span>
       </div>
       <div class="flex items-center gap-0.5 ml-0.5 sm:ml-1">
         {[3,4,2].map(h => (
-          <span class="w-0.5 bg-[#E0B84F] rounded-full" style={`height:${h*4}px;animation:music-bar 0.8s ease-in-out infinite alternate;`}></span>
+          <span class="w-0.5 bg-[#8C6219] rounded-full" style={`height:${h*4}px;animation:music-bar 0.8s ease-in-out infinite alternate;`}></span>
         ))}
       </div>
     </div>
@@ -932,30 +931,38 @@ import Layout from '../layouts/Layout.astro';
     triggerRevealHero();
   }
 
+  // Ambient background video element
+  const openingVideoAmbient = document.getElementById('opening-video-ambient') as HTMLVideoElement | null;
+
   const soundOnSvg = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>';
   const soundOffSvg = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
 
-  function toggleVideoSound() {
+  function setVideoAudioState(isSoundOn: boolean) {
     if (!openingVideo) return;
-    openingVideo.muted = !openingVideo.muted;
-    if (!openingVideo.muted) {
+    openingVideo.muted = !isSoundOn;
+    if (isSoundOn) {
       openingVideo.volume = 1;
-      openingVideo.play().catch(() => {});
       if (soundIcon) soundIcon.innerHTML = soundOnSvg;
-      if (soundText) soundText.textContent = 'Mute';
-      if (unmuteBadge) unmuteBadge.style.opacity = '0';
+      if (soundText) soundText.textContent = 'Sound ON';
     } else {
       if (soundIcon) soundIcon.innerHTML = soundOffSvg;
-      if (soundText) soundText.textContent = 'Unmute';
-      if (unmuteBadge) unmuteBadge.style.opacity = '1';
+      if (soundText) soundText.textContent = 'Mute';
+    }
+  }
+
+  function toggleVideoSound() {
+    if (!openingVideo) return;
+    const shouldEnableSound = openingVideo.muted;
+    setVideoAudioState(shouldEnableSound);
+    if (shouldEnableSound) {
+      openingVideo.play().catch(() => {});
     }
   }
 
   videoCard?.addEventListener('click', () => {
+    // If video is currently muted, unmute it immediately on click!
     if (openingVideo && openingVideo.muted) {
-      toggleVideoSound();
-    } else {
-      dismissIntro();
+      setVideoAudioState(true);
     }
   });
 
@@ -975,10 +982,48 @@ import Layout from '../layouts/Layout.astro';
   });
 
   if (openingVideo) {
+    // Keep unmuted by default
+    openingVideo.muted = false;
+    openingVideo.volume = 1.0;
+
+    const startPlayback = () => {
+      const playPromise = openingVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          setVideoAudioState(true);
+        }).catch(() => {
+          // If browser policy prevents unmuted autoplay before user interaction:
+          // Play muted temporarily, and unmute on the very first user gesture!
+          openingVideo.muted = true;
+          openingVideo.play().catch(() => {});
+
+          const unmuteOnFirstGesture = () => {
+            if (openingVideo && !introDismissed) {
+              setVideoAudioState(true);
+            }
+            window.removeEventListener('click', unmuteOnFirstGesture, { capture: true });
+            window.removeEventListener('touchstart', unmuteOnFirstGesture, { capture: true });
+            window.removeEventListener('pointerdown', unmuteOnFirstGesture, { capture: true });
+            window.removeEventListener('keydown', unmuteOnFirstGesture, { capture: true });
+          };
+
+          window.addEventListener('click', unmuteOnFirstGesture, { once: true, capture: true });
+          window.addEventListener('touchstart', unmuteOnFirstGesture, { once: true, capture: true });
+          window.addEventListener('pointerdown', unmuteOnFirstGesture, { once: true, capture: true });
+          window.addEventListener('keydown', unmuteOnFirstGesture, { once: true, capture: true });
+        });
+      }
+    };
+
+    startPlayback();
+
     openingVideo.addEventListener('timeupdate', () => {
       if (openingVideo.duration && videoProgressFill) {
         const pct = (openingVideo.currentTime / openingVideo.duration) * 100;
         videoProgressFill.style.width = pct + '%';
+      }
+      if (openingVideoAmbient && Math.abs(openingVideoAmbient.currentTime - openingVideo.currentTime) > 0.5) {
+        openingVideoAmbient.currentTime = openingVideo.currentTime;
       }
     });
 
@@ -987,9 +1032,6 @@ import Layout from '../layouts/Layout.astro';
         dismissIntro();
       }, 600);
     });
-
-    // Auto-play muted video immediately
-    openingVideo.play().catch(() => {});
   }
 
   // Replay envelope video from hero section
@@ -1003,10 +1045,7 @@ import Layout from '../layouts/Layout.astro';
     openingCinematic.style.display = 'flex';
     openingCinematic.style.pointerEvents = 'auto';
     openingVideo.currentTime = 0;
-    openingVideo.muted = false; // with sound!
-    if (soundIcon) soundIcon.innerHTML = soundOnSvg;
-    if (soundText) soundText.textContent = 'Mute';
-    if (unmuteBadge) unmuteBadge.style.opacity = '0';
+    setVideoAudioState(true);
     requestAnimationFrame(() => {
       openingCinematic.style.opacity = '1';
       openingCinematic.style.transform = 'scale(1)';
@@ -1048,8 +1087,8 @@ import Layout from '../layouts/Layout.astro';
   const navbar = document.getElementById('navbar');
   ScrollTrigger.create({
     start: 'top -80px',
-    onEnter: () => navbar && (navbar.style.background = 'rgba(11,10,26,0.92)', navbar.style.backdropFilter = 'blur(20px)', (navbar.style as any).borderBottom = '1px solid rgba(224,184,79,0.1)'),
-    onLeaveBack: () => navbar && (navbar.style.background = 'rgba(11,10,26,0.0)', navbar.style.backdropFilter = '', (navbar.style as any).borderBottom = ''),
+    onEnter: () => navbar && (navbar.style.background = 'rgba(255,255,255,0.92)', navbar.style.backdropFilter = 'blur(20px)', (navbar.style as any).borderBottom = '1px solid rgba(212,175,55,0.25)'),
+    onLeaveBack: () => navbar && (navbar.style.background = 'rgba(250,246,240,0.0)', navbar.style.backdropFilter = '', (navbar.style as any).borderBottom = ''),
   });
 
   // ── SCROLL-TO-TOP button ─────────────────────────────────────────
