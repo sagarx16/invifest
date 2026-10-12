@@ -51,10 +51,6 @@ import Layout from '../layouts/Layout.astro';
           </span>
           <span id="cinematic-sound-text">Sound ON</span>
         </button>
-
-        <button id="cinematic-skip-btn" class="px-4 py-1.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-['Montserrat'] font-bold transition-all hover:scale-105 active:scale-95 shadow-lg" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(16px);border:1px solid rgba(197,148,55,0.4);color:#261E19;">
-          Skip Intro →
-        </button>
       </div>
     </div>
 
@@ -1053,10 +1049,6 @@ import Layout from '../layouts/Layout.astro';
     });
   });
 
-  // Safety fallback after 12 seconds in case user never clicks or video fails
-  setTimeout(() => {
-    if (!introDismissed) dismissIntro();
-  }, 12000);
 
   function revealHero() {
     const tl = gsap.timeline();
