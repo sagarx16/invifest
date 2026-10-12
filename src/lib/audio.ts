@@ -14,15 +14,19 @@ class RoyalAudioEngine {
     if (!this.audioElement) {
       this.audioElement = new Audio(this.songUrl);
       this.audioElement.loop = true;
-      this.audioElement.volume = 0.65;
+      this.audioElement.volume = 0.85;
       this.audioElement.preload = 'auto';
 
-      // Keep playing state in sync if ended or paused externally
+      // Keep playing state in sync
       this.audioElement.addEventListener('play', () => {
         this.isPlaying = true;
       });
       this.audioElement.addEventListener('pause', () => {
         this.isPlaying = false;
+      });
+      this.audioElement.addEventListener('ended', () => {
+        // Ensure seamless looping
+        this.audioElement?.play().catch(() => {});
       });
     }
   }
@@ -36,6 +40,21 @@ class RoyalAudioEngine {
       if (onStateChange) onStateChange(true);
     }).catch(err => {
       console.warn('Audio play was prevented by browser autoplay policy:', err);
+      // Automatically retry on the very first user interaction
+      const resumeOnGesture = () => {
+        if (this.audioElement && this.audioElement.paused) {
+          this.audioElement.play().then(() => {
+            this.isPlaying = true;
+            if (onStateChange) onStateChange(true);
+          }).catch(() => {});
+        }
+        ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach(evt => {
+          window.removeEventListener(evt, resumeOnGesture);
+        });
+      };
+      ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach(evt => {
+        window.addEventListener(evt, resumeOnGesture, { once: true, passive: true });
+      });
     });
   }
 
@@ -51,6 +70,7 @@ class RoyalAudioEngine {
     this.initAudio();
     if (!this.audioElement) return false;
 
+    // Keep sound on - if paused or playing, ensure it's active
     if (this.audioElement.paused) {
       this.playSong(onStateChange);
       return true;

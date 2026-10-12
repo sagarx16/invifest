@@ -948,28 +948,38 @@ import Layout from '../layouts/Layout.astro';
 
   function toggleVideoSound() {
     if (!openingVideo) return;
-    const shouldEnableSound = openingVideo.muted;
-    setVideoAudioState(shouldEnableSound);
-    if (shouldEnableSound) {
-      openingVideo.play().catch(() => {});
-    }
+    // Always keep sound ON!
+    setVideoAudioState(true);
+    openingVideo.volume = 1.0;
+    openingVideo.play().catch(() => {});
   }
 
-  videoCard?.addEventListener('click', () => {
-    // If video is currently muted, unmute it immediately on click!
-    if (openingVideo && openingVideo.muted) {
+  // Enforce sound is always active on any interaction
+  const enforceAllSoundActive = () => {
+    if (openingVideo && !introDismissed) {
+      openingVideo.muted = false;
+      openingVideo.volume = 1.0;
       setVideoAudioState(true);
+      if (openingVideo.paused) {
+        openingVideo.play().catch(() => {});
+      }
     }
+    if (introDismissed && !royalAudio.getIsPlaying()) {
+      royalAudio.playSong((isPlaying) => updateAudioUI(isPlaying));
+    }
+  };
+
+  ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll'].forEach((evt) => {
+    window.addEventListener(evt, enforceAllSoundActive, { passive: true });
+  });
+
+  videoCard?.addEventListener('click', () => {
+    enforceAllSoundActive();
   });
 
   unmuteBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
-    toggleVideoSound();
-  });
-
-  skipBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    dismissIntro();
+    enforceAllSoundActive();
   });
 
   enterBtn?.addEventListener('click', (e) => {
@@ -989,7 +999,6 @@ import Layout from '../layouts/Layout.astro';
           setVideoAudioState(true);
         }).catch(() => {
           // If browser policy prevents unmuted autoplay before user interaction:
-          // Play muted temporarily, and unmute on the very first user gesture!
           openingVideo.muted = true;
           openingVideo.play().catch(() => {});
 
