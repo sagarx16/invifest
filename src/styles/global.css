@@ -281,18 +281,6 @@ body:has(button:hover) #cursor-dot {
   clip-path: polygon(0% 100%, 0% 30%, 5% 15%, 15% 5%, 30% 0%, 50% 0%, 70% 0%, 85% 5%, 95% 15%, 100% 30%, 100% 100%);
 }
 
-/* ========== MARQUEE ========== */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.marquee-inner {
-  display: flex;
-  width: max-content;
-  animation: marquee 20s linear infinite;
-}
-
 /* ========== DIYA FLAME ========== */
 @keyframes diya-flicker {
   0%, 100% { transform: scaleY(1) skewX(0deg); opacity: 1; }
@@ -364,6 +352,77 @@ body:has(button:hover) #cursor-dot {
   animation: shine-sweep 3s linear infinite;
 }
 
+/* ========== GOLD TEXT SHINE FLASH & PULSE GLOW (Mukesh & Puja) ========== */
+@keyframes gold-text-shine {
+  0% {
+    background-position: -200% center;
+  }
+  34% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes gold-pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 22px rgba(245, 210, 108, 0.7)) drop-shadow(0 0 35px rgba(212, 175, 55, 0.45));
+  }
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.2) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(90deg);
+  }
+}
+
+.name-shine {
+  background: linear-gradient(
+    110deg,
+    #B8860B 0%,
+    #D4AF37 20%,
+    #F3D068 38%,
+    #FFFDF5 47%,
+    #FFFFFF 50%,
+    #FFFDF5 53%,
+    #F3D068 62%,
+    #D4AF37 80%,
+    #B8860B 100%
+  ) !important;
+  background-size: 250% 100% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: gold-text-shine 3.5s ease-in-out infinite, gold-pulse-glow 3s ease-in-out infinite !important;
+  display: inline-block;
+  will-change: background-position, filter;
+}
+
+.name-sparkle {
+  position: absolute;
+  pointer-events: none;
+  animation: sparkle-twinkle 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name-shine {
+    animation: none !important;
+    background-position: 50% center !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 14px rgba(212, 175, 55, 0.5)) !important;
+  }
+  .name-sparkle {
+    display: none !important;
+  }
+}
+
 /* ========== TILT CARD ========== */
 .tilt-card {
   transform-style: preserve-3d;
@@ -423,7 +482,6 @@ html.lenis, html.lenis body {
   
   #cursor-dot, #cursor-ring { display: none; }
   body { cursor: auto; }
-  .marquee-inner { animation: none; }
   .diya-flame { animation: none; }
   .petal { display: none; }
 }
