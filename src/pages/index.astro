@@ -84,7 +84,7 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <!-- ========== FLOATING PETALS CANVAS ========== -->
-  <canvas id="petals-canvas" class="fixed inset-0 pointer-events-none z-[6]" style="opacity:0.7;"></canvas>
+  <canvas id="petals-canvas" class="fixed inset-0 pointer-events-none z-[6]" style="opacity:0.25;"></canvas>
 
   <!-- ========== THREE.JS HERO BG ========== -->
   <canvas id="hero-three" class="fixed inset-0 pointer-events-none z-[2]"></canvas>
@@ -161,144 +161,109 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <!-- ========== HERO SECTION ========== -->
-  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden pt-20">
-    <!-- Hero Royal Background Image (Mukesh & Puja) -->
+  <!-- ========== HERO SECTION ========== -->
+  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 overflow-hidden pt-24 pb-16">
+    <!-- Hero Royal Background Image (Mukesh & Puja) - Clean & Vibrant -->
     <div class="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
       <img
         src="/hero.jpg"
         alt="Mukesh & Puja Royal Portrait"
-        class="w-full h-full object-cover object-center sm:object-[center_30%] scale-105 transition-transform duration-1000"
+        class="w-full h-full object-cover object-[center_20%] sm:object-[center_28%] scale-100 transition-transform duration-1000"
       />
-      <!-- Luxury Dark Night & Royal Gold/Burgundy Tint Overlays for Royal Contrast -->
-      <div class="absolute inset-0 bg-[#0B0A1A]/70 mix-blend-multiply"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A] via-[#0B0A1A]/45 to-[#0B0A1A]/80"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-[#0B0A1A]/75 via-transparent to-[#0B0A1A]/75"></div>
-      <div class="absolute inset-0" style="background:radial-gradient(circle at 50% 45%, rgba(59,10,30,0.4) 0%, rgba(11,10,26,0.85) 80%);"></div>
+      <!-- Clean, Minimal Vignette: Soft top fade for navbar and gentle bottom fade to next section -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0B0A1A] via-transparent to-[#0B0A1A]/75 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0B0A1A]/40 via-transparent to-[#0B0A1A]/40 pointer-events-none"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(11,10,26,0.1) 0%, rgba(11,10,26,0.5) 100%);"></div>
     </div>
 
-    <!-- Parallax layers -->
-    <div class="parallax-layer absolute inset-0 z-[3]" data-depth="0.05" style="background:radial-gradient(ellipse at 50% 60%,rgba(59,10,30,0.4) 0%,transparent 70%);"></div>
-    <div class="parallax-layer absolute inset-0 z-[3]" data-depth="0.1" style="background:radial-gradient(ellipse at 30% 40%,rgba(224,184,79,0.08) 0%,transparent 60%);"></div>
-
-    <!-- Palace silhouette SVG layers -->
-    <div class="parallax-layer absolute bottom-0 left-0 right-0 z-[4]" data-depth="0.3">
-      <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" class="w-full opacity-20">
-        <path d="M0,400 L0,200 Q60,150 120,200 L120,120 Q150,80 180,120 L180,80 Q200,40 220,80 L220,120 Q250,80 280,120 L280,200 Q340,150 400,200 L400,250 Q460,200 520,250 Q580,200 640,180 Q700,160 760,180 Q820,200 880,220 Q940,200 1000,220 Q1060,200 1120,180 L1120,120 Q1150,80 1180,120 L1180,80 Q1200,40 1220,80 L1220,120 Q1250,80 1280,120 L1280,200 Q1340,150 1400,200 L1440,180 L1440,400 Z" fill="#E0B84F"/>
-      </svg>
-    </div>
-    <div class="parallax-layer absolute bottom-0 left-0 right-0 z-[4]" data-depth="0.5">
-      <svg viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" class="w-full opacity-15">
-        <path d="M0,300 L0,150 Q80,100 160,150 L160,80 Q190,40 220,80 L220,150 Q300,100 380,150 Q460,100 540,130 Q620,100 700,120 Q780,100 860,130 Q940,100 1020,120 Q1100,100 1180,130 L1180,80 Q1210,40 1240,80 L1240,150 Q1320,100 1400,150 L1440,130 L1440,300 Z" fill="#FFB1C7"/>
-      </svg>
-    </div>
-
-    <!-- Rotating Mandala SVG -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-[4]">
-      <svg id="hero-mandala" width="600" height="600" viewBox="0 0 600 600" class="opacity-10" style="animation: spin 60s linear infinite;">
-        <defs>
-          <style>@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>
-        </defs>
-        <g transform="translate(300,300)">
-          {Array.from({length: 16}).map((_, i) => (
-            <g transform={`rotate(${i * 22.5})`}>
-              <ellipse cx="0" cy="-200" rx="8" ry="40" fill="none" stroke="#E0B84F" stroke-width="0.8" opacity="0.8"/>
-              <circle cx="0" cy="-160" r="4" fill="none" stroke="#E0B84F" stroke-width="0.6" opacity="0.6"/>
-              <path d={`M0,-240 Q10,-220 0,-200 Q-10,-220 0,-240`} fill="#E0B84F" opacity="0.4"/>
-            </g>
-          ))}
-          <circle cx="0" cy="0" r="80" fill="none" stroke="#E0B84F" stroke-width="0.8" opacity="0.5"/>
-          <circle cx="0" cy="0" r="120" fill="none" stroke="#E0B84F" stroke-width="0.5" opacity="0.4" stroke-dasharray="8,8"/>
-          <circle cx="0" cy="0" r="160" fill="none" stroke="#E0B84F" stroke-width="0.4" opacity="0.3"/>
-          <circle cx="0" cy="0" r="20" fill="#E0B84F" opacity="0.15"/>
-        </g>
-      </svg>
-    </div>
-
-    <!-- Content -->
-    <div class="relative z-[8] max-w-5xl mx-auto flex flex-col items-center">
-      <div id="hero-tag" class="inline-flex items-center gap-3 px-5 py-2 rounded-full mb-8 opacity-0" style="background:rgba(31,30,47,0.6);backdrop-filter:blur(12px);border:1px solid rgba(224,184,79,0.2);">
-        <span class="text-[#E0B84F]">✦</span>
-        <span class="font-['Playfair_Display'] text-[#E0B84F] text-base tracking-widest">॥ श्री गणेशाय नमः ॥</span>
-        <span class="text-[#E0B84F]">✦</span>
+    <!-- Content: Elegant Royal Typography Floating Over The Portrait -->
+    <div class="relative z-[8] max-w-4xl mx-auto flex flex-col items-center">
+      <!-- Auspicious Invocation Pill -->
+      <div id="hero-tag" class="inline-flex items-center gap-2.5 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full mb-3 sm:mb-4 opacity-0" style="background:rgba(11,10,26,0.55);backdrop-filter:blur(16px);border:1px solid rgba(224,184,79,0.4);box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+        <span class="text-[#E0B84F] text-xs">✦</span>
+        <span class="font-['Playfair_Display'] text-[#FED467] text-xs sm:text-sm tracking-[0.25em] uppercase font-semibold">॥ श्री गणेशाय नमः ॥</span>
+        <span class="text-[#E0B84F] text-xs">✦</span>
       </div>
 
-      <p id="hero-subtitle" class="font-['Montserrat'] text-[11px] tracking-[0.35em] uppercase text-[#D1C5B1] mb-6 opacity-0">The Auspicious Wedding Of</p>
+      <p id="hero-subtitle" class="font-['Montserrat'] text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#F4E3B5] mb-3 sm:mb-5 opacity-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-medium">
+        The Auspicious Wedding Of
+      </p>
 
-      <div class="mb-4">
-        <h1 id="hero-groom" class="font-['Playfair_Display'] font-semibold leading-none text-[#FED467] opacity-0 flex justify-center flex-wrap" style="font-size:clamp(32px,7.5vw,84px);letter-spacing:0.03em;text-shadow:0 0 35px rgba(254,212,103,0.4);">
+      <!-- Royal Names -->
+      <div class="mb-3 sm:mb-5 text-center">
+        <h1 id="hero-groom" class="font-['Playfair_Display'] font-bold leading-none opacity-0 flex justify-center flex-wrap" style="font-size:clamp(36px,8vw,90px);letter-spacing:0.02em;color:#FED467;text-shadow:0 4px 24px rgba(0,0,0,0.95), 0 0 35px rgba(254,212,103,0.4);">
           {"Mukesh Ojha".split("").map((ch) => (
             <span class="hero-char-groom inline-block">{ch === " " ? "\u00A0" : ch}</span>
           ))}
         </h1>
-        <div id="hero-amp" class="flex items-center justify-center gap-3 sm:gap-6 my-2 sm:my-4 opacity-0">
-          <div class="h-px w-16 sm:w-40" style="background:linear-gradient(90deg,transparent,#E0B84F);"></div>
-          <span class="font-['Playfair_Display'] italic text-[#FFB1C7]" style="font-size:clamp(22px,3.5vw,42px);">&amp;</span>
-          <div class="h-px w-16 sm:w-40" style="background:linear-gradient(270deg,transparent,#E0B84F);"></div>
+        <div id="hero-amp" class="flex items-center justify-center gap-3 sm:gap-6 my-1.5 sm:my-2.5 opacity-0">
+          <div class="h-px w-14 sm:w-32" style="background:linear-gradient(90deg,transparent,#FED467);"></div>
+          <span class="font-['Playfair_Display'] italic text-[#FFB1C7] text-2xl sm:text-4xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">&amp;</span>
+          <div class="h-px w-14 sm:w-32" style="background:linear-gradient(270deg,transparent,#FED467);"></div>
         </div>
-        <h1 id="hero-bride" class="font-['Playfair_Display'] font-semibold leading-none text-[#FFB1C7] opacity-0 flex justify-center flex-wrap" style="font-size:clamp(32px,7.5vw,84px);letter-spacing:0.03em;text-shadow:0 0 35px rgba(255,177,199,0.4);">
+        <h1 id="hero-bride" class="font-['Playfair_Display'] font-bold leading-none opacity-0 flex justify-center flex-wrap" style="font-size:clamp(36px,8vw,90px);letter-spacing:0.02em;color:#FFB1C7;text-shadow:0 4px 24px rgba(0,0,0,0.95), 0 0 35px rgba(255,177,199,0.4);">
           {"Puja".split("").map((ch) => (
             <span class="hero-char-bride inline-block">{ch === " " ? "\u00A0" : ch}</span>
           ))}
         </h1>
       </div>
 
-      <!-- Imperial Crest Seal Badge from Stitch -->
-      <div class="w-14 h-14 sm:w-16 sm:h-16 my-2 p-1 rounded-full bg-[#1F1E2F]/80 border border-[#E0B84F]/40 shadow-xl flex items-center justify-center">
-        <img alt="Mukesh & Puja Royal Wedding Seal" class="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-[0_0_10px_rgba(254,212,103,0.5)]" src="/images/seal.png" />
-      </div>
-
-      <p id="hero-invite" class="font-['Montserrat'] font-light text-[#D1C5B1] max-w-2xl leading-relaxed mb-6 opacity-0 px-2" style="font-size:clamp(13px,1.5vw,17px);">
+      <p id="hero-invite" class="font-['Montserrat'] font-light text-[#FFFFFF] max-w-lg leading-relaxed mb-5 sm:mb-7 opacity-0 px-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]" style="font-size:clamp(12px,1.4vw,15px);">
         Cordially invite you to celebrate our sacred union amidst palatial grace, ancestral rites, and celestial splendour.
       </p>
 
-      <div id="hero-date" class="inline-flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl sm:rounded-full mb-8 sm:mb-10 opacity-0" style="background:rgba(31,30,47,0.7);border:1px solid rgba(224,184,79,0.25);">
-        <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Date & Venue Pill with Frosted Glass -->
+      <div id="hero-date" class="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-7 sm:py-3 rounded-full mb-6 sm:mb-8 opacity-0" style="background:rgba(11,10,26,0.6);backdrop-filter:blur(20px);border:1px solid rgba(224,184,79,0.35);box-shadow:0 8px 32px rgba(0,0,0,0.6);">
+        <div class="flex items-center gap-2 text-[#FED467]">
+          <svg class="w-4 h-4 text-[#FED467] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
             <line x1="16" y1="2" x2="16" y2="6"></line>
             <line x1="8" y1="2" x2="8" y2="6"></line>
             <line x1="3" y1="10" x2="21" y2="10"></line>
           </svg>
-          <span class="font-['Playfair_Display'] text-[#FED467] font-semibold text-sm sm:text-lg">Friday, 11th December 2026</span>
+          <span class="font-['Playfair_Display'] font-semibold text-sm sm:text-base tracking-wide">Friday, 11th December 2026</span>
         </div>
         <span class="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#E0B84F]"></span>
-        <span class="font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-[#D1C5B1]">Dugda, Bokaro</span>
+        <div class="flex items-center gap-1.5 text-[#D1C5B1] text-xs sm:text-sm uppercase tracking-wider font-['Montserrat']">
+          <svg class="w-3.5 h-3.5 text-[#E0B84F] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span>Dugda, Bokaro</span>
+        </div>
       </div>
 
-      <!-- Flip-Clock Countdown -->
-      <div id="countdown" class="grid grid-cols-4 gap-2 sm:gap-4 mb-8 sm:mb-10 opacity-0 max-w-xs sm:max-w-md w-full justify-items-center">
+      <!-- Modern Frosted Glass Countdown Ribbon -->
+      <div id="countdown" class="grid grid-cols-4 gap-2.5 sm:gap-4 mb-8 sm:mb-10 opacity-0 max-w-xs sm:max-w-md w-full justify-items-center">
         {['days','hours','minutes','seconds'].map(u => (
           <div class="flex flex-col items-center gap-1.5">
-            <div class="flip-clock-card" id={`cd-${u}`} style="width:clamp(56px,18vw,88px);height:clamp(70px,20vw,104px);font-size:clamp(1.4rem,4vw,2.5rem);">
+            <div class="flip-clock-card" id={`cd-${u}`} style="background:rgba(11,10,26,0.55);backdrop-filter:blur(16px);border:1px solid rgba(224,184,79,0.3);box-shadow:0 8px 30px rgba(0,0,0,0.6);width:clamp(56px,18vw,86px);height:clamp(68px,20vw,98px);font-size:clamp(1.4rem,4vw,2.4rem);">
               <span id={`cd-${u}-val`}>0</span>
             </div>
-            <span class="font-['Montserrat'] text-[8px] sm:text-[9px] tracking-[0.18em] uppercase text-[#D1C5B1]">{u}</span>
+            <span class="font-['Montserrat'] text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-[#D1C5B1] font-medium">{u}</span>
           </div>
         ))}
       </div>
 
-      <!-- CTA Buttons -->
+      <!-- Clean Action Buttons -->
       <div id="hero-ctas" class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-2xl opacity-0">
-        <a href="#events" class="w-full sm:w-auto text-center px-7 py-3 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden magnetic-btn" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;box-shadow:0 0 25px rgba(224,184,79,0.4);">
+        <a href="#events" class="w-full sm:w-auto text-center px-7 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300 ripple-btn shine-btn relative overflow-hidden magnetic-btn shadow-[0_0_25px_rgba(224,184,79,0.35)]" style="background:linear-gradient(135deg,#F4E3B5,#E0B84F,#B88E28);color:#251A00;">
           Explore Celebrations
         </a>
-        <button id="replay-envelope-btn" class="w-full sm:w-auto text-center justify-center px-6 py-3 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2" style="background:rgba(59,10,30,0.6);border:1px solid rgba(255,177,199,0.4);color:#FFB1C7;">
+        <button id="replay-envelope-btn" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-[#FFB1C7]/20" style="background:rgba(59,10,30,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,177,199,0.4);color:#FFB1C7;">
           <svg class="w-3.5 h-3.5 text-[#FFB1C7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
           <span>Replay Envelope</span>
         </button>
-        <button id="add-to-cal-btn" class="w-full sm:w-auto text-center justify-center px-7 py-3 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2" style="background:rgba(31,30,47,0.7);border:1px solid rgba(224,184,79,0.3);color:#E0B84F;">
-          <svg class="w-3.5 h-3.5 text-[#E0B84F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button id="add-to-cal-btn" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-white/10" style="background:rgba(11,10,26,0.55);backdrop-filter:blur(12px);border:1px solid rgba(224,184,79,0.35);color:#FED467;">
+          <svg class="w-3.5 h-3.5 text-[#FED467]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
             <line x1="16" y1="2" x2="16" y2="6"></line>
             <line x1="8" y1="2" x2="8" y2="6"></line>
             <line x1="3" y1="10" x2="21" y2="10"></line>
           </svg>
-          <span>Save the Date</span>
+          <span>Save The Date</span>
         </button>
-        <a id="whatsapp-share" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%2C%20Bokaro%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center justify-center px-7 py-3 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2" style="background:rgba(37,99,40,0.7);border:1px solid rgba(37,211,102,0.4);color:#25d366;">
+        <a id="whatsapp-share" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%2C%20Bokaro%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center justify-center px-6 py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 ripple-btn magnetic-btn flex items-center gap-2 hover:bg-[#25d366]/20" style="background:rgba(37,99,40,0.55);backdrop-filter:blur(12px);border:1px solid rgba(37,211,102,0.4);color:#25d366;">
           <svg class="w-3.5 h-3.5 text-[#25d366] fill-current" viewBox="0 0 24 24">
             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
           </svg>
