@@ -168,7 +168,7 @@ body:has(button:hover) #cursor-dot {
 
 /* ========== GLASS CARD ========== */
 .glass-card {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(252, 246, 237, 0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(212, 175, 55, 0.28);
@@ -245,8 +245,8 @@ body:has(button:hover) #cursor-dot {
   position: relative;
   width: 80px;
   height: 100px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(250, 242, 228, 0.75);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
   border-radius: 12px;
   display: flex;
   align-items: center;
