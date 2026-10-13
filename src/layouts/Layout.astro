@@ -10,7 +10,7 @@ export interface Props {
 
 const {
   title = 'Mukesh Weds Puja | Wedding Invitation',
-  description = 'With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih.',
+  description = 'With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih, Bokaro.',
   image = '/og-image.jpg',
   preloadImage,
 } = Astro.props;
@@ -21,7 +21,18 @@ const siteUrl = 'https://mukeshwedspuja.com';
 <!doctype html>
 <html lang="en">
   <head>
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try {
+        var isTouch = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        if (isTouch) document.documentElement.classList.add('mobile-touch');
+        var hc = navigator.hardwareConcurrency || 4;
+        var dm = navigator.deviceMemory || 4;
+        if (hc <= 4 || dm <= 4) {
+          document.documentElement.classList.add('lite');
+        }
+      } catch (e) {}
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#FAF6F0" />
@@ -57,11 +68,11 @@ const siteUrl = 'https://mukeshwedspuja.com';
         "@context": "https://schema.org",
         "@type": "Event",
         "name": "Royal Wedding of Mukesh Ojha & Puja",
-        "startDate": "2026-12-11T19:00:00+05:30",
+        "startDate": "2026-12-11T20:00:00+05:30",
         "endDate": "2026-12-12T02:00:00+05:30",
         "location": {
           "@type": "Place",
-          "name": "Grand Rajwada Mandap, Ojhadih",
+          "name": "Ojhadih, Bokaro",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Ojhadih",
@@ -80,7 +91,7 @@ const siteUrl = 'https://mukeshwedspuja.com';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -104,8 +115,6 @@ const siteUrl = 'https://mukeshwedspuja.com';
 
     <!-- Global Scripts -->
     <script>
-      import { royalAudio } from '../lib/audio';
-
       const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       // Custom Cursor - ONLY activated on fine-pointer devices (no mobile waste)
@@ -171,52 +180,81 @@ const siteUrl = 'https://mukeshwedspuja.com';
         });
       }
 
-      // Scroll Progress - throttled to rAF, passive listener
+      // Scroll Progress - throttled to rAF, scaleX transform (0 reflow)
       const progressBar = document.getElementById('scroll-progress');
       if (progressBar) {
         let ticking = false;
+        const updateProgress = () => {
+          const scrollTop = window.scrollY || window.pageYOffset || 0;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (docHeight > 0) {
+            const progress = Math.min(1, Math.max(0, scrollTop / docHeight));
+            progressBar.style.transform = `scaleX(${progress})`;
+          }
+          ticking = false;
+        };
         window.addEventListener('scroll', () => {
           if (!ticking) {
-            requestAnimationFrame(() => {
-              const scrollTop = window.scrollY;
-              const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-              if (docHeight > 0) {
-                const pct = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
-                progressBar.style.width = pct + '%';
-              }
-              ticking = false;
-            });
+            requestAnimationFrame(updateProgress);
             ticking = true;
           }
         }, { passive: true });
+        updateProgress();
       }
 
-      // Ripple effect on buttons + golden chime sound
-      document.querySelectorAll('.ripple-btn, button, .magnetic-btn').forEach(btn => {
-        btn.addEventListener('click', function(e: Event) {
-          royalAudio.playClickSound();
+      // Delegated Tap-Ripple & Press Feedback for buttons & CTAs
+      document.body.addEventListener('pointerdown', (e: PointerEvent) => {
+        const target = (e.target as HTMLElement).closest('button, .card-cta, .ripple-btn') as HTMLElement | null;
+        if (!target) return;
+        // Skip for rituals control bar to maintain zero tap latency
+        if (target.closest('.rituals-control-bar')) return;
 
-          const mouseEvent = e as MouseEvent;
-          const el = this as HTMLElement;
-          const ripple = document.createElement('span');
-          const rect = el.getBoundingClientRect();
-          const size = Math.max(rect.width, rect.height);
-          ripple.style.cssText = `
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.28);
-            width: ${size}px;
-            height: ${size}px;
-            left: ${mouseEvent.clientX - rect.left - size/2}px;
-            top: ${mouseEvent.clientY - rect.top - size/2}px;
-            transform: scale(0);
-            animation: ripple 0.6s linear;
-            pointer-events: none;
-          `;
-          el.appendChild(ripple);
-          setTimeout(() => ripple.remove(), 700);
-        });
-      });
+        // Subtle press feedback
+        target.classList.add('tap-pressed');
+        const cleanupPress = () => {
+          target.classList.remove('tap-pressed');
+          window.removeEventListener('pointerup', cleanupPress);
+          window.removeEventListener('pointercancel', cleanupPress);
+        };
+        window.addEventListener('pointerup', cleanupPress, { once: true });
+        window.addEventListener('pointercancel', cleanupPress, { once: true });
+
+        // Ripple spawn
+        const rect = target.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 1.5;
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        const ripple = document.createElement('span');
+        ripple.className = 'touch-tap-ripple';
+        ripple.style.width = `${size}px`;
+        ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        target.appendChild(ripple);
+
+        ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+        setTimeout(() => ripple.remove(), 600);
+      }, { passive: true });
+
+      // Shared Scroll-Reveal Helper (data-reveal="up|left|right|zoom")
+      const revealElements = document.querySelectorAll('[data-reveal]');
+      if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+              const delay = el.getAttribute('data-delay') || '0';
+              setTimeout(() => {
+                el.classList.add('is-revealed');
+              }, parseFloat(delay) * 1000);
+              obs.unobserve(el);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+      }
 
       // Magnetic buttons - fine pointer only with rAF throttle
       if (isFinePointer) {

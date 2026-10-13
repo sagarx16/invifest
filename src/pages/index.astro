@@ -4,12 +4,7 @@ import Layout from '../layouts/Layout.astro';
 
 import heroImg from '../assets/images/hero.jpg';
 
-const heroPreload = await getImage({
-  src: heroImg,
-  format: 'webp',
-  width: 960,
-  quality: 80,
-});
+
 import groomImg from '../assets/images/couple/groom.jpg';
 import groomDetailImg from '../assets/images/couple/groom_detail.jpg';
 import brideImg from '../assets/images/couple/bride.jpg';
@@ -179,7 +174,7 @@ const ceremonies = [
     meta: [
       { type: 'calendar', text: 'Thu, 10th Dec 2026' },
       { type: 'time', text: '10:00 AM Onwards' },
-      { type: 'venue', text: 'Royal Courtyard, Dugda, Bokaro' }
+      { type: 'venue', text: 'Dugda, Bokaro' }
     ],
     dressLabel: 'Sunny Yellow & Marigold',
     swatches: ['#F2C230', '#E8871E'],
@@ -196,7 +191,7 @@ const ceremonies = [
     meta: [
       { type: 'calendar', text: 'Thu, 10th Dec 2026' },
       { type: 'time', text: '04:00 PM Onwards' },
-      { type: 'venue', text: 'Gulab Bagh Lawn, Dugda' }
+      { type: 'venue', text: 'Dugda, Bokaro' }
     ],
     dressLabel: 'Emerald Green & Mint',
     swatches: ['#0F7A5A', '#A8E0C8'],
@@ -213,7 +208,7 @@ const ceremonies = [
     meta: [
       { type: 'calendar', text: 'Thu, 10th Dec 2026' },
       { type: 'time', text: '07:30 PM Onwards' },
-      { type: 'venue', text: 'Sheesh Mahal Ballroom, Dugda' }
+      { type: 'venue', text: 'Dugda, Bokaro' }
     ],
     dressLabel: 'Royal Navy & Gold Sparkle',
     swatches: ['#14234F', '#D4AF37'],
@@ -229,9 +224,8 @@ const ceremonies = [
     desc: 'The sacred Vedic marriage ceremony, royal Baraat procession, garland exchange, and holy circumambulation around the consecrated sacred fire.',
     meta: [
       { type: 'calendar', text: 'Friday, 11th December 2026' },
-      { type: 'procession', text: 'Baraat Procession: 06:00 PM IST' },
-      { type: 'time', text: 'Saat Phere: 07:00 PM IST (Muhurat)' },
-      { type: 'venue', text: 'Grand Rajwada Mandap, Ojhadih' }
+      { type: 'procession', text: 'Baraat Procession: 08:00 PM IST' },
+      { type: 'venue', text: 'Ojhadih, Bokaro' }
     ],
     dressLabel: 'Traditional Silks & Royal Burgundy',
     swatches: ['#7A1F2E', '#C9A24B'],
@@ -248,7 +242,7 @@ const ceremonies = [
     meta: [
       { type: 'calendar', text: 'Mon, 14th Dec 2026' },
       { type: 'time', text: '08:00 PM Onwards' },
-      { type: 'venue', text: 'Crystal Palace Gardens, Dugda' }
+      { type: 'venue', text: 'Dugda, Bokaro' }
     ],
     dressLabel: 'Black Tie & Velvet Elegance',
     swatches: ['#111111', '#5A0F1F'],
@@ -262,8 +256,7 @@ const ceremonies = [
 
 <Layout
   title="Mukesh Weds Puja | Wedding Invitation"
-  description="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih."
-  preloadImage={heroPreload.src}
+  description="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih, Bokaro."
 >
 
   <!-- ========== GRAND OPENING ENVELOPE CINEMATIC (FULL WINDOW) ========== -->
@@ -288,6 +281,7 @@ const ceremonies = [
         id="opening-video"
         playsinline
         autoplay
+        muted
         preload="metadata"
         poster="/images/video_thumb.jpg"
         class="w-full h-full object-cover sm:object-contain md:object-cover pointer-events-auto"
@@ -313,8 +307,20 @@ const ceremonies = [
         sizes="100vw"
         quality={80}
         format="webp"
-        class="w-full h-full object-cover object-[center_20%] sm:object-[center_28%] scale-100 transition-transform duration-1000"
+        class="hero-ken-burns w-full h-full object-cover object-[center_20%] sm:object-[center_28%] scale-100 transition-transform duration-1000"
       />
+    </div>
+
+    <!-- 8 Mobile & Desktop Ambient Gold Sparkles around Hero -->
+    <div class="hero-sparkles-wrap absolute inset-0 pointer-events-none z-[6] overflow-hidden">
+      <span class="hero-sparkle-dot" style="top:18%; left:12%; animation-delay:0s;">✦</span>
+      <span class="hero-sparkle-dot" style="top:26%; right:14%; animation-delay:0.8s;">✦</span>
+      <span class="hero-sparkle-dot" style="top:42%; left:8%; animation-delay:1.6s;">✦</span>
+      <span class="hero-sparkle-dot" style="top:52%; right:10%; animation-delay:0.4s;">✦</span>
+      <span class="hero-sparkle-dot" style="top:68%; left:18%; animation-delay:1.2s;">✦</span>
+      <span class="hero-sparkle-dot" style="top:74%; right:16%; animation-delay:2s;">✦</span>
+      <span class="hero-sparkle-dot" style="top:84%; left:25%; animation-delay:0.6s;">✦</span>
+      <span class="hero-sparkle-dot" style="top:88%; right:22%; animation-delay:1.4s;">✦</span>
     </div>
 
     <!-- 1. Even soft ivory vignette frame around all four sides (8-12% viewport, equal thickness in vmin) -->
@@ -332,16 +338,35 @@ const ceremonies = [
     </div>
 
     <!-- Content: Elegant Royal Typography Floating Over The Portrait -->
-    <div class="relative z-[8] max-w-4xl mx-auto flex flex-col items-center">
-      <!-- Auspicious Invocation Pill: English with Aaj Sajeya Font & Color -->
-      <div id="hero-tag" class="inline-flex items-center gap-2.5 px-6 py-2 rounded-full mb-3 sm:mb-4 opacity-0 shadow-sm" style="background:rgba(250,242,228,0.85);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.4);box-shadow:0 6px 20px rgba(160,120,70,0.12);">
+    <div class="relative z-[8] max-w-4xl mx-auto flex flex-col items-center -mt-3 sm:-mt-6">
+      <!-- Auspicious Invocation Pill: Moved higher up with Aaj Sajeya Font & Color -->
+      <div id="hero-tag" class="inline-flex items-center gap-2.5 px-5 py-1.5 sm:px-6 sm:py-2 rounded-full mb-2.5 sm:mb-3 opacity-0 shadow-sm" style="background:rgba(250,242,228,0.88);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.4);box-shadow:0 6px 20px rgba(160,120,70,0.12);">
         <span class="text-[#8C6219] text-xs">✦</span>
         <span class="font-['Montserrat'] text-[#8C6219] text-[10px] sm:text-xs tracking-widest uppercase font-semibold">Shri Ganeshaya Namah</span>
         <span class="text-[#8C6219] text-xs">✦</span>
       </div>
 
-      <!-- Subtitle Badge: Aaj Sajeya Font & Color with generous bottom margin -->
-      <div id="hero-subtitle" class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full mb-6 sm:mb-8 md:mb-9 opacity-0 shadow-xs" style="background:rgba(250,242,228,0.85);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.4);box-shadow:0 4px 16px rgba(160,120,70,0.1);">
+      <!-- Auspicious Lord Ganesha Emblem: Golden colour with 50% rounded sides (circle) -->
+      <div id="hero-ganesha" class="opacity-0 mb-2.5 sm:mb-3.5 flex items-center justify-center">
+        <div
+          class="w-[68px] h-[68px] sm:w-[82px] sm:h-[82px] md:w-[90px] md:h-[90px] p-1 sm:p-1.5 flex items-center justify-center shadow-lg transition-transform duration-500 hover:scale-105"
+          style="border-radius:50%;background:rgba(250,242,228,0.92);backdrop-filter:blur(16px);border:1.5px solid rgba(212,175,55,0.55);box-shadow:0 8px 24px rgba(160,120,70,0.2), 0 0 16px rgba(212,175,55,0.25);"
+        >
+          <img
+            src="/images/ganesha.webp"
+            alt="Lord Ganesha"
+            class="w-full h-full object-contain pointer-events-none select-none"
+            style="border-radius:50%;"
+            width="90"
+            height="90"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <!-- Subtitle Badge: Aaj Sajeya Font & Color with balanced bottom margin -->
+      <div id="hero-subtitle" class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full mb-5 sm:mb-7 md:mb-8 opacity-0 shadow-xs" style="background:rgba(250,242,228,0.85);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.4);box-shadow:0 4px 16px rgba(160,120,70,0.1);">
         <span class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-widest uppercase text-[#8C6219] font-semibold">The Auspicious Wedding Of</span>
       </div>
 
@@ -358,7 +383,7 @@ const ceremonies = [
         <!-- One-time bright flash burst on initial reveal -->
         <div class="hero-names-flash absolute inset-0 pointer-events-none rounded-full" style="background:radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(245,210,108,0.5) 45%, transparent 70%); opacity:0; filter:blur(14px);"></div>
 
-        <h1 id="hero-groom" class="font-['Great_Vibes'] opacity-0 leading-[1.1] tracking-[0.06em] sm:tracking-[0.08em] name-shine" style="font-size:clamp(54px,11vw,116px);">
+        <h1 id="hero-groom" class="opacity-0 leading-[1.1] tracking-[0.04em] sm:tracking-[0.06em] name-shine" style="font-family:'Great Vibes', cursive, serif; font-size:clamp(54px,11vw,116px);">
           Mukesh Ojha
         </h1>
         <div id="hero-amp" class="flex items-center justify-center gap-3 sm:gap-5 my-4 sm:my-6 md:my-7 opacity-0">
@@ -370,7 +395,7 @@ const ceremonies = [
           </span>
           <div class="h-px w-16 sm:w-28" style="background:linear-gradient(270deg,transparent,#D4AF37);"></div>
         </div>
-        <h1 id="hero-bride" class="font-['Great_Vibes'] opacity-0 leading-[1.1] tracking-[0.06em] sm:tracking-[0.08em] name-shine" style="font-size:clamp(54px,11vw,116px);">
+        <h1 id="hero-bride" class="opacity-0 leading-[1.1] tracking-[0.04em] sm:tracking-[0.06em] name-shine" style="font-family:'Great Vibes', cursive, serif; font-size:clamp(54px,11vw,116px);">
           Puja
         </h1>
       </div>
@@ -391,8 +416,8 @@ const ceremonies = [
       </div>
     </div>
 
-    <!-- Scroll indicator -->
-    <div id="scroll-indicator" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 z-[8]">
+    <!-- Scroll indicator with mobile gentle bounce -->
+    <div id="scroll-indicator" class="scroll-cue-bounce absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 z-[8]">
       <span class="font-['Montserrat'] text-[9px] tracking-[0.25em] uppercase text-[#A07828] font-normal">Scroll</span>
       <div class="w-0.5 h-12 relative overflow-hidden" style="background:rgba(212,175,55,0.25);">
         <div class="w-full h-1/2 absolute top-0" style="background:#D4AF37;animation:scroll-pulse 1.5s ease-in-out infinite;"></div>
@@ -412,6 +437,13 @@ const ceremonies = [
         <span class="text-[#B8860B] text-xs">✦</span>
         <span class="font-['Montserrat'] text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#A07828] font-normal">The Date</span>
         <span class="text-[#B8860B] text-xs">✦</span>
+      </div>
+
+      <!-- Animated Gold Divider -->
+      <div class="heading-divider" data-reveal="up" data-delay="0.1">
+        <span class="hd-line left"></span>
+        <span class="hd-sparkle">✦</span>
+        <span class="hd-line right"></span>
       </div>
 
       <!-- Main Title (golden & elegant serif, non-bold) -->
@@ -667,7 +699,7 @@ const ceremonies = [
     <!-- Connecting Golden Thread SVG (draws across as detail photos meet) -->
     <svg id="couple-gold-thread-svg" class="absolute inset-0 w-full h-full pointer-events-none z-15 overflow-visible" aria-hidden="true">
       <defs>
-        <linearGradient id="goldThreadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id="coupleThreadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4" />
           <stop offset="50%" stop-color="#FFF8E7" stop-opacity="1" />
           <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.4" />
@@ -680,13 +712,28 @@ const ceremonies = [
           </feMerge>
         </filter>
       </defs>
-      <path id="couple-thread-path" stroke="url(#goldThreadGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#threadGlow)" style="opacity:0;transition:opacity 0.4s ease;" />
+      <path id="couple-thread-path" stroke="url(#coupleThreadGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#threadGlow)" style="opacity:0;transition:opacity 0.4s ease;" />
     </svg>
+
+    <!-- Glowing Heart Knot at Thread Midpoint -->
+    <div id="couple-heart-knot" class="absolute pointer-events-none z-20 opacity-0 -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
+      <div class="center-heart-disc is-joined relative w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-[#FFF5F7] to-[#FFE4E8] border border-[#E07A8B]/60 shadow-lg">
+        <span class="heart-pulse-glow absolute inset-0 rounded-full bg-[#E07A8B]/30 animate-ping"></span>
+        <svg class="heart-beating-icon w-4.5 h-4.5 text-[#C43855] drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+    </div>
 
     <div class="max-w-6xl mx-auto relative z-10">
       <div class="text-center mb-12 sm:mb-16">
         <p class="section-tag mb-2">✦ The Royal Duo ✦</p>
         <h2 class="section-title">Meet The Bride &amp; Groom</h2>
+        <div class="heading-divider" data-reveal="up" data-delay="0.1">
+          <span class="hd-line left"></span>
+          <span class="hd-sparkle">✦</span>
+          <span class="hd-line right"></span>
+        </div>
         <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-md mx-auto">Two sovereign hearts woven by sacred vows, devotion, and celestial destiny.</p>
       </div>
 
@@ -704,6 +751,9 @@ const ceremonies = [
             <span class="couple-sparkle s1" style="top: 15%; left: 12%;">✦</span>
             <span class="couple-sparkle s2" style="top: 45%; right: 12%;">✦</span>
             <span class="couple-sparkle s3" style="top: 72%; left: 10%;">•</span>
+            <span class="couple-sparkle-float" style="top: 22%; right: 18%; animation-delay: 0.6s;">✦</span>
+            <span class="couple-sparkle-float" style="top: 78%; right: 14%; animation-delay: 1.5s;">✦</span>
+            <span class="couple-sparkle-float" style="top: 52%; left: 14%; animation-delay: 2.2s;">•</span>
           </div>
 
           <!-- Arch & Detail Container -->
@@ -758,7 +808,7 @@ const ceremonies = [
             <!-- Groom Detail Ring-Shaped Frame (overlapping bottom-right corner of arch, facing Bride) -->
             <div class="groom-detail-floating absolute -bottom-5 -right-5 sm:-bottom-6 sm:-right-7 z-20 group/ring"
                  title="Click / Tap to swap photo">
-              <div class="ring-ornate-frame w-22 h-22 sm:w-26 sm:h-26 rounded-full relative p-[5px] transition-transform duration-500 hover:scale-105 cursor-pointer shadow-2xl"
+              <div class="ring-ornate-frame thumb-tap-pulse w-22 h-22 sm:w-26 sm:h-26 rounded-full relative p-[5px] transition-transform duration-500 hover:scale-105 cursor-pointer shadow-2xl"
                    style="background: radial-gradient(circle at 35% 30%, #FFFDF5 0%, #D4AF37 45%, #9A7420 85%, #5E430B 100%); box-shadow: 0 10px 25px -4px rgba(0,0,0,0.35), 0 0 16px rgba(212,175,55,0.45);">
                 
                 <!-- Diamond sparkle jewel on top (12 o'clock) -->
@@ -850,6 +900,9 @@ const ceremonies = [
             <span class="couple-sparkle s1" style="top: 15%; right: 12%;">✦</span>
             <span class="couple-sparkle s2" style="top: 45%; left: 12%;">✦</span>
             <span class="couple-sparkle s3" style="top: 72%; right: 10%;">•</span>
+            <span class="couple-sparkle-float" style="top: 22%; left: 18%; animation-delay: 0.8s;">✦</span>
+            <span class="couple-sparkle-float" style="top: 78%; left: 14%; animation-delay: 1.7s;">✦</span>
+            <span class="couple-sparkle-float" style="top: 52%; right: 14%; animation-delay: 2.5s;">•</span>
           </div>
 
           <!-- Arch & Detail Container -->
@@ -904,7 +957,7 @@ const ceremonies = [
             <!-- Bride Detail Aarsi Frame (overlapping bottom-left corner of arch, facing Groom) -->
             <div class="bride-detail-floating absolute -bottom-5 -left-5 sm:-bottom-6 sm:-left-7 z-20 group/aarsi"
                  title="Click / Tap to swap photo">
-              <div class="aarsi-ornate-frame w-22 h-22 sm:w-26 sm:h-26 rounded-full relative p-[5px] transition-transform duration-500 hover:scale-105 cursor-pointer shadow-2xl"
+              <div class="aarsi-ornate-frame thumb-tap-pulse w-22 h-22 sm:w-26 sm:h-26 rounded-full relative p-[5px] transition-transform duration-500 hover:scale-105 cursor-pointer shadow-2xl"
                    style="background: radial-gradient(circle at 40% 35%, #FFF8E7 0%, #D4AF37 40%, #B8860B 75%, #7A5008 100%); box-shadow: 0 10px 25px -4px rgba(0,0,0,0.35), 0 0 16px rgba(219,103,137,0.35);">
                 
                 <!-- Gold filigree ring ornament rim -->
@@ -988,6 +1041,11 @@ const ceremonies = [
       <div class="text-center mb-14 sm:mb-20">
         <p class="section-tag mb-2">The Royal Festivities</p>
         <h2 class="section-title">Ceremonies &amp; Itinerary</h2>
+        <div class="heading-divider" data-reveal="up" data-delay="0.1">
+          <span class="hd-line left"></span>
+          <span class="hd-sparkle">✦</span>
+          <span class="hd-line right"></span>
+        </div>
         <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-xl mx-auto">Please grace each auspicious function with your presence and blessings.</p>
       </div>
 
@@ -997,6 +1055,7 @@ const ceremonies = [
         <div class="cer-timeline-track" aria-hidden="true">
           <div class="cer-timeline-line-base"></div>
           <div class="cer-timeline-line-progress" id="cer-line-progress"></div>
+          <div class="cer-tracker-dot" id="cer-tracker-dot"></div>
         </div>
 
         {ceremonies.map((cer, index) => {
@@ -1020,7 +1079,10 @@ const ceremonies = [
                   <div class="cer-divider"></div>
                   <div class="cer-meta">
                     {cer.meta.map((m) => (
-                      <div class={`cer-meta-row ${m.type === 'calendar' ? 'cer-meta-row--date' : ''}`}>
+                      <div class={`cer-meta-row ${m.type === 'calendar' ? 'cer-meta-row--date cer-date-sweep-wrap' : ''}`}>
+                        {m.type === 'calendar' && (
+                          <span class="cer-date-sweep" aria-hidden="true"></span>
+                        )}
                         {m.type === 'calendar' && (
                           <svg class="cer-icon cer-icon--calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                         )}
@@ -1052,6 +1114,7 @@ const ceremonies = [
               <!-- Center Number Circle on Vertical Line -->
               <div class="cer-center">
                 <div class={`cer-node ${cer.isVivah ? 'cer-node--gold' : ''}`}>
+                  <div class="cer-node-ripple" aria-hidden="true"></div>
                   <span>{cer.num}</span>
                 </div>
               </div>
@@ -1127,27 +1190,16 @@ const ceremonies = [
     <div class="max-w-7xl mx-auto relative z-10 text-center mb-8 sm:mb-12 px-4 sm:px-6">
       <p class="section-tag mb-2">TIMELESS TRADITIONS</p>
       <h2 class="section-title">The Sacred Rituals Of Our Vivah</h2>
+      <div class="heading-divider" data-reveal="up" data-delay="0.1">
+        <span class="hd-line left"></span>
+        <span class="hd-sparkle">✦</span>
+        <span class="hd-line right"></span>
+      </div>
       <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-md mx-auto">Every ritual a blessing, every blessing a beginning.</p>
     </div>
 
     <!-- Vanilla JS Infinite 5-Card Coverflow Carousel -->
     <div class="rituals-carousel-wrapper relative z-10 w-full select-none" data-carousel="rituals">
-      <!-- Optional sleek gold navigation buttons -->
-      <button
-        type="button"
-        class="ritual-nav-btn ritual-nav-prev absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center cursor-pointer focus:outline-none"
-        aria-label="Previous ritual card"
-      >
-        <svg viewBox="0 0 24 24" class="w-5 h-5 stroke-current fill-none stroke-[2]"><polyline points="15 18 9 12 15 6"></polyline></svg>
-      </button>
-
-      <button
-        type="button"
-        class="ritual-nav-btn ritual-nav-next absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center cursor-pointer focus:outline-none"
-        aria-label="Next ritual card"
-      >
-        <svg viewBox="0 0 24 24" class="w-5 h-5 stroke-current fill-none stroke-[2]"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </button>
 
       <div class="rituals-track-container w-full overflow-visible py-4 sm:py-6" id="rituals-viewport">
         <div class="rituals-track flex items-center gap-4 sm:gap-5 md:gap-6" id="rituals-track">
@@ -1167,9 +1219,9 @@ const ceremonies = [
                 aria-roledescription="slide"
                 aria-label={`Slide ${idx + 1} of ${sacredRituals.length}: ${slide.title}`}
               >
-                <!-- Card Wrapper with Drop Shadow & Rounded Rectangle Frame (matches user screenshot) -->
+                <!-- Card Wrapper with Drop Shadow & Rounded Square Frame -->
                 <div
-                  class="ritual-card-frame relative w-full h-full select-none rounded-[32px] overflow-hidden border border-[#D4AF37]/55 shadow-2xl bg-[#1A060A]"
+                  class="ritual-card-frame relative w-full h-full select-none rounded-[32px] overflow-hidden border border-[#D4AF37]/70 shadow-2xl bg-[#1A060A]"
                 >
                   <!-- Photo with Ken Burns capability and precise object position -->
                   <Image
@@ -1186,13 +1238,13 @@ const ceremonies = [
                     style={`object-position: ${slide.objectPosition};`}
                   />
 
-                  <!-- Delicate inner gold border ring (matches reference screenshot) -->
-                  <div class="absolute inset-2.5 rounded-[24px] border border-[#D4AF37]/45 pointer-events-none z-20"></div>
+                  <!-- Delicate inner gold border ring -->
+                  <div class="absolute inset-1.5 rounded-[26px] border border-[#D4AF37]/50 pointer-events-none z-20"></div>
 
                   <!-- Top Soft Gradient (Behind Number Chip) -->
                   <div
-                    class="absolute inset-x-0 top-0 h-28 pointer-events-none z-15"
-                    style="background: linear-gradient(180deg, rgba(20,4,8,0.7) 0%, rgba(20,4,8,0.2) 60%, transparent 100%);"
+                    class="absolute inset-x-0 top-0 h-32 pointer-events-none z-15"
+                    style="background: linear-gradient(180deg, rgba(20,4,8,0.75) 0%, rgba(20,4,8,0.3) 55%, transparent 100%);"
                   ></div>
 
                   <!-- Bottom Deep Gradient (Contrasting Maroon-Black for Text Readability) -->
@@ -1202,7 +1254,7 @@ const ceremonies = [
                   ></div>
 
                   <!-- Roman Number Chip at Top-Left -->
-                  <div class="absolute top-5 left-5 z-25 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-['Cinzel'] font-bold tracking-[0.2em] text-[#F3E5AB] bg-[rgba(26,6,10,0.75)] border border-[#D4AF37]/50 backdrop-blur-md shadow-md">
+                  <div class="absolute top-6 left-6 z-25 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-['Cinzel'] font-bold tracking-[0.2em] text-[#F3E5AB] bg-[rgba(26,6,10,0.75)] border border-[#D4AF37]/60 backdrop-blur-md shadow-md">
                     <span class="text-[#DFB756] text-[8px]">✦</span>
                     <span>{slide.num}</span>
                   </div>
@@ -1263,6 +1315,90 @@ const ceremonies = [
           })}
         </div>
       </div>
+
+      <!-- Rituals Unified Control Bar (PocketBank Style) -->
+      <div
+        class="rituals-control-bar flex items-center justify-center gap-2.5 sm:gap-4 mt-6 sm:mt-8 px-4 z-30"
+        role="region"
+        aria-label="Rituals carousel controls"
+      >
+        <!-- Prev Round Button -->
+        <button
+          type="button"
+          id="ritual-ctrl-prev"
+          class="ritual-ctrl-btn flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2 select-none"
+          aria-label="Previous ritual"
+        >
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-[#8C6D23]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Mobile Progress Counter (< 640px) -->
+        <div
+          class="ritual-ctrl-counter sm:hidden flex items-center justify-center px-3.5 py-1.5 rounded-full font-['Cinzel'] text-xs font-semibold tracking-wider text-[#6E5F55] select-none"
+          aria-hidden="true"
+        >
+          <span id="ritual-counter-curr" class="text-[#8C6D23] font-bold">03</span>
+          <span class="mx-1 text-[#B39352]/60">/</span>
+          <span id="ritual-counter-total" class="text-[#8A796F]">{String(sacredRituals.length).padStart(2, '0')}</span>
+        </div>
+
+        <!-- Desktop Progress Dots (>= 640px) -->
+        <div
+          class="ritual-ctrl-dots hidden sm:flex items-center justify-center gap-2"
+          role="tablist"
+          aria-label="Rituals navigation"
+        >
+          {sacredRituals.map((_, dotIdx) => (
+            <button
+              type="button"
+              class="ritual-dot rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D4AF37]"
+              data-dot-index={dotIdx}
+              role="tab"
+              aria-label={`Go to ritual ${dotIdx + 1}`}
+              aria-selected={dotIdx === 2 ? 'true' : 'false'}
+              style={dotIdx === 2 ? 'transform:scaleX(2.8);background:#D4AF37;' : 'transform:scaleX(1);background:rgba(212,175,55,0.32);'}
+            />
+          ))}
+        </div>
+
+        <!-- Play/Pause AUTO Pill Button -->
+        <button
+          type="button"
+          id="ritual-ctrl-autoplay"
+          class="ritual-ctrl-pill inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 h-11 sm:h-12 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2 select-none"
+          aria-label="Pause autoplay"
+          aria-pressed="true"
+        >
+          <span class="ritual-pill-icon flex items-center justify-center w-3.5 h-3.5 text-[#8C6D23]" aria-hidden="true">
+            <!-- Pause Icon (2 vertical bars) -->
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current ritual-icon-pause" aria-hidden="true">
+              <rect x="6" y="4" width="3.5" height="16" rx="1.5"></rect>
+              <rect x="14.5" y="4" width="3.5" height="16" rx="1.5"></rect>
+            </svg>
+            <!-- Play Icon (triangle) -->
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current ritual-icon-play hidden" aria-hidden="true">
+              <polygon points="6 4 20 12 6 20"></polygon>
+            </svg>
+          </span>
+          <span class="ritual-pill-label font-['Cinzel'] text-[11px] sm:text-xs font-semibold tracking-[0.14em] text-[#8C6D23] select-none">
+            AUTO
+          </span>
+        </button>
+
+        <!-- Next Round Button -->
+        <button
+          type="button"
+          id="ritual-ctrl-next"
+          class="ritual-ctrl-btn flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2 select-none"
+          aria-label="Next ritual"
+        >
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-[#8C6D23]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Live region for screen readers -->
@@ -1300,21 +1436,18 @@ const ceremonies = [
   </section>
   </div><!-- end #locked-post-save-the-date -->
 
-  <!-- Audio element (muted by default) -->
-  <audio id="bg-audio" loop preload="none">
-    <!-- Add shehnai audio src here -->
-  </audio>
-
-  <!-- Scroll-to-top (Stacked cleanly above floating music controls on bottom-right) -->
-  <a
-    href="#hero"
+  <!-- Scroll-to-top Button (Bottom-Left: Aligned with Floating Music Controls) -->
+  <button
+    type="button"
     id="scroll-top-btn"
-    class="fixed z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none magnetic-btn ripple-btn text-sm sm:text-base"
-    style="right:24px;bottom:calc(max(24px, env(safe-area-inset-bottom)) + 60px);background:rgba(255,255,255,0.92);border:1px solid rgba(212,175,55,0.45);color:#8C6219;backdrop-filter:blur(12px);box-shadow:0 6px 20px rgba(180,150,120,0.2);"
-    aria-label="Back to top"
+    class="fixed z-40 rounded-full flex items-center justify-center cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2"
+    aria-label="Scroll to top"
   >
-    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-  </a>
+    <svg class="w-4.5 h-4.5 text-[#8C6219]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
 
   <!-- Floating Music Controls (Bottom-Right: Pill + Circle Music Button) -->
   <aside id="music-widget-container" class="fixed z-40 flex items-center gap-2 select-none" style="right:24px;bottom:max(24px,env(safe-area-inset-bottom));" aria-label="Wedding Music Player">
@@ -1348,6 +1481,11 @@ const ceremonies = [
       aria-label="Pause music"
       aria-pressed="true"
     >
+      <!-- 3 Floating Musical Note Particles (Active while playing) -->
+      <span class="music-note-particle n1" aria-hidden="true">♪</span>
+      <span class="music-note-particle n2" aria-hidden="true">♫</span>
+      <span class="music-note-particle n3" aria-hidden="true">♩</span>
+
       <!-- Musical Note Inline SVG with Strike-through line when paused -->
       <svg class="music-icon-svg w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#8C6219] transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M9 18V5l12-2v13"></path>
@@ -1412,8 +1550,7 @@ const ceremonies = [
   opacity: 0.65;
   filter: brightness(0.88);
   transition: transform var(--slide-duration, 0.4s) var(--slide-easing, cubic-bezier(0.22, 1, 0.36, 1)),
-              opacity var(--slide-duration, 0.4s) ease,
-              filter var(--slide-duration, 0.4s) ease;
+              opacity var(--slide-duration, 0.4s) ease;
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
@@ -1496,27 +1633,76 @@ const ceremonies = [
   100% { transform: scale(1.18); }
 }
 
-/* Gold Navigation Arrow Buttons */
-.ritual-nav-btn {
-  background: rgba(26, 6, 10, 0.82);
-  border: 1px solid rgba(212, 175, 55, 0.6);
-  color: #DFB756;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: all 0.25s ease;
+/* Rituals Unified Control Bar (PocketBank Style) */
+.rituals-control-bar {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.ritual-nav-btn:hover {
-  background: #DFB756;
-  color: #1A060A;
-  border-color: #F3E5AB;
-  transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+.ritual-ctrl-btn {
+  background: #FFFDF8;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 3px 12px rgba(138, 90, 43, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  touch-action: manipulation;
 }
 
-.ritual-nav-btn:active {
-  transform: translateY(-50%) scale(0.95);
+.ritual-ctrl-btn svg,
+.ritual-ctrl-pill svg,
+.ritual-ctrl-pill span {
+  pointer-events: none;
+}
+
+.ritual-ctrl-btn:hover {
+  border-color: rgba(212, 175, 55, 0.85);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.22);
+}
+
+.ritual-ctrl-btn:active {
+  transform: scale(0.96);
+}
+
+.ritual-ctrl-pill {
+  background: #FFFDF8;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 3px 12px rgba(138, 90, 43, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  touch-action: manipulation;
+}
+
+.ritual-ctrl-pill:hover {
+  border-color: rgba(212, 175, 55, 0.85);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.22);
+}
+
+.ritual-ctrl-pill:active {
+  transform: scale(0.96);
+}
+
+.ritual-ctrl-counter {
+  background: rgba(255, 253, 248, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 2px 8px rgba(138, 90, 43, 0.06);
+  min-height: 40px;
+}
+
+.ritual-dot {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(212, 175, 55, 0.32);
+  transform: scaleX(1);
+  transform-origin: center center;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease;
+  touch-action: manipulation;
+}
+
+.ritual-dot:hover {
+  background-color: rgba(212, 175, 55, 0.65);
+}
+
+.ritual-dot.is-active {
+  background-color: #D4AF37;
+  transform: scaleX(2.8);
 }
 
 /* Mobile Read More (3-line clamp by default, smooth expansion on tap) */
@@ -1620,16 +1806,53 @@ const ceremonies = [
   }
 }
 
-/* Scroll-to-top button positioning */
+/* ── SCROLL-TO-TOP BUTTON (BOTTOM-LEFT) ───────────────────────────── */
 #scroll-top-btn {
-  right: 24px;
-  bottom: calc(max(24px, env(safe-area-inset-bottom, 24px)) + 60px);
+  position: fixed;
+  left: max(24px, env(safe-area-inset-left, 24px));
+  bottom: max(24px, env(safe-area-inset-bottom, 24px));
+  z-index: 40;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  color: #8C6219;
+  box-shadow: 0 4px 16px rgba(180, 150, 120, 0.22), 0 2px 6px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  touch-action: manipulation;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px) scale(1);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  will-change: transform, opacity;
 }
 
-@media (max-width: 640px) {
+#scroll-top-btn:hover {
+  background: #FFFDF8;
+  border-color: rgba(212, 175, 55, 0.85);
+  box-shadow: 0 6px 20px rgba(180, 150, 120, 0.32);
+  transform: translateY(0) scale(1.05);
+}
+
+#scroll-top-btn:active {
+  transform: translateY(0) scale(0.96) !important;
+}
+
+#scroll-top-btn.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+@media (max-width: 768px) {
   #scroll-top-btn {
-    right: 16px !important;
-    bottom: calc(max(16px, env(safe-area-inset-bottom, 16px)) + 54px) !important;
+    left: max(20px, env(safe-area-inset-left, 20px)) !important;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    width: 44px;
+    height: 44px;
   }
 }
 
@@ -2305,15 +2528,15 @@ html.js #couple.couple-unconnected #couple-heart-knot {
   color: #B8860B;
 }
 
-/* Photo Wrap */
+/* Photo Wrap - Slightly bigger presence, no zoom on hover */
 .cer-photo-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 13;
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(26, 6, 10, 0.12), 0 2px 8px rgba(212, 175, 55, 0.12);
-  border: 6px solid #FFFFFF;
+  border: 5px solid #FFFFFF;
   background: #F5EFE6;
 }
 
@@ -2321,29 +2544,30 @@ html.js #couple.couple-unconnected #couple-heart-knot {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.cer-row:hover .cer-photo-wrap img {
-  transform: scale(1.04);
+  transition: opacity 0.3s ease;
 }
 
 .cer-photo-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(26, 6, 10, 0.28) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(26, 6, 10, 0.24) 0%, transparent 45%);
   pointer-events: none;
 }
 
-/* Card Styling */
+/* Card Styling - Compact & Elegant */
 .cer-card {
   background: #FFFDF7;
   border: 1px solid rgba(212, 175, 55, 0.28);
-  border-radius: 20px;
-  padding: 1.6rem 1.85rem;
+  border-radius: 18px;
+  padding: 1.25rem 1.45rem;
   box-shadow: 0 6px 28px rgba(26, 6, 10, 0.08), 0 1px 4px rgba(212, 175, 55, 0.1);
   position: relative;
   z-index: 1;
+  max-width: 480px;
+}
+
+.cer-row--even .cer-card {
+  margin-left: auto;
 }
 
 .cer-card--vivah {
@@ -2420,19 +2644,20 @@ html.js #couple.couple-unconnected #couple-heart-knot {
 }
 
 /* Typography & Sub-elements */
+/* Typography & Sub-elements */
 .cer-label {
   display: inline-block;
   font-family: 'Montserrat', sans-serif;
-  font-size: 9.5px;
-  letter-spacing: 0.22em;
+  font-size: 9px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 700;
   color: #8C6219;
-  padding: 0.35rem 0.85rem;
+  padding: 0.22rem 0.7rem;
   border-radius: 9999px;
   background: rgba(250, 242, 228, 0.85);
   border: 1px solid rgba(212, 175, 55, 0.35);
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.4rem;
 }
 
 .cer-label--gold {
@@ -2443,66 +2668,66 @@ html.js #couple.couple-unconnected #couple-heart-knot {
 
 .cer-title {
   font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
+  font-size: 1.22rem;
   font-weight: 600;
   color: #261E19;
-  margin-bottom: 0.55rem;
-  line-height: 1.3;
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
 }
 
 .cer-desc {
   font-family: 'Montserrat', sans-serif;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 300;
   color: #5C4D42;
-  line-height: 1.7;
-  margin-bottom: 0.85rem;
+  line-height: 1.55;
+  margin-bottom: 0.55rem;
 }
 
 .cer-divider {
   height: 1px;
-  max-width: 140px;
+  max-width: 110px;
   background: linear-gradient(to right, transparent, rgba(201,162,75,0.4), transparent);
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.55rem;
 }
 
 .cer-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  margin-bottom: 1.15rem;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
 }
 
 .cer-meta-row {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.55rem;
   font-family: 'Montserrat', sans-serif;
-  font-size: 15px;
-  line-height: 1.45;
+  font-size: 13.5px;
+  line-height: 1.35;
   color: #5C4D42;
 }
 
 .cer-icon {
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
   color: #C9A24B;
   flex-shrink: 0;
 }
 
-/* Date Row: Prominent & Royal */
+/* Date Row: Enriched Royal Gold & Prominently Larger */
 .cer-meta-row--date {
-  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
-  font-weight: 600;
-  color: #5C3810;
+  font-size: clamp(1.35rem, 1.85vw, 1.65rem);
+  font-weight: 700;
+  color: #B8860B;
   letter-spacing: 0.02em;
-  margin-bottom: 0.2rem;
-  padding-bottom: 0.1rem;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.15rem;
 }
 
 .cer-icon--calendar {
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 25px;
   color: #B8860B;
   stroke-width: 2.2;
 }
@@ -2510,29 +2735,30 @@ html.js #couple.couple-unconnected #couple-heart-knot {
 .cer-date-text {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: inherit;
-  font-weight: 600;
-  color: #5C3810;
-  line-height: 1.25;
+  font-weight: 700;
+  color: #B8860B;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(184, 134, 11, 0.25);
 }
 
 .cer-label-date {
   font-weight: 700;
-  color: #5C3810;
+  color: #B8860B;
 }
 
 .cer-dress {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   background: rgba(247, 242, 234, 0.85);
   border: 1px solid rgba(201, 162, 75, 0.28);
   border-radius: 9999px;
-  padding: 0.4rem 0.85rem;
+  padding: 0.25rem 0.65rem;
 }
 
 .cer-dress-label {
   font-family: 'Montserrat', sans-serif;
-  font-size: 8.5px;
+  font-size: 8px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #7A6657;
@@ -2672,6 +2898,12 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     order: 1 !important;
   }
 
+  .cer-photo-wrap {
+    aspect-ratio: 16 / 13.5;
+    border-width: 4px;
+    border-radius: 16px;
+  }
+
   .cer-col-text {
     width: 100%;
     order: 2 !important;
@@ -2679,8 +2911,8 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   }
 
   .cer-card {
-    padding: 1.35rem 1.35rem;
-    border-radius: 18px;
+    padding: 0.95rem 1.05rem;
+    border-radius: 16px;
   }
 
   .cer-label {
@@ -2690,32 +2922,38 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
   .cer-title {
     text-align: left !important;
-    font-size: 1.18rem;
+    font-size: 1.08rem;
+    margin-bottom: 0.25rem;
   }
 
   .cer-desc {
     text-align: left !important;
+    font-size: 10.5px;
+    line-height: 1.5;
+    margin-bottom: 0.45rem;
   }
 
   .cer-divider {
     margin-left: 0 !important;
     margin-right: auto !important;
+    margin-bottom: 0.45rem;
   }
 
   .cer-meta-row {
     justify-content: flex-start !important;
     text-align: left !important;
-    font-size: 13.5px;
+    font-size: 12.5px;
+    gap: 0.5rem;
   }
 
   .cer-meta-row--date {
-    font-size: 1.125rem; /* ~18px on mobile */
-    line-height: 1.35;
+    font-size: 1.32rem; /* Significantly larger golden date on mobile */
+    line-height: 1.25;
   }
 
   .cer-icon--calendar {
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
   }
 
   .cer-dress {
@@ -2724,6 +2962,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     display: flex;
     width: 100%;
     border-radius: 12px;
+    padding: 0.22rem 0.6rem;
   }
 
   .cer-dress-label {
@@ -2771,25 +3010,22 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Lenis smooth scroll
-  const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
-  (window as any).lenis = lenis;
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
+  // Smooth scroll (Lenis enabled on non-touch devices for native 60fps mobile momentum)
+  const isTouchDevice = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window);
+  let lenis: any = null;
+  if (!isTouchDevice) {
+    lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+    (window as any).lenis = lenis;
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
 
   // ── GRAND OPENING ENVELOPE CINEMATIC & HERO REVEAL ────────────────
   const openingCinematic = document.getElementById('opening-cinematic');
   const openingVideo = document.getElementById('opening-video') as HTMLVideoElement | null;
-  const unmuteBtn = document.getElementById('cinematic-unmute-btn');
-  const soundIcon = document.getElementById('cinematic-sound-icon');
-  const soundText = document.getElementById('cinematic-sound-text');
-  const unmuteBadge = document.getElementById('unmute-badge');
-  const skipBtn = document.getElementById('cinematic-skip-btn');
-  const enterBtn = document.getElementById('cinematic-enter-btn');
-  const videoProgressFill = document.getElementById('video-progress-fill');
+  const openingVideoAmbient = document.getElementById('opening-video-ambient') as HTMLVideoElement | null;
   const videoCard = document.getElementById('video-card');
-  const replayEnvelopeBtn = document.getElementById('replay-envelope-btn');
 
   let heroRevealed = false;
   let introDismissed = false;
@@ -2821,42 +3057,12 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       }, 950);
     }
 
-    // Play golden wedding chime
-    royalAudio.playDoorOpenSound();
-
     // Immediately start playing the wedding song ("Aaj Sajeya") as soon as video closes
     royalAudio.playSong((isPlaying) => {
       updateAudioUI(isPlaying);
     });
 
     triggerRevealHero();
-  }
-
-  // Ambient background video element
-  const openingVideoAmbient = document.getElementById('opening-video-ambient') as HTMLVideoElement | null;
-
-  const soundOnSvg = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>';
-  const soundOffSvg = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
-
-  function setVideoAudioState(isSoundOn: boolean) {
-    if (!openingVideo) return;
-    openingVideo.muted = !isSoundOn;
-    if (isSoundOn) {
-      openingVideo.volume = 1;
-      if (soundIcon) soundIcon.innerHTML = soundOnSvg;
-      if (soundText) soundText.textContent = 'Sound ON';
-    } else {
-      if (soundIcon) soundIcon.innerHTML = soundOffSvg;
-      if (soundText) soundText.textContent = 'Mute';
-    }
-  }
-
-  function toggleVideoSound() {
-    if (!openingVideo) return;
-    // Always keep sound ON!
-    setVideoAudioState(true);
-    openingVideo.volume = 1.0;
-    openingVideo.play().catch(() => {});
   }
 
   let userManuallyMuted = false;
@@ -2867,125 +3073,49 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     }
   } catch (e) {}
 
-  // Enforce sound on video interaction, but respect manual user mute after video
-  const enforceAllSoundActive = () => {
-    if (openingVideo && !introDismissed) {
-      openingVideo.muted = false;
-      openingVideo.volume = 1.0;
-      setVideoAudioState(true);
-      if (openingVideo.paused) {
-        openingVideo.play().catch(() => {});
-      }
+  const handleUserInteraction = () => {
+    if (openingVideo && !introDismissed && !openingVideo.paused) {
+      try {
+        openingVideo.muted = false;
+        openingVideo.volume = 1.0;
+      } catch (e) {}
     }
-    // Only auto-play if user did NOT explicitly mute/pause!
     if (introDismissed && !royalAudio.getIsPlaying() && !userManuallyMuted) {
       royalAudio.playSong((isPlaying) => updateAudioUI(isPlaying));
     }
   };
 
-  ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll'].forEach((evt) => {
-    window.addEventListener(evt, enforceAllSoundActive, { passive: true });
+  ['click', 'touchstart', 'keydown'].forEach((evt) => {
+    window.addEventListener(evt, handleUserInteraction, { once: true, passive: true });
   });
 
   videoCard?.addEventListener('click', () => {
-    enforceAllSoundActive();
-    if (openingVideo && openingVideo.paused) {
-      openingVideo.play().catch(() => {});
-    }
-  });
-
-  unmuteBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    enforceAllSoundActive();
-  });
-
-  enterBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
     dismissIntro();
   });
 
   if (openingVideo) {
-    // Keep unmuted by default
-    openingVideo.muted = false;
-    openingVideo.volume = 1.0;
-
-    const startPlayback = () => {
-      const playPromise = openingVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          setVideoAudioState(true);
-        }).catch(() => {
-          // If browser policy prevents unmuted autoplay before user interaction:
-          openingVideo.muted = true;
-          openingVideo.play().catch(() => {});
-
-          const unmuteOnFirstGesture = () => {
-            if (openingVideo && !introDismissed) {
-              setVideoAudioState(true);
-            }
-            window.removeEventListener('click', unmuteOnFirstGesture, { capture: true });
-            window.removeEventListener('touchstart', unmuteOnFirstGesture, { capture: true });
-            window.removeEventListener('pointerdown', unmuteOnFirstGesture, { capture: true });
-            window.removeEventListener('keydown', unmuteOnFirstGesture, { capture: true });
-          };
-
-          window.addEventListener('click', unmuteOnFirstGesture, { once: true, capture: true });
-          window.addEventListener('touchstart', unmuteOnFirstGesture, { once: true, capture: true });
-          window.addEventListener('pointerdown', unmuteOnFirstGesture, { once: true, capture: true });
-          window.addEventListener('keydown', unmuteOnFirstGesture, { once: true, capture: true });
-        });
-      }
-    };
-
-    startPlayback();
-
-    openingVideo.addEventListener('timeupdate', () => {
-      if (openingVideo.duration && videoProgressFill) {
-        const pct = (openingVideo.currentTime / openingVideo.duration) * 100;
-        videoProgressFill.style.width = pct + '%';
-      }
-      if (openingVideoAmbient && Math.abs(openingVideoAmbient.currentTime - openingVideo.currentTime) > 0.5) {
-        openingVideoAmbient.currentTime = openingVideo.currentTime;
-      }
-    });
+    openingVideo.muted = true;
+    openingVideo.play().catch(() => {});
 
     openingVideo.addEventListener('ended', () => {
       setTimeout(() => {
         dismissIntro();
       }, 600);
-    });
+    }, { once: true });
   }
-
-  // Replay envelope video from hero section
-  replayEnvelopeBtn?.addEventListener('click', () => {
-    if (!openingCinematic || !openingVideo) return;
-    // Pause background song while video is playing
-    royalAudio.pauseSong((isPlaying) => {
-      updateAudioUI(isPlaying);
-    });
-    introDismissed = false;
-    openingCinematic.style.display = 'flex';
-    openingCinematic.style.pointerEvents = 'auto';
-    openingVideo.currentTime = 0;
-    setVideoAudioState(true);
-    requestAnimationFrame(() => {
-      openingCinematic.style.opacity = '1';
-      openingCinematic.style.transform = 'scale(1)';
-      openingVideo.play().catch(() => {});
-    });
-  });
 
 
   function revealHero() {
     if (typeof window !== 'undefined' && window.location.search.includes('skipIntro')) {
-      gsap.set(['#hero-tag','#hero-subtitle','#hero-groom','#hero-amp','#hero-bride','#hero-invite','#hero-ctas','#scroll-indicator'], {
+      gsap.set(['#hero-tag','#hero-ganesha','#hero-subtitle','#hero-groom','#hero-amp','#hero-bride','#hero-invite','#hero-ctas','#scroll-indicator'], {
         opacity: 1, y: 0
       });
       return;
     }
     const tl = gsap.timeline();
     tl.to('#hero-tag', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
-      .to('#hero-subtitle', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+      .to('#hero-ganesha', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4')
+      .to('#hero-subtitle', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
       .to('#hero-groom', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.3')
       .fromTo('.hero-names-flash', { opacity: 0, scale: 0.85 }, { opacity: 0.85, scale: 1.08, duration: 0.28, yoyo: true, repeat: 1, ease: 'power2.inOut' }, '-=0.4')
       .to('#hero-amp', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
@@ -2996,7 +3126,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   }
 
   // Set initial states
-  gsap.set(['#hero-tag','#hero-subtitle','#hero-groom','#hero-amp','#hero-bride','#hero-invite','#hero-ctas','#scroll-indicator'], {
+  gsap.set(['#hero-tag','#hero-ganesha','#hero-subtitle','#hero-groom','#hero-amp','#hero-bride','#hero-invite','#hero-ctas','#scroll-indicator'], {
     y: 30, opacity: 0
   });
 
@@ -3006,14 +3136,61 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     triggerRevealHero();
   }
 
+  // Hero viewport observer to pause Ken Burns and particle animations when offscreen
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !document.hidden) {
+          heroSection.classList.remove('hero-paused');
+        } else {
+          heroSection.classList.add('hero-paused');
+        }
+      });
+    }, { threshold: 0.05 });
+    heroObserver.observe(heroSection);
+  }
 
-  // ── SCROLL-TO-TOP button ─────────────────────────────────────────
+
+  // ── SCROLL-TO-TOP BUTTON (PASSIVE THROTTLED FADE & SMOOTH SCROLL) ──
   const scrollTopBtn = document.getElementById('scroll-top-btn');
-  ScrollTrigger.create({
-    start: 'top -400px',
-    onEnter: () => scrollTopBtn && gsap.to(scrollTopBtn, { opacity: 1, pointerEvents: 'auto', duration: 0.3 }),
-    onLeaveBack: () => scrollTopBtn && gsap.to(scrollTopBtn, { opacity: 0, pointerEvents: 'none', duration: 0.3 }),
-  });
+  if (scrollTopBtn) {
+    let isBtnVisible = false;
+    let scrollTicking = false;
+
+    const updateScrollTopVisibility = () => {
+      const shouldShow = window.scrollY > 350;
+      if (shouldShow !== isBtnVisible) {
+        isBtnVisible = shouldShow;
+        if (shouldShow) {
+          scrollTopBtn.classList.add('is-visible');
+        } else {
+          scrollTopBtn.classList.remove('is-visible');
+        }
+      }
+      scrollTicking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        scrollTicking = true;
+        requestAnimationFrame(updateScrollTopVisibility);
+      }
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (typeof lenis !== 'undefined' && lenis) {
+        lenis.scrollTo(0, { immediate: prefersReduced });
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: prefersReduced ? 'instant' : 'smooth'
+        });
+      }
+    });
+  }
 
   // ── REVEAL SECTIONS on scroll ─────────────────────────────────────
   document.querySelectorAll('.reveal-section').forEach(el => {
@@ -3061,6 +3238,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
     // Tap / Click reveal toggle (desktop click or mobile tap)
     el.addEventListener('click', () => {
+      document.getElementById('couple')?.classList.add('has-tapped-thumb');
       el.classList.toggle('is-swapped');
       const hint = el.querySelector('.hint-text');
       if (hint) {
@@ -3366,16 +3544,18 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   }
 
   // Lenis clamp
-  lenis.on('scroll', (e: any) => {
-    if (!isScratchUnlocked) {
-      const limit = getSaveTheDateLimit();
-      if (limit < Infinity && e.scroll > limit + 5) {
-        lenis.scrollTo(limit, { immediate: true });
-        triggerLockedFeedback();
+  if (lenis) {
+    lenis.on('scroll', (e: any) => {
+      if (!isScratchUnlocked) {
+        const limit = getSaveTheDateLimit();
+        if (limit < Infinity && e.scroll > limit + 5) {
+          lenis.scrollTo(limit, { immediate: true });
+          triggerLockedFeedback();
+        }
       }
-    }
-    ScrollTrigger.update();
-  });
+      ScrollTrigger.update();
+    });
+  }
 
   // Window scroll clamp
   window.addEventListener('scroll', () => {
@@ -3443,7 +3623,10 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
         e.preventDefault();
         e.stopPropagation();
         const std = document.getElementById('save-the-date');
-        if (std) lenis.scrollTo(std, { duration: 0.8 });
+        if (std) {
+          if (lenis) lenis.scrollTo(std, { duration: 0.8 });
+          else std.scrollIntoView({ behavior: 'smooth' });
+        }
         triggerLockedFeedback();
       }
     }
@@ -3799,6 +3982,27 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
           }
         });
 
+        // Mobile haptic feedback on card reveal
+        try {
+          if ('vibrate' in navigator) navigator.vibrate(15);
+        } catch (e) {}
+
+        // 1x gold sparkle burst (6-8 particles, transform+opacity, 0.8s)
+        if (card) {
+          for (let p = 0; p < 8; p++) {
+            const sparkle = document.createElement('span');
+            sparkle.className = 'scratch-sparkle-particle';
+            const angle = (p / 8) * Math.PI * 2;
+            const dist = 28 + Math.random() * 26;
+            sparkle.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+            sparkle.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+            sparkle.style.left = '50%';
+            sparkle.style.top = '50%';
+            card.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 850);
+          }
+        }
+
         // Small gold sparkle burst
         try {
           const confetti = (await import('canvas-confetti')).default;
@@ -3956,12 +4160,28 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       if (lockedCountdownCard) {
         lockedCountdownCard.classList.remove('is-locked');
         lockedCountdownCard.classList.add('countdown-fade-up');
+
+        // Staggered pop-in for countdown digits
+        const digits = [
+          document.getElementById('cd-days-val'),
+          document.getElementById('cd-hours-val'),
+          document.getElementById('cd-minutes-val'),
+          document.getElementById('cd-seconds-val'),
+        ];
+        digits.forEach((el, dIdx) => {
+          if (el) {
+            el.classList.remove('cd-digit-pop');
+            setTimeout(() => {
+              el.classList.add('cd-digit-pop');
+            }, dIdx * 100);
+          }
+        });
       }
       if (scratchUnlockedContinue) {
         scratchUnlockedContinue.classList.remove('is-locked');
         scratchUnlockedContinue.classList.add('continue-btn-fade-up');
       }
-      lenis.resize();
+      if (lenis) lenis.resize();
       ScrollTrigger.refresh();
       window.dispatchEvent(new Event('resize'));
 
@@ -4008,11 +4228,11 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       'PRODID:-//MukeshWedsPuja//Wedding//EN',
       'BEGIN:VEVENT',
       'UID:mukesh-weds-puja-2026@wedding',
-      'DTSTART:20261211T130000Z',
+      'DTSTART:20261211T143000Z',
       'DTEND:20261211T203000Z',
       'SUMMARY:Mukesh Ojha weds Puja | #MukeshWedsPuja',
       'DESCRIPTION:The Royal Wedding of Mukesh Ojha & Puja. #MukeshWedsPuja',
-      'LOCATION:Grand Rajwada Mandap\\, Ojhadih\\, Jharkhand',
+      'LOCATION:Ojhadih\\, Bokaro\\, Jharkhand',
       'STATUS:CONFIRMED',
       'END:VEVENT',
       'END:VCALENDAR',
@@ -4025,7 +4245,6 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   }
 
   document.getElementById('add-to-calendar-btn')?.addEventListener('click', downloadICS);
-  document.getElementById('add-to-cal-btn')?.addEventListener('click', downloadICS);
   document.getElementById('add-to-cal-2')?.addEventListener('click', downloadICS);
 
   // ── HASHTAG COPY ──────────────────────────────────────────────────
@@ -4070,16 +4289,16 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       widgetSongStatus.textContent = isPlaying ? 'Click to Pause' : 'Click to Play';
     }
 
-    // 2. Circle Button synchronization
+    // 2. Circle Button synchronization & floating notes toggle
     if (musicCircleBtn) {
       if (isPlaying) {
         musicCircleBtn.classList.remove('is-paused');
-        musicCircleBtn.classList.add('is-playing');
+        musicCircleBtn.classList.add('is-playing', 'music-playing');
         musicCircleBtn.setAttribute('aria-pressed', 'true');
         musicCircleBtn.setAttribute('aria-label', 'Pause music');
       } else {
         musicCircleBtn.classList.add('is-paused');
-        musicCircleBtn.classList.remove('is-playing');
+        musicCircleBtn.classList.remove('is-playing', 'music-playing');
         musicCircleBtn.setAttribute('aria-pressed', 'false');
         musicCircleBtn.setAttribute('aria-label', 'Play music');
       }
@@ -4167,6 +4386,12 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     setupRitualsCarousel();
   }
   document.addEventListener('astro:page-load', setupRitualsCarousel);
+  document.addEventListener('astro:before-swap', () => {
+    if (cleanupRituals) {
+      cleanupRituals();
+      cleanupRituals = null;
+    }
+  });
   // ── CEREMONIES TIMELINE ANIMATION (INTERSECTION OBSERVER & LINE DRAW) ──
   let ceremoniesObserver: IntersectionObserver | null = null;
   let updateCerLineProgress: (() => void) | null = null;
@@ -4213,18 +4438,27 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       }
     });
 
-    // Gold vertical line smooth draw progress on scroll
+    // Gold vertical line smooth draw progress & sliding tracker dot on scroll
     const lineProgress = document.getElementById('cer-line-progress');
+    const trackerDot = document.getElementById('cer-tracker-dot');
     const timeline = eventsSection.querySelector<HTMLElement>('.cer-timeline');
 
     if (lineProgress && timeline) {
+      let cerProgressRaf: number | null = null;
       updateCerLineProgress = () => {
-        const rect = timeline.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const total = rect.height;
-        const current = vh * 0.7 - rect.top;
-        const progress = Math.min(1, Math.max(0, current / total));
-        lineProgress.style.transform = `scaleY(${progress})`;
+        if (cerProgressRaf) return;
+        cerProgressRaf = requestAnimationFrame(() => {
+          const rect = timeline.getBoundingClientRect();
+          const vh = window.innerHeight;
+          const total = rect.height;
+          const current = vh * 0.7 - rect.top;
+          const progress = Math.min(1, Math.max(0, current / total));
+          lineProgress.style.transform = `scaleY(${progress})`;
+          if (trackerDot) {
+            trackerDot.style.transform = `translate(-50%, ${progress * (total - 9)}px)`;
+          }
+          cerProgressRaf = null;
+        });
       };
 
       window.addEventListener('scroll', updateCerLineProgress, { passive: true });

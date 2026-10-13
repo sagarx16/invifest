@@ -1,14 +1,12 @@
 /**
  * Pure Astro + Vanilla JS Infinite Coverflow Carousel for Sacred Rituals Section
  * Features:
- * - DOM cloning for seamless infinite loop (clones marked aria-hidden="true" & data-clone="true")
- * - Center card active scale(1) & opacity(1); side cards scale(0.85) & opacity(0.65)
- * - Pointer events drag & momentum swipe on desktop & mobile with grab/grabbing cursor
- * - Trackpad horizontal scroll & keyboard arrow navigation
- * - Autoplay (4s delay) with hover/drag pause and 2s resume
- * - Respects prefers-reduced-motion
- * - Mobile 3-line clamp description with Read more / Show less toggle
- * - Prev/Next gold navigation arrow buttons
+ * - Royal Arch Frame with smooth 5-card coverflow perspective
+ * - Seamless infinite looping with 3 clones at each end
+ * - Active card centered at scale(1), inactive cards at scale(0.85) & opacity(0.65)
+ * - Desktop pointer drag & mobile touch swipe with flick momentum
+ * - Bottom Unified Control Bar: Prev / Dots / AUTO / Next
+ * - Zero lag and auto-re-centering when unlocked or resized
  */
 
 export function initRitualsCarousel(): () => void {
@@ -18,8 +16,9 @@ export function initRitualsCarousel(): () => void {
   const viewport = container.querySelector<HTMLElement>('.rituals-track-container');
   const track = container.querySelector<HTMLElement>('.rituals-track');
   const liveRegion = document.getElementById('rituals-live-region');
-  const prevBtn = container.querySelector<HTMLButtonElement>('.ritual-nav-prev');
-  const nextBtn = container.querySelector<HTMLButtonElement>('.ritual-nav-next');
+  const controlBar = container.querySelector<HTMLElement>('.rituals-control-bar');
+  const autoplayBtn = container.querySelector<HTMLButtonElement>('#ritual-ctrl-autoplay');
+  const counterCurr = container.querySelector<HTMLElement>('#ritual-counter-curr');
 
   if (!viewport || !track) return () => {};
 
@@ -33,13 +32,10 @@ export function initRitualsCarousel(): () => void {
   const N = originalCards.length;
   if (N === 0) return () => {};
 
-  const CLONES_COUNT = 3; // 3 clones at each end are plenty for 5-card visible layout
+  // 3 clones at each end guarantee smooth infinite coverflow on all screen sizes
+  const CLONES_COUNT = 3;
 
   // 1. Clone cards for seamless infinite loop
-  const headClones: HTMLElement[] = [];
-  const tailClones: HTMLElement[] = [];
-
-  // Tail clones (first CLONES_COUNT cards appended to end)
   for (let i = 0; i < CLONES_COUNT; i++) {
     const clone = originalCards[i % N].cloneNode(true) as HTMLElement;
     clone.setAttribute('aria-hidden', 'true');
@@ -48,11 +44,9 @@ export function initRitualsCarousel(): () => void {
       img.loading = 'eager';
       img.draggable = false;
     });
-    tailClones.push(clone);
     track.appendChild(clone);
   }
 
-  // Head clones (last CLONES_COUNT cards prepended to start in reverse order)
   for (let i = 0; i < CLONES_COUNT; i++) {
     const realIndex = (N - 1 - i + N) % N;
     const clone = originalCards[realIndex].cloneNode(true) as HTMLElement;
@@ -62,7 +56,6 @@ export function initRitualsCarousel(): () => void {
       img.loading = 'eager';
       img.draggable = false;
     });
-    headClones.unshift(clone);
     track.insertBefore(clone, track.firstChild);
   }
 
@@ -72,76 +65,41 @@ export function initRitualsCarousel(): () => void {
   });
 
   const allCards = Array.from(track.children) as HTMLElement[];
-  const totalCount = allCards.length;
+  const dots = Array.from(container.querySelectorAll<HTMLElement>('.ritual-dot'));
 
   // Initial active card: "Mangal Milan" (index 2 in original array)
   let currentIndex = CLONES_COUNT + 2;
   let currentTranslateX = 0;
   let isAnimating = false;
 
-  // Autoplay timer
+  // Autoplay State
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let isPlaying = !isReducedMotion;
+  let isManuallyPaused = isReducedMotion;
   let autoplayTimer: number | null = null;
   let resumeTimer: number | null = null;
+  let isContainerVisible = false;
+  const AUTOPLAY_DELAY = 3500;
 
-  // Read timing settings dynamically from CSS variables (with fallback defaults)
-  const readTimingFromCSS = () => {
-    const computed = window.getComputedStyle(container);
-    const durationRaw = computed.getPropertyValue('--slide-duration').trim() || '0.4s';
-    let durationMs = 400;
-    if (durationRaw.endsWith('ms')) {
-      durationMs = parseFloat(durationRaw);
-    } else if (durationRaw.endsWith('s')) {
-      durationMs = parseFloat(durationRaw) * 1000;
-    }
-    const easing = computed.getPropertyValue('--slide-easing').trim() || 'cubic-bezier(0.22, 1, 0.36, 1)';
-    const delayRaw = computed.getPropertyValue('--autoplay-delay').trim() || '3000';
-    let delayMs = 3000;
-    if (delayRaw.endsWith('ms')) {
-      delayMs = parseFloat(delayRaw);
-    } else if (delayRaw.endsWith('s')) {
-      delayMs = parseFloat(delayRaw) * 1000;
-    } else if (!isNaN(parseFloat(delayRaw))) {
-      delayMs = parseFloat(delayRaw);
-    }
-
-    return {
-      durationStr: durationRaw || '0.4s',
-      durationMs: isNaN(durationMs) ? 400 : durationMs,
-      easing: easing,
-      autoplayDelayMs: isNaN(delayMs) ? 3000 : delayMs,
-    };
-  };
-
-  const timing = readTimingFromCSS();
-
-  // Pointer drag state
-  let isPointerDown = false;
-  let startX = 0;
-  let dragStartX = 0;
-  let dragStartTime = 0;
-  let hasDragged = false;
-  let activePointerId: number | null = null;
-
-  // Helper: calculate translateX needed to center card at `index`
+  // Dynamic Translate Calculation to center card at `index`
   const getTranslateForIndex = (index: number): number => {
     const card = allCards[index];
     if (!card) return 0;
     const viewportCenter = viewport.offsetWidth / 2;
+    if (viewportCenter === 0) return 0;
     const cardCenter = card.offsetLeft + card.offsetWidth / 2;
     return viewportCenter - cardCenter;
   };
 
-  // Helper: update active state classes
-  const updateActiveStates = (idx: number) => {
-    allCards.forEach((c, i) => {
-      if (i === idx) {
+  // Update active state classes and secondary indicators
+  const updateActiveStates = (targetIndex: number) => {
+    allCards.forEach((c, idx) => {
+      if (idx === targetIndex) {
         c.classList.add('is-active');
         c.setAttribute('aria-current', 'true');
       } else {
         c.classList.remove('is-active');
         c.removeAttribute('aria-current');
-        // Reset mobile read-more expansion on inactive cards
         if (c.classList.contains('is-expanded')) {
           c.classList.remove('is-expanded');
           const btn = c.querySelector<HTMLElement>('.ritual-read-more-btn');
@@ -154,25 +112,39 @@ export function initRitualsCarousel(): () => void {
       }
     });
 
+    const realIndex = (targetIndex - CLONES_COUNT + N) % N;
+
+    // Update Dots
+    dots.forEach((dot, dIdx) => {
+      const isCur = dIdx === realIndex;
+      dot.classList.toggle('is-active', isCur);
+      dot.setAttribute('aria-selected', isCur ? 'true' : 'false');
+      dot.style.transform = isCur ? 'scaleX(2.8)' : 'scaleX(1)';
+      dot.style.backgroundColor = isCur ? '#D4AF37' : 'rgba(212, 175, 55, 0.32)';
+    });
+
+    // Update Mobile Counter Chip ("03 / 11")
+    if (counterCurr) {
+      counterCurr.textContent = String(realIndex + 1).padStart(2, '0');
+    }
+
+    // Live Region
     if (liveRegion) {
-      const activeCard = allCards[idx];
-      const realIndex = (idx - CLONES_COUNT + N) % N;
+      const activeCard = allCards[targetIndex];
       const title = activeCard?.getAttribute('data-ritual-title') || '';
       liveRegion.textContent = `Slide ${realIndex + 1} of ${N}: ${title}`;
     }
   };
 
-  // Helper: jump position silently if in clone zone
+  // Silently jump positions if landed in clone boundaries
   const checkInfiniteBounds = () => {
     if (currentIndex < CLONES_COUNT) {
-      // Landed on a head clone -> jump to real card at end
       currentIndex += N;
       track.style.transition = 'none';
       currentTranslateX = getTranslateForIndex(currentIndex);
       track.style.transform = `translate3d(${currentTranslateX}px, 0, 0)`;
       updateActiveStates(currentIndex);
     } else if (currentIndex >= CLONES_COUNT + N) {
-      // Landed on a tail clone -> jump to real card at beginning
       currentIndex -= N;
       track.style.transition = 'none';
       currentTranslateX = getTranslateForIndex(currentIndex);
@@ -186,11 +158,14 @@ export function initRitualsCarousel(): () => void {
     currentIndex = targetIndex;
     updateActiveStates(currentIndex);
 
-    currentTranslateX = getTranslateForIndex(currentIndex);
+    const translate = getTranslateForIndex(currentIndex);
+    if (translate !== 0) {
+      currentTranslateX = translate;
+    }
 
     if (animate && !isReducedMotion) {
       isAnimating = true;
-      track.style.transition = `transform ${timing.durationStr} ${timing.easing}`;
+      track.style.transition = 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
       track.style.transform = `translate3d(${currentTranslateX}px, 0, 0)`;
 
       const onTransitionEnd = (e: TransitionEvent) => {
@@ -199,15 +174,14 @@ export function initRitualsCarousel(): () => void {
         isAnimating = false;
         checkInfiniteBounds();
       };
-      track.addEventListener('transitionend', onTransitionEnd);
+      track.addEventListener('transitionend', onTransitionEnd, { once: true });
 
-      // Safety fallback in case transitionend does not fire
       window.setTimeout(() => {
         if (isAnimating) {
           isAnimating = false;
           checkInfiniteBounds();
         }
-      }, timing.durationMs + 60);
+      }, 500);
     } else {
       track.style.transition = 'none';
       track.style.transform = `translate3d(${currentTranslateX}px, 0, 0)`;
@@ -215,11 +189,30 @@ export function initRitualsCarousel(): () => void {
     }
   };
 
-  // Initial positioning (no animation)
+  // Initial positioning
   goToSlide(currentIndex, false);
 
-  // 2. Autoplay implementation (3s interval, pause on hover/drag, 2s resume)
-  let isContainerVisible = false;
+  // ── AUTOPLAY ENGINE ──
+  const updateAutoplayUI = () => {
+    if (!autoplayBtn) return;
+    const pauseIcon = autoplayBtn.querySelector<HTMLElement>('.ritual-icon-pause');
+    const playIcon = autoplayBtn.querySelector<HTMLElement>('.ritual-icon-play');
+    const label = autoplayBtn.querySelector<HTMLElement>('.ritual-pill-label');
+
+    if (isPlaying) {
+      autoplayBtn.setAttribute('aria-label', 'Pause autoplay');
+      autoplayBtn.setAttribute('aria-pressed', 'true');
+      pauseIcon?.classList.remove('hidden');
+      playIcon?.classList.add('hidden');
+      if (label) label.textContent = 'AUTO';
+    } else {
+      autoplayBtn.setAttribute('aria-label', 'Play autoplay');
+      autoplayBtn.setAttribute('aria-pressed', 'false');
+      pauseIcon?.classList.add('hidden');
+      playIcon?.classList.remove('hidden');
+      if (label) label.textContent = 'PLAY';
+    }
+  };
 
   const stopAutoplay = () => {
     if (autoplayTimer) {
@@ -233,72 +226,135 @@ export function initRitualsCarousel(): () => void {
   };
 
   const startAutoplay = () => {
-    if (isReducedMotion || autoplayTimer || !isContainerVisible || document.hidden) return;
+    stopAutoplay();
+    if (!isPlaying || isManuallyPaused || isReducedMotion || !isContainerVisible || document.hidden) {
+      return;
+    }
     autoplayTimer = window.setInterval(() => {
       if (isPointerDown || isAnimating) return;
       goToSlide(currentIndex + 1, true);
-    }, timing.autoplayDelayMs);
+    }, AUTOPLAY_DELAY);
   };
 
-  const scheduleAutoplayResume = () => {
-    if (isReducedMotion || !isContainerVisible || document.hidden) return;
+  const scheduleAutoplayResume = (delay = 2000) => {
+    if (!isPlaying || isManuallyPaused || isReducedMotion || !isContainerVisible || document.hidden) {
+      return;
+    }
     if (resumeTimer) window.clearTimeout(resumeTimer);
     resumeTimer = window.setTimeout(() => {
       startAutoplay();
-    }, 2000);
+    }, delay);
   };
 
-  // Only start autoplay when rituals carousel is actually in viewport
+  const resetAutoplayTimer = () => {
+    if (!isPlaying || isManuallyPaused || isReducedMotion) return;
+    stopAutoplay();
+    scheduleAutoplayResume(AUTOPLAY_DELAY);
+  };
+
+  const toggleAutoplay = () => {
+    if (isPlaying) {
+      isPlaying = false;
+      isManuallyPaused = true;
+      stopAutoplay();
+    } else {
+      isPlaying = true;
+      isManuallyPaused = false;
+      if (isContainerVisible && !document.hidden && !isPointerDown) {
+        startAutoplay();
+      }
+    }
+    updateAutoplayUI();
+  };
+
+  updateAutoplayUI();
+
+  // Viewport Intersection Observer (Auto-center when section is scrolled into view or unlocked)
   const viewportObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       isContainerVisible = entry.isIntersecting;
-      if (isContainerVisible && !document.hidden && !isPointerDown) {
-        startAutoplay();
+      if (isContainerVisible) {
+        goToSlide(currentIndex, false);
+        if (!document.hidden && !isManuallyPaused && isPlaying) {
+          startAutoplay();
+        }
       } else {
         stopAutoplay();
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.05 });
   viewportObserver.observe(container);
 
+  // Tab visibility change
   const handleVisibility = () => {
     if (document.hidden) {
       stopAutoplay();
-    } else if (isContainerVisible && !isPointerDown) {
-      scheduleAutoplayResume();
+    } else if (isContainerVisible && !isPointerDown && !isManuallyPaused && isPlaying) {
+      scheduleAutoplayResume(1000);
     }
   };
-  document.addEventListener('visibilitychange', handleVisibility);
+  document.addEventListener('visibilitychange', handleVisibility, { passive: true });
 
-  container.addEventListener('mouseenter', stopAutoplay);
-  container.addEventListener('mouseleave', scheduleAutoplayResume);
-
-  // 3. Navigation Arrow Buttons
-  const handlePrev = (e: Event) => {
-    e.preventDefault();
-    e.stopPropagation();
-    stopAutoplay();
-    goToSlide(currentIndex - 1, true);
-    scheduleAutoplayResume();
+  // Hover temporary pause
+  const handleMouseEnter = () => {
+    if (!isManuallyPaused && isPlaying) {
+      stopAutoplay();
+    }
   };
-
-  const handleNext = (e: Event) => {
-    e.preventDefault();
-    e.stopPropagation();
-    stopAutoplay();
-    goToSlide(currentIndex + 1, true);
-    scheduleAutoplayResume();
+  const handleMouseLeave = () => {
+    if (!isManuallyPaused && isPlaying) {
+      scheduleAutoplayResume(2000);
+    }
   };
+  container.addEventListener('mouseenter', handleMouseEnter, { passive: true });
+  container.addEventListener('mouseleave', handleMouseLeave, { passive: true });
 
-  prevBtn?.addEventListener('click', handlePrev);
-  nextBtn?.addEventListener('click', handleNext);
+  // ── CONTROL BAR CLICKS ──
+  const handleControlBarClick = (e: MouseEvent) => {
+    const btn = (e.target as HTMLElement).closest('button');
+    if (!btn) return;
 
-  // 4. Pointer Events (Desktop Mouse Drag + Mobile Touch Swipe)
+    if (btn.id === 'ritual-ctrl-prev') {
+      e.preventDefault();
+      goToSlide(currentIndex - 1, true);
+      resetAutoplayTimer();
+    } else if (btn.id === 'ritual-ctrl-next') {
+      e.preventDefault();
+      goToSlide(currentIndex + 1, true);
+      resetAutoplayTimer();
+    } else if (btn.id === 'ritual-ctrl-autoplay') {
+      e.preventDefault();
+      toggleAutoplay();
+    } else if (btn.classList.contains('ritual-dot')) {
+      e.preventDefault();
+      const dotIndex = parseInt(btn.getAttribute('data-dot-index') || '0', 10);
+      goToSlide(CLONES_COUNT + dotIndex, true);
+      resetAutoplayTimer();
+    }
+  };
+  controlBar?.addEventListener('click', handleControlBarClick);
+
+  // ── POINTER EVENTS (DESKTOP DRAG + MOBILE SWIPE) ──
+  let isPointerDown = false;
+  let startX = 0;
+  let dragStartX = 0;
+  let dragStartTime = 0;
+  let hasDragged = false;
+  let activePointerId: number | null = null;
+  let dragRafId: number | null = null;
+
   const handlePointerDown = (e: PointerEvent) => {
-    // Ignore secondary buttons or clicks on Read More button
     if (e.button !== 0) return;
     const target = e.target as HTMLElement;
-    if (target.closest('.ritual-read-more-btn') || target.closest('.ritual-nav-btn')) return;
+    if (
+      target.closest('.ritual-read-more-btn') ||
+      target.closest('.ritual-ctrl-btn') ||
+      target.closest('.ritual-ctrl-pill') ||
+      target.closest('.rituals-control-bar') ||
+      target.closest('.ritual-dot')
+    ) {
+      return;
+    }
 
     isPointerDown = true;
     hasDragged = false;
@@ -307,11 +363,16 @@ export function initRitualsCarousel(): () => void {
     dragStartTime = performance.now();
     activePointerId = e.pointerId;
 
-    track.setPointerCapture(e.pointerId);
+    try {
+      track.setPointerCapture(e.pointerId);
+    } catch {}
+
     track.style.transition = 'none';
     viewport.classList.add('is-dragging');
 
-    stopAutoplay();
+    if (!isManuallyPaused && isPlaying) {
+      stopAutoplay();
+    }
   };
 
   const handlePointerMove = (e: PointerEvent) => {
@@ -323,7 +384,13 @@ export function initRitualsCarousel(): () => void {
     }
 
     currentTranslateX = dragStartX + deltaX;
-    track.style.transform = `translate3d(${currentTranslateX}px, 0, 0)`;
+
+    if (!dragRafId) {
+      dragRafId = requestAnimationFrame(() => {
+        dragRafId = null;
+        track.style.transform = `translate3d(${currentTranslateX}px, 0, 0)`;
+      });
+    }
   };
 
   const handlePointerEnd = (e: PointerEvent) => {
@@ -331,16 +398,19 @@ export function initRitualsCarousel(): () => void {
     isPointerDown = false;
     viewport.classList.remove('is-dragging');
 
+    if (dragRafId) {
+      cancelAnimationFrame(dragRafId);
+      dragRafId = null;
+    }
+
     try {
       track.releasePointerCapture(e.pointerId);
-    } catch {
-      // Safe ignore
-    }
+    } catch {}
     activePointerId = null;
 
     const deltaX = e.clientX - startX;
     const elapsed = Math.max(performance.now() - dragStartTime, 1);
-    const velocity = deltaX / elapsed; // px per millisecond
+    const velocity = deltaX / elapsed; // px per ms
 
     // Find nearest card center relative to current translateX
     const viewportCenter = viewport.offsetWidth / 2;
@@ -356,8 +426,7 @@ export function initRitualsCarousel(): () => void {
       }
     });
 
-    // Flick momentum check
-    if (Math.abs(velocity) > 0.35 || Math.abs(deltaX) > 70) {
+    if (Math.abs(velocity) > 0.35 || Math.abs(deltaX) > 60) {
       if (deltaX < 0) {
         goToSlide(currentIndex + 1, true);
       } else {
@@ -367,19 +436,21 @@ export function initRitualsCarousel(): () => void {
       goToSlide(closestIndex, true);
     }
 
-    scheduleAutoplayResume();
+    if (!isManuallyPaused && isPlaying) {
+      scheduleAutoplayResume(2000);
+    }
   };
 
   track.addEventListener('pointerdown', handlePointerDown);
-  track.addEventListener('pointermove', handlePointerMove);
+  track.addEventListener('pointermove', handlePointerMove, { passive: true });
   track.addEventListener('pointerup', handlePointerEnd);
   track.addEventListener('pointercancel', handlePointerEnd);
 
-  // 5. Card Click Handler (Smoothly scroll clicked card to center if not dragging)
+  // ── CARD CLICK HANDLER ──
   allCards.forEach((card, idx) => {
     card.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
-      if (target.closest('.ritual-read-more-btn')) return;
+      if (target.closest('.ritual-read-more-btn') || target.closest('.rituals-control-bar')) return;
 
       if (hasDragged) {
         e.preventDefault();
@@ -388,50 +459,45 @@ export function initRitualsCarousel(): () => void {
       }
 
       if (idx !== currentIndex) {
-        stopAutoplay();
         goToSlide(idx, true);
-        scheduleAutoplayResume();
+        resetAutoplayTimer();
       }
     });
   });
 
-  // 6. Trackpad Horizontal Wheel Support
+  // ── TRACKPAD HORIZONTAL WHEEL SUPPORT ──
   let wheelTimeout: number | null = null;
   const handleWheel = (e: WheelEvent) => {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
-      e.preventDefault();
       if (wheelTimeout) return;
-      stopAutoplay();
       if (e.deltaX > 0) {
         goToSlide(currentIndex + 1, true);
       } else {
         goToSlide(currentIndex - 1, true);
       }
-      scheduleAutoplayResume();
+      resetAutoplayTimer();
       wheelTimeout = window.setTimeout(() => {
         wheelTimeout = null;
       }, 350);
     }
   };
-  viewport.addEventListener('wheel', handleWheel, { passive: false });
+  viewport.addEventListener('wheel', handleWheel, { passive: true });
 
-  // 7. Keyboard Navigation (Left / Right Arrow)
+  // ── KEYBOARD NAVIGATION ──
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      stopAutoplay();
       goToSlide(currentIndex - 1, true);
-      scheduleAutoplayResume();
+      resetAutoplayTimer();
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
-      stopAutoplay();
       goToSlide(currentIndex + 1, true);
-      scheduleAutoplayResume();
+      resetAutoplayTimer();
     }
   };
   container.addEventListener('keydown', handleKeyDown);
 
-  // 8. Mobile Read More Button Logic (3-line clamp by default, toggle on tap)
+  // ── MOBILE READ MORE TOGGLE ──
   const updateReadMoreButtons = () => {
     const isMobile = window.innerWidth <= 768;
     allCards.forEach((card) => {
@@ -461,55 +527,51 @@ export function initRitualsCarousel(): () => void {
     if (!btn) return;
 
     btn.addEventListener('click', (e) => {
-      e.stopPropagation();
       e.preventDefault();
+      e.stopPropagation();
       const isExpanded = card.classList.toggle('is-expanded');
-      btn.setAttribute('aria-expanded', String(isExpanded));
+      btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
       const textSpan = btn.querySelector('.ritual-btn-text');
       if (textSpan) {
         textSpan.textContent = isExpanded ? 'Show less' : 'Read more';
       }
     });
-
-    btn.addEventListener('touchstart', (e) => {
-      e.stopPropagation();
-    }, { passive: true });
   });
 
   updateReadMoreButtons();
-  if (document.fonts) {
-    document.fonts.ready.then(updateReadMoreButtons).catch(() => {});
+  if (document.readyState === 'complete') {
+    updateReadMoreButtons();
   }
   window.addEventListener('load', updateReadMoreButtons, { once: true });
 
-  // 9. Resize Handling: keep active card centered without jump
+  // ── RESIZE & UNLOCK HANDLERS ──
   let resizeTimer: number | null = null;
   const handleResize = () => {
     if (resizeTimer) window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => {
       goToSlide(currentIndex, false);
       updateReadMoreButtons();
-    }, 100);
+    }, 80);
   };
   window.addEventListener('resize', handleResize, { passive: true });
 
-  // Cleanup handler for Astro ViewTransitions / before-swap
+  // Cleanup handler
   return () => {
     stopAutoplay();
     viewportObserver.disconnect();
+    window.removeEventListener('resize', handleResize);
     document.removeEventListener('visibilitychange', handleVisibility);
     if (resizeTimer) window.clearTimeout(resizeTimer);
     if (wheelTimeout) window.clearTimeout(wheelTimeout);
-    container.removeEventListener('mouseenter', stopAutoplay);
-    container.removeEventListener('mouseleave', scheduleAutoplayResume);
-    prevBtn?.removeEventListener('click', handlePrev);
-    nextBtn?.removeEventListener('click', handleNext);
+    if (dragRafId) cancelAnimationFrame(dragRafId);
+    container.removeEventListener('mouseenter', handleMouseEnter);
+    container.removeEventListener('mouseleave', handleMouseLeave);
+    controlBar?.removeEventListener('click', handleControlBarClick);
     track.removeEventListener('pointerdown', handlePointerDown);
     track.removeEventListener('pointermove', handlePointerMove);
     track.removeEventListener('pointerup', handlePointerEnd);
     track.removeEventListener('pointercancel', handlePointerEnd);
     viewport.removeEventListener('wheel', handleWheel);
     container.removeEventListener('keydown', handleKeyDown);
-    window.removeEventListener('resize', handleResize);
   };
 }

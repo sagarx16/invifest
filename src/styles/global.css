@@ -386,6 +386,7 @@ body:has(button:hover) #cursor-dot {
 }
 
 .name-shine {
+  font-family: 'Great Vibes', cursive, serif !important;
   background: linear-gradient(
     110deg,
     #B8860B 0%,
@@ -491,4 +492,315 @@ html.lenis, html.lenis body {
   #cursor-dot, #cursor-ring { display: none; }
   body { cursor: auto; }
   .flip-clock-card { width: 60px; height: 75px; font-size: 1.8rem; }
+}
+
+/* ========== MOBILE 60FPS ENHANCED MOTION SUITE ========== */
+
+/* Tap press & tap ripple */
+.tap-pressed {
+  transform: scale(0.97) !important;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.touch-tap-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0) 70%);
+  pointer-events: none;
+  transform: scale(0);
+  opacity: 0.8;
+  animation: tapRippleAnim 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes tapRippleAnim {
+  0% { transform: scale(0); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* Section heading animated gold divider */
+.heading-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+.heading-divider .hd-line {
+  height: 1px;
+  width: 42px;
+  background: linear-gradient(90deg, transparent, #D4AF37);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.heading-divider .hd-line.right {
+  background: linear-gradient(270deg, transparent, #D4AF37);
+  transform-origin: right;
+}
+.heading-divider .hd-sparkle {
+  color: #B8860B;
+  font-size: 10px;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s, opacity 0.4s ease 0.2s;
+}
+.is-revealed .heading-divider .hd-line,
+.heading-divider.is-in-view .hd-line {
+  transform: scaleX(1);
+}
+.is-revealed .heading-divider .hd-sparkle,
+.heading-divider.is-in-view .hd-sparkle {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Consistent scroll reveal helper */
+[data-reveal] {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 0.8s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+[data-reveal="up"] {
+  transform: translate3d(0, 32px, 0);
+}
+[data-reveal="left"] {
+  transform: translate3d(-32px, 0, 0);
+}
+[data-reveal="right"] {
+  transform: translate3d(32px, 0, 0);
+}
+[data-reveal="zoom"] {
+  transform: scale(0.92);
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Ken Burns slow zoom for Hero */
+@keyframes kenBurnsHero {
+  0% { transform: scale(1) translate3d(0, 0, 0); }
+  50% { transform: scale(1.08) translate3d(0, -1%, 0); }
+  100% { transform: scale(1) translate3d(0, 0, 0); }
+}
+@media (max-width: 768px) {
+  html:not(.lite) .hero-ken-burns {
+    animation: kenBurnsHero 14s ease-in-out infinite alternate !important;
+  }
+}
+.hero-paused .hero-ken-burns,
+.hero-paused .hero-sparkle-dot {
+  animation-play-state: paused !important;
+}
+
+/* Subtle Hero gold sparkles */
+.hero-sparkle-dot {
+  position: absolute;
+  color: #FFE89E;
+  pointer-events: none;
+  font-size: 11px;
+  animation: heroSparkleFloat 3.2s ease-in-out infinite;
+}
+@keyframes heroSparkleFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.7); opacity: 0.3; }
+  50% { transform: translate3d(0, -6px, 0) scale(1.1); opacity: 0.95; }
+}
+
+/* Scroll indicator bounce */
+@keyframes scrollBounceCue {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, 7px, 0); }
+}
+.scroll-cue-bounce {
+  animation: scrollBounceCue 2s ease-in-out infinite;
+}
+
+/* Floating Music Notes */
+.music-note-particle {
+  position: absolute;
+  color: #B8860B;
+  font-size: 13px;
+  font-weight: bold;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+}
+.music-playing .music-note-particle.n1 {
+  animation: floatMusicNote 3.2s ease-out infinite 0s;
+  left: 10%;
+}
+.music-playing .music-note-particle.n2 {
+  animation: floatMusicNote 3.2s ease-out infinite 1s;
+  left: 45%;
+}
+.music-playing .music-note-particle.n3 {
+  animation: floatMusicNote 3.2s ease-out infinite 2s;
+  left: 75%;
+}
+@keyframes floatMusicNote {
+  0% { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
+  25% { opacity: 0.9; }
+  80% { opacity: 0.5; }
+  100% { transform: translate3d(0, -42px, 0) scale(1.1); opacity: 0; }
+}
+
+/* Scratch card sparkle burst */
+.scratch-sparkle-particle {
+  position: absolute;
+  pointer-events: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFE79A 0%, #D4AF37 100%);
+  animation: sparkleBurst 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  z-index: 40;
+}
+@keyframes sparkleBurst {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+  100% { transform: translate3d(var(--tx, 20px), var(--ty, -20px), 0) scale(0); opacity: 0; }
+}
+
+/* Countdown numbers pop-in */
+.cd-digit-pop {
+  animation: digitPopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes digitPopIn {
+  0% { transform: scale(0.75); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Itinerary Tracker Dot */
+.cer-tracker-dot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFFDF8 0%, #D4AF37 60%, #996515 100%);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.9), 0 0 4px rgba(255, 255, 255, 0.8);
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  z-index: 10;
+  will-change: transform;
+}
+
+/* Number Circle 1x Ripple Ring on view */
+.cer-node-ripple {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid #D4AF37;
+  pointer-events: none;
+  opacity: 0;
+}
+.cer-row.is-in-view .cer-node-ripple {
+  animation: cerRippleRing 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.25s;
+}
+@keyframes cerRippleRing {
+  0% { transform: scale(1); opacity: 0.65; }
+  100% { transform: scale(1.85); opacity: 0; }
+}
+
+/* Date Row Sweep */
+.cer-date-sweep-wrap {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.cer-date-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.38) 50%, transparent 100%);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.cer-row.is-in-view .cer-date-sweep {
+  animation: dateSweepAnim 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.4s;
+}
+@keyframes dateSweepAnim {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(150%); }
+}
+
+/* Portrait Frame Float/Bobbing on Mobile */
+@keyframes portraitBob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -4px, 0); }
+}
+@media (max-width: 768px) {
+  html:not(.lite) .arch-portrait-frame {
+    animation: portraitBob 4.2s ease-in-out infinite;
+  }
+}
+
+/* Thumbnail Tap-Hint Pulse Ring */
+.thumb-tap-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1.5px solid #D4AF37;
+  animation: thumbPulseRing 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes thumbPulseRing {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.12); opacity: 0.15; }
+}
+.has-tapped-thumb .thumb-tap-pulse::after {
+  display: none !important;
+}
+
+/* Floating sparkles around couple card */
+.couple-sparkle-float {
+  position: absolute;
+  color: #F4E3B5;
+  pointer-events: none;
+  font-size: 10px;
+  animation: coupleFloatSparkle 3.5s ease-in-out infinite;
+}
+@keyframes coupleFloatSparkle {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0.35; }
+  50% { transform: translate3d(0, -5px, 0) scale(1.15); opacity: 0.9; }
+}
+
+/* Lite mode overrides (Low-end devices) */
+html.lite .hero-ken-burns,
+html.lite .arch-portrait-frame,
+html.lite .hero-sparkle-dot,
+html.lite .couple-sparkle-float,
+html.lite .music-note-particle,
+html.lite .scroll-cue-bounce {
+  animation: none !important;
+}
+html.lite .hero-sparkle-dot,
+html.lite .couple-sparkle-float {
+  display: none !important;
+}
+
+/* Prefers-reduced-motion: complete override */
+@media (prefers-reduced-motion: reduce) {
+  .hero-ken-burns,
+  .arch-portrait-frame,
+  .hero-sparkle-dot,
+  .couple-sparkle-float,
+  .music-note-particle,
+  .scroll-cue-bounce,
+  .cer-node-ripple,
+  .cer-date-sweep,
+  .cd-digit-pop,
+  .scratch-sparkle-particle,
+  .touch-tap-ripple,
+  .tap-pressed,
+  .heading-divider .hd-line,
+  .heading-divider .hd-sparkle {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
