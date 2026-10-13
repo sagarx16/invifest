@@ -12,11 +12,18 @@
     <meta name="description" content="You are cordially invited to celebrate the sacred union of Mukesh Ojha & Puja on 11th December 2026 at Dugda & Ojhadih, Bokaro." />
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Mukesh & Puja — Royal Wedding Invitation" />
-    <meta property="og:description" content="Two souls, one journey. Join us to celebrate our wedding on 11th December 2026." />
-    <meta property="og:image" content="/invitation/inside.jpg" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://invifestx16.vercel.app/invitation" />
+    <meta property="og:title" content="Mukesh Weds Puja | Wedding Invitation" />
+    <meta property="og:description" content="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja." />
+    <meta property="og:image" content="https://invifestx16.vercel.app/invitation.jpg" />
+    <meta property="og:image:secure_url" content="https://invifestx16.vercel.app/invitation.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="864" />
+    <meta property="og:image:height" content="1152" />
+    <meta property="og:image:alt" content="Mukesh Weds Puja Wedding Invitation" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://invifestx16.vercel.app/invitation.jpg" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -1070,6 +1077,63 @@
         // Auto open if URL has #open or ?open=1
         if (window.location.search.includes('open=1') || window.location.hash === '#open') {
           openCard();
+        }
+
+        // WhatsApp Share with invitation-story.png
+        let inviteStoryFile = null;
+        function preloadInviteStory() {
+          fetch('/invitation/invitation-story.png')
+            .then(function(res) { return res.blob(); })
+            .then(function(blob) {
+              inviteStoryFile = new File([blob], 'invitation-story.png', { type: 'image/png' });
+            })
+            .catch(function() {});
+        }
+        setTimeout(preloadInviteStory, 400);
+
+        var waBtn = document.getElementById('wa-invite-share');
+        if (waBtn) {
+          waBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            var shareTitle = 'Mukesh & Puja — Royal Wedding Invitation';
+            var shareText = '🕊️ *Royal Wedding Invitation: Mukesh & Puja* 💍\n\nWith divine blessings, you are cordially invited to celebrate the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Dugda & Ojhadih, Bokaro! ✨\n\n📜 View 3D Digital Invitation Card:\nhttps://invifestx16.vercel.app/invitation\n\n#MukeshWedsPuja';
+            var fallbackWaUrl = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(shareText);
+
+            var file = inviteStoryFile;
+            if (!file) {
+              try {
+                var res = await fetch('/invitation/invitation-story.png');
+                var blob = await res.blob();
+                file = new File([blob], 'invitation-story.png', { type: 'image/png' });
+              } catch (_) {}
+            }
+
+            // 1. Mobile Web Share API with file attachment (iOS Safari, Android Chrome)
+            if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+              try {
+                await navigator.share({
+                  title: shareTitle,
+                  text: shareText,
+                  files: [file]
+                });
+                return;
+              } catch (err) {
+                if (err && err.name === 'AbortError') return;
+              }
+            }
+
+            // 2. Desktop Fallback: Download invitation-story.png & open WhatsApp Web
+            try {
+              var dl = document.createElement('a');
+              dl.href = '/invitation/invitation-story.png';
+              dl.download = 'invitation-story.png';
+              document.body.appendChild(dl);
+              dl.click();
+              document.body.removeChild(dl);
+            } catch (_) {}
+
+            window.open(fallbackWaUrl, '_blank', 'noopener,noreferrer');
+          });
         }
       })();
     </script>

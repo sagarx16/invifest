@@ -10,12 +10,12 @@ export interface Props {
 
 const {
   title = 'Mukesh Weds Puja | Wedding Invitation',
-  description = 'With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih, Bokaro.',
-  image = '/og-image.jpg',
+  description = 'With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja.',
+  image = 'https://invifestx16.vercel.app/invitation.jpg',
   preloadImage,
 } = Astro.props;
 
-const siteUrl = 'https://mukeshwedspuja.com';
+const siteUrl = 'https://invifestx16.vercel.app';
 ---
 
 <!doctype html>
@@ -47,20 +47,23 @@ const siteUrl = 'https://mukeshwedspuja.com';
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${siteUrl}${image}`} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://invifestx16.vercel.app" />
+    <meta property="og:title" content="Mukesh Weds Puja | Wedding Invitation" />
+    <meta property="og:description" content="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja." />
+    <meta property="og:image" content="https://invifestx16.vercel.app/invitation.jpg" />
+    <meta property="og:image:secure_url" content="https://invifestx16.vercel.app/invitation.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="864" />
+    <meta property="og:image:height" content="1152" />
+    <meta property="og:image:alt" content="Mukesh Weds Puja Wedding Invitation" />
     <meta property="og:site_name" content="Mukesh Weds Puja" />
     <meta property="og:locale" content="en_IN" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${siteUrl}${image}`} />
+    <meta name="twitter:title" content="Mukesh Weds Puja | Wedding Invitation" />
+    <meta name="twitter:description" content="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja." />
+    <meta name="twitter:image" content="https://invifestx16.vercel.app/invitation.jpg" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">

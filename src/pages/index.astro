@@ -256,7 +256,7 @@ const ceremonies = [
 
 <Layout
   title="Mukesh Weds Puja | Wedding Invitation"
-  description="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih, Bokaro."
+  description="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja."
 >
 
   <!-- ========== GRAND OPENING ENVELOPE CINEMATIC (FULL WINDOW) ========== -->
@@ -1419,8 +1419,8 @@ const ceremonies = [
         <span id="copy-toast" class="text-[#A62C4E] text-xs font-semibold hidden">Copied!</span>
       </div>
       <p class="font-['Montserrat'] font-light text-[#5C4D42] max-w-xl mx-auto mb-8 sm:mb-10 text-xs sm:text-sm leading-relaxed px-2">Share your lovely photographs, heartfelt stories, and ceremonial greetings across social media using our official royal wedding hashtag.</p>
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
-        <a id="wa-share-bottom" href="https://api.whatsapp.com/send?text=You%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Ojhadih%21%20%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase font-semibold transition-all hover:opacity-90 ripple-btn magnetic-btn flex items-center justify-center gap-2" style="background:#25D366;border:1px solid #22c55e;color:#FFFFFF;box-shadow:0 4px 15px rgba(37,211,102,0.25);">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto relative">
+        <a id="wa-share-bottom" href="https://api.whatsapp.com/send?text=%F0%9F%95%8A%EF%B8%8F%20*Royal%20Wedding%20Invitation%3A%20Mukesh%20%26%20Puja*%20%F0%9F%92%8D%0A%0AWith%20divine%20blessings%2C%20you%20are%20cordially%20invited%20to%20the%20Royal%20Wedding%20of%20Mukesh%20Ojha%20%26%20Puja%20on%2011th%20December%202026%20at%20Dugda%20%26%20Ojhadih%2C%20Bokaro!%20%E2%9C%A8%0A%0A%F0%9F%93%9C%20View%20Card%3A%20https%3A%2F%2Finvifestx16.vercel.app%2Finvitation%0A%0A%23MukeshWedsPuja" target="_blank" rel="noopener noreferrer" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-['Montserrat'] text-[10px] sm:text-[11px] tracking-[0.15em] uppercase font-semibold transition-all hover:opacity-90 ripple-btn magnetic-btn flex items-center justify-center gap-2" style="background:#25D366;border:1px solid #22c55e;color:#FFFFFF;box-shadow:0 4px 15px rgba(37,211,102,0.25);">
           <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
           <span>Share On WhatsApp</span>
         </a>
@@ -1428,6 +1428,11 @@ const ceremonies = [
           <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
           <span>Add to Calendar</span>
         </button>
+
+        <!-- Toast for WhatsApp download feedback -->
+        <div id="wa-share-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-full text-xs font-['Montserrat'] tracking-wide font-medium text-white shadow-2xl transition-all duration-300 opacity-0 pointer-events-none translate-y-3" style="background:rgba(37,211,102,0.96);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.4);">
+          <span>Card downloaded! Opening WhatsApp...</span>
+        </div>
       </div>
       <div class="mt-12 sm:mt-16 pt-6 sm:pt-8" style="border-top:1px solid rgba(212,175,55,0.2);">
         <p class="font-['Playfair_Display'] text-[#261E19] italic text-base sm:text-lg font-normal px-2">"May your steps be blessed, and may your presence illuminate our celebration forever."</p>
@@ -4253,6 +4258,74 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       const toast = document.getElementById('copy-toast');
       if (toast) { toast.classList.remove('hidden'); setTimeout(() => toast.classList.add('hidden'), 2000); }
     });
+  });
+
+  // ── WHATSAPP SHARE WITH invitation-story.png ───────────────────────
+  let preloadedInviteStory: File | null = null;
+  function preloadInviteStoryFile() {
+    fetch('/invitation/invitation-story.png')
+      .then((res) => res.blob())
+      .then((blob) => {
+        preloadedInviteStory = new File([blob], 'invitation-story.png', { type: 'image/png' });
+      })
+      .catch(() => {});
+  }
+  if (typeof window !== 'undefined') {
+    setTimeout(preloadInviteStoryFile, 800);
+  }
+
+  const waShareBtn = document.getElementById('wa-share-bottom');
+  const waToast = document.getElementById('wa-share-toast');
+
+  waShareBtn?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const shareTitle = 'Mukesh & Puja — Royal Wedding Invitation';
+    const shareText = '🕊️ *Royal Wedding Invitation: Mukesh & Puja* 💍\n\nWith divine blessings, you are cordially invited to celebrate the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Dugda & Ojhadih, Bokaro! ✨\n\n📜 View 3D Digital Invitation Card:\nhttps://invifestx16.vercel.app/invitation\n\n#MukeshWedsPuja';
+    const waFallbackUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+
+    let file = preloadedInviteStory;
+    if (!file) {
+      try {
+        const res = await fetch('/invitation/invitation-story.png');
+        const blob = await res.blob();
+        file = new File([blob], 'invitation-story.png', { type: 'image/png' });
+      } catch (_) {}
+    }
+
+    // 1. Mobile Web Share API with image file attachment (iOS Safari, Android Chrome)
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          files: [file],
+        });
+        return;
+      } catch (err: any) {
+        if (err?.name === 'AbortError') return;
+      }
+    }
+
+    // 2. Desktop Fallback: Download invitation-story.png & open WhatsApp Web
+    try {
+      const dl = document.createElement('a');
+      dl.href = '/invitation/invitation-story.png';
+      dl.download = 'invitation-story.png';
+      document.body.appendChild(dl);
+      dl.click();
+      document.body.removeChild(dl);
+    } catch (_) {}
+
+    if (waToast) {
+      waToast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      waToast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        waToast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+        waToast.classList.remove('opacity-100', 'translate-y-0');
+      }, 3500);
+    }
+
+    window.open(waFallbackUrl, '_blank', 'noopener,noreferrer');
   });
 
 
