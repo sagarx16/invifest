@@ -5,8 +5,26 @@ class RoyalAudioEngine {
   private audioElement: HTMLAudioElement | null = null;
   private songUrl = '/music/aaj_sajeya.mp3';
 
+  private isManuallyPaused = false;
+  private listeners: Set<(playing: boolean) => void> = new Set();
+
   constructor() {
     // Lazy init
+  }
+
+  public subscribe(fn: (playing: boolean) => void): () => void {
+    this.listeners.add(fn);
+    fn(this.isPlaying);
+    return () => this.listeners.delete(fn);
+  }
+
+  private notify(playing: boolean) {
+    this.isPlaying = playing;
+    this.listeners.forEach((fn) => {
+      try {
+        fn(playing);
+      } catch (e) {}
+    });
   }
 
   private initAudio() {
@@ -15,14 +33,14 @@ class RoyalAudioEngine {
       this.audioElement = new Audio(this.songUrl);
       this.audioElement.loop = true;
       this.audioElement.volume = 0.85;
-      this.audioElement.preload = 'auto';
+      this.audioElement.preload = 'none';
 
       // Keep playing state in sync
       this.audioElement.addEventListener('play', () => {
-        this.isPlaying = true;
+        this.notify(true);
       });
       this.audioElement.addEventListener('pause', () => {
-        this.isPlaying = false;
+        this.notify(false);
       });
       this.audioElement.addEventListener('ended', () => {
         // Ensure seamless looping
@@ -31,28 +49,43 @@ class RoyalAudioEngine {
     }
   }
 
+  public setManuallyPaused(paused: boolean) {
+    this.isManuallyPaused = paused;
+  }
+
+  public getIsManuallyPaused(): boolean {
+    return this.isManuallyPaused;
+  }
+
   public playSong(onStateChange?: (playing: boolean) => void): Promise<void> {
     this.initAudio();
     if (!this.audioElement) return Promise.resolve();
+    if (this.isManuallyPaused) {
+      this.notify(false);
+      if (onStateChange) onStateChange(false);
+      return Promise.resolve();
+    }
 
     return this.audioElement.play().then(() => {
-      this.isPlaying = true;
+      this.notify(true);
       if (onStateChange) onStateChange(true);
     }).catch(err => {
+      this.notify(false);
+      if (onStateChange) onStateChange(false);
       console.warn('Audio play was prevented by browser autoplay policy:', err);
-      // Automatically retry on the very first user interaction
+      // Automatically retry on the very first user interaction ONLY if user has not manually muted
       const resumeOnGesture = () => {
-        if (this.audioElement && this.audioElement.paused) {
+        if (!this.isManuallyPaused && this.audioElement && this.audioElement.paused) {
           this.audioElement.play().then(() => {
-            this.isPlaying = true;
+            this.notify(true);
             if (onStateChange) onStateChange(true);
           }).catch(() => {});
         }
-        ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach(evt => {
+        ['click', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
           window.removeEventListener(evt, resumeOnGesture);
         });
       };
-      ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach(evt => {
+      ['click', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
         window.addEventListener(evt, resumeOnGesture, { once: true, passive: true });
       });
     });
@@ -62,7 +95,7 @@ class RoyalAudioEngine {
     if (this.audioElement) {
       this.audioElement.pause();
     }
-    this.isPlaying = false;
+    this.notify(false);
     if (onStateChange) onStateChange(false);
   }
 

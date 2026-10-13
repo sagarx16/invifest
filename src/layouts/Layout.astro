@@ -5,12 +5,14 @@ export interface Props {
   title?: string;
   description?: string;
   image?: string;
+  preloadImage?: string;
 }
 
 const {
   title = 'Mukesh Weds Puja | Wedding Invitation',
   description = 'With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih.',
   image = '/og-image.jpg',
+  preloadImage,
 } = Astro.props;
 
 const siteUrl = 'https://mukeshwedspuja.com';
@@ -19,8 +21,10 @@ const siteUrl = 'https://mukeshwedspuja.com';
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#FAF6F0" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- SEO -->
@@ -72,11 +76,11 @@ const siteUrl = 'https://mukeshwedspuja.com';
       }
     </script>
 
-    <!-- Fonts -->
+    <!-- Lean & Optimized Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Great+Vibes&family=Noto+Serif+Devanagari:wght@400;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -84,9 +88,12 @@ const siteUrl = 'https://mukeshwedspuja.com';
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="shortcut icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
+
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+    <slot name="head" />
   </head>
   <body class="film-grain vignette bg-[#FAF6F0] text-[#2C221A] min-h-screen overflow-x-hidden">
-    <!-- Custom Cursor -->
+    <!-- Custom Cursor (Desktop fine-pointer only) -->
     <div id="cursor-dot"></div>
     <div id="cursor-ring"></div>
 
@@ -99,64 +106,90 @@ const siteUrl = 'https://mukeshwedspuja.com';
     <script>
       import { royalAudio } from '../lib/audio';
 
-      // Custom Cursor
-      const dot = document.getElementById('cursor-dot');
-      const ring = document.getElementById('cursor-ring');
-      let mouseX = 0, mouseY = 0;
-      let ringX = 0, ringY = 0;
+      const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        if (dot) {
-          dot.style.left = mouseX + 'px';
-          dot.style.top = mouseY + 'px';
-        }
-      });
+      // Custom Cursor - ONLY activated on fine-pointer devices (no mobile waste)
+      if (isFinePointer) {
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        let mouseX = -100, mouseY = -100;
+        let ringX = -100, ringY = -100;
+        let ringRafId: number | null = null;
+        let isCursorActive = true;
 
-      // Smooth ring follow with diya lotus bloom on hover
-      function animateRing() {
-        ringX += (mouseX - ringX) * 0.14;
-        ringY += (mouseY - ringY) * 0.14;
-        if (ring) {
-          ring.style.left = ringX + 'px';
-          ring.style.top = ringY + 'px';
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          if (dot) {
+            dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+          }
+        }, { passive: true });
+
+        // Smooth ring follow with requestAnimationFrame using transform3d
+        function animateRing() {
+          if (!isCursorActive) return;
+          ringX += (mouseX - ringX) * 0.16;
+          ringY += (mouseY - ringY) * 0.16;
+          if (ring) {
+            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+          }
+          ringRafId = requestAnimationFrame(animateRing);
         }
-        requestAnimationFrame(animateRing);
+        ringRafId = requestAnimationFrame(animateRing);
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            isCursorActive = false;
+            if (ringRafId) cancelAnimationFrame(ringRafId);
+          } else {
+            isCursorActive = true;
+            ringRafId = requestAnimationFrame(animateRing);
+          }
+        });
+
+        // Expand cursor on interactive hover
+        const interactiveElements = 'a, button, input, textarea, select, .event-card, .couple-card, .flip-clock-card, .ritual-card';
+        document.querySelectorAll(interactiveElements).forEach(el => {
+          el.addEventListener('mouseenter', () => {
+            if (ring) {
+              ring.style.width = '54px';
+              ring.style.height = '54px';
+              ring.style.borderColor = '#C59437';
+              ring.style.backgroundColor = 'rgba(197, 148, 55, 0.12)';
+              ring.style.boxShadow = '0 0 25px rgba(197, 148, 55, 0.35)';
+            }
+          }, { passive: true });
+          el.addEventListener('mouseleave', () => {
+            if (ring) {
+              ring.style.width = '36px';
+              ring.style.height = '36px';
+              ring.style.borderColor = 'rgba(197, 148, 55, 0.5)';
+              ring.style.backgroundColor = 'transparent';
+              ring.style.boxShadow = 'none';
+            }
+          }, { passive: true });
+        });
       }
-      animateRing();
 
-      // Expand cursor on interactive hover
-      const interactiveElements = 'a, button, input, textarea, select, .event-card, .couple-card, .flip-clock-card';
-      document.querySelectorAll(interactiveElements).forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          if (ring) {
-            ring.style.width = '54px';
-            ring.style.height = '54px';
-            ring.style.borderColor = '#C59437';
-            ring.style.backgroundColor = 'rgba(197, 148, 55, 0.12)';
-            ring.style.boxShadow = '0 0 25px rgba(197, 148, 55, 0.35)';
-          }
-        });
-        el.addEventListener('mouseleave', () => {
-          if (ring) {
-            ring.style.width = '36px';
-            ring.style.height = '36px';
-            ring.style.borderColor = 'rgba(197, 148, 55, 0.5)';
-            ring.style.backgroundColor = 'transparent';
-            ring.style.boxShadow = 'none';
-          }
-        });
-      });
-
-      // Scroll Progress
+      // Scroll Progress - throttled to rAF, passive listener
       const progressBar = document.getElementById('scroll-progress');
-      window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = (scrollTop / docHeight) * 100;
-        if (progressBar) progressBar.style.width = pct + '%';
-      });
+      if (progressBar) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              const scrollTop = window.scrollY;
+              const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+              if (docHeight > 0) {
+                const pct = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
+                progressBar.style.width = pct + '%';
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
 
       // Ripple effect on buttons + golden chime sound
       document.querySelectorAll('.ripple-btn, button, .magnetic-btn').forEach(btn => {
@@ -185,20 +218,27 @@ const siteUrl = 'https://mukeshwedspuja.com';
         });
       });
 
-      // Magnetic buttons
-      document.querySelectorAll('.magnetic-btn').forEach(el => {
-        const htmlEl = el as HTMLElement;
-        htmlEl.addEventListener('mousemove', (e: Event) => {
-          const mouseEvent = e as MouseEvent;
-          const rect = htmlEl.getBoundingClientRect();
-          const x = mouseEvent.clientX - rect.left - rect.width / 2;
-          const y = mouseEvent.clientY - rect.top - rect.height / 2;
-          htmlEl.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      // Magnetic buttons - fine pointer only with rAF throttle
+      if (isFinePointer) {
+        document.querySelectorAll('.magnetic-btn').forEach(el => {
+          const htmlEl = el as HTMLElement;
+          let magRaf: number | null = null;
+          htmlEl.addEventListener('mousemove', (e: Event) => {
+            const mouseEvent = e as MouseEvent;
+            if (magRaf) cancelAnimationFrame(magRaf);
+            magRaf = requestAnimationFrame(() => {
+              const rect = htmlEl.getBoundingClientRect();
+              const x = mouseEvent.clientX - rect.left - rect.width / 2;
+              const y = mouseEvent.clientY - rect.top - rect.height / 2;
+              htmlEl.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
+            });
+          }, { passive: true });
+          htmlEl.addEventListener('mouseleave', () => {
+            if (magRaf) cancelAnimationFrame(magRaf);
+            htmlEl.style.transform = '';
+          });
         });
-        htmlEl.addEventListener('mouseleave', () => {
-          htmlEl.style.transform = '';
-        });
-      });
+      }
     </script>
   </body>
 </html>

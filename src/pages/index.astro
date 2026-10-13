@@ -1,5 +1,39 @@
 ---
+import { Image, getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+
+import heroImg from '../assets/images/hero.jpg';
+
+const heroPreload = await getImage({
+  src: heroImg,
+  format: 'webp',
+  width: 960,
+  quality: 80,
+});
+import groomImg from '../assets/images/couple/groom.jpg';
+import groomDetailImg from '../assets/images/couple/groom_detail.jpg';
+import brideImg from '../assets/images/couple/bride.jpg';
+import brideDetailImg from '../assets/images/couple/bride_detail.jpg';
+
+import haldiImg from '../assets/images/ceremonies/haldi.jpg';
+import mehendiImg from '../assets/images/ceremonies/mehendi.jpg';
+import sangeetImg from '../assets/images/ceremonies/sangeet.jpg';
+import vivahImg from '../assets/images/ceremonies/vivah.jpg';
+import receptionImg from '../assets/images/ceremonies/reception.jpg';
+
+import ritual01 from '../assets/images/rituals/c888d80fe207447a5afadd5f379afe4e.jpg';
+import ritual02 from '../assets/images/rituals/165b7b72155727b8c64401bbcb5faa88.jpg';
+import ritual03 from '../assets/images/rituals/005e44603a92a4cf5982aceac2474629.jpg';
+import ritual04 from '../assets/images/rituals/wed.jpg';
+import ritual05 from '../assets/images/rituals/eb47fe994cdd0048dccb38042104a50c.jpg';
+import ritual06 from '../assets/images/rituals/2363c9d13ae0d4c75da43bf00ae75179.jpg';
+import ritual07 from '../assets/images/rituals/wedd.jpg';
+import ritual08 from '../assets/images/rituals/wedding.jpg';
+import ritual09 from '../assets/images/rituals/7b404c8d76c65a9103a995c42b05a430.jpg';
+import ritual10 from '../assets/images/rituals/55bb27790893c4c7dc4499806a76d4d3.jpg';
+import ritual11 from '../assets/images/rituals/268c82ee4b857fdee4525f5c0afeb094.jpg';
+
+const WEDDING_DATE = "2026-12-11T00:00:00+05:30";
 
 const sacredRituals = [
   {
@@ -9,7 +43,7 @@ const sacredRituals = [
     title: 'Vadhu Aagman',
     tagline: 'She arrives like a festival.',
     text: 'Beneath a canopy of twinkling lights held high by the people who love her, the bride steps forward, every sequin catching the glow. The whole mandap holds its breath. This is the moment everyone waited for: she arrives, and the evening becomes a celebration.',
-    img: '/rituals/c888d80fe207447a5afadd5f379afe4e.jpg',
+    img: ritual01,
     alt: 'Bride walking under a canopy of fairy lights, Vadhu Aagman',
     objectPosition: 'center 35%',
     scaleFix: false
@@ -21,7 +55,7 @@ const sacredRituals = [
     title: 'Jaimala',
     tagline: 'Two garlands, one yes.',
     text: 'Garlands of roses and carnations rise, and each of them says yes to the other in front of everyone they love. The Jaimala is the first public promise, full of playful laughter, gentle respect and the joy of a welcome that lasts a lifetime.',
-    img: '/rituals/165b7b72155727b8c64401bbcb5faa88.jpg',
+    img: ritual02,
     alt: 'Pink and white carnation garlands, hathphool and hand resting on groom arm, Jaimala',
     objectPosition: 'center 40%',
     scaleFix: false
@@ -33,7 +67,7 @@ const sacredRituals = [
     title: 'Mangal Milan',
     tagline: 'Side by side, at last.',
     text: 'Wrapped in the fragrance of jasmine and blush carnations, they stand together, fingers quietly finding each other. No words are needed. Just the soft chime of bangles and the calm of two people who have found their home in each other.',
-    img: '/rituals/005e44603a92a4cf5982aceac2474629.jpg',
+    img: ritual03,
     alt: 'Couple standing side by side with jasmine garlands and hands clasped, Mangal Milan',
     objectPosition: 'center 45%',
     scaleFix: false
@@ -45,7 +79,7 @@ const sacredRituals = [
     title: 'Kanyadaan',
     tagline: "A family's blessing, a family's trust.",
     text: 'With mauli on the wrist and sacred water in hand, the family places its most precious joy into new care. Kanyadaan is not a goodbye. It is an offering made with love and complete trust, a blessing the bride carries with her wherever she goes.',
-    img: '/rituals/wed.jpg',
+    img: ritual04,
     alt: 'Henna-covered hand with sacred mauli thread on wrist, Kanyadaan',
     objectPosition: 'center 50%',
     scaleFix: false
@@ -57,7 +91,7 @@ const sacredRituals = [
     title: 'Hast Milap',
     tagline: 'Where two hands become one path.',
     text: 'A golden thread above, fingers entwined below. In the hush of the ceremony, two hands meet and a shared road begins: to walk together, to hold on through every season, and to never let go in the dark.',
-    img: '/rituals/eb47fe994cdd0048dccb38042104a50c.jpg',
+    img: ritual05,
     alt: 'Two joined hands with thin gold thread arching across the frame, Hast Milap',
     objectPosition: 'center 45%',
     scaleFix: false
@@ -69,7 +103,7 @@ const sacredRituals = [
     title: 'Pani Grahan',
     tagline: 'I take your hand, and I take your life with mine.',
     text: "Before the sacred fire, the groom accepts the bride's hand, her palm holding petals, her bangles ringing like temple bells. Pani Grahan is the vow of partnership: in joy and in struggle, and in all the beautiful ordinary days that come after.",
-    img: '/rituals/2363c9d13ae0d4c75da43bf00ae75179.jpg',
+    img: ritual06,
     alt: 'Open palm holding red rose petal before sacred fire, Pani Grahan',
     objectPosition: 'center 50%',
     scaleFix: false
@@ -81,7 +115,7 @@ const sacredRituals = [
     title: 'Mauli Bandhan',
     tagline: 'A thread of red and gold, a blessing that binds.',
     text: 'A sacred thread is wound around the couple and the holy space, guarding them with the prayers of generations. Simple, humble and powerful, it carries the blessings of those who came before, tied gently around those who are just beginning.',
-    img: '/rituals/wedd.jpg',
+    img: ritual07,
     alt: 'Sacred red and white thread crossing joined hands, Mauli Bandhan',
     objectPosition: 'center 40%',
     scaleFix: false
@@ -93,7 +127,7 @@ const sacredRituals = [
     title: 'Gathbandhan',
     tagline: 'A knot that no distance can loosen.',
     text: "The bride's dupatta is tied to the groom's, silk and flowers drawn together in a single knot. It is the knot of destiny: two families, two lives, one promise, tied with love and carried into every step of the phere.",
-    img: '/rituals/wedding.jpg',
+    img: ritual08,
     alt: "Pink dupatta knotted to red net dupatta glowing in sunlight, Gathbandhan",
     objectPosition: 'center 40%',
     scaleFix: false
@@ -105,7 +139,7 @@ const sacredRituals = [
     title: 'Saat Phere',
     tagline: 'Seven steps, seven promises, one lifetime.',
     text: 'Bound together by the knot, they walk around the sacred fire. Each step carries a vow: nourishment, strength, prosperity, joy, family, harmony and lifelong friendship. With the first step they are two people in love. With the seventh, they are family.',
-    img: '/rituals/7b404c8d76c65a9103a995c42b05a430.jpg',
+    img: ritual09,
     alt: 'Two hands held up with dupatta knot tassels against bright sky, Saat Phere',
     objectPosition: 'center 45%',
     scaleFix: false
@@ -117,7 +151,7 @@ const sacredRituals = [
     title: 'Sindoor Daan',
     tagline: 'A thin red line, a lifetime of love.',
     text: 'With a steady hand and a gentle smile, the groom fills the parting of her hair with sindoor. A single touch, a single colour: red for love, for devotion, and for the start of a home built together.',
-    img: '/rituals/55bb27790893c4c7dc4499806a76d4d3.jpg',
+    img: ritual10,
     alt: "Groom applying vermilion sindoor in the bride's parting, Sindoor Daan",
     objectPosition: 'center 25%',
     scaleFix: false
@@ -129,15 +163,108 @@ const sacredRituals = [
     title: 'Griha Pravesh',
     tagline: 'Rice, rose petals, and a new beginning.',
     text: 'At the threshold, the bride softly tips the kalash of rice with her foot, letting prosperity spill into her new home along with petals and blessings. Griha Pravesh welcomes her as the light of the household: its luck, its laughter and its warmth.',
-    img: '/rituals/268c82ee4b857fdee4525f5c0afeb094.jpg',
+    img: ritual11,
     alt: "Bride's henna-decorated foot tipping copper kalash of rice over rose petals, Griha Pravesh",
     objectPosition: 'center top',
     scaleFix: true
   }
 ];
+
+const ceremonies = [
+  {
+    num: '01',
+    label: '01 · HALDI UTSAV · 10 DEC',
+    title: 'Auspicious Haldi Ceremony',
+    desc: 'Anointing of pure turmeric, fragrant sandalwood paste, and blissful folk songs with family.',
+    meta: [
+      { type: 'calendar', text: 'Thu, 10th Dec 2026' },
+      { type: 'time', text: '10:00 AM Onwards' },
+      { type: 'venue', text: 'Royal Courtyard, Dugda, Bokaro' }
+    ],
+    dressLabel: 'Sunny Yellow & Marigold',
+    swatches: ['#F2C230', '#E8871E'],
+    img: haldiImg,
+    alt: 'Haldi Utsav',
+    imgPos: 'center 55%',
+    isVivah: false
+  },
+  {
+    num: '02',
+    label: '02 · MEHENDI · 10 DEC',
+    title: 'Heena & Folk Rhythms',
+    desc: 'Intricate henna designs, traditional dholak beats, and lively festive folk dances under canopies.',
+    meta: [
+      { type: 'calendar', text: 'Thu, 10th Dec 2026' },
+      { type: 'time', text: '04:00 PM Onwards' },
+      { type: 'venue', text: 'Gulab Bagh Lawn, Dugda' }
+    ],
+    dressLabel: 'Emerald Green & Mint',
+    swatches: ['#0F7A5A', '#A8E0C8'],
+    img: mehendiImg,
+    alt: 'Mehendi',
+    imgPos: 'center 35%',
+    isVivah: false
+  },
+  {
+    num: '03',
+    label: '03 · SANGEET · 10 DEC',
+    title: 'Musical Night & Sangeet',
+    desc: 'An unforgettable evening of high-voltage family performances, live Sufi melodies, and dance.',
+    meta: [
+      { type: 'calendar', text: 'Thu, 10th Dec 2026' },
+      { type: 'time', text: '07:30 PM Onwards' },
+      { type: 'venue', text: 'Sheesh Mahal Ballroom, Dugda' }
+    ],
+    dressLabel: 'Royal Navy & Gold Sparkle',
+    swatches: ['#14234F', '#D4AF37'],
+    img: sangeetImg,
+    alt: 'Sangeet',
+    imgPos: 'center 60%',
+    isVivah: false
+  },
+  {
+    num: '04',
+    label: '04 · THE AUSPICIOUS VIVAH · 11 DEC',
+    title: 'The Royal Wedding: Saat Phere & Varmala',
+    desc: 'The sacred Vedic marriage ceremony, royal Baraat procession, garland exchange, and holy circumambulation around the consecrated sacred fire.',
+    meta: [
+      { type: 'calendar', text: 'Friday, 11th December 2026' },
+      { type: 'procession', text: 'Baraat Procession: 06:00 PM IST' },
+      { type: 'time', text: 'Saat Phere: 07:00 PM IST (Muhurat)' },
+      { type: 'venue', text: 'Grand Rajwada Mandap, Ojhadih' }
+    ],
+    dressLabel: 'Traditional Silks & Royal Burgundy',
+    swatches: ['#7A1F2E', '#C9A24B'],
+    img: vivahImg,
+    alt: 'Royal Baraat Procession',
+    imgPos: 'center 35%',
+    isVivah: true
+  },
+  {
+    num: '05',
+    label: '05 · RECEPTION · 14 DEC',
+    title: 'Grand Reception & Gala',
+    desc: 'An opulent royal feast celebrating the newlyweds with global cuisine, blessings, and photography.',
+    meta: [
+      { type: 'calendar', text: 'Mon, 14th Dec 2026' },
+      { type: 'time', text: '08:00 PM Onwards' },
+      { type: 'venue', text: 'Crystal Palace Gardens, Dugda' }
+    ],
+    dressLabel: 'Black Tie & Velvet Elegance',
+    swatches: ['#111111', '#5A0F1F'],
+    img: receptionImg,
+    alt: 'Grand Reception',
+    imgPos: 'center 55%',
+    isVivah: false
+  }
+];
 ---
 
-<Layout title="Mukesh Weds Puja | Wedding Invitation" description="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih.">
+<Layout
+  title="Mukesh Weds Puja | Wedding Invitation"
+  description="With divine blessings and ancestral grace, you are cordially invited to the Royal Wedding of Mukesh Ojha & Puja on 11th December 2026 at Ojhadih."
+  preloadImage={heroPreload.src}
+>
 
   <!-- ========== GRAND OPENING ENVELOPE CINEMATIC (FULL WINDOW) ========== -->
   <div id="opening-cinematic" class="fixed inset-0 z-[10000] w-screen h-screen overflow-hidden select-none transition-all duration-1000 flex flex-col justify-between" style="background:#150D0A;">
@@ -148,6 +275,8 @@ const sacredRituals = [
       autoplay
       muted
       loop
+      preload="metadata"
+      poster="/images/video_thumb.jpg"
       class="absolute inset-0 w-full h-full object-cover filter blur-3xl opacity-50 scale-110 pointer-events-none"
     >
       <source src="/videos/opening.mp4" type="video/mp4" />
@@ -159,6 +288,7 @@ const sacredRituals = [
         id="opening-video"
         playsinline
         autoplay
+        preload="metadata"
         poster="/images/video_thumb.jpg"
         class="w-full h-full object-cover sm:object-contain md:object-cover pointer-events-auto"
       >
@@ -171,11 +301,18 @@ const sacredRituals = [
 
   <!-- ========== HERO SECTION ========== -->
   <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 overflow-hidden py-12 sm:py-14 md:py-16">
-    <!-- Hero Royal Background Image (Mukesh & Puja) - Clean & Vibrant -->
+    <!-- Hero Royal Background Image (Mukesh & Puja) - Clean & Vibrant with astro:assets -->
     <div class="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
-      <img
-        src="/hero.jpg"
+      <Image
+        src={heroImg}
         alt="Mukesh & Puja Royal Portrait"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        widths={[640, 960, 1280, 1920]}
+        sizes="100vw"
+        quality={80}
+        format="webp"
         class="w-full h-full object-cover object-[center_20%] sm:object-[center_28%] scale-100 transition-transform duration-1000"
       />
     </div>
@@ -443,7 +580,7 @@ const sacredRituals = [
         </div>
       </div>
 
-      <!-- Live Gold Progress Indicator & Unlock Continue Button -->
+      <!-- Live Gold Progress Indicator -->
       <div class="flex flex-col items-center justify-center mb-8 sm:mb-12">
         <div id="scratch-progress-pill" class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full text-xs font-['Montserrat'] tracking-[0.2em] uppercase font-semibold shadow-xs transition-all duration-300" style="background:rgba(255,253,248,0.95);border:1.5px solid rgba(212,175,55,0.45);color:#8C6219;">
           <span class="flex items-center gap-1.5" id="scratch-progress-diamonds">
@@ -453,19 +590,11 @@ const sacredRituals = [
           </span>
           <span id="scratch-progress-text">0 / 3 REVEALED</span>
         </div>
-
-        <!-- Glowing Continue Button (revealed upon unlocking all 3 cards) -->
-        <div id="scratch-unlocked-continue" class="hidden flex-col items-center justify-center mt-5 transition-all duration-500">
-          <button id="scratch-continue-btn" class="group px-8 py-3.5 rounded-full font-['Cinzel'] text-xs sm:text-sm tracking-[0.22em] uppercase font-medium transition-all duration-300 ripple-btn shine-btn hover:scale-105 active:scale-95 shadow-[0_8px_30px_rgba(184,134,11,0.4)] flex items-center gap-3 cursor-pointer pulse-continue-anim" style="background:linear-gradient(135deg, #DFB756 0%, #B8860B 50%, #8C6219 100%);color:#FFFFFF;border:1px solid rgba(255,255,255,0.45);">
-            <span>Continue to Celebrations</span>
-            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-          </button>
-        </div>
       </div>
 
       <!-- 6. LOCKED COUNTDOWN PLAQUE: Hidden completely until all 3 cards are scratched -->
-      <div id="locked-countdown-card" class="locked-until-scratch is-locked">
-        <div class="max-w-xl mx-auto rounded-3xl p-7 sm:p-10 shadow-xl relative overflow-hidden" style="background:rgba(255,253,248,0.96);backdrop-filter:blur(20px);border:1.5px solid rgba(212,175,55,0.45);box-shadow:0 12px 40px rgba(184,134,11,0.12);">
+      <div id="locked-countdown-card" class="locked-until-scratch is-locked" data-target={WEDDING_DATE}>
+        <div class="max-w-xl mx-auto rounded-3xl p-5 sm:p-10 shadow-xl relative overflow-hidden" style="background:rgba(255,253,248,0.96);backdrop-filter:blur(20px);border:1.5px solid rgba(212,175,55,0.45);box-shadow:0 12px 40px rgba(184,134,11,0.12);">
           <div class="text-center mb-6">
             <p class="font-['Montserrat'] text-[10px] sm:text-xs text-[#A07828] tracking-wider italic font-normal mb-2">
               A lifetime of togetherness begins with one sacred step
@@ -480,23 +609,30 @@ const sacredRituals = [
           </div>
 
           <!-- The Real Live Countdown Display: Golden Digits & Normal Weight -->
-          <div class="grid grid-cols-4 gap-2 sm:gap-4 my-6">
+          <div id="cd-timer-grid" class="grid grid-cols-4 gap-1.5 sm:gap-4 my-6">
             <div class="flex flex-col items-center">
-              <span id="cd-days-val" class="font-['Playfair_Display'] text-3xl sm:text-5xl md:text-6xl text-[#B8860B] font-normal tracking-tight leading-none">00</span>
-              <span class="font-['Montserrat'] text-[9px] sm:text-[11px] tracking-[0.25em] uppercase text-[#A07828] font-normal mt-2">Days</span>
+              <span id="cd-days-val" class="font-['Playfair_Display'] text-[clamp(1.65rem,6.8vw,3.75rem)] text-[#B8860B] font-normal tracking-tight leading-none tabular-nums">--</span>
+              <span class="font-['Montserrat'] text-[8.5px] sm:text-[11px] tracking-[0.2em] uppercase text-[#A07828] font-normal mt-2">Days</span>
             </div>
             <div class="flex flex-col items-center">
-              <span id="cd-hours-val" class="font-['Playfair_Display'] text-3xl sm:text-5xl md:text-6xl text-[#B8860B] font-normal tracking-tight leading-none">00</span>
-              <span class="font-['Montserrat'] text-[9px] sm:text-[11px] tracking-[0.25em] uppercase text-[#A07828] font-normal mt-2">Hours</span>
+              <span id="cd-hours-val" class="font-['Playfair_Display'] text-[clamp(1.65rem,6.8vw,3.75rem)] text-[#B8860B] font-normal tracking-tight leading-none tabular-nums">--</span>
+              <span class="font-['Montserrat'] text-[8.5px] sm:text-[11px] tracking-[0.2em] uppercase text-[#A07828] font-normal mt-2">Hours</span>
             </div>
             <div class="flex flex-col items-center">
-              <span id="cd-minutes-val" class="font-['Playfair_Display'] text-3xl sm:text-5xl md:text-6xl text-[#B8860B] font-normal tracking-tight leading-none">00</span>
-              <span class="font-['Montserrat'] text-[9px] sm:text-[11px] tracking-[0.25em] uppercase text-[#A07828] font-normal mt-2">Mins</span>
+              <span id="cd-minutes-val" class="font-['Playfair_Display'] text-[clamp(1.65rem,6.8vw,3.75rem)] text-[#B8860B] font-normal tracking-tight leading-none tabular-nums">--</span>
+              <span class="font-['Montserrat'] text-[8.5px] sm:text-[11px] tracking-[0.2em] uppercase text-[#A07828] font-normal mt-2">Mins</span>
             </div>
             <div class="flex flex-col items-center">
-              <span id="cd-seconds-val" class="font-['Playfair_Display'] text-3xl sm:text-5xl md:text-6xl text-[#B8860B] font-normal tracking-tight leading-none">00</span>
-              <span class="font-['Montserrat'] text-[9px] sm:text-[11px] tracking-[0.25em] uppercase text-[#A07828] font-normal mt-2">Secs</span>
+              <span id="cd-seconds-val" class="font-['Playfair_Display'] text-[clamp(1.65rem,6.8vw,3.75rem)] text-[#B8860B] font-normal tracking-tight leading-none tabular-nums inline-block">--</span>
+              <span class="font-['Montserrat'] text-[8.5px] sm:text-[11px] tracking-[0.2em] uppercase text-[#A07828] font-normal mt-2">Secs</span>
             </div>
+          </div>
+
+          <!-- Countdown Expired Message (if diff <= 0) -->
+          <div id="cd-expired-msg" class="hidden text-center py-6">
+            <p class="font-['Playfair_Display'] text-2xl sm:text-3xl text-[#B8860B] italic font-normal">
+              Today is the day ✦ Shubh Vivah
+            </p>
           </div>
 
           <!-- Action Buttons inside Countdown Card -->
@@ -511,6 +647,14 @@ const sacredRituals = [
             </a>
           </div>
         </div>
+      </div>
+
+      <!-- Continue to Celebrations CTA: Below Countdown Card (~32px / mt-8 gap, center aligned) -->
+      <div id="scratch-unlocked-continue" class="locked-until-scratch is-locked flex flex-col items-center justify-center mt-8">
+        <button id="scratch-continue-btn" class="group px-8 py-3.5 rounded-full font-['Cinzel'] text-xs sm:text-sm tracking-[0.22em] uppercase font-medium transition-all duration-300 ripple-btn shine-btn hover:scale-105 active:scale-95 shadow-[0_8px_30px_rgba(184,134,11,0.4)] flex items-center gap-3 cursor-pointer pulse-continue-anim" style="background:linear-gradient(135deg, #DFB756 0%, #B8860B 50%, #8C6219 100%);color:#FFFFFF;border:1px solid rgba(255,255,255,0.45);">
+          <span>Continue to Celebrations</span>
+          <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -570,16 +714,31 @@ const sacredRituals = [
                  style="box-shadow: 0 15px 35px -5px rgba(38,30,25,0.25), 0 0 20px rgba(212,175,55,0.18);">
               
               <!-- Primary Photo (Mukesh Portrait) -->
-              <img src="/images/groom.jpg" 
-                   alt="Mukesh Ojha - The Royal Groom" 
-                   class="arch-primary-img w-full h-full object-cover object-top transition-all duration-700 ease-out" />
+              <Image
+                src={groomImg}
+                alt="Mukesh Ojha - The Royal Groom"
+                loading="lazy"
+                decoding="async"
+                widths={[320, 480, 640]}
+                sizes="(max-width: 640px) 200px, 240px"
+                quality={80}
+                format="webp"
+                class="arch-primary-img w-full h-full object-cover object-top transition-all duration-700 ease-out"
+              />
               
               <!-- Detail Photo for crossfade (Hands with rings & watch) -->
-              <img src="/images/groom_detail.jpg" 
-                   alt="Mukesh Ojha - Detail: Rings & Royal Sherwani" 
-                   loading="lazy"
-                   class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none transition-all duration-700 ease-out" 
-                   style="object-position: center 35%;" />
+              <Image
+                src={groomDetailImg}
+                alt="Mukesh Ojha - Detail: Rings & Royal Sherwani"
+                loading="lazy"
+                decoding="async"
+                widths={[320, 480, 640]}
+                sizes="(max-width: 640px) 200px, 240px"
+                quality={80}
+                format="webp"
+                class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none transition-all duration-700 ease-out"
+                style="object-position: center 35%;"
+              />
 
               <!-- Gradient vignette inside arch -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none"></div>
@@ -596,8 +755,8 @@ const sacredRituals = [
               </div>
             </div>
 
-            <!-- Groom Detail Ring-Shaped Frame (overlapping bottom-left of arch) -->
-            <div class="groom-detail-floating absolute -bottom-5 -left-5 sm:-bottom-6 sm:-left-7 z-20 group/ring"
+            <!-- Groom Detail Ring-Shaped Frame (overlapping bottom-right corner of arch, facing Bride) -->
+            <div class="groom-detail-floating absolute -bottom-5 -right-5 sm:-bottom-6 sm:-right-7 z-20 group/ring"
                  title="Click / Tap to swap photo">
               <div class="ring-ornate-frame w-22 h-22 sm:w-26 sm:h-26 rounded-full relative p-[5px] transition-transform duration-500 hover:scale-105 cursor-pointer shadow-2xl"
                    style="background: radial-gradient(circle at 35% 30%, #FFFDF5 0%, #D4AF37 45%, #9A7420 85%, #5E430B 100%); box-shadow: 0 10px 25px -4px rgba(0,0,0,0.35), 0 0 16px rgba(212,175,55,0.45);">
@@ -618,16 +777,31 @@ const sacredRituals = [
                   <div class="w-full h-full rounded-full overflow-hidden relative bg-[#1E1712] border border-[#D4AF37]/60">
                     
                     <!-- Detail image inside ring -->
-                    <img src="/images/groom_detail.jpg" 
-                         alt="Groom detail: Rings & gold watch" 
-                         loading="lazy"
-                         class="ring-detail-img w-full h-full object-cover transition-all duration-700 ease-out" 
-                         style="object-position: center 35%;" />
+                    <Image
+                      src={groomDetailImg}
+                      alt="Groom detail: Rings & gold watch"
+                      loading="lazy"
+                      decoding="async"
+                      widths={[120, 240]}
+                      sizes="104px"
+                      quality={80}
+                      format="webp"
+                      class="ring-detail-img w-full h-full object-cover transition-all duration-700 ease-out"
+                      style="object-position: center 35%;"
+                    />
 
                     <!-- Primary portrait for swapped state -->
-                    <img src="/images/groom.jpg" 
-                         alt="Mukesh Ojha portrait" 
-                         class="ring-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none transition-all duration-700 ease-out" />
+                    <Image
+                      src={groomImg}
+                      alt="Mukesh Ojha portrait"
+                      loading="lazy"
+                      decoding="async"
+                      widths={[120, 240]}
+                      sizes="104px"
+                      quality={80}
+                      format="webp"
+                      class="ring-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none transition-all duration-700 ease-out"
+                    />
                     
                     <!-- Ring highlight reflection -->
                     <div class="absolute inset-0 pointer-events-none rounded-full bg-gradient-to-br from-white/35 via-transparent to-transparent"></div>
@@ -660,20 +834,8 @@ const sacredRituals = [
           <div class="couple-glow absolute inset-0 rounded-3xl opacity-0 pointer-events-none transition-opacity duration-500" style="background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(212,175,55,0.15) 0%, transparent 70%);"></div>
         </div>
 
-        <!-- Center heart knot -->
-        <div class="lg:col-span-1 flex flex-col items-center justify-center my-4 lg:my-0 relative z-20 couple-center-knot">
-          <div class="center-heart-disc w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-xl relative transition-all duration-500" 
-               style="background: linear-gradient(135deg, #FFF5F7 0%, #FFE6ED 100%); box-shadow: 0 0 25px rgba(219,103,137,0.25), 0 0 10px rgba(212,175,55,0.2); border: 1.5px solid rgba(219,103,137,0.45);">
-            
-            <!-- Pulse ring behind heart -->
-            <div class="heart-pulse-glow absolute -inset-2 rounded-full pointer-events-none opacity-40 transition-opacity duration-500"
-                 style="background: radial-gradient(circle, rgba(219,103,137,0.55) 0%, rgba(212,175,55,0.3) 50%, transparent 70%);"></div>
-
-            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#C4556F] transition-all duration-300" viewBox="0 0 24 24" fill="currentColor" style="animation:pulse 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(219,103,137,0.45));">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-          </div>
-        </div>
+        <!-- Desktop Grid Spacer (Heart is positioned dynamically at SVG thread midpoint) -->
+        <div class="lg:col-span-1 hidden lg:flex items-center justify-center my-4 lg:my-0 relative pointer-events-none" aria-hidden="true"></div>
 
         <!-- Bride Card -->
         <div class="lg:col-span-5 couple-card glass-card rounded-3xl p-6 sm:p-9 flex flex-col items-center text-center relative overflow-visible group transition-all duration-500 cursor-pointer"
@@ -698,16 +860,31 @@ const sacredRituals = [
                  style="box-shadow: 0 15px 35px -5px rgba(38,30,25,0.25), 0 0 20px rgba(219,103,137,0.18);">
               
               <!-- Primary Photo (Puja Portrait) -->
-              <img src="/images/bride.jpg" 
-                   alt="Puja - The Radiant Bride" 
-                   class="arch-primary-img w-full h-full object-cover object-top transition-all duration-700 ease-out" />
+              <Image
+                src={brideImg}
+                alt="Puja - The Radiant Bride"
+                loading="lazy"
+                decoding="async"
+                widths={[320, 480, 640]}
+                sizes="(max-width: 640px) 200px, 240px"
+                quality={80}
+                format="webp"
+                class="arch-primary-img w-full h-full object-cover object-top transition-all duration-700 ease-out"
+              />
               
               <!-- Detail Photo for crossfade (Mehendi hands holding ornate mirror aarsi) -->
-              <img src="/images/bride_detail.jpg" 
-                   alt="Puja - Detail: Mehendi hands holding ornate mirror (aarsi)" 
-                   loading="lazy"
-                   class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none transition-all duration-700 ease-out" 
-                   style="object-position: center 60%;" />
+              <Image
+                src={brideDetailImg}
+                alt="Puja - Detail: Mehendi hands holding ornate mirror (aarsi)"
+                loading="lazy"
+                decoding="async"
+                widths={[320, 480, 640]}
+                sizes="(max-width: 640px) 200px, 240px"
+                quality={80}
+                format="webp"
+                class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none transition-all duration-700 ease-out"
+                style="object-position: center 60%;"
+              />
 
               <!-- Gradient vignette inside arch -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none"></div>
@@ -724,8 +901,8 @@ const sacredRituals = [
               </div>
             </div>
 
-            <!-- Bride Detail Aarsi Frame (overlapping bottom-right of arch) -->
-            <div class="bride-detail-floating absolute -bottom-5 -right-5 sm:-bottom-6 sm:-right-7 z-20 group/aarsi"
+            <!-- Bride Detail Aarsi Frame (overlapping bottom-left corner of arch, facing Groom) -->
+            <div class="bride-detail-floating absolute -bottom-5 -left-5 sm:-bottom-6 sm:-left-7 z-20 group/aarsi"
                  title="Click / Tap to swap photo">
               <div class="aarsi-ornate-frame w-22 h-22 sm:w-26 sm:h-26 rounded-full relative p-[5px] transition-transform duration-500 hover:scale-105 cursor-pointer shadow-2xl"
                    style="background: radial-gradient(circle at 40% 35%, #FFF8E7 0%, #D4AF37 40%, #B8860B 75%, #7A5008 100%); box-shadow: 0 10px 25px -4px rgba(0,0,0,0.35), 0 0 16px rgba(219,103,137,0.35);">
@@ -739,16 +916,31 @@ const sacredRituals = [
                   <div class="w-full h-full rounded-full overflow-hidden relative bg-[#1E1712] border border-[#D4AF37]/60">
                     
                     <!-- Detail image inside aarsi mirror -->
-                    <img src="/images/bride_detail.jpg" 
-                         alt="Bride detail: Aarsi mirror & mehendi hands" 
-                         loading="lazy"
-                         class="aarsi-detail-img w-full h-full object-cover transition-all duration-700 ease-out" 
-                         style="object-position: center 60%;" />
+                    <Image
+                      src={brideDetailImg}
+                      alt="Bride detail: Aarsi mirror & mehendi hands"
+                      loading="lazy"
+                      decoding="async"
+                      widths={[120, 240]}
+                      sizes="104px"
+                      quality={80}
+                      format="webp"
+                      class="aarsi-detail-img w-full h-full object-cover transition-all duration-700 ease-out"
+                      style="object-position: center 60%;"
+                    />
 
                     <!-- Primary portrait for swapped state -->
-                    <img src="/images/bride.jpg" 
-                         alt="Puja portrait" 
-                         class="aarsi-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none transition-all duration-700 ease-out" />
+                    <Image
+                      src={brideImg}
+                      alt="Puja portrait"
+                      loading="lazy"
+                      decoding="async"
+                      widths={[120, 240]}
+                      sizes="104px"
+                      quality={80}
+                      format="webp"
+                      class="aarsi-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none transition-all duration-700 ease-out"
+                    />
                     
                     <!-- Mirror glass specular glint highlight -->
                     <div class="absolute inset-0 pointer-events-none rounded-full" 
@@ -791,229 +983,106 @@ const sacredRituals = [
 
 
   <!-- ========== EVENTS ========== -->
-  <section id="events" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-12 sm:mb-16">
+  <section id="events" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section" style="overflow-x:clip;">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-14 sm:mb-20">
         <p class="section-tag mb-2">The Royal Festivities</p>
         <h2 class="section-title">Ceremonies &amp; Itinerary</h2>
         <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-xl mx-auto">Please grace each auspicious function with your presence and blessings.</p>
       </div>
-      <!-- zig-zag timeline -->
-      <div class="cer-timeline relative max-w-4xl mx-auto">
-        <!-- Vertical centre line (desktop only) -->
-        <div class="cer-vline hidden md:block"></div>
 
-        <!-- CEREMONY 01 · HALDI UTSAV -->
-        <div class="cer-row cer-row--odd">
-          <div class="cer-card">
-            <span class="cer-label">01 · HALDI UTSAV · 10 DEC</span>
-            <h3 class="cer-title">Auspicious Haldi Ceremony</h3>
-            <p class="cer-desc">Anointing of pure turmeric, fragrant sandalwood paste, and blissful folk songs with family.</p>
-            <div class="cer-divider"></div>
-            <div class="cer-meta">
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Thu, 10th Dec 2026</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>10:00 AM Onwards</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>Royal Courtyard, Dugda, Bokaro</span>
-              </div>
-            </div>
-            <div class="cer-dress">
-              <span class="cer-dress-label">Dress Code</span>
-              <div class="cer-swatches">
-                <span class="cer-swatch" style="background:#F2C230;"></span>
-                <span class="cer-swatch" style="background:#E8871E;"></span>
-              </div>
-              <span class="cer-dress-name">Sunny Yellow &amp; Marigold</span>
-            </div>
-            <button class="cer-btn">Add to Schedule ✦</button>
-          </div>
-          <div class="cer-node"><span>01</span></div>
-          <div class="cer-img">
-            <div class="cer-img-wrap">
-              <img src="/images/haldi.jpg" alt="Haldi Utsav" loading="lazy" style="object-position: center 55%;" />
-              <div class="cer-img-overlay"></div>
-            </div>
-          </div>
+      <!-- Ceremonies Alternating Zigzag Timeline -->
+      <div class="cer-timeline relative mx-auto">
+        <!-- Continuous Vertical Gold Line Track -->
+        <div class="cer-timeline-track" aria-hidden="true">
+          <div class="cer-timeline-line-base"></div>
+          <div class="cer-timeline-line-progress" id="cer-line-progress"></div>
         </div>
 
-        <!-- CEREMONY 02 · MEHENDI -->
-        <div class="cer-row cer-row--even">
-          <div class="cer-img">
-            <div class="cer-img-wrap">
-              <img src="/images/mehendi.jpg" alt="Mehendi" loading="lazy" style="object-position: center 35%;" />
-              <div class="cer-img-overlay"></div>
-            </div>
-          </div>
-          <div class="cer-node"><span>02</span></div>
-          <div class="cer-card">
-            <span class="cer-label">02 · MEHENDI · 10 DEC</span>
-            <h3 class="cer-title">Heena &amp; Folk Rhythms</h3>
-            <p class="cer-desc">Intricate henna designs, traditional dholak beats, and lively festive folk dances under canopies.</p>
-            <div class="cer-divider"></div>
-            <div class="cer-meta">
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Thu, 10th Dec 2026</span>
+        {ceremonies.map((cer, index) => {
+          const isEven = index % 2 === 0;
+          return (
+            <div class={`cer-row ${isEven ? 'cer-row--even' : 'cer-row--odd'}`} data-index={index}>
+              <!-- Text Column -->
+              <div class="cer-col-text">
+                <div class={`cer-card ${cer.isVivah ? 'cer-card--vivah' : ''}`}>
+                  <span class={`cer-label ${cer.isVivah ? 'cer-label--gold' : ''}`}>
+                    {(() => {
+                      const parts = cer.label.split(' · ');
+                      if (parts.length === 3) {
+                        return <>{parts[0]} · {parts[1]} · <strong class="cer-label-date font-bold">{parts[2]}</strong></>;
+                      }
+                      return cer.label;
+                    })()}
+                  </span>
+                  <h3 class="cer-title">{cer.title}</h3>
+                  <p class="cer-desc">{cer.desc}</p>
+                  <div class="cer-divider"></div>
+                  <div class="cer-meta">
+                    {cer.meta.map((m) => (
+                      <div class={`cer-meta-row ${m.type === 'calendar' ? 'cer-meta-row--date' : ''}`}>
+                        {m.type === 'calendar' && (
+                          <svg class="cer-icon cer-icon--calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        )}
+                        {m.type === 'time' && (
+                          <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        )}
+                        {m.type === 'procession' && (
+                          <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"></circle><path d="M10 22v-6l-2-2v-4l4-2 4 2v4l-2 2v6"></path></svg>
+                        )}
+                        {m.type === 'venue' && (
+                          <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        )}
+                        <span class={m.type === 'calendar' ? 'cer-date-text' : 'cer-meta-text'}>{m.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div class="cer-dress">
+                    <span class="cer-dress-label">Dress Code</span>
+                    <div class="cer-swatches">
+                      {cer.swatches.map((sw) => (
+                        <span class="cer-swatch" style={`background:${sw};`}></span>
+                      ))}
+                    </div>
+                    <span class="cer-dress-name">{cer.dressLabel}</span>
+                  </div>
+                </div>
               </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>04:00 PM Onwards</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>Gulab Bagh Lawn, Dugda</span>
-              </div>
-            </div>
-            <div class="cer-dress">
-              <span class="cer-dress-label">Dress Code</span>
-              <div class="cer-swatches">
-                <span class="cer-swatch" style="background:#0F7A5A;"></span>
-                <span class="cer-swatch" style="background:#A8E0C8;"></span>
-              </div>
-              <span class="cer-dress-name">Emerald Green &amp; Mint</span>
-            </div>
-            <button class="cer-btn">Add to Schedule ✦</button>
-          </div>
-        </div>
 
-        <!-- CEREMONY 03 · SANGEET -->
-        <div class="cer-row cer-row--odd">
-          <div class="cer-card">
-            <span class="cer-label">03 · SANGEET · 10 DEC</span>
-            <h3 class="cer-title">Musical Night &amp; Sangeet</h3>
-            <p class="cer-desc">An unforgettable evening of high-voltage family performances, live Sufi melodies, and dance.</p>
-            <div class="cer-divider"></div>
-            <div class="cer-meta">
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Thu, 10th Dec 2026</span>
+              <!-- Center Number Circle on Vertical Line -->
+              <div class="cer-center">
+                <div class={`cer-node ${cer.isVivah ? 'cer-node--gold' : ''}`}>
+                  <span>{cer.num}</span>
+                </div>
               </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>07:30 PM Onwards</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>Sheesh Mahal Ballroom, Dugda</span>
-              </div>
-            </div>
-            <div class="cer-dress">
-              <span class="cer-dress-label">Dress Code</span>
-              <div class="cer-swatches">
-                <span class="cer-swatch" style="background:#14234F;"></span>
-                <span class="cer-swatch" style="background:#D4AF37;"></span>
-              </div>
-              <span class="cer-dress-name">Royal Navy &amp; Gold Sparkle</span>
-            </div>
-            <button class="cer-btn">Add to Schedule ✦</button>
-          </div>
-          <div class="cer-node"><span>03</span></div>
-          <div class="cer-img">
-            <div class="cer-img-wrap">
-              <img src="/images/sangeet.jpg" alt="Sangeet" loading="lazy" style="object-position: center 60%;" />
-              <div class="cer-img-overlay"></div>
-            </div>
-          </div>
-        </div>
 
-        <!-- CEREMONY 04 · THE AUSPICIOUS VIVAH -->
-        <div class="cer-row cer-row--even">
-          <div class="cer-img cer-img--duo">
-            <div class="cer-img-wrap">
-              <img src="/memories/bd9fd23d5c1011c8b5705e4edbbbec45.jpg" alt="Royal Baraat Procession" loading="lazy" style="object-position: center 35%;" />
-              <div class="cer-img-overlay"></div>
-            </div>
-          </div>
-          <div class="cer-node cer-node--gold"><span>04</span></div>
-          <div class="cer-card cer-card--vivah">
-            <span class="cer-label cer-label--gold">04 · THE AUSPICIOUS VIVAH · 11 DEC</span>
-            <h3 class="cer-title">The Royal Wedding: Saat Phere &amp; Varmala</h3>
-            <p class="cer-desc">The sacred Vedic marriage ceremony, royal Baraat procession, garland exchange, and holy circumambulation around the consecrated sacred fire.</p>
-            <div class="cer-divider"></div>
-            <div class="cer-meta">
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Friday, 11th December 2026</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"></circle><path d="M10 22v-6l-2-2v-4l4-2 4 2v4l-2 2v6"></path></svg>
-                <span>Baraat Procession: 06:00 PM IST</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Saat Phere: 07:00 PM IST (Muhurat)</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>Grand Rajwada Mandap, Ojhadih</span>
+              <!-- Photo Column -->
+              <div class="cer-col-photo">
+                <div class="cer-photo-wrap">
+                  <Image
+                    src={cer.img}
+                    alt={cer.alt}
+                    loading="lazy"
+                    decoding="async"
+                    widths={[400, 600, 800]}
+                    sizes="(max-width: 768px) 100vw, 520px"
+                    quality={80}
+                    format="webp"
+                    style={`object-position: ${cer.imgPos};`}
+                  />
+                  <div class="cer-photo-overlay"></div>
+                </div>
               </div>
             </div>
-            <div class="cer-dress">
-              <span class="cer-dress-label">Dress Code</span>
-              <div class="cer-swatches">
-                <span class="cer-swatch" style="background:#7A1F2E;"></span>
-                <span class="cer-swatch" style="background:#C9A24B;"></span>
-              </div>
-              <span class="cer-dress-name">Traditional Silks &amp; Royal Burgundy</span>
-            </div>
-            <button class="cer-btn cer-btn--gold">Add to Schedule ✦</button>
-          </div>
-        </div>
-
-        <!-- CEREMONY 05 · RECEPTION -->
-        <div class="cer-row cer-row--odd">
-          <div class="cer-card">
-            <span class="cer-label">05 · RECEPTION · 14 DEC</span>
-            <h3 class="cer-title">Grand Reception &amp; Gala</h3>
-            <p class="cer-desc">An opulent royal feast celebrating the newlyweds with global cuisine, blessings, and photography.</p>
-            <div class="cer-divider"></div>
-            <div class="cer-meta">
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Mon, 14th Dec 2026</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>08:00 PM Onwards</span>
-              </div>
-              <div class="cer-meta-row">
-                <svg class="cer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>Crystal Palace Gardens, Dugda</span>
-              </div>
-            </div>
-            <div class="cer-dress">
-              <span class="cer-dress-label">Dress Code</span>
-              <div class="cer-swatches">
-                <span class="cer-swatch" style="background:#111111;"></span>
-                <span class="cer-swatch" style="background:#5A0F1F;"></span>
-              </div>
-              <span class="cer-dress-name">Black Tie &amp; Velvet Elegance</span>
-            </div>
-            <button class="cer-btn">Add to Schedule ✦</button>
-          </div>
-          <div class="cer-node"><span>05</span></div>
-          <div class="cer-img">
-            <div class="cer-img-wrap">
-              <img src="/images/reception.jpg" alt="Grand Reception" loading="lazy" style="object-position: center 55%;" />
-              <div class="cer-img-overlay"></div>
-            </div>
-          </div>
-        </div>
-
+          );
+        })}
       </div><!-- /.cer-timeline -->
     </div>
   </section>
 
 
   <!-- ========== SACRED RITUALS (PHOTO CAROUSEL) ========== -->
-  <section id="rituals" class="py-16 sm:py-24 px-4 sm:px-6 relative reveal-section overflow-hidden select-none" style="background: radial-gradient(circle at 50% 45%, rgba(247,235,200,0.45) 0%, rgba(250,246,240,0.85) 60%, #FAF6F0 100%);">
+  <section id="rituals" class="py-16 sm:py-24 px-0 relative reveal-section overflow-hidden select-none" style="background: radial-gradient(circle at 50% 45%, rgba(247,235,200,0.45) 0%, rgba(250,246,240,0.85) 60%, #FAF6F0 100%);">
     <!-- Corner Mandalas -->
     <div class="absolute top-4 left-4 w-32 h-32 pointer-events-none opacity-[0.14]" aria-hidden="true">
       <svg viewBox="0 0 100 100" fill="none" stroke="#D4AF37">
@@ -1054,159 +1123,151 @@ const sacredRituals = [
       <div class="ritual-particle" style="top:84%;left:32%;animation-delay:1.8s;"></div>
     </div>
 
-    <!-- Royal Jharokha Arch SVG Clip-Path Definition for Ritual Cards -->
-    <svg class="absolute w-0 h-0 overflow-hidden pointer-events-none" width="0" height="0" aria-hidden="true">
-      <defs>
-        <clipPath id="ritual-arch-clip" clipPathUnits="objectBoundingBox">
-          <path d="M 0,0.96 C 0,0.985 0.02,1 0.05,1 L 0.95,1 C 0.98,1 1,0.985 1,0.96 L 1,0.28 C 1,0.18 0.88,0.14 0.75,0.13 C 0.62,0.12 0.56,0.03 0.5,0 C 0.44,0.03 0.38,0.12 0.25,0.13 C 0.12,0.14 0,0.18 0,0.28 Z" />
-        </clipPath>
-      </defs>
-    </svg>
-
     <!-- Section Header -->
-    <div class="max-w-7xl mx-auto relative z-10 text-center mb-8 sm:mb-12">
+    <div class="max-w-7xl mx-auto relative z-10 text-center mb-8 sm:mb-12 px-4 sm:px-6">
       <p class="section-tag mb-2">TIMELESS TRADITIONS</p>
       <h2 class="section-title">The Sacred Rituals Of Our Vivah</h2>
       <p class="font-['Montserrat'] text-[#6E5F55] text-xs sm:text-sm mt-3 max-w-md mx-auto">Every ritual a blessing, every blessing a beginning.</p>
     </div>
 
-    <!-- Swiper Carousel Container (Cover-flow style, active slide centered & larger) -->
-    <div class="max-w-7xl mx-auto relative z-10">
-      <div id="rituals-swiper" class="swiper max-w-full pb-6 sm:pb-8 pt-4 cursor-grab active:cursor-grabbing focus-visible:outline-none" tabindex="0" aria-roledescription="carousel" aria-label="Sacred rituals carousel">
-        <div class="swiper-wrapper">
-          {sacredRituals.map((slide, idx) => (
-            <div
-              class="swiper-slide w-[82vw] max-w-[340px] sm:w-[380px] md:w-[420px] h-[520px] sm:h-[555px] md:h-[575px] flex-shrink-0 relative focus:outline-none transition-all duration-500"
-              data-ritual-title={slide.title}
-              tabindex="0"
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`Slide ${idx + 1} of ${sacredRituals.length}: ${slide.title}`}
-            >
-              <!-- Card Wrapper with Drop Shadow & Arch Frame -->
+    <!-- Vanilla JS Infinite 5-Card Coverflow Carousel -->
+    <div class="rituals-carousel-wrapper relative z-10 w-full select-none" data-carousel="rituals">
+      <!-- Optional sleek gold navigation buttons -->
+      <button
+        type="button"
+        class="ritual-nav-btn ritual-nav-prev absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center cursor-pointer focus:outline-none"
+        aria-label="Previous ritual card"
+      >
+        <svg viewBox="0 0 24 24" class="w-5 h-5 stroke-current fill-none stroke-[2]"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <button
+        type="button"
+        class="ritual-nav-btn ritual-nav-next absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center cursor-pointer focus:outline-none"
+        aria-label="Next ritual card"
+      >
+        <svg viewBox="0 0 24 24" class="w-5 h-5 stroke-current fill-none stroke-[2]"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="rituals-track-container w-full overflow-visible py-4 sm:py-6" id="rituals-viewport">
+        <div class="rituals-track flex items-center gap-4 sm:gap-5 md:gap-6" id="rituals-track">
+          {sacredRituals.map((slide, idx) => {
+            const words = slide.title.split(' ');
+            const hasMultipleWords = words.length > 1;
+            const firstPart = hasMultipleWords ? words.slice(0, -1).join(' ') : slide.title;
+            const lastWord = hasMultipleWords ? words[words.length - 1] : '';
+
+            return (
               <div
-                class="ritual-card-frame relative w-full h-full select-none rounded-t-[140px] rounded-b-[24px] overflow-hidden border border-[#D4AF37]/70 shadow-2xl bg-[#1A060A]"
+                class="ritual-card flex-shrink-0 relative focus:outline-none"
+                data-ritual-title={slide.title}
+                data-index={idx}
+                tabindex="0"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`Slide ${idx + 1} of ${sacredRituals.length}: ${slide.title}`}
               >
-                <!-- Photo with Ken Burns capability and precise object position -->
-                <img
-                  src={slide.img}
-                  alt={slide.alt}
-                  loading={idx < 3 ? 'eager' : 'lazy'}
-                  decoding="async"
-                  class={`ritual-card-img absolute inset-0 w-full h-full object-cover transition-transform duration-700 pointer-events-none select-none ${slide.scaleFix ? 'scale-110 origin-top' : ''}`}
-                  style={`object-position: ${slide.objectPosition};`}
-                />
-
-                <!-- Delicate inner gold arch border ring -->
-                <div class="absolute inset-1.5 rounded-t-[132px] rounded-b-[20px] border border-[#D4AF37]/50 pointer-events-none z-20"></div>
-
-                <!-- Arch Finial Ornament at Top Peak -->
-                <div class="absolute top-2.5 left-1/2 -translate-x-1/2 z-25 pointer-events-none text-[#F5DEB3] text-sm leading-none select-none drop-shadow">🪷</div>
-
-                <!-- Top Soft Gradient (Behind Number Chip) -->
+                <!-- Card Wrapper with Drop Shadow & Rounded Rectangle Frame (matches user screenshot) -->
                 <div
-                  class="absolute inset-x-0 top-0 h-32 pointer-events-none z-15"
-                  style="background: linear-gradient(180deg, rgba(20,4,8,0.75) 0%, rgba(20,4,8,0.3) 55%, transparent 100%);"
-                ></div>
+                  class="ritual-card-frame relative w-full h-full select-none rounded-[32px] overflow-hidden border border-[#D4AF37]/55 shadow-2xl bg-[#1A060A]"
+                >
+                  <!-- Photo with Ken Burns capability and precise object position -->
+                  <Image
+                    src={slide.img}
+                    alt={slide.alt}
+                    loading={idx < 4 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    draggable="false"
+                    widths={[360, 540, 720]}
+                    sizes="(max-width: 640px) 340px, 420px"
+                    quality={80}
+                    format="webp"
+                    class={`ritual-card-img absolute inset-0 w-full h-full object-cover transition-transform duration-700 pointer-events-none select-none ${slide.scaleFix ? 'scale-110 origin-top' : ''}`}
+                    style={`object-position: ${slide.objectPosition};`}
+                  />
 
-                <!-- Bottom Deep Gradient (Contrasting Maroon-Black for Text Readability) -->
-                <div
-                  class="absolute inset-x-0 bottom-0 h-4/5 pointer-events-none z-15"
-                  style="background: linear-gradient(180deg, transparent 0%, rgba(26,6,10,0.35) 25%, rgba(26,6,10,0.88) 60%, rgba(26,6,10,0.98) 96%);"
-                ></div>
+                  <!-- Delicate inner gold border ring (matches reference screenshot) -->
+                  <div class="absolute inset-2.5 rounded-[24px] border border-[#D4AF37]/45 pointer-events-none z-20"></div>
 
-                <!-- Roman Number Chip at Top-Left -->
-                <div class="absolute top-6 left-6 z-25 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-['Cinzel'] font-bold tracking-[0.2em] text-[#F3E5AB] bg-[rgba(26,6,10,0.75)] border border-[#D4AF37]/60 backdrop-blur-md shadow-md">
-                  <span class="text-[#DFB756] text-[8px]">✦</span>
-                  <span>{slide.num}</span>
-                </div>
+                  <!-- Top Soft Gradient (Behind Number Chip) -->
+                  <div
+                    class="absolute inset-x-0 top-0 h-28 pointer-events-none z-15"
+                    style="background: linear-gradient(180deg, rgba(20,4,8,0.7) 0%, rgba(20,4,8,0.2) 60%, transparent 100%);"
+                  ></div>
 
-                <!-- Bottom Text Content Staggered -->
-                <div class="absolute inset-x-0 bottom-0 p-5 sm:p-7 z-25 flex flex-col items-start text-left ritual-text-stagger">
-                  <!-- Hindi Name in Devanagari Serif -->
-                  <span class="font-['Noto_Serif_Devanagari','Tiro_Devanagari_Hindi',serif] text-sm sm:text-base font-semibold text-[#DFB756] tracking-wider mb-0.5 drop-shadow-sm">
-                    {slide.hindi}
-                  </span>
+                  <!-- Bottom Deep Gradient (Contrasting Maroon-Black for Text Readability) -->
+                  <div
+                    class="absolute inset-x-0 bottom-0 h-4/5 pointer-events-none z-15"
+                    style="background: linear-gradient(180deg, transparent 0%, rgba(26,6,10,0.35) 25%, rgba(26,6,10,0.88) 60%, rgba(26,6,10,0.98) 96%);"
+                  ></div>
 
-                  <!-- English Title in Playfair Display with Gold Shimmer on Active -->
-                  <h3 class="font-['Playfair_Display'] font-bold text-xl sm:text-2xl md:text-[25px] text-[#FFF9F0] tracking-wide leading-tight drop-shadow-md ritual-card-title">
-                    {slide.title}
-                  </h3>
-
-                  <!-- Gold Flourish -->
-                  <div class="flex items-center gap-1.5 my-1.5 text-[#DFB756]/80 text-[9px] sm:text-[10px]">
-                    <span class="w-5 h-[1px] bg-gradient-to-r from-transparent to-[#DFB756]"></span>
-                    <span>✦</span>
-                    <span class="w-5 h-[1px] bg-gradient-to-l from-transparent to-[#DFB756]"></span>
+                  <!-- Roman Number Chip at Top-Left -->
+                  <div class="absolute top-5 left-5 z-25 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-['Cinzel'] font-bold tracking-[0.2em] text-[#F3E5AB] bg-[rgba(26,6,10,0.75)] border border-[#D4AF37]/50 backdrop-blur-md shadow-md">
+                    <span class="text-[#DFB756] text-[8px]">✦</span>
+                    <span>{slide.num}</span>
                   </div>
 
-                  <!-- Italic Tagline in Champagne -->
-                  <p class="font-['Playfair_Display'] italic text-xs sm:text-sm text-[#F7E7CE] font-normal leading-snug mb-1.5">
-                    {slide.tagline}
-                  </p>
+                  <!-- Bottom Text Content Staggered -->
+                  <div class="absolute inset-x-0 bottom-0 p-5 sm:p-7 z-25 flex flex-col items-start text-left ritual-text-stagger">
+                    <!-- Hindi Name in Devanagari Serif -->
+                    <span class="font-['Noto_Serif_Devanagari','Tiro_Devanagari_Hindi',serif] text-sm sm:text-base font-semibold text-[#DFB756] tracking-wider mb-0.5 drop-shadow-sm">
+                      {slide.hindi}
+                    </span>
 
-                  <!-- Thin Gold Divider -->
-                  <div class="w-full h-[1px] bg-gradient-to-r from-[#D4AF37]/60 via-[#F3E5AB]/40 to-transparent my-1 sm:my-1.5"></div>
+                    <!-- English Title in Playfair Display with Last Word in Gold on Active -->
+                    <h3 class="font-['Playfair_Display'] font-bold text-xl sm:text-2xl md:text-[25px] text-[#FFF9F0] tracking-wide leading-tight drop-shadow-md ritual-card-title">
+                      {hasMultipleWords ? (
+                        <>
+                          <span>{firstPart} </span>
+                          <span class="ritual-title-gold text-[#DFB756]">{lastWord}</span>
+                        </>
+                      ) : (
+                        <span>{slide.title}</span>
+                      )}
+                    </h3>
 
-                  <!-- Paragraph in Soft Ivory (High Contrast >= 4.5:1) -->
-                  <p class="font-['Montserrat'] font-light text-[12px] sm:text-[13px] md:text-[13.5px] text-[#FFF5EB]/95 leading-[1.6] drop-shadow-sm line-clamp-4 sm:line-clamp-none">
-                    {slide.text}
-                  </p>
+                    <!-- Gold Flourish -->
+                    <div class="flex items-center gap-1.5 my-1.5 text-[#DFB756]/80 text-[9px] sm:text-[10px]">
+                      <span class="w-5 h-[1px] bg-gradient-to-r from-transparent to-[#DFB756]"></span>
+                      <span>✦</span>
+                      <span class="w-5 h-[1px] bg-gradient-to-l from-transparent to-[#DFB756]"></span>
+                    </div>
+
+                    <!-- Italic Tagline in Champagne -->
+                    <p class="font-['Playfair_Display'] italic text-xs sm:text-sm text-[#F7E7CE] font-normal leading-snug mb-1.5">
+                      {slide.tagline}
+                    </p>
+
+                    <!-- Thin Gold Divider -->
+                    <div class="w-full h-[1px] bg-gradient-to-r from-[#D4AF37]/60 via-[#F3E5AB]/40 to-transparent my-1 sm:my-1.5"></div>
+
+                    <!-- Paragraph in Soft Ivory (High Contrast >= 4.5:1) with Mobile Read More Support -->
+                    <div class="ritual-desc-container w-full">
+                      <p class="ritual-desc font-['Montserrat'] font-light text-[12px] sm:text-[13px] md:text-[13.5px] text-[#FFF5EB]/95 leading-[1.6] drop-shadow-sm">
+                        {slide.text}
+                      </p>
+                      <button
+                        type="button"
+                        class="ritual-read-more-btn hidden inline-flex items-center gap-1.5 mt-1.5 text-[11px] font-['Cinzel'] font-semibold tracking-wider text-[#DFB756] hover:text-[#FFF5D6] focus:outline-none cursor-pointer select-none transition-colors duration-200"
+                        aria-expanded="false"
+                        aria-label={`Read full description for ${slide.title}`}
+                      >
+                        <span class="ritual-btn-text">Read more</span>
+                        <span class="ritual-btn-arrow text-[9px] transform transition-transform duration-200">▾</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
+    </div>
 
-      <!-- Carousel Navigation & Interactive Controls Bar -->
-      <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 px-4">
-        <!-- Controls cluster: Prev Button, Counter, Autoplay Progress, Dots, Next Button -->
-        <div class="flex items-center gap-4 sm:gap-6">
-          <!-- Previous Arrow Button (>= 44px tap target) -->
-          <button
-            id="rituals-prev"
-            class="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-[#D4AF37]/70 text-[#8C6219] bg-white/90 hover:bg-[#8C6219] hover:text-[#FFF8EE] hover:border-[#8C6219] transition-all duration-300 shadow-md flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:outline-none ripple-btn active:scale-95"
-            aria-label="Previous ritual slide"
-          >
-            <svg class="w-5 h-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <!-- Middle Indicators: Counter, Autoplay Progress Bar, and Diamond Dots -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="flex items-center gap-3">
-              <span id="rituals-counter" class="font-['Cinzel'] text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#8C6219] min-w-[70px] text-center">
-                01 / 11
-              </span>
-              <!-- Thin Gold Autoplay Progress Line -->
-              <div class="w-20 sm:w-32 h-[2px] bg-[#D4AF37]/25 rounded-full overflow-hidden" aria-hidden="true">
-                <div id="rituals-progress-line" class="h-full bg-gradient-to-r from-[#DFB756] to-[#8C6219] w-0 transition-[width] duration-100 ease-linear"></div>
-              </div>
-            </div>
-
-            <!-- Small Gold Diamond Pagination Dots -->
-            <div id="rituals-dots" class="flex items-center gap-2"></div>
-          </div>
-
-          <!-- Next Arrow Button (>= 44px tap target) -->
-          <button
-            id="rituals-next"
-            class="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-[#D4AF37]/70 text-[#8C6219] bg-white/90 hover:bg-[#8C6219] hover:text-[#FFF8EE] hover:border-[#8C6219] transition-all duration-300 shadow-md flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:outline-none ripple-btn active:scale-95"
-            aria-label="Next ritual slide"
-          >
-            <svg class="w-5 h-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Live region for screen readers -->
-      <div id="rituals-live-region" class="sr-only" aria-live="polite">
-        Slide 1 of 11: Vadhu Aagman
-      </div>
+    <!-- Live region for screen readers -->
+    <div id="rituals-live-region" class="sr-only" aria-live="polite">
+      Slide 1 of 11: Vadhu Aagman
     </div>
   </section>
 
@@ -1244,28 +1305,58 @@ const sacredRituals = [
     <!-- Add shehnai audio src here -->
   </audio>
 
-  <!-- Scroll-to-top -->
-  <a href="#hero" id="scroll-top-btn" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 magnetic-btn ripple-btn text-sm sm:text-base" style="background:rgba(255,255,255,0.92);border:1px solid rgba(212,175,55,0.45);color:#8C6219;backdrop-filter:blur(12px);box-shadow:0 6px 20px rgba(180,150,120,0.2);" aria-label="Back to top">
+  <!-- Scroll-to-top (Stacked cleanly above floating music controls on bottom-right) -->
+  <a
+    href="#hero"
+    id="scroll-top-btn"
+    class="fixed z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none magnetic-btn ripple-btn text-sm sm:text-base"
+    style="right:24px;bottom:calc(max(24px, env(safe-area-inset-bottom)) + 60px);background:rgba(255,255,255,0.92);border:1px solid rgba(212,175,55,0.45);color:#8C6219;backdrop-filter:blur(12px);box-shadow:0 6px 20px rgba(180,150,120,0.2);"
+    aria-label="Back to top"
+  >
     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
   </a>
 
-  <!-- Music widget -->
-  <div class="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40">
-    <div id="music-widget" class="flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full cursor-pointer select-none transition-all duration-300 hover:scale-105 active:scale-95" style="background:rgba(250,242,228,0.85);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.4);box-shadow:0 6px 20px rgba(160,120,70,0.12);">
-      <svg id="widget-music-icon" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8C6219] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-      </svg>
-      <div class="flex flex-col">
+  <!-- Floating Music Controls (Bottom-Right: Pill + Circle Music Button) -->
+  <aside id="music-widget-container" class="fixed z-40 flex items-center gap-2 select-none" style="right:24px;bottom:max(24px,env(safe-area-inset-bottom));" aria-label="Wedding Music Player">
+    <!-- Music Pill ("AAJ SAJEYA" + Equalizer) -->
+    <button
+      id="music-widget"
+      type="button"
+      class="music-pill flex items-center gap-2 sm:gap-2.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-full cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]"
+      style="background:rgba(250,242,228,0.88);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.45);box-shadow:0 6px 20px rgba(160,120,70,0.14);"
+      aria-label="Toggle wedding music Aaj Sajeya"
+    >
+      <div class="flex flex-col text-left">
         <span class="font-['Montserrat'] text-[9px] sm:text-[10px] text-[#8C6219] tracking-widest uppercase leading-none font-semibold">Aaj Sajeya</span>
-        <span id="widget-song-status" class="font-['Montserrat'] text-[7px] sm:text-[8px] text-[#7A6B60] uppercase tracking-widest leading-none mt-0.5 hidden xs:inline font-medium">Click to Pause</span>
+        <span id="widget-song-status" class="font-['Montserrat'] text-[7.5px] sm:text-[8px] text-[#7A6B60] uppercase tracking-widest leading-none mt-1 font-medium hidden sm:block">Click to Pause</span>
       </div>
-      <div id="widget-bars" class="flex items-center gap-0.5 ml-0.5 sm:ml-1">
-        {[3,4,2].map(h => (
-          <span class="w-0.5 bg-[#8C6219] rounded-full" style={`height:${h*4}px;animation:music-bar 0.8s ease-in-out infinite alternate;`}></span>
-        ))}
+      <!-- Equalizer Bars -->
+      <div id="widget-bars" class="flex items-center gap-0.5 ml-1" aria-hidden="true">
+        <span class="music-bar music-bar-1"></span>
+        <span class="music-bar music-bar-2"></span>
+        <span class="music-bar music-bar-3"></span>
+        <span class="music-bar music-bar-4"></span>
       </div>
-    </div>
-  </div>
+    </button>
+
+    <!-- Circle Music Button (~48px Desktop, ~44px Mobile) -->
+    <button
+      id="music-circle-btn"
+      type="button"
+      class="music-circle-btn relative rounded-full cursor-pointer flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]"
+      style="background:rgba(250,242,228,0.92);backdrop-filter:blur(16px);border:1.5px solid rgba(212,175,55,0.6);box-shadow:0 6px 22px rgba(160,120,70,0.18);"
+      aria-label="Pause music"
+      aria-pressed="true"
+    >
+      <!-- Musical Note Inline SVG with Strike-through line when paused -->
+      <svg class="music-icon-svg w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#8C6219] transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18V5l12-2v13"></path>
+        <circle cx="6" cy="18" r="3" fill="currentColor"></circle>
+        <circle cx="18" cy="16" r="3" fill="currentColor"></circle>
+        <line class="music-mute-slash" x1="3" y1="3" x2="21" y2="21" stroke="#A62C4E" stroke-width="2.2"></line>
+      </svg>
+    </button>
+  </aside>
 
   <!-- Floating Lock Feedback Toast -->
   <div id="scratch-lock-toast" class="fixed bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-4 flex items-center gap-2.5 px-6 py-3 rounded-full shadow-2xl" style="background:rgba(28,18,12,0.95);backdrop-filter:blur(16px);border:1.5px solid rgba(212,175,55,0.7);color:#FFE89E;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;">
@@ -1281,48 +1372,66 @@ const sacredRituals = [
   overflow-x: clip;
 }
 
-#rituals-swiper {
-  overflow: visible !important;
-  width: 100%;
-  height: 520px;
+.rituals-carousel-wrapper {
+  --slide-duration: 0.4s;
+  --slide-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --autoplay-delay: 3000;
+  --text-fade-delay: 0.1s;
   position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
-#rituals-swiper .swiper-wrapper {
-  height: 100%;
+.rituals-track-container {
+  width: 100%;
+  position: relative;
+  overflow: visible;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.rituals-track-container.is-dragging {
+  cursor: grabbing;
+}
+
+.rituals-track {
   display: flex;
   align-items: center;
+  will-change: transform;
 }
 
-#rituals-swiper .swiper-slide {
-  width: 320px !important;
-  max-width: 330px !important;
-  height: 500px !important;
+.ritual-card {
+  width: 84vw;
+  max-width: 335px;
+  height: 520px;
   flex-shrink: 0;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
-  opacity: 0.55;
   display: block;
+  transform: scale(0.85);
+  opacity: 0.65;
+  filter: brightness(0.88);
+  transition: transform var(--slide-duration, 0.4s) var(--slide-easing, cubic-bezier(0.22, 1, 0.36, 1)),
+              opacity var(--slide-duration, 0.4s) ease,
+              filter var(--slide-duration, 0.4s) ease;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
 }
 
 @media (min-width: 640px) {
-  #rituals-swiper {
-    height: 560px;
-  }
-  #rituals-swiper .swiper-slide {
-    width: 375px !important;
-    max-width: 380px !important;
-    height: 535px !important;
+  .ritual-card {
+    width: 360px;
+    max-width: 370px;
+    height: 550px;
   }
 }
 
-@media (min-width: 768px) {
-  #rituals-swiper {
-    height: 590px;
-  }
-  #rituals-swiper .swiper-slide {
-    width: 410px !important;
-    max-width: 420px !important;
-    height: 565px !important;
+@media (min-width: 1024px) {
+  .ritual-card {
+    width: 380px;
+    max-width: 390px;
+    height: 580px;
   }
 }
 
@@ -1331,13 +1440,45 @@ const sacredRituals = [
   width: 100% !important;
 }
 
-#rituals-swiper .swiper-slide-active {
+/* Center Active Card: Full Opacity, Vibrant, Elevated */
+.ritual-card.is-active {
+  transform: scale(1) !important;
   opacity: 1 !important;
+  filter: brightness(1) !important;
   z-index: 20;
 }
 
+/* Card inner text fade-in & stagger with ~0.1s delay */
+.ritual-text-stagger {
+  transition: opacity var(--slide-duration, 0.4s) ease var(--text-fade-delay, 0.1s),
+              transform var(--slide-duration, 0.4s) var(--slide-easing, cubic-bezier(0.22, 1, 0.36, 1)) var(--text-fade-delay, 0.1s);
+}
+
+.ritual-card:not(.is-active) .ritual-text-stagger {
+  opacity: 0.72;
+  transform: translateY(4px);
+}
+
+.ritual-card.is-active .ritual-text-stagger {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Side Card Titles vs Active Card Title (Last word in Gold on Center card) */
+.ritual-card:not(.is-active) .ritual-title-gold {
+  color: #E8D5B5;
+}
+
+.ritual-card.is-active .ritual-title-gold {
+  color: #DFB756;
+}
+
+.ritual-title-gold {
+  transition: color var(--slide-duration, 0.4s) ease var(--text-fade-delay, 0.1s);
+}
+
 /* Ken Burns slow subtle zoom on active slide */
-#rituals-swiper .swiper-slide-active .ritual-card-img {
+.ritual-card.is-active .ritual-card-img {
   animation: kenBurnsZoom 8s ease-in-out infinite alternate;
 }
 
@@ -1346,7 +1487,7 @@ const sacredRituals = [
   100% { transform: scale(1.06); }
 }
 
-#rituals-swiper .swiper-slide-active .ritual-card-img.scale-110 {
+.ritual-card.is-active .ritual-card-img.scale-110 {
   animation: kenBurnsZoomSlide11 8s ease-in-out infinite alternate;
 }
 
@@ -1355,68 +1496,68 @@ const sacredRituals = [
   100% { transform: scale(1.18); }
 }
 
-/* Gold shimmer sweeps once over title of active slide */
-#rituals-swiper .swiper-slide-active .ritual-card-title {
-  background: linear-gradient(110deg, #FFFFFF 15%, #DFB756 50%, #FFFFFF 85%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: ritualTitleShimmer 1.8s ease-out 0.25s 1 forwards;
+/* Gold Navigation Arrow Buttons */
+.ritual-nav-btn {
+  background: rgba(26, 6, 10, 0.82);
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  color: #DFB756;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
 }
 
-@keyframes ritualTitleShimmer {
-  0% { background-position: 150% 0; }
-  100% { background-position: -150% 0; }
+.ritual-nav-btn:hover {
+  background: #DFB756;
+  color: #1A060A;
+  border-color: #F3E5AB;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
 
-/* Text staggered fade-up when slide becomes active */
-#rituals-swiper .swiper-slide-active .ritual-text-stagger > *:nth-child(1) {
-  animation: ritualTextFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
-}
-#rituals-swiper .swiper-slide-active .ritual-text-stagger > *:nth-child(2) {
-  animation: ritualTextFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
-}
-#rituals-swiper .swiper-slide-active .ritual-text-stagger > *:nth-child(3) {
-  animation: ritualTextFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
-}
-#rituals-swiper .swiper-slide-active .ritual-text-stagger > *:nth-child(4) {
-  animation: ritualTextFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.30s both;
-}
-#rituals-swiper .swiper-slide-active .ritual-text-stagger > *:nth-child(5) {
-  animation: ritualTextFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
-}
-#rituals-swiper .swiper-slide-active .ritual-text-stagger > *:nth-child(6) {
-  animation: ritualTextFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+.ritual-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
-@keyframes ritualTextFadeUp {
-  0% { opacity: 0; transform: translateY(12px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* Mobile Read More (3-line clamp by default, smooth expansion on tap) */
+@media (max-width: 768px) {
+  .ritual-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    max-height: 4.8em;
+    transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .ritual-card.is-expanded .ritual-desc {
+    -webkit-line-clamp: 99;
+    line-clamp: 99;
+    max-height: 260px;
+  }
+
+  .ritual-card .ritual-btn-arrow {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+
+  .ritual-card.is-expanded .ritual-btn-arrow {
+    transform: rotate(180deg);
+  }
 }
 
-/* Gold Diamond Pagination Dots */
-.rituals-dot {
-  width: 7px;
-  height: 7px;
-  transform: rotate(45deg);
-  border: 1px solid rgba(212,175,55,0.65);
-  background: transparent;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-  padding: 0;
-  display: inline-block;
-}
-
-.rituals-dot:hover {
-  border-color: #B8860B;
-  background: rgba(212,175,55,0.3);
-}
-
-.rituals-dot-active {
-  background: #B8860B !important;
-  border-color: #8C6219 !important;
-  transform: rotate(45deg) scale(1.35) !important;
-  box-shadow: 0 0 8px rgba(212,175,55,0.7) !important;
+@media (min-width: 769px) {
+  .ritual-desc {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .ritual-read-more-btn {
+    display: none !important;
+  }
 }
 
 /* Floating Gold Dust Particles */
@@ -1439,17 +1580,19 @@ const sacredRituals = [
 
 /* Accessibility: Prefers Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  #rituals-swiper .swiper-slide-active .ritual-card-img,
-  #rituals-swiper .swiper-slide-active .ritual-card-img.scale-110,
-  #rituals-swiper .swiper-slide-active .ritual-card-title,
-  #rituals-swiper .swiper-slide-active .ritual-text-stagger > *,
+  .ritual-card.is-active .ritual-card-img,
+  .ritual-card.is-active .ritual-card-img.scale-110,
   .ritual-particle {
     animation: none !important;
     transition: none !important;
     transform: none !important;
+    opacity: 1 !important;
   }
-  #rituals-swiper .swiper-slide {
+  .ritual-card,
+  .ritual-text-stagger,
+  .ritual-title-gold {
     transition: none !important;
+    transform: none !important;
   }
 }
 
@@ -1457,9 +1600,123 @@ const sacredRituals = [
   0% { transform: translateY(-100%); opacity: 1; }
   100% { transform: translateY(200%); opacity: 0; }
 }
-@keyframes music-bar {
-  from { transform: scaleY(0.4); }
-  to { transform: scaleY(1); }
+/* ── FLOATING MUSIC CONTROLS (BOTTOM-RIGHT) ───────────────────────── */
+#music-widget-container {
+  position: fixed;
+  right: 24px;
+  bottom: max(24px, env(safe-area-inset-bottom, 24px));
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  #music-widget-container {
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    gap: 6px;
+  }
+}
+
+/* Scroll-to-top button positioning */
+#scroll-top-btn {
+  right: 24px;
+  bottom: calc(max(24px, env(safe-area-inset-bottom, 24px)) + 60px);
+}
+
+@media (max-width: 640px) {
+  #scroll-top-btn {
+    right: 16px !important;
+    bottom: calc(max(16px, env(safe-area-inset-bottom, 16px)) + 54px) !important;
+  }
+}
+
+/* Music Pill */
+.music-pill {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+}
+
+.music-pill.is-paused,
+.music-pill.music-widget-paused {
+  opacity: 0.8;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+/* Equalizer Bars */
+.music-bar {
+  display: inline-block;
+  width: 2.5px;
+  background: linear-gradient(to top, #8C6219, #D4AF37);
+  border-radius: 999px;
+  transform-origin: bottom center;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.music-bar-1 { height: 11px; animation: musicEqualizer 0.75s ease-in-out infinite alternate; }
+.music-bar-2 { height: 7px;  animation: musicEqualizer 0.9s  ease-in-out infinite alternate 0.2s; }
+.music-bar-3 { height: 14px; animation: musicEqualizer 0.65s ease-in-out infinite alternate 0.1s; }
+.music-bar-4 { height: 8px;  animation: musicEqualizer 0.85s ease-in-out infinite alternate 0.3s; }
+
+@keyframes musicEqualizer {
+  0% { transform: scaleY(0.25); }
+  100% { transform: scaleY(1); }
+}
+
+.music-pill.is-paused .music-bar,
+.music-pill.music-widget-paused .music-bar {
+  animation: none !important;
+  transform: scaleY(0.25) !important;
+  opacity: 0.4 !important;
+}
+
+/* Circle Music Button */
+.music-circle-btn {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+@media (max-width: 640px) {
+  .music-circle-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Strike-Through Slash on Music Icon */
+.music-mute-slash {
+  stroke: #A62C4E;
+  stroke-width: 2.2;
+  transition: opacity 0.25s ease;
+}
+
+.music-circle-btn.is-playing .music-mute-slash {
+  opacity: 0;
+}
+
+.music-circle-btn.is-paused .music-mute-slash {
+  opacity: 1;
+}
+
+.music-circle-btn.is-paused .music-icon-svg {
+  opacity: 0.7;
+}
+
+.music-circle-btn.is-playing .music-icon-svg {
+  opacity: 1;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .music-bar {
+    animation: none !important;
+  }
 }
 
 /* Scroll Gate: Locked Content Wrapper & Locked Countdown Plaque */
@@ -1474,6 +1731,75 @@ const sacredRituals = [
   margin: 0 !important;
   padding: 0 !important;
   display: none !important;
+}
+
+/* Countdown Plaque & Continue CTA Reveal Fade-Up */
+.countdown-fade-up {
+  animation: countdownFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+@keyframes countdownFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.continue-btn-fade-up {
+  animation: continueBtnFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+@keyframes continueBtnFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tabular nums and layout stability for countdown digits */
+#cd-days-val,
+#cd-hours-val,
+#cd-minutes-val,
+#cd-seconds-val {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  display: inline-block;
+  min-width: 1.8ch;
+  text-align: center;
+}
+
+/* Subtle micro-flip / fade animation on seconds tick */
+@keyframes secondFlip {
+  0% {
+    opacity: 0.35;
+    transform: translateY(-4px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.second-tick {
+  animation: secondFlip 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countdown-fade-up,
+  .continue-btn-fade-up,
+  .second-tick {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Shake cards feedback */
@@ -1709,6 +2035,39 @@ const sacredRituals = [
   to { transform: rotate(360deg); }
 }
 
+/* Golden Thread & Midpoint Heart Connection */
+#couple-heart-knot {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes coupleHeartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.12); }
+  40% { transform: scale(1); }
+  60% { transform: scale(1.08); }
+}
+
+.heart-beating-icon {
+  animation: coupleHeartbeat 1.6s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+html.js #couple.couple-unconnected #couple-thread-path {
+  stroke-dashoffset: 1000;
+  opacity: 0;
+}
+
+html.js #couple.couple-unconnected #couple-heart-knot {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
 /* Center heart intensifier */
 .center-heart-disc.is-joined {
   transform: scale(1.12);
@@ -1716,6 +2075,14 @@ const sacredRituals = [
 }
 .center-heart-disc.is-joined .heart-pulse-glow {
   opacity: 0.85;
+}
+
+/* Below-the-fold content visibility for initial paint performance */
+#couple,
+#events,
+#rituals {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
 }
 
 /* ========== CEREMONIES & ITINERARY (KEN BURNS, SHIMMER & HOVER) ========== */
@@ -1790,133 +2157,377 @@ const sacredRituals = [
     background: none !important;
     -webkit-text-fill-color: currentColor !important;
   }
+  .heart-beating-icon {
+    animation: none !important;
+  }
+  html.js #couple.couple-unconnected #couple-thread-path {
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+  }
+  html.js #couple.couple-unconnected #couple-heart-knot {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
 }
 
-/* ===== CEREMONY TIMELINE ===== */
+/* ===== CEREMONIES & ITINERARY: ALTERNATING ZIGZAG TIMELINE ===== */
+#events {
+  overflow-x: clip;
+}
+
 .cer-timeline {
-  padding: 0 0 1rem;
+  position: relative;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 1.5rem 0 2.5rem;
 }
 
-/* Vertical centre line */
-.cer-vline {
+/* Continuous Vertical Gold Line Track */
+.cer-timeline-track {
   position: absolute;
+  top: 1.5rem;
+  bottom: 2.5rem;
   left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
+  width: 2px;
   transform: translateX(-50%);
-  background: linear-gradient(to bottom, #D4AF37 0%, #C4556F 60%, transparent 100%);
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
-/* Each row */
+.cer-timeline-line-base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.2) 85%, transparent 100%);
+}
+
+.cer-timeline-line-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to bottom, #D4AF37 0%, #B8860B 60%, #8C6219 100%);
+  transform-origin: top;
+  transform: scaleY(1);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.45);
+}
+
+/* Ceremony Row on Desktop */
 .cer-row {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0;
-  margin-bottom: 3.5rem;
+  justify-content: space-between;
+  margin-bottom: 96px;
+  width: 100%;
 }
 
-/* Odd: card left, node centre, image right */
-.cer-row--odd {
-  flex-direction: row;
+.cer-row:last-child {
+  margin-bottom: 1.5rem;
 }
 
-/* Even: image left, node centre, card right */
-.cer-row--even {
-  flex-direction: row-reverse;
+/* Columns on Desktop */
+.cer-col-text {
+  width: calc(50% - 36px);
+  flex-shrink: 0;
 }
 
-/* ---- Card ---- */
+.cer-center {
+  width: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 4;
+}
+
+.cer-col-photo {
+  width: calc(50% - 36px);
+  flex-shrink: 0;
+}
+
+/* Desktop Ordering:
+   Even (0, 2, 4): Text on LEFT (order 1), Center (order 2), Photo on RIGHT (order 3)
+   Odd (1, 3): Photo on LEFT (order 1), Center (order 2), Text on RIGHT (order 3)
+*/
+.cer-row--even .cer-col-text {
+  order: 1;
+}
+.cer-row--even .cer-center {
+  order: 2;
+}
+.cer-row--even .cer-col-photo {
+  order: 3;
+}
+
+.cer-row--odd .cer-col-photo {
+  order: 1;
+}
+.cer-row--odd .cer-center {
+  order: 2;
+}
+.cer-row--odd .cer-col-text {
+  order: 3;
+}
+
+/* Number Circle on Timeline */
+.cer-node {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFDF8;
+  border: 1.5px solid rgba(212, 175, 55, 0.7);
+  box-shadow: 0 4px 16px rgba(184, 134, 11, 0.22), 0 1px 4px rgba(26, 6, 10, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+}
+
+.cer-node span {
+  font-family: 'Playfair Display', serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #8C6219;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.cer-node--gold {
+  border-color: #B8860B;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), 0 4px 16px rgba(184, 134, 11, 0.25);
+}
+
+.cer-node--gold span {
+  color: #B8860B;
+}
+
+/* Photo Wrap */
+.cer-photo-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(26, 6, 10, 0.12), 0 2px 8px rgba(212, 175, 55, 0.12);
+  border: 6px solid #FFFFFF;
+  background: #F5EFE6;
+}
+
+.cer-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cer-row:hover .cer-photo-wrap img {
+  transform: scale(1.04);
+}
+
+.cer-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26, 6, 10, 0.28) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Card Styling */
 .cer-card {
-  flex: 1;
   background: #FFFDF7;
-  border: 1px solid rgba(212,175,55,0.28);
+  border: 1px solid rgba(212, 175, 55, 0.28);
   border-radius: 20px;
-  padding: 1.5rem 1.75rem;
-  box-shadow: 0 4px 24px rgba(26,6,10,0.07), 0 1px 4px rgba(212,175,55,0.12);
+  padding: 1.6rem 1.85rem;
+  box-shadow: 0 6px 28px rgba(26, 6, 10, 0.08), 0 1px 4px rgba(212, 175, 55, 0.1);
   position: relative;
   z-index: 1;
 }
 
 .cer-card--vivah {
-  border-color: rgba(212,175,55,0.55);
-  box-shadow: 0 6px 32px rgba(26,6,10,0.1), 0 0 20px rgba(212,175,55,0.18);
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 8px 36px rgba(26, 6, 10, 0.12), 0 0 24px rgba(212, 175, 55, 0.2);
 }
 
+/* Desktop Alignment:
+   Even row (left-side text) is RIGHT-aligned towards the line.
+   Odd row (right-side text) is LEFT-aligned towards the line.
+*/
+.cer-row--even .cer-col-text {
+  text-align: right;
+}
+
+.cer-row--even .cer-label {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.cer-row--even .cer-title {
+  text-align: right;
+}
+
+.cer-row--even .cer-desc {
+  text-align: right;
+}
+
+.cer-row--even .cer-divider {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.cer-row--even .cer-meta-row {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.cer-row--even .cer-dress {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.cer-row--odd .cer-col-text {
+  text-align: left;
+}
+
+.cer-row--odd .cer-label {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.cer-row--odd .cer-title {
+  text-align: left;
+}
+
+.cer-row--odd .cer-desc {
+  text-align: left;
+}
+
+.cer-row--odd .cer-divider {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.cer-row--odd .cer-meta-row {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.cer-row--odd .cer-dress {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Typography & Sub-elements */
 .cer-label {
-  display: block;
+  display: inline-block;
   font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
+  font-size: 9.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 700;
   color: #8C6219;
-  margin-bottom: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(250, 242, 228, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  margin-bottom: 0.65rem;
 }
 
 .cer-label--gold {
   color: #B8860B;
+  background: rgba(212, 175, 55, 0.12);
+  border-color: rgba(212, 175, 55, 0.5);
 }
 
 .cer-title {
   font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: #261E19;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.55rem;
   line-height: 1.3;
 }
 
 .cer-desc {
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 300;
   color: #5C4D42;
   line-height: 1.7;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .cer-divider {
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201,162,75,0.35), transparent);
-  margin-bottom: 0.75rem;
+  max-width: 140px;
+  background: linear-gradient(to right, transparent, rgba(201,162,75,0.4), transparent);
+  margin-bottom: 0.85rem;
 }
 
 .cer-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  margin-bottom: 0.85rem;
+  gap: 0.6rem;
+  margin-bottom: 1.15rem;
 }
 
 .cer-meta-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  font-size: 15px;
+  line-height: 1.45;
   color: #5C4D42;
 }
 
 .cer-icon {
-  width: 13px;
-  height: 13px;
+  width: 17px;
+  height: 17px;
   color: #C9A24B;
   flex-shrink: 0;
 }
 
+/* Date Row: Prominent & Royal */
+.cer-meta-row--date {
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  font-weight: 600;
+  color: #5C3810;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.1rem;
+}
+
+.cer-icon--calendar {
+  width: 22px;
+  height: 22px;
+  color: #B8860B;
+  stroke-width: 2.2;
+}
+
+.cer-date-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: inherit;
+  font-weight: 600;
+  color: #5C3810;
+  line-height: 1.25;
+}
+
+.cer-label-date {
+  font-weight: 700;
+  color: #5C3810;
+}
+
 .cer-dress {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: rgba(247,242,234,0.85);
-  border: 1px solid rgba(201,162,75,0.25);
-  border-radius: 8px;
-  padding: 0.45rem 0.75rem;
-  margin-bottom: 0.85rem;
+  gap: 0.6rem;
+  background: rgba(247, 242, 234, 0.85);
+  border: 1px solid rgba(201, 162, 75, 0.28);
+  border-radius: 9999px;
+  padding: 0.4rem 0.85rem;
 }
 
 .cer-dress-label {
@@ -1926,13 +2537,11 @@ const sacredRituals = [
   text-transform: uppercase;
   color: #7A6657;
   white-space: nowrap;
-  margin-right: auto;
 }
 
 .cer-swatches {
   display: flex;
   align-items: center;
-  gap: -2px;
 }
 
 .cer-swatch {
@@ -1940,9 +2549,13 @@ const sacredRituals = [
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.6);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   margin-left: -2px;
+}
+
+.cer-swatch:first-child {
+  margin-left: 0;
 }
 
 .cer-dress-name {
@@ -1952,126 +2565,198 @@ const sacredRituals = [
   color: #3E2D24;
 }
 
-.cer-btn {
-  width: 100%;
-  padding: 0.55rem 0;
-  border-radius: 999px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 600;
-  background: transparent;
-  border: 1px solid rgba(201,162,75,0.65);
-  color: #7A5C1A;
-  cursor: pointer;
-  transition: all 0.28s ease;
+/* ========================================================
+   SCROLL ANIMATIONS (Progressive Enhancement via html.js)
+   ======================================================== */
+/* By default without JS, everything is fully visible */
+.cer-card,
+.cer-node,
+.cer-photo-wrap {
+  opacity: 1;
+  transform: none;
 }
 
-.cer-btn:hover {
-  background: linear-gradient(135deg, #D4AF37, #B8860B);
-  color: #FFF8EE;
-  border-color: #F5D77F;
+/* When JavaScript is active, set initial hidden states ready for scroll-in */
+html.js .cer-animate-ready .cer-card {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s, opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  will-change: transform, opacity;
 }
 
-.cer-btn--gold {
-  background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(184,134,11,0.08));
-  border-color: rgba(201,162,75,0.8);
-  color: #7A5C1A;
+html.js .cer-animate-ready .cer-node {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.35s, opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+  will-change: transform, opacity;
 }
 
-.cer-btn--gold:hover {
-  background: linear-gradient(135deg, #D4AF37, #B8860B);
-  color: #FFF8EE;
+/* Even Rows (01 Haldi, 03 Sangeet, 05 Reception): Text LEFT, Photo RIGHT on desktop
+   -> Photo slides in from RIGHT (translateX(80px) -> 0, opacity 0 -> 1, ~0.9s cubic-bezier(0.22, 1, 0.36, 1)) */
+html.js .cer-animate-ready .cer-row--even .cer-photo-wrap {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
 }
 
-/* ---- Node (numbered circle) ---- */
-.cer-node {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.97);
-  border: 1.5px solid rgba(212,175,55,0.65);
-  box-shadow: 0 4px 16px rgba(212,175,55,0.2), 0 1px 4px rgba(26,6,10,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  position: relative;
-  margin: 0 1.5rem;
+/* Odd Rows (02 Mehendi, 04 Vivah): Photo LEFT, Text RIGHT on desktop
+   -> Photo slides in from LEFT (translateX(-80px) -> 0, opacity 0 -> 1, ~0.9s cubic-bezier(0.22, 1, 0.36, 1)) */
+html.js .cer-animate-ready .cer-row--odd .cer-photo-wrap {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
 }
 
-.cer-node span {
-  font-family: 'Playfair Display', serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: #8C6219;
-  letter-spacing: 0.05em;
+/* In-View States: Triggered once when row enters viewport */
+html.js .cer-row.is-in-view .cer-card {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
-.cer-node--gold {
-  border-color: #D4AF37;
-  box-shadow: 0 0 20px rgba(212,175,55,0.35), 0 4px 16px rgba(26,6,10,0.1);
+html.js .cer-row.is-in-view .cer-node {
+  opacity: 1 !important;
+  transform: scale(1) !important;
 }
 
-.cer-node--gold span {
-  color: #B8860B;
+html.js .cer-row.is-in-view .cer-photo-wrap {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
 }
 
-/* ---- Image panel ---- */
-.cer-img {
-  flex: 1;
-}
+/* ========================================================
+   MOBILE RESPONSIVENESS: max-width 768px
+   ======================================================== */
+@media (max-width: 768px) {
+  .cer-timeline {
+    padding-left: 0;
+  }
 
-.cer-img-wrap {
-  position: relative;
-  height: 260px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 28px rgba(26,6,10,0.14), 0 1px 4px rgba(212,175,55,0.12);
-  border: 1px solid rgba(212,175,55,0.22);
-  background: #F5EFE6;
-}
+  /* Vertical line on left side (~24px from edge) */
+  .cer-timeline-track {
+    left: 24px;
+    transform: translateX(-50%);
+  }
 
-.cer-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.cer-row:hover .cer-img-wrap img {
-  transform: scale(1.055);
-}
-
-.cer-img-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(26,6,10,0.32) 0%, transparent 55%);
-}
-
-/* ===== RESPONSIVE: Mobile single-column ===== */
-@media (max-width: 767px) {
-  .cer-vline { display: none; }
-
-  .cer-row,
-  .cer-row--odd,
-  .cer-row--even {
+  .cer-row {
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
-    margin-bottom: 2.5rem;
+    padding-left: 54px;
+    margin-bottom: 56px;
+    gap: 1.25rem;
+  }
+
+  /* Single column order: Center node at top-left, then Photo, then Text */
+  .cer-center {
+    position: absolute;
+    left: 24px;
+    top: 0;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    order: 0 !important;
   }
 
   .cer-node {
-    width: 40px;
-    height: 40px;
-    margin: 0.75rem auto;
+    width: 38px;
+    height: 38px;
   }
 
-  .cer-img-wrap {
-    height: 200px;
+  .cer-node span {
+    font-size: 12px;
+  }
+
+  .cer-col-photo {
+    width: 100%;
+    order: 1 !important;
+  }
+
+  .cer-col-text {
+    width: 100%;
+    order: 2 !important;
+    text-align: left !important;
+  }
+
+  .cer-card {
+    padding: 1.35rem 1.35rem;
+    border-radius: 18px;
+  }
+
+  .cer-label {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  .cer-title {
+    text-align: left !important;
+    font-size: 1.18rem;
+  }
+
+  .cer-desc {
+    text-align: left !important;
+  }
+
+  .cer-divider {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  .cer-meta-row {
+    justify-content: flex-start !important;
+    text-align: left !important;
+    font-size: 13.5px;
+  }
+
+  .cer-meta-row--date {
+    font-size: 1.125rem; /* ~18px on mobile */
+    line-height: 1.35;
+  }
+
+  .cer-icon--calendar {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cer-dress {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    display: flex;
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .cer-dress-label {
+    margin-right: auto;
+  }
+
+  /* Mobile photo animation: slides in from side */
+  html.js .cer-animate-ready .cer-row--even .cer-photo-wrap {
+    transform: translateX(40px);
+  }
+
+  html.js .cer-animate-ready .cer-row--odd .cer-photo-wrap {
+    transform: translateX(-40px);
+  }
+
+  html.js .cer-row.is-in-view .cer-photo-wrap {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+}
+
+/* Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  html.js .cer-animate-ready .cer-card,
+  html.js .cer-animate-ready .cer-node,
+  html.js .cer-animate-ready .cer-photo-wrap,
+  .cer-card,
+  .cer-node,
+  .cer-photo-wrap,
+  .cer-timeline-line-progress {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 </style>
@@ -2082,12 +2767,7 @@ const sacredRituals = [
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import Lenis from 'lenis';
   import { royalAudio } from '../lib/audio';
-  import Swiper from 'swiper';
-  import { EffectCoverflow, Navigation, Pagination, Autoplay, Keyboard, A11y } from 'swiper/modules';
-  import 'swiper/css';
-  import 'swiper/css/navigation';
-  import 'swiper/css/pagination';
-  import 'swiper/css/effect-coverflow';
+  import { initRitualsCarousel } from '../scripts/ritualsCarousel';
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -2126,6 +2806,9 @@ const sacredRituals = [
 
     if (openingVideo) {
       openingVideo.pause();
+    }
+    if (openingVideoAmbient) {
+      openingVideoAmbient.pause();
     }
 
     if (openingCinematic) {
@@ -2177,6 +2860,12 @@ const sacredRituals = [
   }
 
   let userManuallyMuted = false;
+  try {
+    userManuallyMuted = localStorage.getItem('musicMuted') === 'true';
+    if (userManuallyMuted) {
+      royalAudio.setManuallyPaused(true);
+    }
+  } catch (e) {}
 
   // Enforce sound on video interaction, but respect manual user mute after video
   const enforceAllSoundActive = () => {
@@ -2322,8 +3011,8 @@ const sacredRituals = [
   const scrollTopBtn = document.getElementById('scroll-top-btn');
   ScrollTrigger.create({
     start: 'top -400px',
-    onEnter: () => scrollTopBtn && gsap.to(scrollTopBtn, { opacity: 1, duration: 0.3 }),
-    onLeaveBack: () => scrollTopBtn && gsap.to(scrollTopBtn, { opacity: 0, duration: 0.3 }),
+    onEnter: () => scrollTopBtn && gsap.to(scrollTopBtn, { opacity: 1, pointerEvents: 'auto', duration: 0.3 }),
+    onLeaveBack: () => scrollTopBtn && gsap.to(scrollTopBtn, { opacity: 0, pointerEvents: 'none', duration: 0.3 }),
   });
 
   // ── REVEAL SECTIONS on scroll ─────────────────────────────────────
@@ -2336,20 +3025,8 @@ const sacredRituals = [
     );
   });
 
-  // Ceremonies timeline row stagger
-  gsap.fromTo('.cer-row', { opacity: 0, y: 35 }, {
-    opacity: 1, y: 0, duration: 0.75, stagger: 0.18, ease: 'power2.out',
-    scrollTrigger: { trigger: '#events', start: 'top 70%' }
-  });
-
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-
-  // Attach calendar download to ceremony buttons
-  document.querySelectorAll('.cer-btn').forEach(btn => {
-    btn.addEventListener('click', downloadICS);
-  });
 
 
   // ── MEET THE COUPLE: 3D TILT, GLOW & TAP-TO-SWAP ────────────────
@@ -2392,139 +3069,230 @@ const sacredRituals = [
     });
   });
 
-  // ── MEET THE BRIDE & GROOM: MEETING IN THE MIDDLE (GSAP) ────────
+  // ── MEET THE BRIDE & GROOM: CONTINUOUS THREAD & MIDPOINT HEART ──
   const coupleSection = document.getElementById('couple');
   const groomFloating = document.querySelector('.groom-detail-floating') as HTMLElement | null;
   const brideFloating = document.querySelector('.bride-detail-floating') as HTMLElement | null;
   const threadPath = document.getElementById('couple-thread-path') as SVGPathElement | null;
   const threadSvg = document.getElementById('couple-gold-thread-svg') as SVGSVGElement | null;
-  const centerHeartDisc = document.querySelector('.center-heart-disc') as HTMLElement | null;
+  const threadGrad = document.getElementById('coupleThreadGrad') as SVGLinearGradientElement | null;
+  const heartKnot = document.getElementById('couple-heart-knot') as HTMLElement | null;
 
-  if (coupleSection && groomFloating && brideFloating && threadPath && threadSvg) {
-    const updateThreadGeometry = (drawProgress: number) => {
-      const svgRect = threadSvg.getBoundingClientRect();
-      if (!svgRect.width || !svgRect.height) return;
+  if (coupleSection && groomFloating && brideFloating && threadPath && threadSvg && heartKnot) {
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let totalLength = 0;
+    let hasAnimatedIn = isReduced;
 
-      const groomRect = groomFloating.getBoundingClientRect();
-      const brideRect = brideFloating.getBoundingClientRect();
-      const heartRect = centerHeartDisc ? centerHeartDisc.getBoundingClientRect() : null;
+    const computeThreadGeometry = () => {
+      const sectionRect = coupleSection.getBoundingClientRect();
+      const gRect = groomFloating.getBoundingClientRect();
+      const bRect = brideFloating.getBoundingClientRect();
 
-      // Centers relative to SVG canvas
-      const gX = groomRect.left + groomRect.width / 2 - svgRect.left;
-      const gY = groomRect.top + groomRect.height / 2 - svgRect.top;
+      if (!sectionRect.width || !sectionRect.height) return;
 
-      const bX = brideRect.left + brideRect.width / 2 - svgRect.left;
-      const bY = brideRect.top + brideRect.height / 2 - svgRect.top;
+      // Centers relative to section
+      const gX = gRect.left + gRect.width / 2 - sectionRect.left;
+      const gY = gRect.top + gRect.height / 2 - sectionRect.top;
+      const bX = bRect.left + bRect.width / 2 - sectionRect.left;
+      const bY = bRect.top + bRect.height / 2 - sectionRect.top;
 
-      let hX = (gX + bX) / 2;
-      let hY = (gY + bY) / 2;
-      if (heartRect) {
-        hX = heartRect.left + heartRect.width / 2 - svgRect.left;
-        hY = heartRect.top + heartRect.height / 2 - svgRect.top;
+      // Dynamic gold -> pink linear gradient coordinates
+      if (threadGrad) {
+        threadGrad.setAttribute('x1', `${gX}`);
+        threadGrad.setAttribute('y1', `${gY}`);
+        threadGrad.setAttribute('x2', `${bX}`);
+        threadGrad.setAttribute('y2', `${bY}`);
       }
 
-      // Smooth curved path passing directly through the center of the heart: Groom Ring -> Center Heart -> Bride Aarsi
-      const isDesktop = window.innerWidth >= 1024;
-      const d = isDesktop
-        ? `M ${gX.toFixed(1)} ${gY.toFixed(1)} Q ${(gX + 60).toFixed(1)} ${hY.toFixed(1)} ${hX.toFixed(1)} ${hY.toFixed(1)} Q ${(bX - 60).toFixed(1)} ${hY.toFixed(1)} ${bX.toFixed(1)} ${bY.toFixed(1)}`
-        : `M ${gX.toFixed(1)} ${gY.toFixed(1)} Q ${hX.toFixed(1)} ${(gY + 40).toFixed(1)} ${hX.toFixed(1)} ${hY.toFixed(1)} Q ${hX.toFixed(1)} ${(bY - 40).toFixed(1)} ${bX.toFixed(1)} ${bY.toFixed(1)}`;
-      threadPath.setAttribute('d', d);
+      // Check layout: desktop horizontal vs mobile stacked
+      const isHorizontal = Math.abs(gX - bX) > 100 && (bX > gX);
 
-      const totalLen = threadPath.getTotalLength() || 400;
-      threadPath.style.strokeDasharray = `${totalLen}`;
-      const clampedP = Math.min(Math.max(drawProgress, 0), 1);
-      threadPath.style.strokeDashoffset = `${totalLen * (1 - clampedP)}`;
-      threadPath.style.opacity = clampedP > 0.05 ? '1' : '0';
+      let d = '';
+      if (isHorizontal) {
+        const midX = (gX + bX) / 2;
+        const sag = Math.min(45, Math.abs(bX - gX) * 0.08);
+        const ctrlY = Math.max(gY, bY) + sag;
+        d = `M ${gX.toFixed(1)} ${gY.toFixed(1)} Q ${midX.toFixed(1)} ${ctrlY.toFixed(1)} ${bX.toFixed(1)} ${bY.toFixed(1)}`;
+      } else {
+        const midY = (gY + bY) / 2;
+        d = `M ${gX.toFixed(1)} ${gY.toFixed(1)} C ${(gX + 35).toFixed(1)} ${(gY + (midY - gY) * 0.5).toFixed(1)}, ${(bX - 35).toFixed(1)} ${(bY - (bY - midY) * 0.5).toFixed(1)}, ${bX.toFixed(1)} ${bY.toFixed(1)}`;
+      }
+
+      threadPath.setAttribute('d', d);
+      totalLength = threadPath.getTotalLength() || 500;
+      threadPath.style.strokeDasharray = `${totalLength}`;
+
+      // Place heart knot exactly at path midpoint
+      const midPoint = threadPath.getPointAtLength(totalLength / 2);
+      heartKnot.style.left = `${midPoint.x}px`;
+      heartKnot.style.top = `${midPoint.y}px`;
+
+      if (hasAnimatedIn || isReduced) {
+        threadPath.style.strokeDashoffset = '0';
+        threadPath.style.opacity = '1';
+        heartKnot.style.opacity = '1';
+        heartKnot.style.transform = 'translate(-50%, -50%) scale(1)';
+        coupleSection.classList.remove('couple-unconnected');
+      }
     };
 
-    if (!isReducedMotion) {
-      ScrollTrigger.create({
-        trigger: '#couple',
-        start: 'top 85%',
-        end: 'center 45%',
-        scrub: 1.2,
-        onUpdate: (self) => {
-          const p = self.progress; // 0 to 1
-          const isDesktop = window.innerWidth >= 1024;
+    if (!isReduced) {
+      coupleSection.classList.add('couple-unconnected');
+      computeThreadGeometry();
 
-          if (isDesktop) {
-            // Desktop: slide inward towards center heart
-            const slideDistance = 140; // px
-            gsap.set(groomFloating, { x: p * slideDistance, y: 0 });
-            gsap.set(brideFloating, { x: -p * slideDistance, y: 0 });
-          } else {
-            // Mobile: stacked vertically, slide inward toward center heart
-            const slideDistance = 48; // px
-            gsap.set(groomFloating, { x: 0, y: p * slideDistance });
-            gsap.set(brideFloating, { x: 0, y: -p * slideDistance });
+      const coupleObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimatedIn) {
+            hasAnimatedIn = true;
+            obs.unobserve(coupleSection);
+            coupleSection.classList.remove('couple-unconnected');
+
+            // Draw thread ~1.4s ease
+            threadPath.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease';
+            threadPath.style.opacity = '1';
+            threadPath.style.strokeDashoffset = '0';
+
+            // Heart pop-in after thread draws (scale 0.6 -> 1, opacity 0 -> 1)
+            setTimeout(() => {
+              heartKnot.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
+              heartKnot.style.opacity = '1';
+              heartKnot.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 750);
           }
+        });
+      }, { threshold: 0.2 });
 
-          updateThreadGeometry(p);
-
-          // Center heart glowing pulse intensifies when they meet
-          if (centerHeartDisc) {
-            if (p >= 0.7) {
-              centerHeartDisc.classList.add('is-joined');
-            } else {
-              centerHeartDisc.classList.remove('is-joined');
-            }
-          }
-        }
-      });
-
-      window.addEventListener('resize', () => {
-        updateThreadGeometry(0.5);
-      });
-      // Initial render frame
-      requestAnimationFrame(() => updateThreadGeometry(0));
+      coupleObserver.observe(coupleSection);
     } else {
-      // Reduced motion: static connecting thread
-      updateThreadGeometry(1);
+      computeThreadGeometry();
+    }
+
+    // ResizeObserver debounced with rAF for responsive updates
+    let threadRaf: number | null = null;
+    const scheduleUpdate = () => {
+      if (threadRaf) cancelAnimationFrame(threadRaf);
+      threadRaf = requestAnimationFrame(computeThreadGeometry);
+    };
+
+    const ro = new ResizeObserver(scheduleUpdate);
+    ro.observe(coupleSection);
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+  }
+
+  // Parallax on mouse move - throttled to rAF & gated to fine-pointer devices
+  if (isFinePointer) {
+    const parallaxLayers = Array.from(document.querySelectorAll<HTMLElement>('.parallax-layer'));
+    const mandala = document.getElementById('hero-mandala');
+    let pRaf: number | null = null;
+
+    document.addEventListener('mousemove', (e) => {
+      if (pRaf) return;
+      pRaf = requestAnimationFrame(() => {
+        const xPct = (e.clientX / window.innerWidth - 0.5) * 2;
+        const yPct = (e.clientY / window.innerHeight - 0.5) * 2;
+        parallaxLayers.forEach(el => {
+          const depth = parseFloat(el.dataset.depth || '0.1');
+          el.style.transform = `translate3d(${(xPct * 25 * depth).toFixed(1)}px, ${(yPct * 25 * depth).toFixed(1)}px, 0)`;
+        });
+        if (mandala) {
+          mandala.style.transform = `translate3d(${(xPct * 12).toFixed(1)}px, ${(yPct * 12).toFixed(1)}px, 0)`;
+        }
+        pRaf = null;
+      });
+    }, { passive: true });
+  }
+
+  // ── REAL-TIME WEDDING COUNTDOWN ────────────────────────────────────
+  let countdownInterval: any = null;
+  let prevSecsVal = '';
+
+  function getTargetWeddingTime(): number {
+    const card = document.getElementById('locked-countdown-card');
+    const targetStr = card?.getAttribute('data-target') || '2026-12-11T00:00:00+05:30';
+    const parsed = new Date(targetStr).getTime();
+    return isNaN(parsed) ? new Date('2026-12-11T00:00:00+05:30').getTime() : parsed;
+  }
+
+  function updateCountdown() {
+    const target = getTargetWeddingTime();
+    const now = Date.now();
+    const diff = target - now;
+
+    const timerGrid = document.getElementById('cd-timer-grid');
+    const expiredMsg = document.getElementById('cd-expired-msg');
+    const daysEl = document.getElementById('cd-days-val');
+    const hoursEl = document.getElementById('cd-hours-val');
+    const minsEl = document.getElementById('cd-minutes-val');
+    const secsEl = document.getElementById('cd-seconds-val');
+
+    if (diff <= 0) {
+      if (timerGrid) timerGrid.style.display = 'none';
+      if (expiredMsg) {
+        expiredMsg.classList.remove('hidden');
+        expiredMsg.style.display = 'block';
+      }
+      return;
+    }
+
+    if (timerGrid && timerGrid.style.display === 'none') {
+      timerGrid.style.display = '';
+    }
+    if (expiredMsg && expiredMsg.style.display !== 'none') {
+      expiredMsg.classList.add('hidden');
+      expiredMsg.style.display = 'none';
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    const daysStr = String(d).padStart(2, '0');
+    const hoursStr = String(h).padStart(2, '0');
+    const minsStr = String(m).padStart(2, '0');
+    const secsStr = String(s).padStart(2, '0');
+
+    if (daysEl && daysEl.textContent !== daysStr) daysEl.textContent = daysStr;
+    if (hoursEl && hoursEl.textContent !== hoursStr) hoursEl.textContent = hoursStr;
+    if (minsEl && minsEl.textContent !== minsStr) minsEl.textContent = minsStr;
+    if (secsEl && secsEl.textContent !== secsStr) {
+      secsEl.textContent = secsStr;
+      if (prevSecsVal !== '') {
+        secsEl.classList.remove('second-tick');
+        void secsEl.offsetWidth;
+        secsEl.classList.add('second-tick');
+      }
+      prevSecsVal = secsStr;
     }
   }
 
-  // Parallax on mouse move
-  document.addEventListener('mousemove', (e) => {
-    const xPct = (e.clientX / window.innerWidth - 0.5) * 2;
-    const yPct = (e.clientY / window.innerHeight - 0.5) * 2;
-    document.querySelectorAll<HTMLElement>('.parallax-layer').forEach(el => {
-      const depth = parseFloat(el.dataset.depth || '0.1');
-      gsap.to(el, { x: xPct * 40 * depth, y: yPct * 40 * depth, duration: 1, ease: 'power1.out' });
-    });
-    const mandala = document.getElementById('hero-mandala');
-    if (mandala) {
-      gsap.to(mandala, { x: xPct * 20, y: yPct * 20, duration: 2, ease: 'power1.out' });
+  function initCountdown() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    updateCountdown();
+    countdownInterval = setInterval(updateCountdown, 1000);
+  }
+
+  // Refresh immediately when tab gains visibility
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      updateCountdown();
     }
   });
 
-  // ── COUNTDOWN FLIP-CLOCK ──────────────────────────────────────────
-  const weddingDate = new Date('2026-12-11T19:00:00+05:30').getTime();
-  const prevVals: Record<string, number> = { days: -1, hours: -1, minutes: -1, seconds: -1 };
+  // Clear interval before Astro page swap, and re-init on page load
+  document.addEventListener('astro:before-swap', () => {
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+    }
+  });
 
-  function updateCountdown() {
-    const now = Date.now();
-    const diff = weddingDate - now;
-    if (diff <= 0) return;
-    const vals = {
-      days: Math.floor(diff / 86400000),
-      hours: Math.floor((diff % 86400000) / 3600000),
-      minutes: Math.floor((diff % 3600000) / 60000),
-      seconds: Math.floor((diff % 60000) / 1000),
-    };
-    Object.entries(vals).forEach(([key, val]) => {
-      const el = document.getElementById(`cd-${key}-val`);
-      const card = document.getElementById(`cd-${key}`);
-      if (el && val !== prevVals[key]) {
-        prevVals[key] = val;
-        el.textContent = String(val).padStart(2, '0');
-        if (card) {
-          gsap.fromTo(card, { rotateX: -20, scale: 0.95 }, { rotateX: 0, scale: 1, duration: 0.3, ease: 'power2.out' });
-        }
-      }
-    });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCountdown);
+  } else {
+    initCountdown();
   }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
+  document.addEventListener('astro:page-load', initCountdown);
 
   // ── SAVE THE DATE INTERACTIVE SCRATCH CARDS & SCROLL GATE ─────────
   const STD_STORAGE_KEY = 'mukesh_puja_std_unlocked_v3';
@@ -2888,6 +3656,7 @@ const sacredRituals = [
     if (isScratchUnlocked) {
       if (lockedContentWrapper) lockedContentWrapper.classList.remove('is-locked');
       if (lockedCountdownCard) lockedCountdownCard.classList.remove('is-locked');
+      if (scratchUnlockedContinue) scratchUnlockedContinue.classList.remove('is-locked');
       window.dispatchEvent(new Event('resize'));
       updateProgress(3);
       scratchCanvases.forEach((c) => {
@@ -2902,10 +3671,14 @@ const sacredRituals = [
         }
       });
       document.querySelectorAll('.card-foil-placeholder').forEach(el => el.remove());
-      if (scratchUnlockedContinue) {
-        scratchUnlockedContinue.classList.remove('hidden');
-        scratchUnlockedContinue.classList.add('flex');
-      }
+      scratchContinueBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const nextSection = document.getElementById('couple');
+        if (nextSection) {
+          if (lenis) lenis.scrollTo(nextSection, { duration: 1.4 });
+          else nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
       return;
     }
 
@@ -2919,7 +3692,7 @@ const sacredRituals = [
       if (!ctx) return;
 
       const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const w = rect.width || canvas.width || 150;
       const h = rect.height || canvas.height || 225;
 
@@ -3058,9 +3831,21 @@ const sacredRituals = [
         scratchAt(e.clientX, e.clientY);
       });
 
+      let scratchMoveRaf: number | null = null;
+      let lastMoveX = 0, lastMoveY = 0;
+
       canvas.addEventListener('pointermove', (e) => {
         if (!isScratching) return;
-        scratchAt(e.clientX, e.clientY);
+        lastMoveX = e.clientX;
+        lastMoveY = e.clientY;
+        if (!scratchMoveRaf) {
+          scratchMoveRaf = requestAnimationFrame(() => {
+            if (isScratching) {
+              scratchAt(lastMoveX, lastMoveY);
+            }
+            scratchMoveRaf = null;
+          });
+        }
       });
 
       const stopScratching = (e: PointerEvent) => {
@@ -3170,6 +3955,11 @@ const sacredRituals = [
       }
       if (lockedCountdownCard) {
         lockedCountdownCard.classList.remove('is-locked');
+        lockedCountdownCard.classList.add('countdown-fade-up');
+      }
+      if (scratchUnlockedContinue) {
+        scratchUnlockedContinue.classList.remove('is-locked');
+        scratchUnlockedContinue.classList.add('continue-btn-fade-up');
       }
       lenis.resize();
       ScrollTrigger.refresh();
@@ -3177,29 +3967,30 @@ const sacredRituals = [
 
       updateProgress(3);
 
-      // Show Continue button
-      if (scratchUnlockedContinue) {
-        scratchUnlockedContinue.classList.remove('hidden');
-        scratchUnlockedContinue.classList.add('flex');
-        gsap.fromTo(scratchUnlockedContinue, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
-      }
+      // Smooth scroll to countdown card (scrollIntoView behavior smooth, block center)
+      setTimeout(() => {
+        if (lockedCountdownCard) {
+          if (lenis) {
+            const rect = lockedCountdownCard.getBoundingClientRect();
+            const targetY = (window.scrollY || window.pageYOffset || 0) + rect.top - (window.innerHeight - rect.height) / 2;
+            lenis.scrollTo(targetY, { duration: 1.2 });
+          } else {
+            lockedCountdownCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      }, 350);
 
-      // Smooth auto-scroll after 1.2s to next section (Meet The Couple)
-      const autoScrollTimer = setTimeout(() => {
-        scrollToNextSection();
-      }, 1200);
-
-      scratchContinueBtn?.addEventListener('click', () => {
-        clearTimeout(autoScrollTimer);
-        scrollToNextSection();
-      });
-
-      function scrollToNextSection() {
+      scratchContinueBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
         const nextSection = document.getElementById('couple');
         if (nextSection) {
-          lenis.scrollTo(nextSection, { duration: 1.4 });
+          if (lenis) {
+            lenis.scrollTo(nextSection, { duration: 1.4 });
+          } else {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+          }
         }
-      }
+      });
     }
   }
 
@@ -3249,23 +4040,61 @@ const sacredRituals = [
 
 
 
-  // ── AUDIO CONTROLS (HOWLER / WEB AUDIO SYNTH) ─────────────────────
+  // ── AUDIO CONTROLS (ROYAL AUDIO ENGINE & SYNCED MUSIC WIDGET) ─────
   const musicWidget = document.getElementById('music-widget');
+  const musicCircleBtn = document.getElementById('music-circle-btn');
   const widgetSongStatus = document.getElementById('widget-song-status');
   const widgetBars = document.getElementById('widget-bars');
 
   function updateAudioUI(isPlaying: boolean) {
+    // 1. Music Pill synchronization
     if (musicWidget) {
-      musicWidget.style.borderColor = isPlaying ? 'rgba(212,175,55,0.6)' : 'rgba(212,175,55,0.25)';
-      musicWidget.style.opacity = isPlaying ? '1' : '0.75';
+      if (isPlaying) {
+        musicWidget.classList.remove('is-paused', 'music-widget-paused');
+        musicWidget.classList.add('is-playing');
+        musicWidget.setAttribute('aria-pressed', 'true');
+        musicWidget.setAttribute('aria-label', 'Pause wedding music Aaj Sajeya');
+        musicWidget.style.borderColor = 'rgba(212,175,55,0.6)';
+        musicWidget.style.opacity = '1';
+      } else {
+        musicWidget.classList.add('is-paused', 'music-widget-paused');
+        musicWidget.classList.remove('is-playing');
+        musicWidget.setAttribute('aria-pressed', 'false');
+        musicWidget.setAttribute('aria-label', 'Play wedding music Aaj Sajeya');
+        musicWidget.style.borderColor = 'rgba(212,175,55,0.25)';
+        musicWidget.style.opacity = '0.85';
+      }
     }
+
     if (widgetSongStatus) {
-      widgetSongStatus.textContent = isPlaying ? 'Playing · Click to Mute' : 'Muted · Click to Play';
+      widgetSongStatus.textContent = isPlaying ? 'Click to Pause' : 'Click to Play';
     }
+
+    // 2. Circle Button synchronization
+    if (musicCircleBtn) {
+      if (isPlaying) {
+        musicCircleBtn.classList.remove('is-paused');
+        musicCircleBtn.classList.add('is-playing');
+        musicCircleBtn.setAttribute('aria-pressed', 'true');
+        musicCircleBtn.setAttribute('aria-label', 'Pause music');
+      } else {
+        musicCircleBtn.classList.add('is-paused');
+        musicCircleBtn.classList.remove('is-playing');
+        musicCircleBtn.setAttribute('aria-pressed', 'false');
+        musicCircleBtn.setAttribute('aria-label', 'Play music');
+      }
+    }
+
+    // 3. Equalizer bars synchronization
     if (widgetBars) {
-      widgetBars.style.opacity = isPlaying ? '1' : '0.25';
+      widgetBars.style.opacity = isPlaying ? '1' : '0.4';
     }
   }
+
+  // Subscribe to audio engine state updates so any play/pause source syncs UI immediately
+  royalAudio.subscribe((isPlaying) => {
+    updateAudioUI(isPlaying);
+  });
 
   const handleToggleMusic = (e?: Event) => {
     if (e) {
@@ -3275,110 +4104,153 @@ const sacredRituals = [
     const isPlaying = royalAudio.getIsPlaying();
     if (isPlaying) {
       userManuallyMuted = true;
+      try {
+        localStorage.setItem('musicMuted', 'true');
+      } catch (err) {}
+      royalAudio.setManuallyPaused(true);
       royalAudio.pauseSong((playing) => updateAudioUI(playing));
     } else {
       userManuallyMuted = false;
+      try {
+        localStorage.setItem('musicMuted', 'false');
+      } catch (err) {}
+      royalAudio.setManuallyPaused(false);
       royalAudio.playSong((playing) => updateAudioUI(playing));
     }
   };
 
   musicWidget?.addEventListener('click', handleToggleMusic);
-  if (musicWidget) musicWidget.style.cursor = 'pointer';
+  musicCircleBtn?.addEventListener('click', handleToggleMusic);
 
-  // ── SACRED RITUALS PHOTO CAROUSEL INITIALIZATION ──────────────────
-  const ritualsSwiperEl = document.getElementById('rituals-swiper');
-  if (ritualsSwiperEl) {
-    const counterEl = document.getElementById('rituals-counter');
-    const progressLine = document.getElementById('rituals-progress-line');
-    const liveRegion = document.getElementById('rituals-live-region');
-    const totalRituals = 11;
-
-    const ritualsSwiper = new Swiper(ritualsSwiperEl, {
-      modules: [EffectCoverflow, Navigation, Pagination, Autoplay, Keyboard, A11y],
-      effect: 'coverflow',
-      grabCursor: true,
-      centeredSlides: true,
-      slidesPerView: 'auto',
-      initialSlide: 0,
-      loop: true,
-      speed: 650,
-      observer: true,
-      observeParents: true,
-      observeSlideChildren: true,
-      keyboard: {
-        enabled: true,
-        onlyInViewport: true,
-      },
-      mousewheel: false, // Explicitly disabled to not fight page scroll
-      coverflowEffect: {
-        rotate: 0,
-        stretch: 0,
-        depth: 120,
-        modifier: 1.25,
-        slideShadows: false,
-        scale: 0.9,
-      },
-      autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: false,
-      },
-      navigation: {
-        prevEl: '#rituals-prev',
-        nextEl: '#rituals-next',
-      },
-      pagination: {
-        el: '#rituals-dots',
-        clickable: true,
-        bulletClass: 'rituals-dot',
-        bulletActiveClass: 'rituals-dot-active',
-        renderBullet: function (index, className) {
-          return `<button class="${className}" aria-label="Go to ritual slide ${index + 1}"></button>`;
-        },
-      },
-      on: {
-        init: function (swiper) {
-          updateRitualsCarouselUI(swiper);
-          if (swiper.autoplay) {
-            swiper.autoplay.start();
-          }
-        },
-        slideChange: function (swiper) {
-          updateRitualsCarouselUI(swiper);
-        },
-        autoplayTimeLeft: function (swiper, time, progress) {
-          if (progressLine) {
-            const pct = Math.max(0, Math.min(100, (1 - progress) * 100));
-            progressLine.style.width = `${pct}%`;
-          }
-        },
-      },
-    });
-
-    function updateRitualsCarouselUI(swiper: any) {
-      const realIdx = typeof swiper.realIndex === 'number' ? swiper.realIndex : 0;
-      const currentNumber = realIdx + 1;
-      const formatted = `${currentNumber < 10 ? '0' : ''}${currentNumber} / ${totalRituals < 10 ? '0' : ''}${totalRituals}`;
-      if (counterEl) {
-        counterEl.textContent = formatted;
-      }
-      const activeSlide = swiper.slides ? swiper.slides[swiper.activeIndex] : null;
-      const title = activeSlide ? activeSlide.getAttribute('data-ritual-title') : '';
-      if (liveRegion) {
-        liveRegion.textContent = `Slide ${currentNumber} of ${totalRituals}: ${title || 'Ritual'}`;
-      }
-    }
-
-    // Ensure autoplay starts immediately and resumes on tab visibility
-    if (ritualsSwiper.autoplay) {
-      ritualsSwiper.autoplay.start();
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && ritualsSwiper.autoplay) {
-        ritualsSwiper.autoplay.start();
+  // Keyboard navigation support for accessibility (Enter / Space)
+  [musicWidget, musicCircleBtn].forEach((btn) => {
+    btn?.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleToggleMusic();
       }
     });
+  });
+
+  // Tab switch (visibilitychange) handler:
+  // Pause when tab hidden; resume on visible only if user hadn't manually muted
+  let wasPlayingBeforeHidden = false;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (royalAudio.getIsPlaying()) {
+        wasPlayingBeforeHidden = true;
+        royalAudio.pauseSong((playing) => updateAudioUI(playing));
+      }
+    } else {
+      let isMutedInStorage = false;
+      try {
+        isMutedInStorage = localStorage.getItem('musicMuted') === 'true';
+      } catch (err) {}
+
+      if (wasPlayingBeforeHidden && !userManuallyMuted && !isMutedInStorage) {
+        royalAudio.playSong((playing) => updateAudioUI(playing));
+      }
+      wasPlayingBeforeHidden = false;
+    }
+  });
+
+  // ── SACRED RITUALS PHOTO CAROUSEL (PURE ASTRO + VANILLA JS INFINITE LOOP) ──
+  let cleanupRituals: (() => void) | null = null;
+  const setupRitualsCarousel = () => {
+    if (cleanupRituals) cleanupRituals();
+    cleanupRituals = initRitualsCarousel();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupRitualsCarousel);
+  } else {
+    setupRitualsCarousel();
   }
+  document.addEventListener('astro:page-load', setupRitualsCarousel);
+  // ── CEREMONIES TIMELINE ANIMATION (INTERSECTION OBSERVER & LINE DRAW) ──
+  let ceremoniesObserver: IntersectionObserver | null = null;
+  let updateCerLineProgress: (() => void) | null = null;
+
+  const setupCeremoniesAnimation = () => {
+    const eventsSection = document.getElementById('events');
+    if (!eventsSection) return;
+
+    if (ceremoniesObserver) {
+      ceremoniesObserver.disconnect();
+      ceremoniesObserver = null;
+    }
+    if (updateCerLineProgress) {
+      window.removeEventListener('scroll', updateCerLineProgress);
+      updateCerLineProgress = null;
+    }
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    // Add animation-ready class (hidden states apply only when JS is enabled)
+    eventsSection.classList.add('cer-animate-ready');
+    const rows = eventsSection.querySelectorAll<HTMLElement>('.cer-row');
+
+    ceremoniesObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const row = entry.target as HTMLElement;
+          row.classList.add('is-in-view');
+          obs.unobserve(row); // Animate only once
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -20px 0px',
+    });
+
+    rows.forEach((row) => {
+      const rect = row.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
+        row.classList.add('is-in-view');
+      } else {
+        ceremoniesObserver!.observe(row);
+      }
+    });
+
+    // Gold vertical line smooth draw progress on scroll
+    const lineProgress = document.getElementById('cer-line-progress');
+    const timeline = eventsSection.querySelector<HTMLElement>('.cer-timeline');
+
+    if (lineProgress && timeline) {
+      updateCerLineProgress = () => {
+        const rect = timeline.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const total = rect.height;
+        const current = vh * 0.7 - rect.top;
+        const progress = Math.min(1, Math.max(0, current / total));
+        lineProgress.style.transform = `scaleY(${progress})`;
+      };
+
+      window.addEventListener('scroll', updateCerLineProgress, { passive: true });
+      updateCerLineProgress();
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCeremoniesAnimation);
+  } else {
+    setupCeremoniesAnimation();
+  }
+  document.addEventListener('astro:page-load', setupCeremoniesAnimation);
+  document.addEventListener('astro:before-swap', () => {
+    if (cleanupRituals) {
+      cleanupRituals();
+      cleanupRituals = null;
+    }
+    if (ceremoniesObserver) {
+      ceremoniesObserver.disconnect();
+      ceremoniesObserver = null;
+    }
+    if (updateCerLineProgress) {
+      window.removeEventListener('scroll', updateCerLineProgress);
+      updateCerLineProgress = null;
+    }
+  });
 
 </script>

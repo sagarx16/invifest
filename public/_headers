@@ -1,0 +1,16 @@
+# Immutable cache for hashed assets
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Caching for media and fonts
+/images/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/videos/*
+  Cache-Control: public, max-age=2592000
+/music/*
+  Cache-Control: public, max-age=2592000
+
+# HTML short cache
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
