@@ -1584,11 +1584,16 @@ const ceremonies = [
   flex-shrink: 0;
   display: block;
   transform-origin: center center;
-  will-change: transform;
   contain: layout paint;
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
+}
+
+.ritual-card.is-active,
+.ritual-carousel.is-dragging .ritual-card,
+.ritual-carousel.is-animating .ritual-card {
+  will-change: transform;
 }
 
 @media (min-width: 640px) {
@@ -1611,6 +1616,9 @@ const ceremonies = [
   height: 100% !important;
   width: 100% !important;
   transform-origin: center center;
+}
+
+.ritual-card.is-active .ritual-card-frame {
   will-change: transform, opacity;
 }
 
@@ -2156,16 +2164,19 @@ const ceremonies = [
   animation: shake-cards 0.45s ease-in-out !important;
 }
 
-/* Subtle Pulsing Gold Glow on unrevealed scratch cards (drop-shadow follows the arch shape) */
+/* Subtle Pulsing Gold Glow on unrevealed scratch cards (GPU transform & opacity) */
 @keyframes card-gold-pulse {
   0%, 100% {
-    filter: drop-shadow(0 10px 22px rgba(184, 134, 11, 0.26)) drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+    transform: scale(1);
+    opacity: 0.94;
   }
   50% {
-    filter: drop-shadow(0 14px 32px rgba(184, 134, 11, 0.44)) drop-shadow(0 0 18px rgba(212, 175, 55, 0.58));
+    transform: scale(1.012);
+    opacity: 1;
   }
 }
 .card-pulse-glow {
+  filter: drop-shadow(0 12px 28px rgba(184, 134, 11, 0.35)) drop-shadow(0 0 14px rgba(212, 175, 55, 0.45));
   animation: card-gold-pulse 2.2s infinite ease-in-out;
 }
 
@@ -2187,12 +2198,13 @@ const ceremonies = [
   animation: pulse-sparkle 2.6s ease-in-out infinite;
 }
 
-/* Continue button pulse */
+/* Continue button pulse (GPU transform & opacity with static luxury shadow) */
 @keyframes pulse-continue {
-  0%, 100% { box-shadow: 0 8px 30px rgba(184, 134, 11, 0.4); transform: scale(1); }
-  50% { box-shadow: 0 12px 40px rgba(184, 134, 11, 0.65), 0 0 20px rgba(212, 175, 55, 0.5); transform: scale(1.02); }
+  0%, 100% { transform: scale(1); opacity: 0.96; }
+  50% { transform: scale(1.025); opacity: 1; }
 }
 .pulse-continue-anim {
+  box-shadow: 0 10px 32px rgba(184, 134, 11, 0.5), 0 0 16px rgba(212, 175, 55, 0.35);
   animation: pulse-continue 2s infinite ease-in-out;
 }
 
@@ -2249,8 +2261,11 @@ const ceremonies = [
 /* ========== MEET THE BRIDE & GROOM REDESIGN ========== */
 .couple-card {
   transform-style: preserve-3d;
-  will-change: transform, box-shadow;
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.couple-card:hover,
+.couple-card:active {
+  will-change: transform;
 }
 
 /* Shimmer on couple names */
@@ -2292,13 +2307,11 @@ const ceremonies = [
   opacity: 1;
   transform: scale(1);
   transition: opacity 450ms ease, transform 450ms ease !important;
-  will-change: opacity, transform;
 }
 .couple-card .arch-detail-img {
   opacity: 0;
   transform: scale(1.03);
   transition: opacity 450ms ease, transform 450ms ease !important;
-  will-change: opacity, transform;
 }
 
 .couple-card .ring-detail-img,
@@ -2306,7 +2319,6 @@ const ceremonies = [
   opacity: 1;
   transform: scale(1);
   transition: opacity 450ms ease, transform 450ms ease !important;
-  will-change: opacity, transform;
 }
 
 .couple-card .ring-primary-img,
@@ -2314,6 +2326,26 @@ const ceremonies = [
   opacity: 0;
   transform: scale(1.03);
   transition: opacity 450ms ease, transform 450ms ease !important;
+}
+
+.couple-card:hover .arch-primary-img,
+.couple-card:hover .arch-detail-img,
+.couple-card:hover .ring-detail-img,
+.couple-card:hover .aarsi-detail-img,
+.couple-card:hover .ring-primary-img,
+.couple-card:hover .aarsi-primary-img,
+.couple-card:active .arch-primary-img,
+.couple-card:active .arch-detail-img,
+.couple-card:active .ring-detail-img,
+.couple-card:active .aarsi-detail-img,
+.couple-card:active .ring-primary-img,
+.couple-card:active .aarsi-primary-img,
+.couple-card.is-swapped .arch-primary-img,
+.couple-card.is-swapped .arch-detail-img,
+.couple-card.is-swapped .ring-detail-img,
+.couple-card.is-swapped .aarsi-detail-img,
+.couple-card.is-swapped .ring-primary-img,
+.couple-card.is-swapped .aarsi-primary-img {
   will-change: opacity, transform;
 }
 
@@ -2947,16 +2979,19 @@ html.js .cer-animate-ready .cer-row--odd .cer-photo-wrap {
 html.js .cer-row.is-in-view .cer-card {
   opacity: 1 !important;
   transform: translateY(0) !important;
+  will-change: auto !important;
 }
 
 html.js .cer-row.is-in-view .cer-node {
   opacity: 1 !important;
   transform: scale(1) !important;
+  will-change: auto !important;
 }
 
 html.js .cer-row.is-in-view .cer-photo-wrap {
   opacity: 1 !important;
   transform: translateX(0) !important;
+  will-change: auto !important;
 }
 
 /* ========================================================
@@ -4354,12 +4389,14 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
           if ('vibrate' in navigator) navigator.vibrate(15);
         } catch (e) {}
 
-        // 1x gold sparkle burst (6-8 particles, transform+opacity, 0.8s)
+        // 1x gold sparkle burst (8 particles desktop, 3 particles mobile, transform+opacity, 0.8s)
+        const isMobileScreen = typeof window !== 'undefined' && window.innerWidth <= 768;
+        const sparkleCount = isMobileScreen ? 3 : 8;
         if (card) {
-          for (let p = 0; p < 8; p++) {
+          for (let p = 0; p < sparkleCount; p++) {
             const sparkle = document.createElement('span');
             sparkle.className = 'scratch-sparkle-particle';
-            const angle = (p / 8) * Math.PI * 2;
+            const angle = (p / sparkleCount) * Math.PI * 2;
             const dist = 28 + Math.random() * 26;
             sparkle.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
             sparkle.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
@@ -4375,7 +4412,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
           const confetti = (await import('canvas-confetti')).default;
           const cRect = canvas.getBoundingClientRect();
           confetti({
-            particleCount: 26,
+            particleCount: isMobileScreen ? 10 : 26,
             spread: 45,
             origin: {
               x: (cRect.left + cRect.width / 2) / window.innerWidth,
@@ -4495,22 +4532,23 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       // Grand celebration confetti burst
       try {
         const confetti = (await import('canvas-confetti')).default;
+        const isMobileScreen = typeof window !== 'undefined' && window.innerWidth <= 768;
         confetti({
-          particleCount: 85,
+          particleCount: isMobileScreen ? 34 : 85,
           spread: 70,
           origin: { y: 0.55 },
           colors: ['#D4AF37', '#B8860B', '#FFFDF8', '#F5E8D3', '#E6A8A8']
         });
         setTimeout(() => {
           confetti({
-            particleCount: 45,
+            particleCount: isMobileScreen ? 18 : 45,
             angle: 60,
             spread: 50,
             origin: { x: 0 },
             colors: ['#D4AF37', '#B8860B', '#FFFDF8']
           });
           confetti({
-            particleCount: 45,
+            particleCount: isMobileScreen ? 18 : 45,
             angle: 120,
             spread: 50,
             origin: { x: 1 },
@@ -4924,6 +4962,47 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     setupCeremoniesAnimation();
   }
   document.addEventListener('astro:page-load', setupCeremoniesAnimation);
+
+  // ── OFF-SCREEN SECTION ANIMATION PAUSER ───────────────────────────
+  let offScreenObserver: IntersectionObserver | null = null;
+  const setupOffScreenObserver = () => {
+    if (typeof IntersectionObserver === 'undefined') return;
+    if (offScreenObserver) {
+      offScreenObserver.disconnect();
+      offScreenObserver = null;
+    }
+
+    const animSections = document.querySelectorAll<HTMLElement>(
+      '#hero, #save-the-date, #couple, #events, #rituals, section.reveal-section'
+    );
+    if (!animSections.length) return;
+
+    offScreenObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('is-section-offscreen');
+        } else {
+          entry.target.classList.add('is-section-offscreen');
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '120px 0px 120px 0px',
+      threshold: 0
+    });
+
+    animSections.forEach((sec) => {
+      offScreenObserver!.observe(sec);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupOffScreenObserver);
+  } else {
+    setupOffScreenObserver();
+  }
+  document.addEventListener('astro:page-load', setupOffScreenObserver);
+
   document.addEventListener('astro:before-swap', () => {
     if (cleanupRituals) {
       cleanupRituals();
@@ -4936,6 +5015,10 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     if (updateCerLineProgress) {
       window.removeEventListener('scroll', updateCerLineProgress);
       updateCerLineProgress = null;
+    }
+    if (offScreenObserver) {
+      offScreenObserver.disconnect();
+      offScreenObserver = null;
     }
   });
 

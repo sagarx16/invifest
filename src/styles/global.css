@@ -308,15 +308,15 @@
 
 /* ========== GRADIENT SHINE ========== */
 @keyframes shine-sweep {
-  0% { left: -100%; }
-  100% { left: 200%; }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
 }
 
 .shine-btn::before {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 50%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
@@ -375,7 +375,6 @@
   -webkit-text-fill-color: transparent !important;
   animation: gold-text-shine 3.5s ease-in-out infinite, gold-pulse-glow 3s ease-in-out infinite !important;
   display: inline-block;
-  will-change: background-position, filter;
 }
 
 .name-sparkle {
@@ -545,6 +544,7 @@ html.lenis, html.lenis body {
 [data-reveal].is-revealed {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
+  will-change: auto !important;
 }
 
 /* Ken Burns slow zoom for Hero */
@@ -749,25 +749,198 @@ html.lite .couple-sparkle-float {
   display: none !important;
 }
 
-/* Prefers-reduced-motion: complete override */
+/* ==========================================================================
+   OFF-SCREEN SECTION ANIMATION PAUSE
+   ========================================================================== */
+.is-section-offscreen,
+.is-section-offscreen *,
+.is-section-offscreen *::before,
+.is-section-offscreen *::after {
+  animation-play-state: paused !important;
+}
+
+/* ==========================================================================
+   MOBILE PERFORMANCE OPTIMIZATIONS (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Backdrop-filter removal + solid semi-transparent background fallback */
+  .glass-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(252, 246, 237, 0.96) !important;
+    box-shadow: 0 4px 14px rgba(180, 150, 120, 0.1) !important;
+  }
+
+  #hero-tag,
+  #hero-subtitle {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(250, 242, 228, 0.96) !important;
+  }
+
+  #hero-ganesha > div {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(250, 242, 228, 0.98) !important;
+    box-shadow: 0 4px 12px rgba(160, 120, 70, 0.15) !important;
+  }
+
+  #envelope-tap-prompt > div {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(35, 18, 12, 0.96) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.4) !important;
+  }
+
+  #wa-share-toast {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #25D366 !important;
+  }
+
+  #music-circle-btn {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(250, 242, 228, 0.98) !important;
+  }
+
+  #scratch-lock-toast {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(28, 18, 12, 0.98) !important;
+  }
+
+  #scroll-top-btn {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #FFFDF8 !important;
+  }
+
+  /* 2. Lighten large box-shadow & text-shadow glow effects */
+  .gold-glow {
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.35) !important;
+  }
+
+  .flip-clock-card {
+    box-shadow: 0 4px 12px rgba(180, 150, 120, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  }
+
+  #hero-tag {
+    box-shadow: 0 3px 10px rgba(160, 120, 70, 0.08) !important;
+  }
+
+  #hero-subtitle {
+    box-shadow: 0 2px 8px rgba(160, 120, 70, 0.06) !important;
+  }
+
+  .couple-card {
+    box-shadow: 0 6px 18px rgba(180, 150, 120, 0.08) !important;
+  }
+
+  .card-pulse-glow {
+    filter: drop-shadow(0 6px 14px rgba(184, 134, 11, 0.28)) !important;
+  }
+
+  .pulse-continue-anim {
+    box-shadow: 0 6px 20px rgba(184, 134, 11, 0.35) !important;
+  }
+
+  /* 3. Reduce floating sparkles / particles by >60% on mobile */
+  /* Hero ambient sparkles: 8 -> 3 (62.5% reduction) */
+  .hero-sparkle-dot:nth-child(n+4) {
+    display: none !important;
+  }
+
+  /* Hero calligraphy letter sparkles: 6 -> 2 (66.7% reduction) */
+  .name-sparkle:nth-child(n+3) {
+    display: none !important;
+  }
+
+  /* Couple card sparkles: 6 -> 2 per card (66.7% reduction) */
+  .couple-sparkle.s2,
+  .couple-sparkle.s3,
+  .couple-sparkle-float:nth-child(n+3) {
+    display: none !important;
+  }
+
+  /* Ritual floating particles: 6 -> 2 (66.7% reduction) */
+  .ritual-particle:nth-child(n+3) {
+    display: none !important;
+  }
+
+  /* Text glow optimization on mobile: keep shiny gradient, stop heavy continuous filter repaint */
+  .name-shine {
+    animation: gold-text-shine 3.5s ease-in-out infinite !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(212, 175, 55, 0.4)) !important;
+    will-change: auto !important;
+  }
+
+  /* Disable continuous ken-burns loop on mobile itinerary cards */
+  .ken-burns-img {
+    animation: none !important;
+    will-change: auto !important;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
   .hero-ken-burns,
   .arch-portrait-frame,
-  .hero-sparkle-dot,
-  .couple-sparkle-float,
-  .music-note-particle,
   .scroll-cue-bounce,
   .cer-node-ripple,
   .cer-date-sweep,
   .cd-digit-pop,
-  .scratch-sparkle-particle,
   .touch-tap-ripple,
   .tap-pressed,
   .heading-divider .hd-line,
-  .heading-divider .hd-sparkle {
+  .heading-divider .hd-sparkle,
+  .card-pulse-glow,
+  .card-float-1,
+  .card-float-2,
+  .card-float-3,
+  .card-center-sparkle,
+  .pulse-continue-anim,
+  .thumb-tap-pulse::after,
+  .ken-burns-img,
+  .music-bar,
+  .gold-shimmer,
+  .diya-flame,
+  .shine-btn::before,
+  .svg-draw,
+  .aarsi-spin-ring {
     animation: none !important;
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;
   }
+
+  .hero-sparkle-dot,
+  .name-sparkle,
+  .couple-sparkle,
+  .couple-sparkle-float,
+  .ritual-particle,
+  .scratch-sparkle-particle,
+  .music-note-particle,
+  .scratch-foil-shimmer,
+  .petal {
+    display: none !important;
+  }
+
+  .name-shine {
+    animation: none !important;
+    background-position: 50% center !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(212, 175, 55, 0.4)) !important;
+  }
 }
+
