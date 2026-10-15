@@ -667,20 +667,23 @@ html.lenis, html.lenis body {
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Itinerary Tracker Dot */
+/* Itinerary Tracker Dot (Golden Ball on Timeline Line) */
 .cer-tracker-dot {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: radial-gradient(circle, #FFFDF8 0%, #D4AF37 60%, #996515 100%);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.9), 0 0 4px rgba(255, 255, 255, 0.8);
-  transform: translate(-50%, 0);
+  background: radial-gradient(circle at 35% 35%, #FFFDF8 0%, #DFB756 45%, #8C6219 100%);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.95), 0 0 4px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  margin-top: -5px;
+  transform: translate3d(-50%, 0, 0);
   pointer-events: none;
   z-index: 10;
   will-change: transform;
+  transition: opacity 0.25s ease;
 }
 
 /* Number Circle 1x Ripple Ring on view */

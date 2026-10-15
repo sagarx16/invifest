@@ -3028,6 +3028,12 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     transform: translateX(-50%);
   }
 
+  /* On mobile: gold progress line starts at scaleY(0) so it visibly draws on scroll */
+  .cer-timeline-line-progress {
+    transform: scaleY(0);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.55);
+  }
+
   .cer-row {
     flex-direction: column;
     align-items: stretch;
@@ -4596,6 +4602,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       // Unlock scroll gate & countdown plaque
       if (lockedContentWrapper) {
         lockedContentWrapper.classList.remove('is-locked');
+        if (updateCerLineProgress) updateCerLineProgress();
       }
       if (lockedCountdownCard) {
         lockedCountdownCard.classList.remove('is-locked');
@@ -4959,36 +4966,51 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     const lineProgress = document.getElementById('cer-line-progress');
     const trackerDot = document.getElementById('cer-tracker-dot');
     const timeline = eventsSection.querySelector<HTMLElement>('.cer-timeline');
+    const track = timeline?.querySelector<HTMLElement>('.cer-timeline-track');
 
-    if (lineProgress && timeline) {
+    if (lineProgress && timeline && track) {
       let cerProgressRaf: number | null = null;
-      let cachedTimelineTop = 0;
-      let cachedTimelineHeight = 1;
-
-      const updateTimelineMetrics = () => {
-        const rect = timeline.getBoundingClientRect();
-        cachedTimelineTop = (window.scrollY || window.pageYOffset || 0) + rect.top;
-        cachedTimelineHeight = rect.height || 1;
-      };
-      updateTimelineMetrics();
-      window.addEventListener('resize', updateTimelineMetrics, { passive: true });
+      const isMobileView = () => window.matchMedia('(max-width: 768px)').matches;
 
       updateCerLineProgress = () => {
         if (cerProgressRaf) return;
         cerProgressRaf = requestAnimationFrame(() => {
-          const scrollY = window.scrollY || window.pageYOffset || 0;
-          const vh = window.innerHeight;
-          const current = scrollY + vh * 0.7 - cachedTimelineTop;
-          const progress = Math.min(1, Math.max(0, current / cachedTimelineHeight));
-          lineProgress.style.transform = `scaleY(${progress})`;
-          if (trackerDot) {
-            trackerDot.style.transform = `translate(-50%, ${progress * (cachedTimelineHeight - 9)}px)`;
+          const trackRect = track.getBoundingClientRect();
+          const trackHeight = track.clientHeight;
+          if (!trackHeight || trackHeight <= 10) {
+            cerProgressRaf = null;
+            return;
           }
+
+          const vh = window.innerHeight;
+          const isMobile = isMobileView();
+
+          // Trigger point: when top of track enters ~66% of viewport height
+          const triggerPoint = vh * 0.66;
+          const scrolledPast = triggerPoint - trackRect.top;
+          const progress = Math.min(1, Math.max(0, scrolledPast / trackHeight));
+
+          // Mobile: progress line actively draws down on scroll from 0 to 1
+          // Desktop: line stays fully visible (scaleY 1), while golden ball slides smoothly along line
+          if (isMobile) {
+            lineProgress.style.transform = `scaleY(${progress})`;
+          } else {
+            lineProgress.style.transform = 'scaleY(1)';
+          }
+
+          if (trackerDot) {
+            const currentY = progress * trackHeight;
+            trackerDot.style.transform = `translate3d(-50%, ${currentY}px, 0)`;
+            // On mobile, show golden ball once line starts drawing
+            trackerDot.style.opacity = (isMobile && progress <= 0.005) ? '0' : '1';
+          }
+
           cerProgressRaf = null;
         });
       };
 
       window.addEventListener('scroll', updateCerLineProgress, { passive: true });
+      window.addEventListener('resize', updateCerLineProgress, { passive: true });
       updateCerLineProgress();
     }
   };
