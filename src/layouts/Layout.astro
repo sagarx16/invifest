@@ -147,8 +147,8 @@ const siteUrl = 'https://invifestx16.vercel.app';
       document.body.addEventListener('pointerdown', (e: PointerEvent) => {
         const target = (e.target as HTMLElement).closest('button, .card-cta, .ripple-btn') as HTMLElement | null;
         if (!target) return;
-        // Skip for rituals control bar to maintain zero tap latency
-        if (target.closest('.rituals-control-bar')) return;
+        // Skip for rituals control bar & couple cards to maintain zero tap latency and clean gestures
+        if (target.closest('.rituals-control-bar, .portrait-interactive-wrap, [data-couple-toggle]')) return;
 
         // Subtle press feedback
         target.classList.add('tap-pressed');

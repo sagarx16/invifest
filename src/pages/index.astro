@@ -812,7 +812,8 @@ const ceremonies = [
               <div class="arch-hint-pill absolute bottom-3 inset-x-0 flex justify-center pointer-events-none">
                 <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.22em] uppercase font-['Playfair_Display'] italic font-medium bg-black/45 text-[#F4E3B5] backdrop-blur-md border border-[#D4AF37]/45 shadow-sm flex items-center gap-1.5 transition-transform duration-300 group-hover:scale-105">
                   <svg class="w-2.5 h-2.5 text-[#D4AF37]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L21.6 12l-7.2 2.8L12 22l-2.4-7.2L2.4 12l7.2-2.8L12 2z"/></svg>
-                  <span class="hint-text">TAP TO SEE MORE</span>
+                  <span class="hint-text hint-text-touch">TAP TO SEE MORE</span>
+                  <span class="hint-text hint-text-desktop">HOVER TO PREVIEW</span>
                 </span>
               </div>
             </div>
@@ -971,7 +972,8 @@ const ceremonies = [
               <div class="arch-hint-pill absolute bottom-3 inset-x-0 flex justify-center pointer-events-none">
                 <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.22em] uppercase font-['Playfair_Display'] italic font-medium bg-black/45 text-[#FAD2E1] backdrop-blur-md border border-[#C4556F]/45 shadow-sm flex items-center gap-1.5 transition-transform duration-300 group-hover:scale-105">
                   <svg class="w-2.5 h-2.5 text-[#FAD2E1]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L21.6 12l-7.2 2.8L12 22l-2.4-7.2L2.4 12l7.2-2.8L12 2z"/></svg>
-                  <span class="hint-text">TAP TO SEE MORE</span>
+                  <span class="hint-text hint-text-touch">TAP TO SEE MORE</span>
+                  <span class="hint-text hint-text-desktop">HOVER TO PREVIEW</span>
                 </span>
               </div>
             </div>
@@ -2326,51 +2328,64 @@ const ceremonies = [
 .couple-card .arch-primary-img {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 450ms ease, transform 450ms ease !important;
+  transition: opacity 380ms cubic-bezier(0.22, 1, 0.36, 1), transform 380ms cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 .couple-card .arch-detail-img {
   opacity: 0;
   transform: scale(1.03);
-  transition: opacity 450ms ease, transform 450ms ease !important;
+  transition: opacity 380ms cubic-bezier(0.22, 1, 0.36, 1), transform 380ms cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 .couple-card .ring-detail-img,
 .couple-card .aarsi-detail-img {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 450ms ease, transform 450ms ease !important;
+  transition: opacity 380ms cubic-bezier(0.22, 1, 0.36, 1), transform 380ms cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 .couple-card .ring-primary-img,
 .couple-card .aarsi-primary-img {
   opacity: 0;
   transform: scale(1.03);
-  transition: opacity 450ms ease, transform 450ms ease !important;
+  transition: opacity 380ms cubic-bezier(0.22, 1, 0.36, 1), transform 380ms cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
-.couple-card:hover .arch-primary-img,
-.couple-card:hover .arch-detail-img,
-.couple-card:hover .ring-detail-img,
-.couple-card:hover .aarsi-detail-img,
-.couple-card:hover .ring-primary-img,
-.couple-card:hover .aarsi-primary-img,
-.couple-card:active .arch-primary-img,
-.couple-card:active .arch-detail-img,
-.couple-card:active .ring-detail-img,
-.couple-card:active .aarsi-detail-img,
-.couple-card:active .ring-primary-img,
-.couple-card:active .aarsi-primary-img,
-.couple-card.is-swapped .arch-primary-img,
-.couple-card.is-swapped .arch-detail-img,
-.couple-card.is-swapped .ring-detail-img,
-.couple-card.is-swapped .aarsi-detail-img,
-.couple-card.is-swapped .ring-primary-img,
-.couple-card.is-swapped .aarsi-primary-img {
-  will-change: opacity, transform;
+/* Touch responsiveness & eliminate tap highlight flash */
+.portrait-interactive-wrap,
+.couple-card,
+.ring-ornate-frame,
+.aarsi-ornate-frame {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
-/* Desktop Hover reveal (when mouse hovers and card is not explicitly locked/swapped) */
+/* Dynamic Hint Text for Desktop vs Mobile */
+.hint-text-touch {
+  display: inline;
+}
+.hint-text-desktop {
+  display: none;
+}
+
+/* Desktop Hover reveal (strictly scoped to fine-pointer mouse hover) */
 @media (hover: hover) and (pointer: fine) {
+  .hint-text-touch {
+    display: none;
+  }
+  .hint-text-desktop {
+    display: inline;
+  }
+
+  .couple-card:hover .arch-primary-img,
+  .couple-card:hover .arch-detail-img,
+  .couple-card:hover .ring-detail-img,
+  .couple-card:hover .aarsi-detail-img,
+  .couple-card:hover .ring-primary-img,
+  .couple-card:hover .aarsi-primary-img {
+    will-change: opacity, transform;
+  }
+
   .couple-card:not(.is-swapped):hover .arch-primary-img {
     opacity: 0;
     transform: scale(1.03);
@@ -2391,7 +2406,7 @@ const ceremonies = [
   }
 }
 
-/* Swapped state (explicit tap on mobile or click toggle) */
+/* Swapped state (explicit single tap on mobile or click toggle on desktop) */
 .couple-card.is-swapped .arch-primary-img {
   opacity: 0 !important;
   transform: scale(1.03) !important;
@@ -3570,38 +3585,40 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     });
   }
 
-  // ── MEET THE COUPLE: INDEPENDENT TAP & HOVER PHOTO TOGGLE ──
-  const toggleButtons = document.querySelectorAll<HTMLButtonElement>('[data-couple-toggle]');
+  // ── MEET THE COUPLE: REUSABLE POINTER & TAP PHOTO SWAP ──
+  const coupleCards = document.querySelectorAll<HTMLElement>('.couple-card');
 
-  toggleButtons.forEach((btn) => {
-    const card = btn.closest<HTMLElement>('.couple-card');
-    if (!card) return;
-
-    const hint = btn.querySelector<HTMLElement>('.hint-text');
+  coupleCards.forEach((card) => {
+    const btn = card.querySelector<HTMLButtonElement>('[data-couple-toggle]');
+    const hintTouch = card.querySelector<HTMLElement>('.hint-text-touch');
+    const hintDesktop = card.querySelector<HTMLElement>('.hint-text-desktop');
     let autoRevertTimeout: number | null = null;
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchMoved = false;
-    let lastTouchTime = 0;
 
-    const setSwappedState = (swapped: boolean, triggeredByTouch = false) => {
+    let startX = 0;
+    let startY = 0;
+    let isScrollGesture = false;
+    let startTime = 0;
+
+    const setSwappedState = (swapped: boolean, isTouch = false) => {
       if (swapped) {
         card.classList.add('is-swapped');
-        btn.setAttribute('aria-pressed', 'true');
-        if (hint) hint.textContent = 'TAP TO GO BACK';
+        if (btn) btn.setAttribute('aria-pressed', 'true');
+        if (hintTouch) hintTouch.textContent = 'TAP TO GO BACK';
+        if (hintDesktop) hintDesktop.textContent = 'CLICK TO RESET';
         document.getElementById('couple')?.classList.add('has-tapped-thumb');
 
-        // Requirement 8: Auto-revert to main photo after 6 seconds of no interaction, ONLY on touch devices
-        if (triggeredByTouch || isTouchDevice) {
+        // Auto-revert to main photo after 7 seconds of inactivity on touch screens
+        if (isTouch) {
           if (autoRevertTimeout) clearTimeout(autoRevertTimeout);
           autoRevertTimeout = window.setTimeout(() => {
             setSwappedState(false, false);
-          }, 6000);
+          }, 7000);
         }
       } else {
         card.classList.remove('is-swapped');
-        btn.setAttribute('aria-pressed', 'false');
-        if (hint) hint.textContent = 'TAP TO SEE MORE';
+        if (btn) btn.setAttribute('aria-pressed', 'false');
+        if (hintTouch) hintTouch.textContent = 'TAP TO SEE MORE';
+        if (hintDesktop) hintDesktop.textContent = 'HOVER TO PREVIEW';
         if (autoRevertTimeout) {
           clearTimeout(autoRevertTimeout);
           autoRevertTimeout = null;
@@ -3609,62 +3626,68 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       }
     };
 
-    const toggle = (triggeredByTouch = false) => {
+    const toggle = (isTouch = false) => {
       const willBeSwapped = !card.classList.contains('is-swapped');
-      setSwappedState(willBeSwapped, triggeredByTouch);
+      setSwappedState(willBeSwapped, isTouch);
     };
 
-    // Touch events: track displacement to ensure scroll gestures never trigger toggle
-    btn.addEventListener('touchstart', (e: TouchEvent) => {
-      if (e.touches.length !== 1) return;
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      touchMoved = false;
+    // Unified pointer gesture recognizer: allows vertical scroll without triggering accidental swap
+    const interactiveArea = btn || card;
+
+    interactiveArea.addEventListener('pointerdown', (e: PointerEvent) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      startX = e.clientX;
+      startY = e.clientY;
+      isScrollGesture = false;
+      startTime = Date.now();
     }, { passive: true });
 
-    btn.addEventListener('touchmove', (e: TouchEvent) => {
-      if (e.touches.length !== 1) return;
-      const dx = Math.abs(e.touches[0].clientX - touchStartX);
-      const dy = Math.abs(e.touches[0].clientY - touchStartY);
-      if (dx > 8 || dy > 8) {
-        touchMoved = true;
+    interactiveArea.addEventListener('pointermove', (e: PointerEvent) => {
+      if (isScrollGesture) return;
+      const dx = Math.abs(e.clientX - startX);
+      const dy = Math.abs(e.clientY - startY);
+      // Standard touch-slop threshold (14px): finger movement while scrolling is ignored
+      if (dx > 14 || dy > 14) {
+        isScrollGesture = true;
       }
     }, { passive: true });
 
-    btn.addEventListener('touchend', (e: TouchEvent) => {
-      if (!touchMoved) {
-        e.preventDefault(); // Eliminate 300ms touch delay and suppress synthetic click
-        lastTouchTime = Date.now();
-        toggle(true);
+    interactiveArea.addEventListener('pointerup', (e: PointerEvent) => {
+      if (isScrollGesture) return;
+      if (Date.now() - startTime > 500) return;
+      const isTouch = e.pointerType === 'touch' || e.pointerType === 'pen';
+      toggle(isTouch);
+    });
+
+    // Keyboard accessibility: Enter & Space toggle
+    if (btn) {
+      btn.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle(false);
+        }
+      });
+
+      // Desktop fine pointer hover hint update
+      if (!isTouchDevice) {
+        btn.addEventListener('mouseenter', () => {
+          if (!card.classList.contains('is-swapped') && hintDesktop) {
+            hintDesktop.textContent = 'CLICK TO LOCK';
+          }
+        });
+        btn.addEventListener('mouseleave', () => {
+          if (!card.classList.contains('is-swapped') && hintDesktop) {
+            hintDesktop.textContent = 'HOVER TO PREVIEW';
+          }
+        });
       }
-    });
-
-    // Desktop Mouse Click & Keyboard (Enter/Space)
-    btn.addEventListener('click', () => {
-      // Ignore synthetic click triggered right after touchend
-      if (Date.now() - lastTouchTime < 650) return;
-      toggle(false);
-    });
-
-    // Desktop hover state hint text update (when not locked/swapped)
-    if (!isTouchDevice) {
-      btn.addEventListener('mouseenter', () => {
-        if (!card.classList.contains('is-swapped') && hint) {
-          hint.textContent = 'TAP TO GO BACK';
-        }
-      });
-      btn.addEventListener('mouseleave', () => {
-        if (!card.classList.contains('is-swapped') && hint) {
-          hint.textContent = 'TAP TO SEE MORE';
-        }
-      });
     }
   });
 
-  // Preload and decode secondary images when #couple section nears viewport
+  // Preload and decode all couple images ahead of time to eliminate any flicker on first tap
   const preloadCoupleSecondaryImages = () => {
     const imagesToPrefetch = document.querySelectorAll<HTMLImageElement>(
-      '#couple .arch-detail-img, #couple .ring-primary-img, #couple .aarsi-primary-img'
+      '#couple .arch-primary-img, #couple .arch-detail-img, #couple .ring-detail-img, #couple .ring-primary-img, #couple .aarsi-detail-img, #couple .aarsi-primary-img'
     );
     imagesToPrefetch.forEach((img) => {
       if (img.complete) {
@@ -3685,7 +3708,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
           preloadCoupleSecondaryImages();
           prefetchObserver.disconnect();
         }
-      }, { rootMargin: '300px 0px 300px 0px' });
+      }, { rootMargin: '500px 0px 500px 0px' });
       prefetchObserver.observe(coupleSectionEl);
     }
   } else {
