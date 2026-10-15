@@ -1375,7 +1375,7 @@ const ceremonies = [
             role="tablist"
             aria-label="Rituals navigation"
           >
-            <!-- Single Active Indicator: 14px circle with 22px outer gold ring & subtle glow -->
+            <!-- Single Active Indicator: clean small gold dot, no outer ring -->
             <div
               id="ritual-active-indicator"
               class="ritual-active-indicator pointer-events-none absolute"
@@ -1785,21 +1785,21 @@ const ceremonies = [
   opacity: 0;
 }
 
-/* Active Indicator Container: 14px circle, moves ONLY via transform: translateX(index * 16px) */
+/* Active Indicator Container: Small clean gold circle, moves ONLY via transform: translateX(index * 16px) */
 .ritual-active-indicator {
   position: absolute;
   top: 50%;
-  left: 1px; /* (16px slot - 14px circle) / 2 = 1px */
-  margin-top: -7px;
-  width: 14px;
-  height: 14px;
+  left: 4px; /* (16px slot - 8px circle) / 2 = 4px */
+  margin-top: -4px;
+  width: 8px;
+  height: 8px;
   pointer-events: none;
   will-change: transform, opacity;
   transition: transform 260ms cubic-bezier(0.22, 0.8, 0.2, 1), opacity 150ms ease;
   z-index: 10;
 }
 
-/* Wrapper for scale pulse keyframe (1 to 1.15 to 1) */
+/* Wrapper for active indicator */
 .ritual-active-pulse-wrapper {
   width: 100%;
   height: 100%;
@@ -1808,37 +1808,14 @@ const ceremonies = [
   justify-content: center;
 }
 
-.ritual-active-pulse-wrapper.is-pulsing {
-  animation: ritualIndicatorPulse 280ms cubic-bezier(0.22, 0.8, 0.2, 1);
-}
-
-@keyframes ritualIndicatorPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-
-/* Perfect 14px circle with gold gradient & subtle glow */
+/* Small, clean golden ball without outer ring or large glow */
 .ritual-active-circle {
-  width: 14px;
-  height: 14px;
+  width: 100%;
+  height: 100%;
   border-radius: 9999px;
-  background: linear-gradient(135deg, #F3DC8B 0%, #C9A23F 50%, #8E6B1E 100%);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.55), 0 0 18px rgba(201, 162, 63, 0.28);
+  background: linear-gradient(135deg, #F5E096 0%, #D4AF37 50%, #996F16 100%);
+  box-shadow: 0 1px 2px rgba(100, 70, 15, 0.35);
   position: relative;
-}
-
-/* Soft 1px outer gold ring pseudo-element: 22px, low opacity */
-.ritual-active-circle::after {
-  content: '';
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  top: -4px;
-  left: -4px;
-  border-radius: 9999px;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  pointer-events: none;
 }
 
 /* Mobile (below 480px): 12px slots, compact layout */
@@ -1861,20 +1838,10 @@ const ceremonies = [
     height: 5px;
   }
   .ritual-active-indicator {
-    left: 1px; /* (12px slot - 10px circle) / 2 = 1px */
-    width: 10px;
-    height: 10px;
-    margin-top: -5px;
-  }
-  .ritual-active-circle {
-    width: 10px;
-    height: 10px;
-  }
-  .ritual-active-circle::after {
-    width: 16px;
-    height: 16px;
-    top: -3px;
-    left: -3px;
+    left: 2.5px; /* (12px slot - 7px circle) / 2 = 2.5px */
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
   }
 }
 
