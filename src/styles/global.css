@@ -21,10 +21,20 @@
 
   html {
     overflow-x: hidden;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
   }
 
-  html:not(.lenis) {
-    scroll-behavior: smooth;
+  @media (min-width: 769px) {
+    html:not(.lenis) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (max-width: 768px) {
+    html {
+      scroll-behavior: auto !important;
+    }
   }
 
   html.lenis, html.lenis body {
@@ -794,7 +804,28 @@ html.lite .couple-sparkle-float {
    MOBILE PERFORMANCE OPTIMIZATIONS (<= 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-  /* 1. Backdrop-filter removal + solid semi-transparent background fallback */
+  /* 1. Ensure all background attachments are scrollable on mobile (no fixed repaint) */
+  *,
+  *::before,
+  *::after {
+    background-attachment: scroll !important;
+  }
+
+  /* 2. Hardware layer promotion & containment on fixed / sticky UI to isolate scroll repaints */
+  #music-widget-container,
+  #scroll-top-btn,
+  #scroll-progress,
+  #reading-progress,
+  #page-progress-bar,
+  #wa-share-toast,
+  #scratch-lock-toast,
+  .action-dock,
+  .preview-nav {
+    transform: translateZ(0) !important;
+    contain: layout paint !important;
+  }
+
+  /* 3. Backdrop-filter removal + solid semi-transparent background fallback */
   .glass-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -847,7 +878,43 @@ html.lite .couple-sparkle-float {
     background: #FFFDF8 !important;
   }
 
-  /* 2. Lighten large box-shadow & text-shadow glow effects */
+  #locked-countdown-card,
+  #locked-countdown-card > div {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 253, 248, 0.98) !important;
+  }
+
+  .action-dock,
+  .preview-nav {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 251, 245, 0.98) !important;
+  }
+
+  /* 4. Touch action on scratch cards to keep vertical momentum scrolling 100% active */
+  .scratch-card,
+  .scratch-canvas {
+    touch-action: pan-y !important;
+  }
+
+  /* 5. Content visibility on long sections to skip off-screen rendering */
+  #couple,
+  #events,
+  #rituals {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 900px;
+  }
+
+  /* 6. Lighten large box-shadow & text-shadow glow effects in Hero & cards */
+  .hero-names-flash {
+    display: none !important;
+  }
+
+  .card-center-sparkle {
+    animation: none !important;
+  }
+
   .gold-glow {
     text-shadow: 0 0 8px rgba(212, 175, 55, 0.35) !important;
   }
@@ -876,7 +943,7 @@ html.lite .couple-sparkle-float {
     box-shadow: 0 6px 20px rgba(184, 134, 11, 0.35) !important;
   }
 
-  /* 3. Reduce floating sparkles / particles by >60% on mobile */
+  /* 7. Reduce floating sparkles / particles by >60% on mobile */
   /* Hero ambient sparkles: 8 -> 3 (62.5% reduction) */
   .hero-sparkle-dot:nth-child(n+4) {
     display: none !important;
@@ -899,10 +966,10 @@ html.lite .couple-sparkle-float {
     display: none !important;
   }
 
-  /* Text glow optimization on mobile: keep shiny gradient, stop heavy continuous filter repaint */
+  /* Text glow optimization on mobile: keep shiny gradient, single light drop shadow */
   .name-shine {
     animation: gold-text-shine 3.5s ease-in-out infinite !important;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(212, 175, 55, 0.4)) !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75)) !important;
     will-change: auto !important;
   }
 

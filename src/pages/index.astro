@@ -4534,14 +4534,6 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       canvas.addEventListener('pointerup', stopScratching);
       canvas.addEventListener('pointercancel', stopScratching);
 
-      // Prevent touch scrolling while scratching on mobile
-      canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-      }, { passive: false });
-      canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-      }, { passive: false });
-
       // Keyboard accessibility (Space / Enter triggers progressive scratch)
       if (card) {
         card.addEventListener('keydown', (e) => {
@@ -4993,9 +4985,19 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
     if (lineProgress && timeline && track) {
       let cerProgressRaf: number | null = null;
+      let isEventsNear = true;
       const isMobileView = () => window.matchMedia('(max-width: 768px)').matches;
 
+      if (typeof IntersectionObserver !== 'undefined') {
+        const eventsNearObserver = new IntersectionObserver((entries) => {
+          isEventsNear = entries[0]?.isIntersecting ?? true;
+          if (isEventsNear) updateCerLineProgress();
+        }, { rootMargin: '350px 0px 350px 0px' });
+        eventsNearObserver.observe(eventsSection);
+      }
+
       updateCerLineProgress = () => {
+        if (!isEventsNear) return;
         if (cerProgressRaf) return;
         cerProgressRaf = requestAnimationFrame(() => {
           const trackRect = track.getBoundingClientRect();
