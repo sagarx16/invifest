@@ -197,6 +197,85 @@ const siteUrl = 'https://invifestx16.vercel.app';
         revealElements.forEach(el => revealObserver.observe(el));
       }
 
+      // ── SCROLL-TRIGGERED TEXT REVEAL HELPER ─────────────────────────
+      function initTextReveal() {
+        const textElements = document.querySelectorAll<HTMLElement>('[data-text-reveal]');
+        if (!textElements.length) return;
+
+        textElements.forEach((el) => {
+          if (el.dataset.textRevealInit === 'true') return;
+          el.dataset.textRevealInit = 'true';
+
+          const originalText = el.textContent?.trim() || '';
+          if (!el.getAttribute('aria-label')) {
+            el.setAttribute('aria-label', originalText);
+          }
+
+          const baseDelay = parseFloat(el.getAttribute('data-text-delay') || '0');
+          const stagger = parseFloat(el.getAttribute('data-text-stagger') || '0.045');
+
+          let wordIndex = 0;
+          function processNode(node: Node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const text = node.textContent || '';
+              if (!text.trim()) return;
+
+              const chunks = text.split(/(\s+)/);
+              const frag = document.createDocumentFragment();
+
+              chunks.forEach((chunk) => {
+                if (/^\s+$/.test(chunk)) {
+                  frag.appendChild(document.createTextNode(chunk));
+                } else if (chunk) {
+                  const wordSpan = document.createElement('span');
+                  wordSpan.className = 'reveal-word';
+                  wordSpan.setAttribute('aria-hidden', 'true');
+
+                  const innerSpan = document.createElement('span');
+                  innerSpan.className = 'reveal-inner';
+                  innerSpan.style.transitionDelay = `${(baseDelay + wordIndex * stagger).toFixed(3)}s`;
+                  innerSpan.textContent = chunk;
+
+                  wordSpan.appendChild(innerSpan);
+                  frag.appendChild(wordSpan);
+                  wordIndex++;
+                }
+              });
+
+              node.parentNode?.replaceChild(frag, node);
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+              const childEl = node as HTMLElement;
+              if (childEl.classList.contains('reveal-word') || childEl.classList.contains('reveal-inner')) return;
+              Array.from(childEl.childNodes).forEach(processNode);
+            }
+          }
+
+          Array.from(el.childNodes).forEach(processNode);
+        });
+
+        if ('IntersectionObserver' in window) {
+          const textObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-text-revealed');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+          textElements.forEach((el) => textObserver.observe(el));
+        } else {
+          textElements.forEach((el) => el.classList.add('is-text-revealed'));
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTextReveal);
+      } else {
+        initTextReveal();
+      }
+      document.addEventListener('astro:page-load', initTextReveal);
+
       // Magnetic buttons - fine pointer only with cached rect on enter
       if (isFinePointer) {
         document.querySelectorAll('.magnetic-btn').forEach(el => {

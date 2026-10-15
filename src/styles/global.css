@@ -435,16 +435,40 @@ html.lenis, html.lenis body {
   letter-spacing: 0.02em;
 }
 
-/* ========== REVEAL ANIMATION ========== */
+/* ========== SCROLL-TRIGGERED TEXT REVEAL (CURTAIN SLIDE-UP) ========== */
+.reveal-text,
+[data-text-reveal] {
+  opacity: 1;
+}
+
 .reveal-word {
   overflow: hidden;
   display: inline-block;
+  vertical-align: top;
+  line-height: inherit;
+  padding-bottom: 0.08em;
 }
 
+.reveal-word .reveal-inner,
 .reveal-word span {
   display: inline-block;
-  transform: translateY(100%);
+  transform: translate3d(0, 115%, 0);
   opacity: 0;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.75s ease;
+  will-change: transform, opacity;
+}
+
+.is-text-revealed .reveal-word .reveal-inner,
+.is-text-revealed .reveal-word span,
+[data-text-reveal].is-text-revealed .reveal-word .reveal-inner,
+[data-text-reveal].is-text-revealed .reveal-word span {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  will-change: auto;
+}
+
+.section-title.is-text-revealed .reveal-word .reveal-inner {
+  text-shadow: 0 0 14px rgba(212, 175, 55, 0.25);
 }
 
 /* ========== PREFERS REDUCED MOTION ========== */
