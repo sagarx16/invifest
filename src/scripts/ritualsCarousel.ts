@@ -89,8 +89,16 @@ export function initRitualsCarousel(): () => void {
     });
   };
 
+  const cardFrames = slides.map((slide) => slide.querySelector<HTMLElement>('.ritual-card-frame'));
+  // Ensure slides do not hold stale inline opacity from previous implementations
+  slides.forEach((slide) => {
+    slide.style.opacity = '';
+  });
+
   // ── COVERFLOW SCALE & OPACITY TRANSFORMS VIA RAF (ZERO GAP) ──
   // Reads only in-memory engine data; NO layout reads or reflows in loop
+  // Custom coverflow transform is applied to .ritual-card-frame so Embla's slideLooper
+  // loop transforms on slide remain fully intact for an infinite, continuous wrap!
   const applyCoverflowScales = () => {
     const engine = embla.internalEngine();
     const scrollProgress = embla.scrollProgress();
@@ -121,12 +129,15 @@ export function initRitualsCarousel(): () => void {
         const zIndex = Math.round(20 - Math.min(15, distance * 5));
 
         const slide = slides[slideIndex];
+        const cardFrame = cardFrames[slideIndex];
         if (slide) {
-          slide.style.transform = `translate3d(${pullOffset.toFixed(1)}px, 0, 0) scale(${scale.toFixed(3)})`;
-          slide.style.opacity = `${opacity.toFixed(3)}`;
           slide.style.zIndex = `${zIndex}`;
           const isCenter = distance < 0.35;
           slide.classList.toggle('is-active', isCenter);
+        }
+        if (cardFrame) {
+          cardFrame.style.transform = `translate3d(${pullOffset.toFixed(1)}px, 0, 0) scale(${scale.toFixed(3)})`;
+          cardFrame.style.opacity = `${opacity.toFixed(3)}`;
         }
       });
     });
