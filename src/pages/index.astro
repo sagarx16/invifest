@@ -265,12 +265,11 @@ const ceremonies = [
     <video
       id="opening-video-ambient"
       playsinline
-      autoplay
       muted
       loop
-      preload="metadata"
+      preload="auto"
       poster="/images/video_thumb.jpg"
-      class="absolute inset-0 w-full h-full object-cover filter blur-3xl opacity-50 scale-110 pointer-events-none"
+      class="hidden sm:block absolute inset-0 w-full h-full object-cover filter blur-3xl opacity-50 scale-110 pointer-events-none will-change-transform transform-gpu"
     >
       <source src="/videos/opening.mp4" type="video/mp4" />
     </video>
@@ -280,14 +279,31 @@ const ceremonies = [
       <video
         id="opening-video"
         playsinline
-        autoplay
-        muted
-        preload="metadata"
+        preload="auto"
         poster="/images/video_thumb.jpg"
         class="w-full h-full object-cover sm:object-contain md:object-cover pointer-events-auto"
       >
         <source src="/videos/opening.mp4" type="video/mp4" />
       </video>
+
+      <!-- Luxury Golden Tap Prompt Badge centered over the wax seal -->
+      <div
+        id="envelope-tap-prompt"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none flex flex-col items-center gap-3 mt-14 sm:mt-16 text-center select-none"
+      >
+        <!-- Pulsing golden button -->
+        <div
+          class="px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-full flex items-center gap-2.5 shadow-2xl backdrop-blur-md border border-[#D4AF37]/90 text-[#FFF7D6] font-['Cinzel'] text-xs sm:text-sm tracking-[0.25em] uppercase font-semibold transition-transform duration-300 animate-bounce"
+          style="background: linear-gradient(135deg, rgba(35, 18, 12, 0.92) 0%, rgba(65, 35, 22, 0.88) 100%); box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 0 10px 35px rgba(0,0,0,0.7);"
+        >
+          <span class="text-[#D4AF37] text-xs">✦</span>
+          <span>Tap To Open</span>
+          <span class="text-[#D4AF37] text-xs">✦</span>
+        </div>
+        <span class="text-[10px] sm:text-[11px] font-['Montserrat'] font-medium tracking-[0.22em] uppercase text-[#F4E3B5]/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+          Mukesh & Puja · Wedding Invitation
+        </span>
+      </div>
     </div>
 
   </div>
@@ -323,17 +339,18 @@ const ceremonies = [
       <span class="hero-sparkle-dot" style="top:88%; right:22%; animation-delay:1.4s;">✦</span>
     </div>
 
-    <!-- 1. Even soft ivory vignette frame around all four sides (8-12% viewport, equal thickness in vmin) -->
+    <!-- Smooth bottom-only blend gradient into page background (#FAF6F0) -->
     <div
-      class="absolute inset-0 z-[2] pointer-events-none"
-      style="box-shadow: inset 0 0 10vmin 3.5vmin rgba(255, 248, 231, 0.95), inset 0 0 16vmin 7vmin rgba(255, 248, 231, 0.55);"
+      class="absolute bottom-0 inset-x-0 h-[36%] z-[2] pointer-events-none"
+      style="background: linear-gradient(to top, #FAF6F0 0%, rgba(250, 246, 240, 0.85) 25%, rgba(250, 246, 240, 0.4) 60%, rgba(250, 246, 240, 0) 100%);"
+      aria-hidden="true"
     ></div>
 
-    <!-- 4. Localized soft dark gradient behind the names and description for razor-sharp gold contrast without darkening the whole image -->
-    <div class="absolute inset-0 z-[3] pointer-events-none flex items-center justify-center">
+    <!-- Localized soft dark gradient behind the names and description for razor-sharp gold contrast -->
+    <div class="absolute inset-0 z-[3] pointer-events-none flex items-center justify-center" aria-hidden="true">
       <div
-        class="w-[92%] max-w-2xl h-[72%] max-h-[560px] rounded-full"
-        style="background: radial-gradient(ellipse at center, rgba(18, 9, 4, 0.45) 0%, rgba(18, 9, 4, 0.22) 55%, transparent 75%); filter: blur(24px);"
+        class="w-[94%] max-w-2xl h-[75%] max-h-[580px] rounded-full"
+        style="background: radial-gradient(ellipse at center, rgba(18, 9, 4, 0.50) 0%, rgba(18, 9, 4, 0.28) 55%, transparent 75%); filter: blur(26px);"
       ></div>
     </div>
 
@@ -715,12 +732,32 @@ const ceremonies = [
       <path id="couple-thread-path" stroke="url(#coupleThreadGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#threadGlow)" style="opacity:0;transition:opacity 0.4s ease;" />
     </svg>
 
-    <!-- Glowing Heart Knot at Thread Midpoint -->
+    <!-- Royal Intertwined Golden Wedding Rings Knot at Thread Midpoint -->
     <div id="couple-heart-knot" class="absolute pointer-events-none z-20 opacity-0 -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
-      <div class="center-heart-disc is-joined relative w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-[#FFF5F7] to-[#FFE4E8] border border-[#E07A8B]/60 shadow-lg">
-        <span class="heart-pulse-glow absolute inset-0 rounded-full bg-[#E07A8B]/30 animate-ping"></span>
-        <svg class="heart-beating-icon w-4.5 h-4.5 text-[#C43855] drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      <div class="center-heart-disc is-joined relative w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center bg-gradient-to-br from-[#FFFDF9] via-[#FAF3E0] to-[#F3E3C3] border border-[#D4AF37]/90 shadow-[0_0_25px_rgba(212,175,55,0.45),0_4px_16px_rgba(80,50,20,0.14)] ring-1 ring-[#D4AF37]/40">
+        <span class="heart-pulse-glow absolute inset-0 rounded-full bg-[#D4AF37]/25 animate-ping"></span>
+        <svg class="heart-beating-icon w-5 h-5 sm:w-6 sm:h-6 drop-shadow-[0_1px_3px_rgba(0,0,0,0.15)]" viewBox="0 0 28 28" fill="none">
+          <defs>
+            <linearGradient id="ringGoldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FCEAB0" />
+              <stop offset="50%" stop-color="#C99824" />
+              <stop offset="100%" stop-color="#8B6214" />
+            </linearGradient>
+            <linearGradient id="ringGoldGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFF2CE" />
+              <stop offset="50%" stop-color="#D4AF37" />
+              <stop offset="100%" stop-color="#A2781E" />
+            </linearGradient>
+          </defs>
+          <!-- Left Groom Ring -->
+          <circle cx="10.5" cy="14.5" r="5.5" stroke="url(#ringGoldGrad1)" stroke-width="2" />
+          <!-- Right Bride Ring -->
+          <circle cx="17.5" cy="14.5" r="5.5" stroke="url(#ringGoldGrad2)" stroke-width="2" />
+          <!-- Interlocking overlap arc -->
+          <path d="M12.5 10.2 A 5.5 5.5 0 0 1 15.5 13.5" stroke="url(#ringGoldGrad1)" stroke-width="2.1" stroke-linecap="round" />
+          <!-- Diamond Solitaire on Bride's Ring -->
+          <path d="M17.5 5.5 L18.4 7.6 L20.5 8.5 L18.4 9.4 L17.5 11.5 L16.6 9.4 L14.5 8.5 L16.6 7.6 Z" fill="#FFFDF2" stroke="#C99824" stroke-width="0.5" />
+          <circle cx="17.5" cy="8.5" r="1.1" fill="#FFFFFF" />
         </svg>
       </div>
     </div>
@@ -1344,22 +1381,31 @@ const ceremonies = [
           <span id="ritual-counter-total" class="text-[#8A796F]">{String(sacredRituals.length).padStart(2, '0')}</span>
         </div>
 
-        <!-- Desktop Progress Dots (>= 640px) -->
+        <!-- Desktop Progress Dots (>= 640px) with Dedicated Sliding Pill & Fixed Slots -->
         <div
-          class="ritual-ctrl-dots hidden sm:flex items-center justify-center gap-2"
+          class="ritual-ctrl-dots hidden sm:flex items-center justify-center relative px-2 py-1"
           role="tablist"
           aria-label="Rituals navigation"
         >
+          <!-- Smooth Sliding Active Gold Pill (moves via transform: translateX) -->
+          <div
+            id="ritual-active-pill"
+            class="ritual-active-pill absolute h-2 rounded-full pointer-events-none transition-transform duration-300 ease-out"
+            style="width: 22px; background: #D4AF37; box-shadow: 0 0 10px rgba(212, 175, 55, 0.55);"
+            aria-hidden="true"
+          ></div>
+
           {sacredRituals.map((_, dotIdx) => (
             <button
               type="button"
-              class="ritual-dot rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D4AF37]"
+              class="ritual-dot-slot relative flex items-center justify-center w-5 h-6 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D4AF37] rounded-full"
               data-dot-index={dotIdx}
               role="tab"
               aria-label={`Go to ritual ${dotIdx + 1}`}
               aria-selected={dotIdx === 2 ? 'true' : 'false'}
-              style={dotIdx === 2 ? 'transform:scaleX(2.8);background:#D4AF37;' : 'transform:scaleX(1);background:rgba(212,175,55,0.32);'}
-            />
+            >
+              <span class="ritual-dot-circle w-2 h-2 rounded-full bg-[#D4AF37]/35 transition-opacity duration-200 pointer-events-none"></span>
+            </button>
           ))}
         </div>
 
@@ -1516,10 +1562,10 @@ const ceremonies = [
 }
 
 .rituals-carousel-wrapper {
-  --slide-duration: 0.4s;
+  --slide-duration: 0.65s;
   --slide-easing: cubic-bezier(0.22, 1, 0.36, 1);
-  --autoplay-delay: 3000;
-  --text-fade-delay: 0.1s;
+  --autoplay-delay: 5000;
+  --text-fade-delay: 0.12s;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -1528,34 +1574,40 @@ const ceremonies = [
 .rituals-track-container {
   width: 100%;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   touch-action: pan-y;
-  cursor: grab;
   user-select: none;
   -webkit-user-select: none;
-}
-
-.rituals-track-container.is-dragging {
-  cursor: grabbing;
 }
 
 .rituals-track {
   display: flex;
   align-items: center;
-  will-change: transform;
+  touch-action: pan-y;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .rituals-track {
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .rituals-track {
+    gap: 1.5rem;
+  }
 }
 
 .ritual-card {
   width: 84vw;
   max-width: 335px;
   height: 520px;
+  flex: 0 0 auto;
   flex-shrink: 0;
   display: block;
-  transform: scale(0.85);
-  opacity: 0.65;
-  filter: brightness(0.88);
-  transition: transform var(--slide-duration, 0.4s) var(--slide-easing, cubic-bezier(0.22, 1, 0.36, 1)),
-              opacity var(--slide-duration, 0.4s) ease;
+  transform-origin: center center;
+  will-change: transform, opacity;
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
@@ -1582,11 +1634,8 @@ const ceremonies = [
   width: 100% !important;
 }
 
-/* Center Active Card: Full Opacity, Vibrant, Elevated */
+/* Center Active Card: Elevated Z-Index */
 .ritual-card.is-active {
-  transform: scale(1) !important;
-  opacity: 1 !important;
-  filter: brightness(1) !important;
   z-index: 20;
 }
 
@@ -1691,23 +1740,51 @@ const ceremonies = [
   min-height: 40px;
 }
 
-.ritual-dot {
+.ritual-ctrl-dots {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+}
+
+.ritual-dot-slot {
+  width: 20px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  padding: 0;
+}
+
+.ritual-dot-circle {
   width: 8px;
   height: 8px;
+  border-radius: 9999px;
   background-color: rgba(212, 175, 55, 0.32);
-  transform: scaleX(1);
-  transform-origin: center center;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease;
-  touch-action: manipulation;
+  transition: opacity 0.25s ease, background-color 0.25s ease;
 }
 
-.ritual-dot:hover {
-  background-color: rgba(212, 175, 55, 0.65);
+.ritual-dot-slot:hover .ritual-dot-circle {
+  background-color: rgba(212, 175, 55, 0.7);
 }
 
-.ritual-dot.is-active {
-  background-color: #D4AF37;
-  transform: scaleX(2.8);
+.ritual-active-pill {
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  height: 8px;
+  width: 22px;
+  border-radius: 9999px;
+  background: #D4AF37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.55);
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 /* Mobile Read More (3-line clamp by default, smooth expansion on tap) */
@@ -2274,14 +2351,12 @@ const ceremonies = [
 }
 
 @keyframes coupleHeartbeat {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.12); }
-  40% { transform: scale(1); }
-  60% { transform: scale(1.08); }
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(212,175,55,0.2)); }
+  50% { transform: scale(1.06); filter: drop-shadow(0 0 6px rgba(212,175,55,0.5)); }
 }
 
 .heart-beating-icon {
-  animation: coupleHeartbeat 1.6s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  animation: coupleHeartbeat 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   transform-origin: center center;
   will-change: transform;
 }
@@ -2296,10 +2371,10 @@ html.js #couple.couple-unconnected #couple-heart-knot {
   transform: translate(-50%, -50%) scale(0.6);
 }
 
-/* Center heart intensifier */
+/* Center medallion intensifier */
 .center-heart-disc.is-joined {
   transform: scale(1.12);
-  box-shadow: 0 0 35px rgba(219,103,137,0.5), 0 0 20px rgba(212,175,55,0.45) !important;
+  box-shadow: 0 0 32px rgba(212,175,55,0.55), 0 4px 18px rgba(80,50,20,0.18) !important;
 }
 .center-heart-disc.is-joined .heart-pulse-glow {
   opacity: 0.85;
@@ -3015,15 +3090,59 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Smooth scroll (Lenis enabled on non-touch devices for native 60fps mobile momentum)
-  const isTouchDevice = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window);
+  // ── STATE-OF-THE-ART MODERN SMOOTH SCROLLING (LENIS + GSAP TICKER) ──
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let lenis: any = null;
-  if (!isTouchDevice) {
-    lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+
+  if (!prefersReducedMotion) {
+    lenis = new Lenis({
+      duration: 1.15,
+      // Studio Freight / Apple signature exponential ease-out curve for buttery deceleration
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.1,
+      autoRaf: false,
+    });
     (window as any).lenis = lenis;
+
+    // Connect Lenis to ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(0);
+
+    // Hardware V-SYNC locked animation loop (adaptive to 60Hz and 120Hz ProMotion displays)
+    let lenisRafId: number | null = null;
+    function updateLenis(time: number) {
+      if (!document.hidden && lenis) {
+        lenis.raf(time);
+      }
+      lenisRafId = requestAnimationFrame(updateLenis);
+    }
+    lenisRafId = requestAnimationFrame(updateLenis);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (lenisRafId) cancelAnimationFrame(lenisRafId);
+        lenisRafId = null;
+      } else if (!lenisRafId) {
+        lenisRafId = requestAnimationFrame(updateLenis);
+      }
+    }, { passive: true });
+
+    // Smooth anchor link gliding
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
+        const targetId = anchor.getAttribute('href');
+        if (!targetId || targetId === '#' || targetId === '#!') return;
+        if (!isScratchUnlocked && targetId !== '#hero' && targetId !== '#save-the-date') return;
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          lenis.scrollTo(targetEl, { offset: -10, duration: 1.25 });
+        }
+      });
+    });
   }
 
   // ── GRAND OPENING ENVELOPE CINEMATIC & HERO REVEAL ────────────────
@@ -3047,9 +3166,17 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
     if (openingVideo) {
       openingVideo.pause();
+      try {
+        openingVideo.removeAttribute('src');
+        openingVideo.load();
+      } catch (e) {}
     }
     if (openingVideoAmbient) {
       openingVideoAmbient.pause();
+      try {
+        openingVideoAmbient.removeAttribute('src');
+        openingVideoAmbient.load();
+      } catch (e) {}
     }
 
     if (openingCinematic) {
@@ -3059,6 +3186,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       openingCinematic.style.pointerEvents = 'none';
       setTimeout(() => {
         openingCinematic.style.display = 'none';
+        openingCinematic.remove();
       }, 950);
     }
 
@@ -3070,13 +3198,9 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     triggerRevealHero();
   }
 
+  // Audio default ON for both landing video and inside wedding music
   let userManuallyMuted = false;
-  try {
-    userManuallyMuted = localStorage.getItem('musicMuted') === 'true';
-    if (userManuallyMuted) {
-      royalAudio.setManuallyPaused(true);
-    }
-  } catch (e) {}
+  royalAudio.setManuallyPaused(false);
 
   const handleUserInteraction = () => {
     if (openingVideo && !introDismissed && !openingVideo.paused) {
@@ -3090,24 +3214,110 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     }
   };
 
-  ['click', 'touchstart', 'keydown'].forEach((evt) => {
+  ['click', 'touchstart', 'pointerdown', 'keydown'].forEach((evt) => {
     window.addEventListener(evt, handleUserInteraction, { once: true, passive: true });
   });
 
-  videoCard?.addEventListener('click', () => {
-    dismissIntro();
-  });
+  let hasStartedVideoPlayback = false;
 
-  if (openingVideo) {
-    openingVideo.muted = true;
-    openingVideo.play().catch(() => {});
+  function handleEnvelopeTap(e?: Event) {
+    if (e) {
+      try {
+        e.preventDefault();
+        e.stopPropagation();
+      } catch (_) {}
+    }
+    if (introDismissed || hasStartedVideoPlayback) return;
+    hasStartedVideoPlayback = true;
 
-    openingVideo.addEventListener('ended', () => {
-      setTimeout(() => {
-        dismissIntro();
-      }, 600);
-    }, { once: true });
+    // Disconnect click listener so accidental double-taps do not interrupt the video playback
+    openingCinematic?.removeEventListener('click', handleEnvelopeTap);
+
+    // Prime the inside wedding audio engine during this user gesture
+    royalAudio.prime();
+
+    // Animate out the tap prompt badge
+    const tapPrompt = document.getElementById('envelope-tap-prompt');
+    if (tapPrompt) {
+      tapPrompt.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      tapPrompt.style.opacity = '0';
+      tapPrompt.style.transform = 'translate(-50%, -50%) scale(0.85)';
+      setTimeout(() => tapPrompt.remove(), 360);
+    }
+
+    if (openingVideo) {
+      // Unmute video audio track and set full volume
+      openingVideo.muted = false;
+      openingVideo.volume = 1.0;
+      openingVideo.currentTime = 0;
+
+      const playPromise = openingVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          if (openingVideo) {
+            openingVideo.muted = false;
+            openingVideo.volume = 1.0;
+          }
+        }).catch(() => {
+          // If browser restricted unmuted audio, play muted and immediately unmute
+          if (openingVideo) {
+            openingVideo.muted = true;
+            openingVideo.play().then(() => {
+              setTimeout(() => {
+                if (openingVideo) {
+                  openingVideo.muted = false;
+                  openingVideo.volume = 1.0;
+                }
+              }, 40);
+            }).catch(() => {});
+          }
+        });
+      }
+
+      if (openingVideoAmbient) {
+        openingVideoAmbient.play().catch(() => {});
+      }
+
+      // When the video finishes playing once with its original music -> automatically enter the main website!
+      let hasVideoCompleted = false;
+      const onVideoFinished = () => {
+        if (hasVideoCompleted) return;
+        hasVideoCompleted = true;
+        setTimeout(() => {
+          dismissIntro();
+        }, 200);
+      };
+
+      openingVideo.addEventListener('ended', onVideoFinished, { once: true });
+      openingVideo.addEventListener('timeupdate', () => {
+        if (openingVideo.duration && openingVideo.currentTime >= (openingVideo.duration - 0.2)) {
+          onVideoFinished();
+        }
+      });
+      // Safety fallback in case browser delays ended event (video duration is ~7.3s)
+      setTimeout(onVideoFinished, 8200);
+    } else {
+      dismissIntro();
+    }
   }
+
+  // Single delegated listener on openingCinematic
+  openingCinematic?.addEventListener('click', handleEnvelopeTap);
+
+  // Mobile zero-latency touch tap
+  let tapTouchStartY = 0;
+  openingCinematic?.addEventListener('touchstart', (e: TouchEvent) => {
+    if (e.touches && e.touches[0]) tapTouchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  openingCinematic?.addEventListener('touchend', (e: TouchEvent) => {
+    if (e.changedTouches && e.changedTouches[0]) {
+      const dy = Math.abs(e.changedTouches[0].clientY - tapTouchStartY);
+      if (dy < 15) {
+        handleEnvelopeTap(e);
+      }
+    }
+  }, { passive: false });
 
 
   function revealHero() {
@@ -3187,7 +3397,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       e.preventDefault();
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (typeof lenis !== 'undefined' && lenis) {
-        lenis.scrollTo(0, { immediate: prefersReduced });
+        lenis.scrollTo(0, { immediate: prefersReduced, duration: 1.25 });
       } else {
         window.scrollTo({
           top: 0,
@@ -3209,7 +3419,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
+  const isMobilePhone = !isFinePointer || window.matchMedia('(max-width: 768px)').matches;
 
   // ── MEET THE COUPLE: 3D TILT, GLOW & TAP-TO-SWAP ────────────────
 
@@ -3217,31 +3427,41 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     const el = card as HTMLElement;
     const glow = el.querySelector('.couple-glow') as HTMLElement | null;
 
-    // Desktop hover: glow + 3D tilt
+    // Desktop hover: glow + 3D tilt (throttled to rAF with cached rect)
     if (isFinePointer && !isReducedMotion) {
+      let tiltRaf: number | null = null;
+      let cachedRect: DOMRect | null = null;
+
+      el.addEventListener('mouseenter', () => {
+        cachedRect = el.getBoundingClientRect();
+      }, { passive: true });
+
       el.addEventListener('mousemove', (e: MouseEvent) => {
-        const rect = el.getBoundingClientRect();
+        if (!cachedRect) cachedRect = el.getBoundingClientRect();
+        const rect = cachedRect;
         const normX = (e.clientX - rect.left) / rect.width - 0.5;
         const normY = (e.clientY - rect.top) / rect.height - 0.5;
         
-        // Tilt
-        el.style.transform = `perspective(1000px) rotateX(${normY * -6}deg) rotateY(${normX * 6}deg) translateY(-4px)`;
-        
-        // Glow
-        if (glow) {
-          glow.style.setProperty('--mx', `${(normX + 0.5) * 100}%`);
-          glow.style.setProperty('--my', `${(normY + 0.5) * 100}%`);
-          glow.style.opacity = '1';
-        }
-      });
+        if (tiltRaf) cancelAnimationFrame(tiltRaf);
+        tiltRaf = requestAnimationFrame(() => {
+          el.style.transform = `perspective(1000px) rotateX(${normY * -6}deg) rotateY(${normX * 6}deg) translateY(-4px)`;
+          if (glow) {
+            glow.style.setProperty('--mx', `${(normX + 0.5) * 100}%`);
+            glow.style.setProperty('--my', `${(normY + 0.5) * 100}%`);
+            glow.style.opacity = '1';
+          }
+        });
+      }, { passive: true });
 
       el.addEventListener('mouseleave', () => {
+        if (tiltRaf) cancelAnimationFrame(tiltRaf);
+        cachedRect = null;
         el.style.transform = '';
         if (glow) glow.style.opacity = '0';
       });
     }
 
-    // Tap / Click reveal toggle (desktop click or mobile tap)
+    // Tap / Click toggle (Desktop click or phone tap)
     el.addEventListener('click', () => {
       document.getElementById('couple')?.classList.add('has-tapped-thumb');
       el.classList.toggle('is-swapped');
@@ -3251,6 +3471,32 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       }
     });
   });
+
+  // ── PHONE / MOBILE ONLY: SCROLL-CROSSING AUTO EXCHANGE ──
+  // Phone mein screen pe is jagah pe cross karte hi photo exchange, fir scroll hone par wapas normal
+  if (isMobilePhone && typeof IntersectionObserver !== 'undefined') {
+    const coupleCards = document.querySelectorAll<HTMLElement>('.couple-card');
+    const coupleSwapObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const card = entry.target as HTMLElement;
+        const hint = card.querySelector('.hint-text');
+        if (entry.isIntersecting) {
+          // Phone screen pe cross karte hi photo exchange
+          card.classList.add('is-swapped');
+          if (hint) hint.textContent = 'tap to restore';
+        } else {
+          // Cross ho jane ke baad wapas normal jaise the
+          card.classList.remove('is-swapped');
+          if (hint) hint.textContent = 'tap to see more';
+        }
+      });
+    }, {
+      rootMargin: '-15% 0px -20% 0px',
+      threshold: 0.15
+    });
+
+    coupleCards.forEach((c) => coupleSwapObserver.observe(c));
+  }
 
   // ── MEET THE BRIDE & GROOM: CONTINUOUS THREAD & MIDPOINT HEART ──
   const coupleSection = document.getElementById('couple');
@@ -3362,38 +3608,43 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     window.addEventListener('resize', scheduleUpdate, { passive: true });
   }
 
-  // Parallax on mouse move - throttled to rAF & gated to fine-pointer devices
+  // Parallax on mouse move - throttled to rAF & gated to fine-pointer devices and element presence
   if (isFinePointer) {
     const parallaxLayers = Array.from(document.querySelectorAll<HTMLElement>('.parallax-layer'));
     const mandala = document.getElementById('hero-mandala');
     let pRaf: number | null = null;
 
-    document.addEventListener('mousemove', (e) => {
-      if (pRaf) return;
-      pRaf = requestAnimationFrame(() => {
-        const xPct = (e.clientX / window.innerWidth - 0.5) * 2;
-        const yPct = (e.clientY / window.innerHeight - 0.5) * 2;
-        parallaxLayers.forEach(el => {
-          const depth = parseFloat(el.dataset.depth || '0.1');
-          el.style.transform = `translate3d(${(xPct * 25 * depth).toFixed(1)}px, ${(yPct * 25 * depth).toFixed(1)}px, 0)`;
+    if (parallaxLayers.length > 0 || mandala) {
+      document.addEventListener('mousemove', (e) => {
+        if (pRaf) return;
+        pRaf = requestAnimationFrame(() => {
+          const xPct = (e.clientX / window.innerWidth - 0.5) * 2;
+          const yPct = (e.clientY / window.innerHeight - 0.5) * 2;
+          parallaxLayers.forEach(el => {
+            const depth = parseFloat(el.dataset.depth || '0.1');
+            el.style.transform = `translate3d(${(xPct * 25 * depth).toFixed(1)}px, ${(yPct * 25 * depth).toFixed(1)}px, 0)`;
+          });
+          if (mandala) {
+            mandala.style.transform = `translate3d(${(xPct * 12).toFixed(1)}px, ${(yPct * 12).toFixed(1)}px, 0)`;
+          }
+          pRaf = null;
         });
-        if (mandala) {
-          mandala.style.transform = `translate3d(${(xPct * 12).toFixed(1)}px, ${(yPct * 12).toFixed(1)}px, 0)`;
-        }
-        pRaf = null;
-      });
-    }, { passive: true });
+      }, { passive: true });
+    }
   }
 
   // ── REAL-TIME WEDDING COUNTDOWN ────────────────────────────────────
   let countdownInterval: any = null;
   let prevSecsVal = '';
+  let cachedTargetWeddingTime = 0;
 
   function getTargetWeddingTime(): number {
+    if (cachedTargetWeddingTime) return cachedTargetWeddingTime;
     const card = document.getElementById('locked-countdown-card');
     const targetStr = card?.getAttribute('data-target') || '2026-12-11T00:00:00+05:30';
     const parsed = new Date(targetStr).getTime();
-    return isNaN(parsed) ? new Date('2026-12-11T00:00:00+05:30').getTime() : parsed;
+    cachedTargetWeddingTime = isNaN(parsed) ? new Date('2026-12-11T00:00:00+05:30').getTime() : parsed;
+    return cachedTargetWeddingTime;
   }
 
   function updateCountdown() {
@@ -3442,8 +3693,9 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       secsEl.textContent = secsStr;
       if (prevSecsVal !== '') {
         secsEl.classList.remove('second-tick');
-        void secsEl.offsetWidth;
-        secsEl.classList.add('second-tick');
+        requestAnimationFrame(() => {
+          secsEl?.classList.add('second-tick');
+        });
       }
       prevSecsVal = secsStr;
     }
@@ -3455,10 +3707,18 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     countdownInterval = setInterval(updateCountdown, 1000);
   }
 
-  // Refresh immediately when tab gains visibility
+  // Pause countdown when tab hidden to save battery & CPU, resume immediately on focus
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
+    if (document.hidden) {
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+    } else {
       updateCountdown();
+      if (!countdownInterval) {
+        countdownInterval = setInterval(updateCountdown, 1000);
+      }
     }
   });
 
@@ -3481,28 +3741,22 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   const STD_STORAGE_KEY = 'mukesh_puja_std_unlocked_v3';
   let isScratchUnlocked = false;
 
-  // Dev-only reset: opening with ?reset=1 in URL clears saved states
+  // Always reset on page load / refresh so user gets scratch card every time!
   if (typeof window !== 'undefined') {
+    try {
+      localStorage.removeItem(STD_STORAGE_KEY);
+      localStorage.removeItem('mukesh_puja_std_unlocked_v1');
+      localStorage.removeItem('mukesh_puja_std_unlocked_v2');
+      sessionStorage.removeItem(STD_STORAGE_KEY);
+      sessionStorage.removeItem('mukesh_puja_std_unlocked_v1');
+      sessionStorage.removeItem('mukesh_puja_std_unlocked_v2');
+    } catch (e) {}
+
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('reset') === '1') {
-      try {
-        localStorage.removeItem('mukesh_puja_std_unlocked_v1');
-        localStorage.removeItem('mukesh_puja_std_unlocked_v2');
-        localStorage.removeItem(STD_STORAGE_KEY);
-        sessionStorage.removeItem('mukesh_puja_std_unlocked_v1');
-        sessionStorage.removeItem('mukesh_puja_std_unlocked_v2');
-        sessionStorage.removeItem(STD_STORAGE_KEY);
-      } catch (e) {}
-      const cleanUrl = window.location.pathname + window.location.hash;
-      window.history.replaceState({}, '', cleanUrl);
-    } else if (urlParams.get('unlocked') === '1') {
+    if (urlParams.get('unlocked') === '1') {
       isScratchUnlocked = true;
     } else {
-      try {
-        isScratchUnlocked = localStorage.getItem(STD_STORAGE_KEY) === 'true';
-      } catch (e) {
-        isScratchUnlocked = false;
-      }
+      isScratchUnlocked = false;
     }
   }
 
@@ -3538,86 +3792,96 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     }
   }
 
-  function getSaveTheDateLimit(): number {
-    if (isScratchUnlocked) return Infinity;
+  let cachedStdLimit = 0;
+  function updateSaveTheDateLimit() {
+    if (isScratchUnlocked) {
+      cachedStdLimit = Infinity;
+      return;
+    }
     const container = document.getElementById('scratch-cards-container');
-    if (!container) return Infinity;
+    if (!container) {
+      cachedStdLimit = Infinity;
+      return;
+    }
     const rect = container.getBoundingClientRect();
     const scrollY = window.scrollY || window.pageYOffset || 0;
     // Clamps exactly where the 3 cards and progress indicator are vertically centered
-    return Math.max(0, scrollY + rect.top + rect.height / 2 - window.innerHeight / 2 + 25);
+    cachedStdLimit = Math.max(0, scrollY + rect.top + rect.height / 2 - window.innerHeight / 2 + 25);
   }
 
-  // Lenis clamp
-  if (lenis) {
-    lenis.on('scroll', (e: any) => {
-      if (!isScratchUnlocked) {
-        const limit = getSaveTheDateLimit();
-        if (limit < Infinity && e.scroll > limit + 5) {
-          lenis.scrollTo(limit, { immediate: true });
-          triggerLockedFeedback();
-        }
-      }
-      ScrollTrigger.update();
-    });
+  function getSaveTheDateLimit(): number {
+    if (isScratchUnlocked) return Infinity;
+    if (!cachedStdLimit) updateSaveTheDateLimit();
+    return cachedStdLimit;
   }
+  updateSaveTheDateLimit();
+  window.addEventListener('resize', updateSaveTheDateLimit, { passive: true });
 
-  // Window scroll clamp
-  window.addEventListener('scroll', () => {
-    if (!isScratchUnlocked) {
-      const limit = getSaveTheDateLimit();
-      if (limit < Infinity && window.scrollY > limit + 5) {
-        window.scrollTo(0, limit);
-        triggerLockedFeedback();
-      }
-    }
-  }, { passive: true });
+  // Locked feedback: if user reaches the bottom of the locked section and tries to scroll down further
+  let lastLockedFeedbackTime = 0;
+  const triggerLockedCooldown = () => {
+    if (isScratchUnlocked) return;
+    const now = Date.now();
+    if (now - lastLockedFeedbackTime < 900) return;
+    lastLockedFeedbackTime = now;
+    triggerLockedFeedback();
+  };
 
-  // Mouse wheel downwards check when near limit
-  window.addEventListener('wheel', (e) => {
-    if (!isScratchUnlocked && e.deltaY > 0) {
-      const limit = getSaveTheDateLimit();
+  const handleWheelLocked = (e: WheelEvent) => {
+    if (!isScratchUnlocked && e.deltaY > 5) {
       const scrollY = window.scrollY || window.pageYOffset || 0;
-      if (limit < Infinity && scrollY >= limit - 10) {
-        triggerLockedFeedback();
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollY >= maxScroll - 25) {
+        triggerLockedCooldown();
       }
     }
-  }, { passive: true });
+  };
 
-  // Touch swipe upwards (scrolling down) check when near limit
   let touchStartY = 0;
-  window.addEventListener('touchstart', (e) => {
+  const handleTouchStartLocked = (e: TouchEvent) => {
     if (e.touches && e.touches[0]) touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-  window.addEventListener('touchmove', (e) => {
+  };
+
+  const handleTouchMoveLocked = (e: TouchEvent) => {
     if (!isScratchUnlocked && e.touches && e.touches[0]) {
       const dy = touchStartY - e.touches[0].clientY;
-      if (dy > 12) {
-        const limit = getSaveTheDateLimit();
+      if (dy > 25) {
         const scrollY = window.scrollY || window.pageYOffset || 0;
-        if (limit < Infinity && scrollY >= limit - 10) {
-          triggerLockedFeedback();
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollY >= maxScroll - 25) {
+          triggerLockedCooldown();
         }
       }
     }
-  }, { passive: true });
+  };
 
-  // Keyboard navigation downward check
-  window.addEventListener('keydown', (e) => {
+  const handleKeyDownLocked = (e: KeyboardEvent) => {
     if (!isScratchUnlocked) {
       const isDownKey = ['PageDown', 'End', 'ArrowDown', ' '].includes(e.key);
       if (isDownKey && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
-        const limit = getSaveTheDateLimit();
         const scrollY = window.scrollY || window.pageYOffset || 0;
-        if (limit < Infinity && scrollY >= limit - 15) {
-          if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'End' || (e.key === ' ' && !e.shiftKey)) {
-            e.preventDefault();
-            triggerLockedFeedback();
-          }
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollY >= maxScroll - 25) {
+          e.preventDefault();
+          triggerLockedCooldown();
         }
       }
     }
-  });
+  };
+
+  function removeLockEventListeners() {
+    window.removeEventListener('wheel', handleWheelLocked);
+    window.removeEventListener('touchstart', handleTouchStartLocked);
+    window.removeEventListener('touchmove', handleTouchMoveLocked);
+    window.removeEventListener('keydown', handleKeyDownLocked);
+  }
+
+  if (!isScratchUnlocked) {
+    window.addEventListener('wheel', handleWheelLocked, { passive: true });
+    window.addEventListener('touchstart', handleTouchStartLocked, { passive: true });
+    window.addEventListener('touchmove', handleTouchMoveLocked, { passive: true });
+    window.addEventListener('keydown', handleKeyDownLocked);
+  }
 
   // Intercept anchor clicks to locked sections
   document.addEventListener('click', (e) => {
@@ -4127,9 +4391,8 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
     async function onAllCardsRevealed() {
       isScratchUnlocked = true;
-      try {
-        localStorage.setItem(STD_STORAGE_KEY, 'true');
-      } catch (e) {}
+      removeLockEventListeners();
+      // Do not store in localStorage so user gets fresh scratch card on every refresh!
 
       // Grand celebration confetti burst
       try {
@@ -4262,20 +4525,28 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
   // ── WHATSAPP SHARE WITH invitation-story.png ───────────────────────
   let preloadedInviteStory: File | null = null;
+  let isStoryPreloading = false;
   function preloadInviteStoryFile() {
+    if (preloadedInviteStory || isStoryPreloading) return;
+    isStoryPreloading = true;
     fetch('/invitation/invitation-story.png')
       .then((res) => res.blob())
       .then((blob) => {
         preloadedInviteStory = new File([blob], 'invitation-story.png', { type: 'image/png' });
       })
-      .catch(() => {});
-  }
-  if (typeof window !== 'undefined') {
-    setTimeout(preloadInviteStoryFile, 800);
+      .catch(() => {
+        isStoryPreloading = false;
+      });
   }
 
   const waShareBtn = document.getElementById('wa-share-bottom');
   const waToast = document.getElementById('wa-share-toast');
+
+  // Preload only when user hovers or touches the share button (saves initial load bandwidth)
+  if (waShareBtn) {
+    waShareBtn.addEventListener('pointerenter', preloadInviteStoryFile, { once: true, passive: true });
+    waShareBtn.addEventListener('touchstart', preloadInviteStoryFile, { once: true, passive: true });
+  }
 
   waShareBtn?.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -4518,17 +4789,27 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
     if (lineProgress && timeline) {
       let cerProgressRaf: number | null = null;
+      let cachedTimelineTop = 0;
+      let cachedTimelineHeight = 1;
+
+      const updateTimelineMetrics = () => {
+        const rect = timeline.getBoundingClientRect();
+        cachedTimelineTop = (window.scrollY || window.pageYOffset || 0) + rect.top;
+        cachedTimelineHeight = rect.height || 1;
+      };
+      updateTimelineMetrics();
+      window.addEventListener('resize', updateTimelineMetrics, { passive: true });
+
       updateCerLineProgress = () => {
         if (cerProgressRaf) return;
         cerProgressRaf = requestAnimationFrame(() => {
-          const rect = timeline.getBoundingClientRect();
+          const scrollY = window.scrollY || window.pageYOffset || 0;
           const vh = window.innerHeight;
-          const total = rect.height;
-          const current = vh * 0.7 - rect.top;
-          const progress = Math.min(1, Math.max(0, current / total));
+          const current = scrollY + vh * 0.7 - cachedTimelineTop;
+          const progress = Math.min(1, Math.max(0, current / cachedTimelineHeight));
           lineProgress.style.transform = `scaleY(${progress})`;
           if (trackerDot) {
-            trackerDot.style.transform = `translate(-50%, ${progress * (total - 9)}px)`;
+            trackerDot.style.transform = `translate(-50%, ${progress * (cachedTimelineHeight - 9)}px)`;
           }
           cerProgressRaf = null;
         });

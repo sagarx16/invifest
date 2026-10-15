@@ -90,13 +90,11 @@ const siteUrl = 'https://invifestx16.vercel.app';
       }
     </script>
 
-    <!-- Lean & Optimized Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Self-Hosted Optimized Fonts (Zero external DNS / network blocking) -->
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <link rel="preload" href="/fonts/font_10.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/font_8.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/font_2.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -107,10 +105,6 @@ const siteUrl = 'https://invifestx16.vercel.app';
     <slot name="head" />
   </head>
   <body class="film-grain vignette bg-[#FAF6F0] text-[#2C221A] min-h-screen overflow-x-hidden">
-    <!-- Custom Cursor (Desktop fine-pointer only) -->
-    <div id="cursor-dot"></div>
-    <div id="cursor-ring"></div>
-
     <!-- Scroll Progress Bar -->
     <div id="scroll-progress" style="width: 0%"></div>
 
@@ -120,82 +114,26 @@ const siteUrl = 'https://invifestx16.vercel.app';
     <script>
       const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-      // Custom Cursor - ONLY activated on fine-pointer devices (no mobile waste)
-      if (isFinePointer) {
-        const dot = document.getElementById('cursor-dot');
-        const ring = document.getElementById('cursor-ring');
-        let mouseX = -100, mouseY = -100;
-        let ringX = -100, ringY = -100;
-        let ringRafId: number | null = null;
-        let isCursorActive = true;
-
-        document.addEventListener('mousemove', (e) => {
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          if (dot) {
-            dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-          }
-        }, { passive: true });
-
-        // Smooth ring follow with requestAnimationFrame using transform3d
-        function animateRing() {
-          if (!isCursorActive) return;
-          ringX += (mouseX - ringX) * 0.16;
-          ringY += (mouseY - ringY) * 0.16;
-          if (ring) {
-            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-          }
-          ringRafId = requestAnimationFrame(animateRing);
-        }
-        ringRafId = requestAnimationFrame(animateRing);
-
-        document.addEventListener('visibilitychange', () => {
-          if (document.hidden) {
-            isCursorActive = false;
-            if (ringRafId) cancelAnimationFrame(ringRafId);
-          } else {
-            isCursorActive = true;
-            ringRafId = requestAnimationFrame(animateRing);
-          }
-        });
-
-        // Expand cursor on interactive hover
-        const interactiveElements = 'a, button, input, textarea, select, .event-card, .couple-card, .flip-clock-card, .ritual-card';
-        document.querySelectorAll(interactiveElements).forEach(el => {
-          el.addEventListener('mouseenter', () => {
-            if (ring) {
-              ring.style.width = '54px';
-              ring.style.height = '54px';
-              ring.style.borderColor = '#C59437';
-              ring.style.backgroundColor = 'rgba(197, 148, 55, 0.12)';
-              ring.style.boxShadow = '0 0 25px rgba(197, 148, 55, 0.35)';
-            }
-          }, { passive: true });
-          el.addEventListener('mouseleave', () => {
-            if (ring) {
-              ring.style.width = '36px';
-              ring.style.height = '36px';
-              ring.style.borderColor = 'rgba(197, 148, 55, 0.5)';
-              ring.style.backgroundColor = 'transparent';
-              ring.style.boxShadow = 'none';
-            }
-          }, { passive: true });
-        });
-      }
-
-      // Scroll Progress - throttled to rAF, scaleX transform (0 reflow)
+      // Scroll Progress - throttled to rAF, cached height, scaleX transform (0 reflow)
       const progressBar = document.getElementById('scroll-progress');
       if (progressBar) {
         let ticking = false;
+        let cachedDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        const updateDocHeight = () => {
+          cachedDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+        };
+        window.addEventListener('resize', updateDocHeight, { passive: true });
+
         const updateProgress = () => {
           const scrollTop = window.scrollY || window.pageYOffset || 0;
-          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-          if (docHeight > 0) {
-            const progress = Math.min(1, Math.max(0, scrollTop / docHeight));
+          if (cachedDocHeight > 0) {
+            const progress = Math.min(1, Math.max(0, scrollTop / cachedDocHeight));
             progressBar.style.transform = `scaleX(${progress})`;
           }
           ticking = false;
         };
+
         window.addEventListener('scroll', () => {
           if (!ticking) {
             requestAnimationFrame(updateProgress);
@@ -259,23 +197,31 @@ const siteUrl = 'https://invifestx16.vercel.app';
         revealElements.forEach(el => revealObserver.observe(el));
       }
 
-      // Magnetic buttons - fine pointer only with rAF throttle
+      // Magnetic buttons - fine pointer only with cached rect on enter
       if (isFinePointer) {
         document.querySelectorAll('.magnetic-btn').forEach(el => {
           const htmlEl = el as HTMLElement;
           let magRaf: number | null = null;
+          let cachedRect: DOMRect | null = null;
+
+          htmlEl.addEventListener('mouseenter', () => {
+            cachedRect = htmlEl.getBoundingClientRect();
+          }, { passive: true });
+
           htmlEl.addEventListener('mousemove', (e: Event) => {
             const mouseEvent = e as MouseEvent;
             if (magRaf) cancelAnimationFrame(magRaf);
             magRaf = requestAnimationFrame(() => {
-              const rect = htmlEl.getBoundingClientRect();
+              const rect = cachedRect || htmlEl.getBoundingClientRect();
               const x = mouseEvent.clientX - rect.left - rect.width / 2;
               const y = mouseEvent.clientY - rect.top - rect.height / 2;
               htmlEl.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
             });
           }, { passive: true });
+
           htmlEl.addEventListener('mouseleave', () => {
             if (magRaf) cancelAnimationFrame(magRaf);
+            cachedRect = null;
             htmlEl.style.transform = '';
           });
         });

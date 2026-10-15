@@ -26,13 +26,17 @@ class RoyalAudioEngine {
     });
   }
 
+  public prime() {
+    this.initAudio();
+  }
+
   private initAudio() {
     if (typeof window === 'undefined') return;
     if (!this.audioElement) {
       this.audioElement = new Audio(this.songUrl);
       this.audioElement.loop = true;
-      this.audioElement.volume = 0.85;
-      this.audioElement.preload = 'none';
+      this.audioElement.volume = 0.95;
+      this.audioElement.preload = 'auto';
 
       // Keep playing state in sync
       this.audioElement.addEventListener('play', () => {

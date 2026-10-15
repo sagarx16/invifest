@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 @layer base {
   :root {
@@ -19,8 +20,19 @@
   }
 
   html {
-    scroll-behavior: smooth;
     overflow-x: hidden;
+  }
+
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
   }
   
   body {
@@ -30,18 +42,6 @@
     overflow-x: hidden;
     width: 100%;
     -webkit-tap-highlight-color: transparent;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    body {
-      cursor: none;
-    }
-  }
-
-  @media (hover: none) or (pointer: coarse) {
-    #cursor-dot, #cursor-ring {
-      display: none !important;
-    }
   }
 
   @media (max-width: 640px) {
@@ -75,44 +75,6 @@
   }
 }
 
-/* ========== CUSTOM CURSOR ========== */
-#cursor-dot {
-  width: 12px;
-  height: 12px;
-  background: var(--gold);
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(224, 184, 79, 0.4);
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
-  mix-blend-mode: screen;
-}
-
-#cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(224, 184, 79, 0.6);
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, border-color 0.2s ease;
-}
-
-body:has(a:hover) #cursor-dot,
-body:has(button:hover) #cursor-dot {
-  width: 24px;
-  height: 24px;
-  box-shadow: 0 0 30px var(--gold), 0 0 60px rgba(224, 184, 79, 0.5);
-}
-
 /* ========== SCROLL PROGRESS BAR ========== */
 #scroll-progress {
   position: fixed;
@@ -130,10 +92,12 @@ body:has(button:hover) #cursor-dot {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("/images/noise.png");
+  background-repeat: repeat;
   pointer-events: none;
   z-index: 9990;
-  opacity: 0.035;
+  opacity: 0.04;
+  transform: translateZ(0);
 }
 
 /* ========== VIGNETTE ========== */
@@ -144,6 +108,13 @@ body:has(button:hover) #cursor-dot {
   background: radial-gradient(ellipse at center, transparent 70%, rgba(195, 170, 140, 0.2) 100%);
   pointer-events: none;
   z-index: 5;
+  transform: translateZ(0);
+}
+
+/* ========== OFFSCREEN SECTION RENDERING OPTIMIZATION ========== */
+#memories, #venue, #faqs, #rsvp, #wishes, #footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
 }
 
 /* ========== GOLD SHIMMER TEXT ========== */
@@ -481,16 +452,12 @@ html.lenis, html.lenis body {
     transition-duration: 0.001ms !important;
   }
   
-  #cursor-dot, #cursor-ring { display: none; }
-  body { cursor: auto; }
   .diya-flame { animation: none; }
   .petal { display: none; }
 }
 
 /* ========== MOBILE OVERRIDES ========== */
 @media (max-width: 768px) {
-  #cursor-dot, #cursor-ring { display: none; }
-  body { cursor: auto; }
   .flip-clock-card { width: 60px; height: 75px; font-size: 1.8rem; }
 }
 
