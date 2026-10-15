@@ -43,9 +43,9 @@ export function initRitualsCarousel(): () => void {
     watchDrag: true,
   };
 
-  // Autoplay plugin configuration: 3000ms delay for smooth, proper pacing
+  // Autoplay plugin configuration: 2500ms delay (0.5s faster)
   const autoplayPlugin = Autoplay({
-    delay: 3000,
+    delay: 2500,
     stopOnInteraction: false,
     stopOnMouseEnter: true,
   });
