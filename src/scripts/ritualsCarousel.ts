@@ -32,20 +32,20 @@ export function initRitualsCarousel(): () => void {
 
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Embla Options: loop, align center, duration 28, initial index 2 (Mangal Milan)
+  // Embla Options: loop, align center, duration 16 (faster & snappier slide scroll), initial index 2
   const options: EmblaOptionsType = {
     loop: true,
     align: 'center',
     skipSnaps: false,
     dragFree: false,
-    duration: 28,
+    duration: 16,
     startIndex: 2,
     watchDrag: true,
   };
 
-  // Autoplay plugin configuration: 3500ms delay, stopOnInteraction: false
+  // Autoplay plugin configuration: 2200ms delay for faster card progression
   const autoplayPlugin = Autoplay({
-    delay: 3500,
+    delay: 2200,
     stopOnInteraction: false,
     stopOnMouseEnter: true,
   });
@@ -59,6 +59,17 @@ export function initRitualsCarousel(): () => void {
   let isUserPaused = false;
   let isContainerVisible = false;
   let prevActiveIndex = embla.selectedScrollSnap();
+
+  // Cached slot width to prevent layout reflows on click/select
+  let cachedSlotWidth = window.innerWidth < 480 ? 12 : 16;
+  const updateCachedSlotWidth = () => {
+    if (dotSlots.length > 0 && dotSlots[0].offsetWidth > 0) {
+      cachedSlotWidth = dotSlots[0].offsetWidth;
+    } else {
+      cachedSlotWidth = window.innerWidth < 480 ? 12 : 16;
+    }
+  };
+  updateCachedSlotWidth();
 
   // ── PREFETCH ADJACENT IMAGES ──
   const prefetchAdjacentImages = (centerIdx: number) => {
@@ -125,15 +136,13 @@ export function initRitualsCarousel(): () => void {
   };
 
   embla.on('scroll', onScroll);
-  embla.on('reInit', applyCoverflowScales);
+  embla.on('reInit', () => {
+    updateCachedSlotWidth();
+    applyCoverflowScales();
+  });
 
-  // ── GET CURRENT SLOT WIDTH (16px desktop, 12px on mobile < 480px) ──
-  const getSlotWidth = () => {
-    if (dotSlots.length > 0 && dotSlots[0].offsetWidth > 0) {
-      return dotSlots[0].offsetWidth;
-    }
-    return window.innerWidth < 480 ? 12 : 16;
-  };
+  // ── GET CURRENT SLOT WIDTH (cached) ──
+  const getSlotWidth = () => cachedSlotWidth;
 
   // ── ACTIVE CIRCLE INDICATOR & ACCESSIBILITY ──
   const updateDotsAndIndicator = () => {
@@ -155,25 +164,26 @@ export function initRitualsCarousel(): () => void {
       const distance = Math.abs(selected - prevActiveIndex);
       const isLoopWrap = distance >= total - 1;
 
-      // When moving between far dots, add a tiny scale pulse (1 to 1.15 to 1)
+      // When moving between far dots, add a tiny scale pulse (1 to 1.15 to 1) without forced reflow
       if (pulseWrapper && distance > 1 && !isLoopWrap) {
         pulseWrapper.classList.remove('is-pulsing');
-        void pulseWrapper.offsetWidth; // restart animation
-        pulseWrapper.classList.add('is-pulsing');
+        requestAnimationFrame(() => {
+          pulseWrapper.classList.add('is-pulsing');
+        });
       }
 
       if (isLoopWrap) {
         // Smooth loop wrap: fade through shortest visual path
-        activeIndicator.style.transition = 'opacity 150ms ease';
+        activeIndicator.style.transition = 'opacity 120ms ease';
         activeIndicator.style.opacity = '0';
         setTimeout(() => {
           activeIndicator.style.transform = `translateX(${selected * slotWidth}px)`;
-          activeIndicator.style.transition = 'opacity 200ms ease';
+          activeIndicator.style.transition = 'opacity 150ms ease';
           activeIndicator.style.opacity = '1';
           setTimeout(() => {
-            activeIndicator.style.transition = 'transform 500ms cubic-bezier(.22,.8,.2,1), opacity 200ms ease';
-          }, 200);
-        }, 150);
+            activeIndicator.style.transition = 'transform 260ms cubic-bezier(.22,.8,.2,1), opacity 150ms ease';
+          }, 150);
+        }, 120);
       } else {
         activeIndicator.style.transform = `translateX(${selected * slotWidth}px)`;
       }
@@ -196,7 +206,6 @@ export function initRitualsCarousel(): () => void {
     // 4. Prefetch next and previous images
     prefetchAdjacentImages(selected);
 
-    // 5. Screen reader live announcement
     if (liveRegion) {
       const activeSlide = slides[selected];
       const title = activeSlide?.getAttribute('data-ritual-title') || '';

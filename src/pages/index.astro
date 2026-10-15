@@ -1560,10 +1560,10 @@ const ceremonies = [
 }
 
 .rituals-carousel-wrapper {
-  --slide-duration: 0.65s;
+  --slide-duration: 0.38s;
   --slide-easing: cubic-bezier(0.22, 1, 0.36, 1);
-  --autoplay-delay: 5000;
-  --text-fade-delay: 0.12s;
+  --autoplay-delay: 2200;
+  --text-fade-delay: 0.05s;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -1795,7 +1795,7 @@ const ceremonies = [
   height: 14px;
   pointer-events: none;
   will-change: transform, opacity;
-  transition: transform 500ms cubic-bezier(0.22, 0.8, 0.2, 1), opacity 200ms ease;
+  transition: transform 260ms cubic-bezier(0.22, 0.8, 0.2, 1), opacity 150ms ease;
   z-index: 10;
 }
 
@@ -1809,7 +1809,7 @@ const ceremonies = [
 }
 
 .ritual-active-pulse-wrapper.is-pulsing {
-  animation: ritualIndicatorPulse 500ms cubic-bezier(0.22, 0.8, 0.2, 1);
+  animation: ritualIndicatorPulse 280ms cubic-bezier(0.22, 0.8, 0.2, 1);
 }
 
 @keyframes ritualIndicatorPulse {
