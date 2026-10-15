@@ -841,8 +841,14 @@ const ceremonies = [
             <span class="couple-sparkle-float" style="top: 52%; left: 14%; animation-delay: 2.2s;">•</span>
           </div>
 
-          <!-- Arch & Detail Container -->
-          <div class="relative mb-12 sm:mb-14 select-none portrait-interactive-wrap">
+          <!-- Arch & Detail Container as Accessible Interactive Button -->
+          <button
+            type="button"
+            class="relative mb-12 sm:mb-14 select-none portrait-interactive-wrap bg-transparent border-none p-0 cursor-pointer text-left block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-4 rounded-3xl"
+            aria-pressed="false"
+            aria-label="Toggle Mukesh Ojha detail photo"
+            data-couple-toggle="groom"
+          >
             
             <!-- Main Arch Frame -->
             <div class="arch-portrait-frame w-48 h-68 sm:w-56 sm:h-80 rounded-t-full rounded-b-2xl overflow-hidden relative shadow-2xl bg-[#F5EFE6] border-2 border-[#D4AF37]/50"
@@ -858,7 +864,7 @@ const ceremonies = [
                 sizes="(max-width: 640px) 200px, 240px"
                 quality={80}
                 format="webp"
-                class="arch-primary-img w-full h-full object-cover object-top transition-all duration-700 ease-out"
+                class="arch-primary-img w-full h-full object-cover object-top"
               />
               
               <!-- Detail Photo for crossfade (Hands with rings & watch) -->
@@ -871,7 +877,7 @@ const ceremonies = [
                 sizes="(max-width: 640px) 200px, 240px"
                 quality={80}
                 format="webp"
-                class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none transition-all duration-700 ease-out"
+                class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
                 style="object-position: center 35%;"
               />
 
@@ -885,7 +891,7 @@ const ceremonies = [
               <div class="arch-hint-pill absolute bottom-3 inset-x-0 flex justify-center pointer-events-none">
                 <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.22em] uppercase font-['Playfair_Display'] italic font-medium bg-black/45 text-[#F4E3B5] backdrop-blur-md border border-[#D4AF37]/45 shadow-sm flex items-center gap-1.5 transition-transform duration-300 group-hover:scale-105">
                   <svg class="w-2.5 h-2.5 text-[#D4AF37]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L21.6 12l-7.2 2.8L12 22l-2.4-7.2L2.4 12l7.2-2.8L12 2z"/></svg>
-                  <span class="hint-text">tap to see more</span>
+                  <span class="hint-text">TAP TO SEE MORE</span>
                 </span>
               </div>
             </div>
@@ -921,7 +927,7 @@ const ceremonies = [
                       sizes="104px"
                       quality={80}
                       format="webp"
-                      class="ring-detail-img w-full h-full object-cover transition-all duration-700 ease-out"
+                      class="ring-detail-img w-full h-full object-cover"
                       style="object-position: center 35%;"
                     />
 
@@ -935,7 +941,7 @@ const ceremonies = [
                       sizes="104px"
                       quality={80}
                       format="webp"
-                      class="ring-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none transition-all duration-700 ease-out"
+                      class="ring-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none"
                     />
                     
                     <!-- Ring highlight reflection -->
@@ -944,7 +950,7 @@ const ceremonies = [
                 </div>
               </div>
             </div>
-          </div>
+          </button>
 
           <!-- Pills & Text -->
           <span class="px-3.5 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-['Montserrat'] font-semibold mb-3 border border-[#D4AF37]/40 shadow-sm" style="background:rgba(212,175,55,0.14);color:#8C6219;">The Royal Groom</span>
@@ -990,8 +996,14 @@ const ceremonies = [
             <span class="couple-sparkle-float" style="top: 52%; right: 14%; animation-delay: 2.5s;">•</span>
           </div>
 
-          <!-- Arch & Detail Container -->
-          <div class="relative mb-12 sm:mb-14 select-none portrait-interactive-wrap">
+          <!-- Arch & Detail Container as Accessible Interactive Button -->
+          <button
+            type="button"
+            class="relative mb-12 sm:mb-14 select-none portrait-interactive-wrap bg-transparent border-none p-0 cursor-pointer text-left block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4556F] focus-visible:ring-offset-4 rounded-3xl"
+            aria-pressed="false"
+            aria-label="Toggle Puja detail photo"
+            data-couple-toggle="bride"
+          >
             
             <!-- Main Arch Frame -->
             <div class="arch-portrait-frame w-48 h-68 sm:w-56 sm:h-80 rounded-t-full rounded-b-2xl overflow-hidden relative shadow-2xl bg-[#FFF0F4] border-2 border-[#C4556F]/45"
@@ -1007,7 +1019,7 @@ const ceremonies = [
                 sizes="(max-width: 640px) 200px, 240px"
                 quality={80}
                 format="webp"
-                class="arch-primary-img w-full h-full object-cover object-top transition-all duration-700 ease-out"
+                class="arch-primary-img w-full h-full object-cover object-top"
               />
               
               <!-- Detail Photo for crossfade (Mehendi hands holding ornate mirror aarsi) -->
@@ -1020,7 +1032,7 @@ const ceremonies = [
                 sizes="(max-width: 640px) 200px, 240px"
                 quality={80}
                 format="webp"
-                class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none transition-all duration-700 ease-out"
+                class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
                 style="object-position: center 60%;"
               />
 
@@ -1034,7 +1046,7 @@ const ceremonies = [
               <div class="arch-hint-pill absolute bottom-3 inset-x-0 flex justify-center pointer-events-none">
                 <span class="px-3 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.22em] uppercase font-['Playfair_Display'] italic font-medium bg-black/45 text-[#FAD2E1] backdrop-blur-md border border-[#C4556F]/45 shadow-sm flex items-center gap-1.5 transition-transform duration-300 group-hover:scale-105">
                   <svg class="w-2.5 h-2.5 text-[#FAD2E1]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L21.6 12l-7.2 2.8L12 22l-2.4-7.2L2.4 12l7.2-2.8L12 2z"/></svg>
-                  <span class="hint-text">tap to see more</span>
+                  <span class="hint-text">TAP TO SEE MORE</span>
                 </span>
               </div>
             </div>
@@ -1063,7 +1075,7 @@ const ceremonies = [
                       sizes="104px"
                       quality={80}
                       format="webp"
-                      class="aarsi-detail-img w-full h-full object-cover transition-all duration-700 ease-out"
+                      class="aarsi-detail-img w-full h-full object-cover"
                       style="object-position: center 60%;"
                     />
 
@@ -1077,7 +1089,7 @@ const ceremonies = [
                       sizes="104px"
                       quality={80}
                       format="webp"
-                      class="aarsi-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none transition-all duration-700 ease-out"
+                      class="aarsi-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none"
                     />
                     
                     <!-- Mirror glass specular glint highlight -->
@@ -1089,7 +1101,7 @@ const ceremonies = [
                 </div>
               </div>
             </div>
-          </div>
+          </button>
 
           <!-- Pills & Text -->
           <span class="px-3.5 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-['Montserrat'] font-semibold mb-3 border border-[#C4556F]/40 shadow-sm" style="background:rgba(219,103,137,0.14);color:#A62C4E;">The Radiant Bride</span>
@@ -2286,58 +2298,72 @@ const ceremonies = [
   50% { background-position: 0% center; }
 }
 
-/* Arch & Detail Crossfade & Reveal */
+/* Portrait Interactive Wrap - Touch ergonomics & tap target */
+.portrait-interactive-wrap {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Arch & Detail Crossfade & Reveal: 450ms ease, 1.03 to 1 scale */
 .couple-card .arch-primary-img {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 450ms ease, transform 450ms ease !important;
+  will-change: opacity, transform;
 }
 .couple-card .arch-detail-img {
   opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.03);
+  transition: opacity 450ms ease, transform 450ms ease !important;
+  will-change: opacity, transform;
 }
 
 .couple-card .ring-detail-img,
 .couple-card .aarsi-detail-img {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 450ms ease, transform 450ms ease !important;
+  will-change: opacity, transform;
 }
 
 .couple-card .ring-primary-img,
 .couple-card .aarsi-primary-img {
   opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.03);
+  transition: opacity 450ms ease, transform 450ms ease !important;
+  will-change: opacity, transform;
 }
 
-/* Desktop Hover reveal */
+/* Desktop Hover reveal (when mouse hovers and card is not explicitly locked/swapped) */
 @media (hover: hover) and (pointer: fine) {
-  .couple-card:hover .arch-primary-img {
+  .couple-card:not(.is-swapped):hover .arch-primary-img {
     opacity: 0;
-    transform: scale(0.98);
+    transform: scale(1.03);
   }
-  .couple-card:hover .arch-detail-img {
+  .couple-card:not(.is-swapped):hover .arch-detail-img {
     opacity: 1;
     transform: scale(1);
   }
-  .couple-card:hover .ring-detail-img,
-  .couple-card:hover .aarsi-detail-img {
+  .couple-card:not(.is-swapped):hover .ring-detail-img,
+  .couple-card:not(.is-swapped):hover .aarsi-detail-img {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(1.03);
   }
-  .couple-card:hover .ring-primary-img,
-  .couple-card:hover .aarsi-primary-img {
+  .couple-card:not(.is-swapped):hover .ring-primary-img,
+  .couple-card:not(.is-swapped):hover .aarsi-primary-img {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-/* Touch / Tap Swapped state */
+/* Swapped state (explicit tap on mobile or click toggle) */
 .couple-card.is-swapped .arch-primary-img {
   opacity: 0 !important;
-  transform: scale(0.98) !important;
+  transform: scale(1.03) !important;
 }
 .couple-card.is-swapped .arch-detail-img {
   opacity: 1 !important;
@@ -2346,12 +2372,25 @@ const ceremonies = [
 .couple-card.is-swapped .ring-detail-img,
 .couple-card.is-swapped .aarsi-detail-img {
   opacity: 0 !important;
-  transform: scale(0.95) !important;
+  transform: scale(1.03) !important;
 }
 .couple-card.is-swapped .ring-primary-img,
 .couple-card.is-swapped .aarsi-primary-img {
   opacity: 1 !important;
   transform: scale(1) !important;
+}
+
+/* Accessibility: instant swap for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .couple-card .arch-primary-img,
+  .couple-card .arch-detail-img,
+  .couple-card .ring-detail-img,
+  .couple-card .ring-primary-img,
+  .couple-card .aarsi-detail-img,
+  .couple-card .aarsi-primary-img {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 /* Soft gold shimmer sweep across arch */
@@ -3540,12 +3579,10 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
   // ── MEET THE COUPLE: 3D TILT, GLOW & TAP-TO-SWAP ────────────────
 
-  document.querySelectorAll('.couple-card').forEach(card => {
-    const el = card as HTMLElement;
-    const glow = el.querySelector('.couple-glow') as HTMLElement | null;
-
-    // Desktop hover: glow + 3D tilt (throttled to rAF with cached rect)
-    if (isFinePointer && !isReducedMotion) {
+  // Desktop hover: glow + 3D tilt (throttled to rAF with cached rect)
+  if (isFinePointer && !isReducedMotion) {
+    document.querySelectorAll<HTMLElement>('.couple-card').forEach((el) => {
+      const glow = el.querySelector('.couple-glow') as HTMLElement | null;
       let tiltRaf: number | null = null;
       let cachedRect: DOMRect | null = null;
 
@@ -3576,43 +3613,130 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
         el.style.transform = '';
         if (glow) glow.style.opacity = '0';
       });
-    }
+    });
+  }
 
-    // Tap / Click toggle (Desktop click or phone tap)
-    el.addEventListener('click', () => {
-      document.getElementById('couple')?.classList.add('has-tapped-thumb');
-      el.classList.toggle('is-swapped');
-      const hint = el.querySelector('.hint-text');
-      if (hint) {
-        hint.textContent = el.classList.contains('is-swapped') ? 'tap to restore' : 'tap to see more';
+  // ── MEET THE COUPLE: INDEPENDENT TAP & HOVER PHOTO TOGGLE ──
+  const toggleButtons = document.querySelectorAll<HTMLButtonElement>('[data-couple-toggle]');
+  const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  toggleButtons.forEach((btn) => {
+    const card = btn.closest<HTMLElement>('.couple-card');
+    if (!card) return;
+
+    const hint = btn.querySelector<HTMLElement>('.hint-text');
+    let autoRevertTimeout: number | null = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchMoved = false;
+    let lastTouchTime = 0;
+
+    const setSwappedState = (swapped: boolean, triggeredByTouch = false) => {
+      if (swapped) {
+        card.classList.add('is-swapped');
+        btn.setAttribute('aria-pressed', 'true');
+        if (hint) hint.textContent = 'TAP TO GO BACK';
+        document.getElementById('couple')?.classList.add('has-tapped-thumb');
+
+        // Requirement 8: Auto-revert to main photo after 6 seconds of no interaction, ONLY on touch devices
+        if (triggeredByTouch || isTouchDevice) {
+          if (autoRevertTimeout) clearTimeout(autoRevertTimeout);
+          autoRevertTimeout = window.setTimeout(() => {
+            setSwappedState(false, false);
+          }, 6000);
+        }
+      } else {
+        card.classList.remove('is-swapped');
+        btn.setAttribute('aria-pressed', 'false');
+        if (hint) hint.textContent = 'TAP TO SEE MORE';
+        if (autoRevertTimeout) {
+          clearTimeout(autoRevertTimeout);
+          autoRevertTimeout = null;
+        }
+      }
+    };
+
+    const toggle = (triggeredByTouch = false) => {
+      const willBeSwapped = !card.classList.contains('is-swapped');
+      setSwappedState(willBeSwapped, triggeredByTouch);
+    };
+
+    // Touch events: track displacement to ensure scroll gestures never trigger toggle
+    btn.addEventListener('touchstart', (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchMoved = false;
+    }, { passive: true });
+
+    btn.addEventListener('touchmove', (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      const dx = Math.abs(e.touches[0].clientX - touchStartX);
+      const dy = Math.abs(e.touches[0].clientY - touchStartY);
+      if (dx > 8 || dy > 8) {
+        touchMoved = true;
+      }
+    }, { passive: true });
+
+    btn.addEventListener('touchend', (e: TouchEvent) => {
+      if (!touchMoved) {
+        e.preventDefault(); // Eliminate 300ms touch delay and suppress synthetic click
+        lastTouchTime = Date.now();
+        toggle(true);
       }
     });
-  });
 
-  // ── PHONE / MOBILE ONLY: SCROLL-CROSSING AUTO EXCHANGE ──
-  // Phone mein screen pe is jagah pe cross karte hi photo exchange, fir scroll hone par wapas normal
-  if (isMobilePhone && typeof IntersectionObserver !== 'undefined') {
-    const coupleCards = document.querySelectorAll<HTMLElement>('.couple-card');
-    const coupleSwapObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const card = entry.target as HTMLElement;
-        const hint = card.querySelector('.hint-text');
-        if (entry.isIntersecting) {
-          // Phone screen pe cross karte hi photo exchange
-          card.classList.add('is-swapped');
-          if (hint) hint.textContent = 'tap to restore';
-        } else {
-          // Cross ho jane ke baad wapas normal jaise the
-          card.classList.remove('is-swapped');
-          if (hint) hint.textContent = 'tap to see more';
-        }
-      });
-    }, {
-      rootMargin: '-15% 0px -20% 0px',
-      threshold: 0.15
+    // Desktop Mouse Click & Keyboard (Enter/Space)
+    btn.addEventListener('click', () => {
+      // Ignore synthetic click triggered right after touchend
+      if (Date.now() - lastTouchTime < 650) return;
+      toggle(false);
     });
 
-    coupleCards.forEach((c) => coupleSwapObserver.observe(c));
+    // Desktop hover state hint text update (when not locked/swapped)
+    if (!isTouchDevice) {
+      btn.addEventListener('mouseenter', () => {
+        if (!card.classList.contains('is-swapped') && hint) {
+          hint.textContent = 'TAP TO GO BACK';
+        }
+      });
+      btn.addEventListener('mouseleave', () => {
+        if (!card.classList.contains('is-swapped') && hint) {
+          hint.textContent = 'TAP TO SEE MORE';
+        }
+      });
+    }
+  });
+
+  // Preload and decode secondary images when #couple section nears viewport
+  const preloadCoupleSecondaryImages = () => {
+    const imagesToPrefetch = document.querySelectorAll<HTMLImageElement>(
+      '#couple .arch-detail-img, #couple .ring-primary-img, #couple .aarsi-primary-img'
+    );
+    imagesToPrefetch.forEach((img) => {
+      if (img.complete) {
+        if ('decode' in img) img.decode().catch(() => {});
+      } else {
+        img.addEventListener('load', () => {
+          if ('decode' in img) img.decode().catch(() => {});
+        }, { once: true });
+      }
+    });
+  };
+
+  if (typeof IntersectionObserver !== 'undefined') {
+    const coupleSectionEl = document.getElementById('couple');
+    if (coupleSectionEl) {
+      const prefetchObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          preloadCoupleSecondaryImages();
+          prefetchObserver.disconnect();
+        }
+      }, { rootMargin: '300px 0px 300px 0px' });
+      prefetchObserver.observe(coupleSectionEl);
+    }
+  } else {
+    preloadCoupleSecondaryImages();
   }
 
   // ── MEET THE BRIDE & GROOM: CONTINUOUS THREAD & MIDPOINT HEART ──
