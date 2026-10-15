@@ -150,19 +150,20 @@ const sacredRituals = [
     alt: "Groom applying vermilion sindoor in the bride's parting, Sindoor Daan",
     objectPosition: 'center 25%',
     scaleFix: false
-  },
-  {
-    num: 'XI',
-    counter: '11',
-    hindi: 'गृह प्रवेश',
-    title: 'Griha Pravesh',
-    tagline: 'Rice, rose petals, and a new beginning.',
-    text: 'At the threshold, the bride softly tips the kalash of rice with her foot, letting prosperity spill into her new home along with petals and blessings. Griha Pravesh welcomes her as the light of the household: its luck, its laughter and its warmth.',
-    img: ritual11,
-    alt: "Bride's henna-decorated foot tipping copper kalash of rice over rose petals, Griha Pravesh",
-    objectPosition: 'center top',
-    scaleFix: true
   }
+  // Optional 11th ritual (Griha Pravesh) preserved if needed:
+  // {
+  //   num: 'XI',
+  //   counter: '11',
+  //   hindi: 'गृह प्रवेश',
+  //   title: 'Griha Pravesh',
+  //   tagline: 'Rice, rose petals, and a new beginning.',
+  //   text: 'At the threshold, the bride softly tips the kalash of rice with her foot, letting prosperity spill into her new home along with petals and blessings. Griha Pravesh welcomes her as the light of the household: its luck, its laughter and its warmth.',
+  //   img: ritual11,
+  //   alt: "Bride's henna-decorated foot tipping copper kalash of rice over rose petals, Griha Pravesh",
+  //   objectPosition: 'center top',
+  //   scaleFix: true
+  // }
 ];
 
 const ceremonies = [
@@ -1324,7 +1325,7 @@ const ceremonies = [
                   <Image
                     src={slide.img}
                     alt={slide.alt}
-                    loading={idx < 4 ? 'eager' : 'lazy'}
+                    loading={idx === 2 ? 'eager' : 'lazy'}
                     decoding="async"
                     draggable="false"
                     widths={[360, 540, 720]}
@@ -1332,7 +1333,7 @@ const ceremonies = [
                     quality={80}
                     format="webp"
                     class={`ritual-card-img absolute inset-0 w-full h-full object-cover transition-transform duration-700 pointer-events-none select-none ${slide.scaleFix ? 'scale-110 origin-top' : ''}`}
-                    style={`object-position: ${slide.objectPosition};`}
+                    style={`object-position: ${slide.objectPosition}; aspect-ratio: 370/550;`}
                   />
 
                   <!-- Delicate inner gold border ring -->
@@ -1351,7 +1352,7 @@ const ceremonies = [
                   ></div>
 
                   <!-- Roman Number Chip at Top-Left -->
-                  <div class="absolute top-6 left-6 z-25 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-['Cinzel'] font-bold tracking-[0.2em] text-[#F3E5AB] bg-[rgba(26,6,10,0.75)] border border-[#D4AF37]/60 backdrop-blur-md shadow-md">
+                  <div class="absolute top-6 left-6 z-25 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-['Cinzel'] font-bold tracking-[0.2em] text-[#F3E5AB] bg-[rgba(26,6,10,0.92)] border border-[#D4AF37]/60 shadow-md">
                     <span class="text-[#DFB756] text-[8px]">✦</span>
                     <span>{slide.num}</span>
                   </div>
@@ -1431,42 +1432,55 @@ const ceremonies = [
           </svg>
         </button>
 
-        <!-- Mobile Progress Counter (< 640px) -->
-        <div
-          class="ritual-ctrl-counter sm:hidden flex items-center justify-center px-3.5 py-1.5 rounded-full font-['Cinzel'] text-xs font-semibold tracking-wider text-[#6E5F55] select-none"
-          aria-hidden="true"
-        >
-          <span id="ritual-counter-curr" class="text-[#8C6D23] font-bold">03</span>
-          <span class="mx-1 text-[#B39352]/60">/</span>
-          <span id="ritual-counter-total" class="text-[#8A796F]">{String(sacredRituals.length).padStart(2, '0')}</span>
-        </div>
-
-        <!-- Desktop Progress Dots (>= 640px) with Dedicated Sliding Pill & Fixed Slots -->
-        <div
-          class="ritual-ctrl-dots hidden sm:flex items-center justify-center relative px-2 py-1"
-          role="tablist"
-          aria-label="Rituals navigation"
-        >
-          <!-- Smooth Sliding Active Gold Pill (moves via transform: translateX) -->
+        <!-- Center Controls Container (Counter on mobile, Dots row on all screens) -->
+        <div class="ritual-dots-wrapper flex flex-col items-center justify-center gap-1 sm:gap-0 mx-2 sm:mx-4">
+          <!-- Mobile (below 480px): Compact text "7 / 10" in gold (#DFB756) -->
           <div
-            id="ritual-active-pill"
-            class="ritual-active-pill absolute h-2 rounded-full pointer-events-none transition-transform duration-300 ease-out"
-            style="width: 22px; background: #D4AF37; box-shadow: 0 0 10px rgba(212, 175, 55, 0.55);"
+            id="ritual-counter-mobile"
+            class="ritual-counter-mobile min-[480px]:hidden font-['Cinzel'] font-bold text-xs tracking-wider text-[#DFB756] select-none"
             aria-hidden="true"
-          ></div>
+          >
+            <span id="ritual-counter-curr">03</span>
+            <span class="mx-0.5 text-[#DFB756]/60">/</span>
+            <span id="ritual-counter-total">{String(sacredRituals.length).padStart(2, '0')}</span>
+          </div>
 
-          {sacredRituals.map((_, dotIdx) => (
-            <button
-              type="button"
-              class="ritual-dot-slot relative flex items-center justify-center w-5 h-6 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D4AF37] rounded-full"
-              data-dot-index={dotIdx}
-              role="tab"
-              aria-label={`Go to ritual ${dotIdx + 1}`}
-              aria-selected={dotIdx === 2 ? 'true' : 'false'}
+          <!-- Dots Row: 10 fixed 16px slots (12px on mobile), no gap, no wrapping, fixed width 10x16px -->
+          <div
+            class="ritual-ctrl-dots relative flex items-center select-none"
+            role="tablist"
+            aria-label="Rituals navigation"
+          >
+            <!-- Single Active Indicator: 14px circle with 22px outer gold ring & subtle glow -->
+            <div
+              id="ritual-active-indicator"
+              class="ritual-active-indicator pointer-events-none absolute"
+              aria-hidden="true"
             >
-              <span class="ritual-dot-circle w-2 h-2 rounded-full bg-[#D4AF37]/35 transition-opacity duration-200 pointer-events-none"></span>
-            </button>
-          ))}
+              <div class="ritual-active-pulse-wrapper">
+                <div class="ritual-active-circle"></div>
+              </div>
+            </div>
+
+            {sacredRituals.map((_, dotIdx) => (
+              <button
+                type="button"
+                class="ritual-dot-slot relative flex items-center justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2 rounded-full"
+                data-dot-index={dotIdx}
+                role="tab"
+                aria-label={`Go to ritual ${dotIdx + 1}`}
+                aria-selected={dotIdx === 2 ? 'true' : 'false'}
+                aria-current={dotIdx === 2 ? 'true' : 'false'}
+              >
+                <span class="ritual-dot-circle pointer-events-none rounded-full"></span>
+              </button>
+            ))}
+          </div>
+
+          <!-- Fallback progress line for narrow screens -->
+          <div class="ritual-progress-track hidden w-16 h-0.5 rounded-full bg-[#D4AF37]/25 overflow-hidden mt-0.5" aria-hidden="true">
+            <div id="ritual-progress-line" class="h-full bg-gradient-to-r from-[#DFB756] to-[#C9A23F] transition-all duration-300" style="width: 30%;"></div>
+          </div>
         </div>
 
         <!-- Play/Pause AUTO Pill Button -->
@@ -1509,7 +1523,7 @@ const ceremonies = [
 
     <!-- Live region for screen readers -->
     <div id="rituals-live-region" class="sr-only" aria-live="polite">
-      Slide 1 of 11: Vadhu Aagman
+      Slide 1 of 10: Vadhu Aagman
     </div>
   </section>
 
@@ -1667,7 +1681,8 @@ const ceremonies = [
   flex-shrink: 0;
   display: block;
   transform-origin: center center;
-  will-change: transform, opacity;
+  will-change: transform;
+  contain: layout paint;
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
@@ -1793,58 +1808,150 @@ const ceremonies = [
   transform: scale(0.96);
 }
 
-.ritual-ctrl-counter {
-  background: rgba(255, 253, 248, 0.9);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  box-shadow: 0 2px 8px rgba(138, 90, 43, 0.06);
-  min-height: 40px;
+/* Rituals Mobile Text Counter (< 480px) */
+.ritual-counter-mobile {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Dots Row Container: exactly 10 x 16px = 160px on desktop */
 .ritual-ctrl-dots {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 28px;
+  justify-content: flex-start;
+  width: 160px;
+  height: 24px;
+  padding: 0;
+  margin: 0 16px;
+  flex-shrink: 0;
+  touch-action: pan-y;
 }
 
+/* Individual Dot Slot: 16px fixed slot, flex, no gap, no wrapping */
 .ritual-dot-slot {
-  width: 20px;
+  width: 16px;
   height: 24px;
+  flex: 0 0 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: none;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
   touch-action: manipulation;
-  padding: 0;
+  outline: none;
 }
 
+/* Base Dot: 6px circle, light gold (#E3CD8A at ~60% opacity) */
 .ritual-dot-circle {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 9999px;
-  background-color: rgba(212, 175, 55, 0.32);
-  transition: opacity 0.25s ease, background-color 0.25s ease;
+  background-color: rgba(227, 205, 138, 0.6);
+  transition: opacity 0.3s ease, background-color 0.25s ease;
 }
 
 .ritual-dot-slot:hover .ritual-dot-circle {
-  background-color: rgba(212, 175, 55, 0.7);
+  background-color: rgba(227, 205, 138, 0.95);
 }
 
-.ritual-active-pill {
+.ritual-dot-slot[aria-current="true"] .ritual-dot-circle {
+  opacity: 0;
+}
+
+/* Active Indicator Container: 14px circle, moves ONLY via transform: translateX(index * 16px) */
+.ritual-active-indicator {
   position: absolute;
   top: 50%;
-  margin-top: -4px;
-  height: 8px;
-  width: 22px;
-  border-radius: 9999px;
-  background: #D4AF37;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.55);
+  left: 1px; /* (16px slot - 14px circle) / 2 = 1px */
+  margin-top: -7px;
+  width: 14px;
+  height: 14px;
   pointer-events: none;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
+  will-change: transform, opacity;
+  transition: transform 500ms cubic-bezier(0.22, 0.8, 0.2, 1), opacity 200ms ease;
+  z-index: 10;
+}
+
+/* Wrapper for scale pulse keyframe (1 to 1.15 to 1) */
+.ritual-active-pulse-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ritual-active-pulse-wrapper.is-pulsing {
+  animation: ritualIndicatorPulse 500ms cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+
+@keyframes ritualIndicatorPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Perfect 14px circle with gold gradient & subtle glow */
+.ritual-active-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #F3DC8B 0%, #C9A23F 50%, #8E6B1E 100%);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.55), 0 0 18px rgba(201, 162, 63, 0.28);
+  position: relative;
+}
+
+/* Soft 1px outer gold ring pseudo-element: 22px, low opacity */
+.ritual-active-circle::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  top: -4px;
+  left: -4px;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  pointer-events: none;
+}
+
+/* Mobile (below 480px): 12px slots, compact layout */
+@media (max-width: 479px) {
+  .rituals-control-bar {
+    gap: 10px;
+    margin-top: 1.25rem;
+  }
+  .ritual-ctrl-dots {
+    width: 120px; /* 10 x 12px */
+    margin: 0 8px;
+  }
+  .ritual-dot-slot {
+    width: 12px;
+    height: 20px;
+    flex: 0 0 12px;
+  }
+  .ritual-dot-circle {
+    width: 5px;
+    height: 5px;
+  }
+  .ritual-active-indicator {
+    left: 1px; /* (12px slot - 10px circle) / 2 = 1px */
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+  }
+  .ritual-active-circle {
+    width: 10px;
+    height: 10px;
+  }
+  .ritual-active-circle::after {
+    width: 16px;
+    height: 16px;
+    top: -3px;
+    left: -3px;
+  }
 }
 
 /* Mobile Read More (3-line clamp by default, smooth expansion on tap) */

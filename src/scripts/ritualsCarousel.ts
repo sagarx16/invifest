@@ -3,13 +3,15 @@ import Autoplay from 'embla-carousel-autoplay';
 
 /**
  * Embla-Powered Sacred Rituals Coverflow Carousel
- * - Center card scale: 1, Side cards scale: ~0.88 with reduced opacity
- * - Driven from Embla scroll progress inside requestAnimationFrame
+ * - Center card scale: 1, Side cards scale: ~0.88 with reduced opacity (~0.65)
+ * - Driven from Embla scroll progress inside requestAnimationFrame, only transform & opacity
  * - Momentum drag with touch & mouse, touch-action: pan-y
- * - 4s autoplay with stopOnInteraction: false, pauses on hover, tab hide & offscreen
+ * - 3500ms autoplay with stopOnInteraction: false, pauses on hover (desktop), tab hide & offscreen
  * - Prev/next arrows move exactly 1 card reliably
  * - Clicking side cards brings them to center
- * - Sliding active gold pill indicator over fixed-width slots (no overlapping)
+ * - Sliding active gold circle indicator over fixed 16px slots (12px on mobile)
+ * - Prefetches adjacent card images
+ * - Full prefers-reduced-motion support
  */
 export function initRitualsCarousel(): () => void {
   const container = document.querySelector<HTMLElement>('[data-carousel="rituals"]');
@@ -18,10 +20,11 @@ export function initRitualsCarousel(): () => void {
   const viewport = container.querySelector<HTMLElement>('.rituals-track-container');
   if (!viewport) return () => {};
 
-  const dotsContainer = container.querySelector<HTMLElement>('.ritual-ctrl-dots');
   const dotSlots = Array.from(container.querySelectorAll<HTMLElement>('.ritual-dot-slot'));
-  const activePill = container.querySelector<HTMLElement>('#ritual-active-pill');
+  const activeIndicator = container.querySelector<HTMLElement>('#ritual-active-indicator');
+  const pulseWrapper = container.querySelector<HTMLElement>('.ritual-active-pulse-wrapper');
   const counterCurr = container.querySelector<HTMLElement>('#ritual-counter-curr');
+  const progressLine = container.querySelector<HTMLElement>('#ritual-progress-line');
   const liveRegion = document.getElementById('rituals-live-region');
   const prevBtn = container.querySelector<HTMLButtonElement>('#ritual-ctrl-prev');
   const nextBtn = container.querySelector<HTMLButtonElement>('#ritual-ctrl-next');
@@ -29,7 +32,7 @@ export function initRitualsCarousel(): () => void {
 
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Embla Options: loop, align center, smooth duration ~28, initial index 2 (Mangal Milan)
+  // Embla Options: loop, align center, duration 28, initial index 2 (Mangal Milan)
   const options: EmblaOptionsType = {
     loop: true,
     align: 'center',
@@ -40,9 +43,9 @@ export function initRitualsCarousel(): () => void {
     watchDrag: true,
   };
 
-  // Autoplay plugin configuration: 4s delay, stops on pointer drag but resumes after interaction
+  // Autoplay plugin configuration: 3500ms delay, stopOnInteraction: false
   const autoplayPlugin = Autoplay({
-    delay: 4000,
+    delay: 3500,
     stopOnInteraction: false,
     stopOnMouseEnter: true,
   });
@@ -55,8 +58,28 @@ export function initRitualsCarousel(): () => void {
   let rafId: number | null = null;
   let isUserPaused = false;
   let isContainerVisible = false;
+  let prevActiveIndex = embla.selectedScrollSnap();
+
+  // ── PREFETCH ADJACENT IMAGES ──
+  const prefetchAdjacentImages = (centerIdx: number) => {
+    if (!slides.length) return;
+    const prevIdx = (centerIdx - 1 + slides.length) % slides.length;
+    const nextIdx = (centerIdx + 1) % slides.length;
+    [prevIdx, nextIdx].forEach((idx) => {
+      const img = slides[idx]?.querySelector<HTMLImageElement>('.ritual-card-img');
+      if (img) {
+        if (img.loading === 'lazy') {
+          img.loading = 'eager';
+        }
+        if ('decode' in img && !img.complete) {
+          img.decode().catch(() => {});
+        }
+      }
+    });
+  };
 
   // ── COVERFLOW SCALE & OPACITY TRANSFORMS VIA RAF ──
+  // Reads only in-memory engine data; NO layout reads or reflows in loop
   const applyCoverflowScales = () => {
     const engine = embla.internalEngine();
     const scrollProgress = embla.scrollProgress();
@@ -78,6 +101,7 @@ export function initRitualsCarousel(): () => void {
         }
 
         const distance = Math.abs(diffToTarget) * snapsCount;
+        // Center: scale 1.0, Neighbours: ~0.88 with lower opacity (~0.65), farther: smaller
         const scale = isReducedMotion ? 1 : Math.max(0.76, 1 - distance * 0.12);
         const opacity = Math.max(0.42, 1 - distance * 0.35);
 
@@ -103,26 +127,61 @@ export function initRitualsCarousel(): () => void {
   embla.on('scroll', onScroll);
   embla.on('reInit', applyCoverflowScales);
 
-  // ── SEPARATE SLIDING ACTIVE PILL & FIXED-WIDTH DOTS ──
-  const updateDotsAndCounter = () => {
-    const selected = embla.selectedScrollSnap();
+  // ── GET CURRENT SLOT WIDTH (16px desktop, 12px on mobile < 480px) ──
+  const getSlotWidth = () => {
+    if (dotSlots.length > 0 && dotSlots[0].offsetWidth > 0) {
+      return dotSlots[0].offsetWidth;
+    }
+    return window.innerWidth < 480 ? 12 : 16;
+  };
 
-    // Update Mobile Counter Text ("03 / 11")
+  // ── ACTIVE CIRCLE INDICATOR & ACCESSIBILITY ──
+  const updateDotsAndIndicator = () => {
+    const total = dotSlots.length || snapsCount;
+    const selected = ((embla.selectedScrollSnap() % total) + total) % total;
+    const slotWidth = getSlotWidth();
+
+    // 1. Update Mobile Counter text ("07 / 10")
     if (counterCurr) {
       counterCurr.textContent = String(selected + 1).padStart(2, '0');
     }
-
-    // Move separate active gold pill via transform: translateX()
-    const activeSlot = dotSlots[selected];
-    if (activeSlot && activePill && dotsContainer) {
-      const slotLeft = activeSlot.offsetLeft;
-      const slotWidth = activeSlot.offsetWidth;
-      const pillWidth = 22;
-      const targetX = slotLeft + (slotWidth - pillWidth) / 2;
-      activePill.style.transform = `translateX(${targetX}px)`;
+    if (progressLine) {
+      const pct = ((selected + 1) / total) * 100;
+      progressLine.style.width = `${pct}%`;
     }
 
-    // Update slots accessibility & fade out circle under active pill
+    // 2. Animate Active Indicator circle
+    if (activeIndicator) {
+      const distance = Math.abs(selected - prevActiveIndex);
+      const isLoopWrap = distance >= total - 1;
+
+      // When moving between far dots, add a tiny scale pulse (1 to 1.15 to 1)
+      if (pulseWrapper && distance > 1 && !isLoopWrap) {
+        pulseWrapper.classList.remove('is-pulsing');
+        void pulseWrapper.offsetWidth; // restart animation
+        pulseWrapper.classList.add('is-pulsing');
+      }
+
+      if (isLoopWrap) {
+        // Smooth loop wrap: fade through shortest visual path
+        activeIndicator.style.transition = 'opacity 150ms ease';
+        activeIndicator.style.opacity = '0';
+        setTimeout(() => {
+          activeIndicator.style.transform = `translateX(${selected * slotWidth}px)`;
+          activeIndicator.style.transition = 'opacity 200ms ease';
+          activeIndicator.style.opacity = '1';
+          setTimeout(() => {
+            activeIndicator.style.transition = 'transform 500ms cubic-bezier(.22,.8,.2,1), opacity 200ms ease';
+          }, 200);
+        }, 150);
+      } else {
+        activeIndicator.style.transform = `translateX(${selected * slotWidth}px)`;
+      }
+    }
+
+    prevActiveIndex = selected;
+
+    // 3. Update Dots accessibility & base dot opacity
     dotSlots.forEach((slot, idx) => {
       const isSelected = idx === selected;
       slot.setAttribute('aria-selected', isSelected ? 'true' : 'false');
@@ -134,7 +193,10 @@ export function initRitualsCarousel(): () => void {
       }
     });
 
-    // Screen reader live region
+    // 4. Prefetch next and previous images
+    prefetchAdjacentImages(selected);
+
+    // 5. Screen reader live announcement
     if (liveRegion) {
       const activeSlide = slides[selected];
       const title = activeSlide?.getAttribute('data-ritual-title') || '';
@@ -142,14 +204,20 @@ export function initRitualsCarousel(): () => void {
     }
   };
 
-  embla.on('select', updateDotsAndCounter);
-  embla.on('reInit', updateDotsAndCounter);
+  embla.on('select', updateDotsAndIndicator);
+  embla.on('reInit', updateDotsAndIndicator);
 
-  // Initial runs once DOM is ready
+  // Initial runs
   requestAnimationFrame(() => {
     applyCoverflowScales();
-    updateDotsAndCounter();
+    updateDotsAndIndicator();
   });
+
+  // Recompute position on resize
+  const handleResize = () => {
+    updateDotsAndIndicator();
+  };
+  window.addEventListener('resize', handleResize, { passive: true });
 
   // ── DOT SLOT CLICKS ──
   dotSlots.forEach((slot, idx) => {
@@ -317,6 +385,7 @@ export function initRitualsCarousel(): () => void {
   return () => {
     if (rafId) cancelAnimationFrame(rafId);
     observer.disconnect();
+    window.removeEventListener('resize', handleResize);
     window.removeEventListener('resize', updateReadMoreButtons);
     document.removeEventListener('visibilitychange', handleVisibility);
     container.removeEventListener('mouseenter', handleMouseEnter);
