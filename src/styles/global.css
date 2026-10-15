@@ -55,6 +55,10 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  picture {
+    display: contents;
+  }
+
   ::selection {
     background: #D4AF37;
     color: #FFFFFF;

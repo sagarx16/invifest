@@ -1,9 +1,9 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Image, Picture, getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 
 import heroImg from '../assets/images/hero.jpg';
-
+import ganeshaImg from '../assets/images/ganesha.webp';
 
 import groomImg from '../assets/images/couple/groom.jpg';
 import groomDetailImg from '../assets/images/couple/groom_detail.jpg';
@@ -311,18 +311,19 @@ const ceremonies = [
 
   <!-- ========== HERO SECTION ========== -->
   <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 overflow-hidden py-12 sm:py-14 md:py-16">
-    <!-- Hero Royal Background Image (Mukesh & Puja) - Clean & Vibrant with astro:assets -->
+    <!-- Hero Royal Background Image (Mukesh & Puja) - Clean & Vibrant with Picture component -->
     <div class="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
-      <Image
+      <Picture
         src={heroImg}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
         alt="Mukesh & Puja Royal Portrait"
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        widths={[640, 960, 1280, 1920]}
-        sizes="100vw"
-        quality={80}
-        format="webp"
+        widths={[400, 640, 800, 1200, 1920]}
+        sizes="(max-width: 768px) 800px, 100vw"
+        quality={82}
         class="hero-ken-burns w-full h-full object-cover object-[center_20%] sm:object-[center_28%] scale-100 transition-transform duration-1000"
       />
     </div>
@@ -339,20 +340,12 @@ const ceremonies = [
       <span class="hero-sparkle-dot" style="top:88%; right:22%; animation-delay:1.4s;">✦</span>
     </div>
 
-    <!-- Smooth bottom-only blend gradient into page background (#FAF6F0) -->
+    <!-- Optimized Hero Overlay: Single merged gradient combining center readability vignette and bottom page blend (Zero CSS blur filter) -->
     <div
-      class="absolute bottom-0 inset-x-0 h-[36%] z-[2] pointer-events-none"
-      style="background: linear-gradient(to top, #FAF6F0 0%, rgba(250, 246, 240, 0.85) 25%, rgba(250, 246, 240, 0.4) 60%, rgba(250, 246, 240, 0) 100%);"
+      class="absolute inset-0 z-[2] pointer-events-none"
+      style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(18, 9, 4, 0.48) 0%, rgba(18, 9, 4, 0.24) 45%, transparent 72%), linear-gradient(to top, #FAF6F0 0%, rgba(250, 246, 240, 0.88) 18%, rgba(250, 246, 240, 0) 38%);"
       aria-hidden="true"
     ></div>
-
-    <!-- Localized soft dark gradient behind the names and description for razor-sharp gold contrast -->
-    <div class="absolute inset-0 z-[3] pointer-events-none flex items-center justify-center" aria-hidden="true">
-      <div
-        class="w-[94%] max-w-2xl h-[75%] max-h-[580px] rounded-full"
-        style="background: radial-gradient(ellipse at center, rgba(18, 9, 4, 0.50) 0%, rgba(18, 9, 4, 0.28) 55%, transparent 75%); filter: blur(26px);"
-      ></div>
-    </div>
 
     <!-- Content: Elegant Royal Typography Floating Over The Portrait -->
     <div class="relative z-[8] max-w-4xl mx-auto flex flex-col items-center -mt-3 sm:-mt-6">
@@ -369,13 +362,15 @@ const ceremonies = [
           class="w-[68px] h-[68px] sm:w-[82px] sm:h-[82px] md:w-[90px] md:h-[90px] p-1 sm:p-1.5 flex items-center justify-center shadow-lg transition-transform duration-500 hover:scale-105"
           style="border-radius:50%;background:rgba(250,242,228,0.92);backdrop-filter:blur(16px);border:1.5px solid rgba(212,175,55,0.55);box-shadow:0 8px 24px rgba(160,120,70,0.2), 0 0 16px rgba(212,175,55,0.25);"
         >
-          <img
-            src="/images/ganesha.webp"
+          <Picture
+            src={ganeshaImg}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
             alt="Lord Ganesha"
-            class="w-full h-full object-contain pointer-events-none select-none"
+            class="w-full h-full object-contain pointer-events-none select-none rounded-full"
             style="border-radius:50%;"
-            width="90"
-            height="90"
+            width={90}
+            height={90}
             loading="eager"
             decoding="async"
           />
@@ -779,28 +774,30 @@ const ceremonies = [
                  style="box-shadow: 0 15px 35px -5px rgba(38,30,25,0.25), 0 0 20px rgba(212,175,55,0.18);">
               
               <!-- Primary Photo (Mukesh Portrait) -->
-              <Image
+              <Picture
                 src={groomImg}
+                formats={['avif', 'webp']}
+                fallbackFormat="jpg"
                 alt="Mukesh Ojha - The Royal Groom"
                 loading="lazy"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
                 quality={80}
-                format="webp"
                 class="arch-primary-img w-full h-full object-cover object-top"
               />
               
               <!-- Detail Photo for crossfade (Hands with rings & watch) -->
-              <Image
+              <Picture
                 src={groomDetailImg}
+                formats={['avif', 'webp']}
+                fallbackFormat="jpg"
                 alt="Mukesh Ojha - Detail: Rings & Royal Sherwani"
                 loading="lazy"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
                 quality={80}
-                format="webp"
                 class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
                 style="object-position: center 35%;"
               />
@@ -842,29 +839,31 @@ const ceremonies = [
                   <div class="w-full h-full rounded-full overflow-hidden relative bg-[#1E1712] border border-[#D4AF37]/60">
                     
                     <!-- Detail image inside ring -->
-                    <Image
+                    <Picture
                       src={groomDetailImg}
+                      formats={['avif', 'webp']}
+                      fallbackFormat="jpg"
                       alt="Groom detail: Rings & gold watch"
                       loading="lazy"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
                       quality={80}
-                      format="webp"
                       class="ring-detail-img w-full h-full object-cover"
                       style="object-position: center 35%;"
                     />
 
                     <!-- Primary portrait for swapped state -->
-                    <Image
+                    <Picture
                       src={groomImg}
+                      formats={['avif', 'webp']}
+                      fallbackFormat="jpg"
                       alt="Mukesh Ojha portrait"
                       loading="lazy"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
                       quality={80}
-                      format="webp"
                       class="ring-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none"
                     />
                     
@@ -934,28 +933,30 @@ const ceremonies = [
                  style="box-shadow: 0 15px 35px -5px rgba(38,30,25,0.25), 0 0 20px rgba(219,103,137,0.18);">
               
               <!-- Primary Photo (Puja Portrait) -->
-              <Image
+              <Picture
                 src={brideImg}
+                formats={['avif', 'webp']}
+                fallbackFormat="jpg"
                 alt="Puja - The Radiant Bride"
                 loading="lazy"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
                 quality={80}
-                format="webp"
                 class="arch-primary-img w-full h-full object-cover object-top"
               />
               
               <!-- Detail Photo for crossfade (Mehendi hands holding ornate mirror aarsi) -->
-              <Image
+              <Picture
                 src={brideDetailImg}
+                formats={['avif', 'webp']}
+                fallbackFormat="jpg"
                 alt="Puja - Detail: Mehendi hands holding ornate mirror (aarsi)"
                 loading="lazy"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
                 quality={80}
-                format="webp"
                 class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
                 style="object-position: center 60%;"
               />
@@ -990,29 +991,31 @@ const ceremonies = [
                   <div class="w-full h-full rounded-full overflow-hidden relative bg-[#1E1712] border border-[#D4AF37]/60">
                     
                     <!-- Detail image inside aarsi mirror -->
-                    <Image
+                    <Picture
                       src={brideDetailImg}
+                      formats={['avif', 'webp']}
+                      fallbackFormat="jpg"
                       alt="Bride detail: Aarsi mirror & mehendi hands"
                       loading="lazy"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
                       quality={80}
-                      format="webp"
                       class="aarsi-detail-img w-full h-full object-cover"
                       style="object-position: center 60%;"
                     />
 
                     <!-- Primary portrait for swapped state -->
-                    <Image
+                    <Picture
                       src={brideImg}
+                      formats={['avif', 'webp']}
+                      fallbackFormat="jpg"
                       alt="Puja portrait"
                       loading="lazy"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
                       quality={80}
-                      format="webp"
                       class="aarsi-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none"
                     />
                     
@@ -1143,15 +1146,17 @@ const ceremonies = [
               <!-- Photo Column -->
               <div class="cer-col-photo">
                 <div class="cer-photo-wrap">
-                  <Image
+                  <Picture
                     src={cer.img}
+                    formats={['avif', 'webp']}
+                    fallbackFormat="jpg"
                     alt={cer.alt}
                     loading="lazy"
                     decoding="async"
                     widths={[400, 600, 800]}
                     sizes="(max-width: 768px) 100vw, 520px"
                     quality={80}
-                    format="webp"
+                    class="w-full h-full object-cover"
                     style={`object-position: ${cer.imgPos};`}
                   />
                   <div class="cer-photo-overlay"></div>
@@ -1245,16 +1250,17 @@ const ceremonies = [
                   class="ritual-card-frame relative w-full h-full select-none rounded-[32px] overflow-hidden border border-[#D4AF37]/70 shadow-2xl bg-[#1A060A]"
                 >
                   <!-- Photo with Ken Burns capability and precise object position -->
-                  <Image
+                  <Picture
                     src={slide.img}
+                    formats={['avif', 'webp']}
+                    fallbackFormat="jpg"
                     alt={slide.alt}
-                    loading={idx === 2 ? 'eager' : 'lazy'}
+                    loading="lazy"
                     decoding="async"
                     draggable="false"
                     widths={[360, 540, 720]}
                     sizes="(max-width: 640px) 340px, 420px"
                     quality={80}
-                    format="webp"
                     class={`ritual-card-img absolute inset-0 w-full h-full object-cover transition-transform duration-700 pointer-events-none select-none ${slide.scaleFix ? 'scale-110 origin-top' : ''}`}
                     style={`object-position: ${slide.objectPosition}; aspect-ratio: 370/550;`}
                   />
