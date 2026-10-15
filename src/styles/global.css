@@ -847,13 +847,6 @@ html.lite .couple-sparkle-float {
     box-shadow: 0 4px 12px rgba(160, 120, 70, 0.15) !important;
   }
 
-  #envelope-tap-prompt > div {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: rgba(35, 18, 12, 0.96) !important;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.4) !important;
-  }
-
   #wa-share-toast {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
