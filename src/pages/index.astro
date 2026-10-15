@@ -150,20 +150,19 @@ const sacredRituals = [
     alt: "Groom applying vermilion sindoor in the bride's parting, Sindoor Daan",
     objectPosition: 'center 25%',
     scaleFix: false
+  },
+  {
+    num: 'XI',
+    counter: '11',
+    hindi: 'गृह प्रवेश',
+    title: 'Griha Pravesh',
+    tagline: 'Rice, rose petals, and a new beginning.',
+    text: 'At the threshold, the bride softly tips the kalash of rice with her foot, letting prosperity spill into her new home along with petals and blessings. Griha Pravesh welcomes her as the light of the household: its luck, its laughter and its warmth.',
+    img: ritual11,
+    alt: "Bride's henna-decorated foot tipping copper kalash of rice over rose petals, Griha Pravesh",
+    objectPosition: 'center top',
+    scaleFix: true
   }
-  // Optional 11th ritual (Griha Pravesh) preserved if needed:
-  // {
-  //   num: 'XI',
-  //   counter: '11',
-  //   hindi: 'गृह प्रवेश',
-  //   title: 'Griha Pravesh',
-  //   tagline: 'Rice, rose petals, and a new beginning.',
-  //   text: 'At the threshold, the bride softly tips the kalash of rice with her foot, letting prosperity spill into her new home along with petals and blessings. Griha Pravesh welcomes her as the light of the household: its luck, its laughter and its warmth.',
-  //   img: ritual11,
-  //   alt: "Bride's henna-decorated foot tipping copper kalash of rice over rose petals, Griha Pravesh",
-  //   objectPosition: 'center top',
-  //   scaleFix: true
-  // }
 ];
 
 const ceremonies = [
@@ -1743,7 +1742,7 @@ const ceremonies = [
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 160px;
+  width: max-content;
   height: 24px;
   padding: 0;
   margin: 0 16px;
@@ -1825,7 +1824,7 @@ const ceremonies = [
     margin-top: 1.25rem;
   }
   .ritual-ctrl-dots {
-    width: 120px; /* 10 x 12px */
+    width: max-content;
     margin: 0 8px;
   }
   .ritual-dot-slot {
