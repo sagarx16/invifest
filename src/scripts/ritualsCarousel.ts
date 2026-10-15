@@ -32,20 +32,20 @@ export function initRitualsCarousel(): () => void {
 
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Embla Options: loop, align center, duration 16 (faster & snappier slide scroll), initial index 2
+  // Embla Options: loop, align center, duration 25 (buttery smooth glide), initial index 2
   const options: EmblaOptionsType = {
     loop: true,
     align: 'center',
     skipSnaps: false,
     dragFree: false,
-    duration: 16,
+    duration: 25,
     startIndex: 2,
     watchDrag: true,
   };
 
-  // Autoplay plugin configuration: 2200ms delay for faster card progression
+  // Autoplay plugin configuration: 3000ms delay for smooth, proper pacing
   const autoplayPlugin = Autoplay({
-    delay: 2200,
+    delay: 3000,
     stopOnInteraction: false,
     stopOnMouseEnter: true,
   });
@@ -89,7 +89,7 @@ export function initRitualsCarousel(): () => void {
     });
   };
 
-  // ── COVERFLOW SCALE & OPACITY TRANSFORMS VIA RAF ──
+  // ── COVERFLOW SCALE & OPACITY TRANSFORMS VIA RAF (ZERO GAP) ──
   // Reads only in-memory engine data; NO layout reads or reflows in loop
   const applyCoverflowScales = () => {
     const engine = embla.internalEngine();
@@ -113,13 +113,18 @@ export function initRitualsCarousel(): () => void {
 
         const distance = Math.abs(diffToTarget) * snapsCount;
         // Center: scale 1.0, Neighbours: ~0.88 with lower opacity (~0.65), farther: smaller
-        const scale = isReducedMotion ? 1 : Math.max(0.76, 1 - distance * 0.12);
+        const scale = isReducedMotion ? 1 : Math.max(0.78, 1 - distance * 0.12);
         const opacity = Math.max(0.42, 1 - distance * 0.35);
+
+        // Pull side cards toward center so there is literally 0 gap between scaled cards
+        const pullOffset = isReducedMotion ? 0 : -Math.sign(diffToTarget) * Math.min(distance, 1.2) * 26;
+        const zIndex = Math.round(20 - Math.min(15, distance * 5));
 
         const slide = slides[slideIndex];
         if (slide) {
-          slide.style.transform = `scale(${scale.toFixed(3)})`;
+          slide.style.transform = `translate3d(${pullOffset.toFixed(1)}px, 0, 0) scale(${scale.toFixed(3)})`;
           slide.style.opacity = `${opacity.toFixed(3)}`;
+          slide.style.zIndex = `${zIndex}`;
           const isCenter = distance < 0.35;
           slide.classList.toggle('is-active', isCenter);
         }
@@ -181,10 +186,11 @@ export function initRitualsCarousel(): () => void {
           activeIndicator.style.transition = 'opacity 150ms ease';
           activeIndicator.style.opacity = '1';
           setTimeout(() => {
-            activeIndicator.style.transition = 'transform 260ms cubic-bezier(.22,.8,.2,1), opacity 150ms ease';
+            activeIndicator.style.transition = 'transform 380ms cubic-bezier(.22,1,.36,1), opacity 150ms ease';
           }, 150);
         }, 120);
       } else {
+        activeIndicator.style.transition = 'transform 380ms cubic-bezier(.22,1,.36,1), opacity 150ms ease';
         activeIndicator.style.transform = `translateX(${selected * slotWidth}px)`;
       }
     }
