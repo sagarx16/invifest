@@ -884,6 +884,13 @@ html.lite .couple-sparkle-float {
     animation: none !important;
     will-change: auto !important;
   }
+
+  /* Disable parallax & heavy mouse/gyro shifts on mobile */
+  .parallax-layer,
+  #hero-mandala {
+    transform: none !important;
+    will-change: auto !important;
+  }
 }
 
 /* ==========================================================================

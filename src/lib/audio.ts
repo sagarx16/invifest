@@ -36,7 +36,7 @@ class RoyalAudioEngine {
       this.audioElement = new Audio(this.songUrl);
       this.audioElement.loop = true;
       this.audioElement.volume = 0.95;
-      this.audioElement.preload = 'auto';
+      this.audioElement.preload = 'none';
 
       // Keep playing state in sync
       this.audioElement.addEventListener('play', () => {

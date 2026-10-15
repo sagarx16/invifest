@@ -2002,26 +2002,40 @@ const ceremonies = [
   border-color: rgba(212, 175, 55, 0.3) !important;
 }
 
-/* Equalizer Bars */
+/* Equalizer Bars: Visualizer animation runs ONLY when audio is actively playing */
 .music-bar {
   display: inline-block;
   width: 2.5px;
   background: linear-gradient(to top, #8C6219, #D4AF37);
   border-radius: 999px;
   transform-origin: bottom center;
+  transform: scaleY(0.25);
+  opacity: 0.4;
+  animation: none;
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.music-bar-1 { height: 11px; animation: musicEqualizer 0.75s ease-in-out infinite alternate; }
-.music-bar-2 { height: 7px;  animation: musicEqualizer 0.9s  ease-in-out infinite alternate 0.2s; }
-.music-bar-3 { height: 14px; animation: musicEqualizer 0.65s ease-in-out infinite alternate 0.1s; }
-.music-bar-4 { height: 8px;  animation: musicEqualizer 0.85s ease-in-out infinite alternate 0.3s; }
+.music-pill.is-playing .music-bar-1,
+.music-playing .music-bar-1,
+.is-playing .music-bar-1 { height: 11px; animation: musicEqualizer 0.75s ease-in-out infinite alternate; opacity: 1; }
+.music-pill.is-playing .music-bar-2,
+.music-playing .music-bar-2,
+.is-playing .music-bar-2 { height: 7px;  animation: musicEqualizer 0.9s  ease-in-out infinite alternate 0.2s; opacity: 1; }
+.music-pill.is-playing .music-bar-3,
+.music-playing .music-bar-3,
+.is-playing .music-bar-3 { height: 14px; animation: musicEqualizer 0.65s ease-in-out infinite alternate 0.1s; opacity: 1; }
+.music-pill.is-playing .music-bar-4,
+.music-playing .music-bar-4,
+.is-playing .music-bar-4 { height: 8px;  animation: musicEqualizer 0.85s ease-in-out infinite alternate 0.3s; opacity: 1; }
 
 @keyframes musicEqualizer {
   0% { transform: scaleY(0.25); }
   100% { transform: scaleY(1); }
 }
 
+.music-pill:not(.is-playing) .music-bar,
+.music-circle-btn:not(.is-playing) .music-bar,
+.music-circle-btn.is-paused .music-bar,
 .music-pill.is-paused .music-bar,
 .music-pill.music-widget-paused .music-bar {
   animation: none !important;
@@ -3161,9 +3175,11 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
   // ── STATE-OF-THE-ART MODERN SMOOTH SCROLLING (LENIS + GSAP TICKER) ──
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchDevice = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
   let lenis: any = null;
 
-  if (!prefersReducedMotion) {
+  // On touch/mobile devices, use native GPU 120Hz momentum scrolling. Use Lenis only for desktop mouse wheel.
+  if (!prefersReducedMotion && !isTouchDevice) {
     lenis = new Lenis({
       duration: 1.15,
       // Studio Freight / Apple signature exponential ease-out curve for buttery deceleration
@@ -3172,7 +3188,6 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.1,
       autoRaf: false,
     });
     (window as any).lenis = lenis;
@@ -3212,6 +3227,26 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
         }
       });
     });
+  }
+
+  // ── LAZY OBSERVER HELPER FOR BELOW-THE-FOLD MODULES ─────────────
+  function initWhenVisible(elementId: string, initFn: () => void, rootMargin = '250px 0px') {
+    const el = document.getElementById(elementId);
+    if (!el) {
+      initFn();
+      return;
+    }
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        if (entries[0].isIntersecting) {
+          obs.disconnect();
+          initFn();
+        }
+      }, { rootMargin });
+      observer.observe(el);
+    } else {
+      initFn();
+    }
   }
 
   // ── GRAND OPENING ENVELOPE CINEMATIC & HERO REVEAL ────────────────
@@ -3531,7 +3566,6 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 
   // ── MEET THE COUPLE: INDEPENDENT TAP & HOVER PHOTO TOGGLE ──
   const toggleButtons = document.querySelectorAll<HTMLButtonElement>('[data-couple-toggle]');
-  const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
   toggleButtons.forEach((btn) => {
     const card = btn.closest<HTMLElement>('.couple-card');
@@ -3747,8 +3781,8 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     window.addEventListener('resize', scheduleUpdate, { passive: true });
   }
 
-  // Parallax on mouse move - throttled to rAF & gated to fine-pointer devices and element presence
-  if (isFinePointer) {
+  // Parallax on mouse move - throttled to rAF & disabled on mobile touch devices
+  if (isFinePointer && !isTouchDevice) {
     const parallaxLayers = Array.from(document.querySelectorAll<HTMLElement>('.parallax-layer'));
     const mandala = document.getElementById('hero-mandala');
     let pRaf: number | null = null;
@@ -3869,12 +3903,8 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     }
   });
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCountdown);
-  } else {
-    initCountdown();
-  }
-  document.addEventListener('astro:page-load', initCountdown);
+  initWhenVisible('save-the-date', initCountdown);
+  document.addEventListener('astro:page-load', () => initWhenVisible('save-the-date', initCountdown));
 
   // ── SAVE THE DATE INTERACTIVE SCRATCH CARDS & SCROLL GATE ─────────
   const STD_STORAGE_KEY = 'mukesh_puja_std_unlocked_v3';
@@ -4625,10 +4655,11 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initScratchCards);
+    document.addEventListener('DOMContentLoaded', () => initWhenVisible('save-the-date', initScratchCards));
   } else {
-    initScratchCards();
+    initWhenVisible('save-the-date', initScratchCards);
   }
+  document.addEventListener('astro:page-load', () => initWhenVisible('save-the-date', initScratchCards));
 
   // ── ICS DOWNLOAD ──────────────────────────────────────────────────
   function downloadICS() {
@@ -4867,11 +4898,11 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupRitualsCarousel);
+    document.addEventListener('DOMContentLoaded', () => initWhenVisible('rituals', setupRitualsCarousel));
   } else {
-    setupRitualsCarousel();
+    initWhenVisible('rituals', setupRitualsCarousel);
   }
-  document.addEventListener('astro:page-load', setupRitualsCarousel);
+  document.addEventListener('astro:page-load', () => initWhenVisible('rituals', setupRitualsCarousel));
   document.addEventListener('astro:before-swap', () => {
     if (cleanupRituals) {
       cleanupRituals();
@@ -4963,11 +4994,11 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupCeremoniesAnimation);
+    document.addEventListener('DOMContentLoaded', () => initWhenVisible('events', setupCeremoniesAnimation));
   } else {
-    setupCeremoniesAnimation();
+    initWhenVisible('events', setupCeremoniesAnimation);
   }
-  document.addEventListener('astro:page-load', setupCeremoniesAnimation);
+  document.addEventListener('astro:page-load', () => initWhenVisible('events', setupCeremoniesAnimation));
 
   // ── OFF-SCREEN SECTION ANIMATION PAUSER ───────────────────────────
   let offScreenObserver: IntersectionObserver | null = null;
