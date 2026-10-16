@@ -1154,7 +1154,7 @@ const ceremonies = [
 
 
   <!-- ========== SACRED RITUALS (PHOTO CAROUSEL) ========== -->
-  <section id="rituals" class="py-16 sm:py-24 px-0 relative reveal-section overflow-hidden select-none" style="background: radial-gradient(circle at 50% 45%, rgba(247,235,200,0.45) 0%, rgba(250,246,240,0.85) 60%, #FAF6F0 100%);">
+  <section id="rituals" class="py-12 sm:py-24 px-0 relative reveal-section overflow-hidden select-none" style="background: radial-gradient(circle at 50% 45%, rgba(247,235,200,0.45) 0%, rgba(250,246,240,0.85) 60%, #FAF6F0 100%);">
     <!-- Corner Mandalas -->
     <div class="absolute top-4 left-4 w-32 h-32 pointer-events-none opacity-[0.14]" aria-hidden="true">
       <svg viewBox="0 0 100 100" fill="none" stroke="#D4AF37">
@@ -1581,9 +1581,9 @@ const ceremonies = [
 }
 
 .ritual-card {
-  width: 84vw;
-  max-width: 335px;
-  height: 520px;
+  width: 78vw;
+  max-width: 315px;
+  height: 485px;
   flex: 0 0 auto;
   flex-shrink: 0;
   display: block;
@@ -1591,6 +1591,8 @@ const ceremonies = [
   contain: layout paint;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   cursor: pointer;
 }
 
@@ -1620,9 +1622,10 @@ const ceremonies = [
   height: 100% !important;
   width: 100% !important;
   transform-origin: center center;
-}
-
-.ritual-card.is-active .ritual-card-frame {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   will-change: transform, opacity;
 }
 
@@ -1631,20 +1634,17 @@ const ceremonies = [
   z-index: 20;
 }
 
-/* Card inner text fade-in & stagger with ~0.1s delay */
+/* Card inner text fade-in & stagger */
 .ritual-text-stagger {
-  transition: opacity var(--slide-duration, 0.4s) ease var(--text-fade-delay, 0.1s),
-              transform var(--slide-duration, 0.4s) var(--slide-easing, cubic-bezier(0.22, 1, 0.36, 1)) var(--text-fade-delay, 0.1s);
+  transition: opacity 0.3s ease;
 }
 
 .ritual-card:not(.is-active) .ritual-text-stagger {
   opacity: 0.72;
-  transform: translateY(4px);
 }
 
 .ritual-card.is-active .ritual-text-stagger {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* Side Card Titles vs Active Card Title (Last word in Gold on Center card) */

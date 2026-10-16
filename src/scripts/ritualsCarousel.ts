@@ -32,20 +32,22 @@ export function initRitualsCarousel(): () => void {
 
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Embla Options: loop, align center, duration 20 (snappy 60fps glide on mobile GPUs), initial index 2
+  const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  // Embla Options: loop, align center, duration 32 for buttery smooth glide on mobile, initial index 2
   const options: EmblaOptionsType = {
     loop: true,
     align: 'center',
     skipSnaps: false,
     dragFree: false,
-    duration: 20,
+    duration: isMobileDevice ? 32 : 26,
     startIndex: 2,
     watchDrag: true,
   };
 
-  // Autoplay plugin configuration: 2800ms steady viewing duration, moves continuously by default
+  // Autoplay plugin configuration: 3000ms steady viewing duration, moves continuously by default
   const autoplayPlugin = Autoplay({
-    delay: 2800,
+    delay: 3000,
     stopOnInteraction: false,
     stopOnMouseEnter: false,
     stopOnFocusIn: false,
@@ -140,28 +142,37 @@ export function initRitualsCarousel(): () => void {
 
         const distance = Math.abs(diffToTarget) * snapsCount;
 
-        // Skip intensive updates on slides that are completely offscreen (> 2.5 slides away)
+        const isMobileScreen = window.innerWidth < 640;
+        const cutoffDist = isMobileScreen ? 2.1 : 2.5;
+
+        // Skip intensive updates on slides that are completely offscreen
         const slide = slides[slideIndex];
         const cardFrame = cardFrames[slideIndex];
 
-        if (distance > 2.5) {
+        if (distance > cutoffDist) {
           if (slide && slide.style.zIndex !== '1') {
             slide.style.zIndex = '1';
             slide.classList.remove('is-active');
           }
           if (cardFrame && cardFrame.style.opacity !== '0.2') {
-            cardFrame.style.transform = 'translate3d(0, 0, 0) scale(0.72)';
+            cardFrame.style.transform = 'translate3d(0, 0, 0) scale(0.76)';
             cardFrame.style.opacity = '0.2';
           }
           continue;
         }
 
-        // Center: scale 1.0, Neighbours: ~0.88 with lower opacity (~0.65), farther: smaller
-        const scale = isReducedMotion ? 1 : Math.max(0.78, 1 - distance * 0.12);
-        const opacity = Math.max(0.42, 1 - distance * 0.35);
+        // Center: scale 1.0, Neighbours on mobile: ~0.91 with soft opacity (~0.72)
+        const scaleFactor = isMobileScreen ? 0.09 : 0.12;
+        const opacityFactor = isMobileScreen ? 0.28 : 0.35;
+        const minScale = isMobileScreen ? 0.82 : 0.78;
+        const minOpacity = isMobileScreen ? 0.46 : 0.42;
+        const pullFactor = isMobileScreen ? 14 : 26;
 
-        // Pull side cards toward center so there is literally 0 gap between scaled cards
-        const pullOffset = isReducedMotion ? 0 : -Math.sign(diffToTarget) * Math.min(distance, 1.2) * 26;
+        const scale = isReducedMotion ? 1 : Math.max(minScale, 1 - distance * scaleFactor);
+        const opacity = Math.max(minOpacity, 1 - distance * opacityFactor);
+
+        // Pull side cards toward center with a gentle spring pull on mobile
+        const pullOffset = isReducedMotion ? 0 : -Math.sign(diffToTarget) * Math.min(distance, 1.1) * pullFactor;
         const zIndex = Math.round(20 - Math.min(15, distance * 5));
 
         if (slide) {
