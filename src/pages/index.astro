@@ -409,17 +409,19 @@ const ceremonies = [
       </div>
     </div>
 
-    <!-- Scroll indicator with mobile gentle bounce -->
-    <div id="scroll-indicator" class="scroll-cue-bounce absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 z-[8]">
-      <span class="font-['Montserrat'] text-[9px] tracking-[0.25em] uppercase text-[#A07828] font-normal">Scroll</span>
-      <div class="w-0.5 h-12 relative overflow-hidden" style="background:rgba(212,175,55,0.25);">
-        <div class="w-full h-1/2 absolute top-0" style="background:#D4AF37;animation:scroll-pulse 1.5s ease-in-out infinite;"></div>
+    <!-- Scroll indicator with mobile gentle bounce (guaranteed horizontal centering) -->
+    <div class="absolute bottom-8 inset-x-0 flex justify-center pointer-events-none z-[8]">
+      <div id="scroll-indicator" class="scroll-cue-bounce flex flex-col items-center gap-2 opacity-0 pointer-events-auto">
+        <span class="font-['Montserrat'] text-[9px] tracking-[0.25em] uppercase text-[#A07828] font-normal">Scroll</span>
+        <div class="w-0.5 h-12 relative overflow-hidden" style="background:rgba(212,175,55,0.25);">
+          <div class="w-full h-1/2 absolute top-0" style="background:#D4AF37;animation:scroll-pulse 1.5s ease-in-out infinite;"></div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ========== SAVE THE DATE & LIVE COUNTDOWN SECTION ========== -->
-  <section id="save-the-date" class="py-20 sm:py-28 px-4 sm:px-6 relative overflow-hidden" style="background:radial-gradient(ellipse at 50% 20%, #FFFDF8 0%, #F9F3E8 55%, #F0E6D4 100%);">
+  <section id="save-the-date" class="py-16 sm:py-28 px-2 sm:px-6 relative overflow-hidden" style="background:radial-gradient(ellipse at 50% 20%, #FFFDF8 0%, #F9F3E8 55%, #F0E6D4 100%);">
     <!-- Subtle Golden Borders & Flourishes -->
     <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,#D4AF37,transparent);"></div>
     <div class="absolute bottom-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,#D4AF37,transparent);"></div>
@@ -457,20 +459,20 @@ const ceremonies = [
         </defs>
       </svg>
 
-      <!-- 3 Interactive Scratch Cards: Royal Jharokha Arches -->
-      <div id="scratch-cards-container" class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 mb-6 relative transition-transform duration-300">
+      <!-- 3 Interactive Scratch Cards: Royal Jharokha Arches (flex-nowrap keeps all 3 on one line) -->
+      <div id="scratch-cards-container" class="flex flex-nowrap items-center justify-center gap-1.5 min-[370px]:gap-2.5 sm:gap-6 md:gap-8 mb-6 relative transition-transform duration-300 w-full max-w-full px-0.5 sm:px-0">
         <!-- MONTH CARD (Jharokha Arch) -->
-        <div class="flex flex-col items-center">
-          <span class="font-['Montserrat'] text-[10px] sm:text-xs tracking-[0.28em] uppercase text-[#A07828] font-normal mb-6 sm:mb-7 flex items-center gap-1.5">
-            <span class="text-[#B8860B] text-[9px]">✦</span>
+        <div class="flex flex-col items-center flex-shrink-0">
+          <span class="font-['Montserrat'] text-[9px] min-[380px]:text-[10px] sm:text-xs tracking-[0.22em] min-[380px]:tracking-[0.28em] uppercase text-[#A07828] font-normal mb-3 sm:mb-7 flex items-center gap-1 sm:gap-1.5">
+            <span class="text-[#B8860B] text-[8px] sm:text-[9px]">✦</span>
             <span>Month</span>
-            <span class="text-[#B8860B] text-[9px]">✦</span>
+            <span class="text-[#B8860B] text-[8px] sm:text-[9px]">✦</span>
           </span>
-          <div class="scratch-card card-pulse-glow card-float-1 relative select-none w-[115px] h-[175px] sm:w-[135px] sm:h-[205px] md:w-[150px] md:h-[225px] focus:outline-none transition-transform duration-300" tabindex="0" role="button" aria-label="Scratch card for Month. Press Space or Enter to scratch" data-card="month" style="filter:drop-shadow(0 10px 22px rgba(184,134,11,0.28)) drop-shadow(0 0 10px rgba(212,175,55,0.32));">
+          <div class="scratch-card card-pulse-glow card-float-1 relative select-none w-[96px] h-[152px] min-[370px]:w-[104px] min-[370px]:h-[164px] min-[400px]:w-[112px] min-[400px]:h-[174px] sm:w-[135px] sm:h-[205px] md:w-[150px] md:h-[225px] focus:outline-none transition-transform duration-300" tabindex="0" role="button" aria-label="Scratch card for Month. Press Space or Enter to scratch" data-card="month" style="filter:drop-shadow(0 10px 22px rgba(184,134,11,0.28)) drop-shadow(0 0 10px rgba(212,175,55,0.32));">
             <!-- Jharokha Arch Clipped Content -->
             <div class="relative w-full h-full overflow-hidden" style="clip-path:url(#jharokha-arch-clip);-webkit-clip-path:url(#jharokha-arch-clip);">
               <!-- 4. Revealed Content Underneath: Deep Maroon (#5A0F1F) with Gold Mandala & Gradient Serif -->
-              <div class="absolute inset-0 flex flex-col items-center justify-center p-3 text-center overflow-hidden" style="background:radial-gradient(circle at 50% 35%, #6E1528 0%, #5A0F1F 55%, #3B0813 100%);">
+              <div class="absolute inset-0 flex flex-col items-center justify-center p-2 sm:p-3 text-center overflow-hidden" style="background:radial-gradient(circle at 50% 35%, #6E1528 0%, #5A0F1F 55%, #3B0813 100%);">
                 <!-- Faint Gold Mandala Watermark -->
                 <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.14]" viewBox="0 0 100 100" fill="none" stroke="#D4AF37">
                   <circle cx="50" cy="52" r="30" stroke-width="0.8"/>
@@ -479,11 +481,11 @@ const ceremonies = [
                   <path d="M 50,22 L 50,82 M 20,52 L 80,52 M 29,31 L 71,73 M 29,73 L 71,31" stroke-width="0.5"/>
                 </svg>
                 <!-- Revealed Details: Big Gold Gradient Serif -->
-                <div class="relative z-10 flex flex-col items-center pt-5 sm:pt-6">
-                  <span class="font-['Cinzel'] font-bold text-3xl sm:text-4xl md:text-5xl tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D6] via-[#DFB756] to-[#B8860B] drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]">DEC</span>
-                  <span class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.25em] uppercase text-[#E5C158] font-medium mt-1.5">December</span>
-                  <span class="font-['Playfair_Display'] text-[11px] text-[#F3E5AB] italic mt-0.5">मार्गशीर्ष</span>
-                  <span class="text-[#DFB756] text-[8px] sm:text-[9px] mt-2 opacity-80 tracking-widest">✦ ─ ❖ ─ ✦</span>
+                <div class="relative z-10 flex flex-col items-center pt-4 sm:pt-6">
+                  <span class="font-['Cinzel'] font-bold text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D6] via-[#DFB756] to-[#B8860B] drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]">DEC</span>
+                  <span class="font-['Montserrat'] text-[8px] min-[380px]:text-[9px] sm:text-[10px] tracking-[0.22em] uppercase text-[#E5C158] font-medium mt-1">December</span>
+                  <span class="font-['Playfair_Display'] text-[10px] sm:text-[11px] text-[#F3E5AB] italic mt-0.5">मार्गशीर्ष</span>
+                  <span class="text-[#DFB756] text-[7px] sm:text-[9px] mt-1.5 opacity-80 tracking-widest">✦ ─ ❖ ─ ✦</span>
                 </div>
               </div>
 
@@ -508,17 +510,17 @@ const ceremonies = [
         </div>
 
         <!-- DAY CARD (Jharokha Arch - Slightly Bigger & Raised) -->
-        <div class="flex flex-col items-center">
-          <span class="font-['Montserrat'] text-[10px] sm:text-xs tracking-[0.28em] uppercase text-[#A07828] font-normal mb-7 sm:mb-8 flex items-center gap-1.5">
-            <span class="text-[#B8860B] text-[9px]">✦</span>
+        <div class="flex flex-col items-center flex-shrink-0">
+          <span class="font-['Montserrat'] text-[9px] min-[380px]:text-[10px] sm:text-xs tracking-[0.22em] min-[380px]:tracking-[0.28em] uppercase text-[#A07828] font-normal mb-4 sm:mb-8 flex items-center gap-1 sm:gap-1.5">
+            <span class="text-[#B8860B] text-[8px] sm:text-[9px]">✦</span>
             <span>Day</span>
-            <span class="text-[#B8860B] text-[9px]">✦</span>
+            <span class="text-[#B8860B] text-[8px] sm:text-[9px]">✦</span>
           </span>
-          <div class="scratch-card card-pulse-glow card-float-2 relative select-none w-[126px] h-[190px] sm:w-[148px] sm:h-[222px] md:w-[164px] md:h-[242px] -translate-y-2 sm:-translate-y-3 focus:outline-none transition-transform duration-300" tabindex="0" role="button" aria-label="Scratch card for Day. Press Space or Enter to scratch" data-card="day" style="filter:drop-shadow(0 12px 26px rgba(184,134,11,0.32)) drop-shadow(0 0 12px rgba(212,175,55,0.36));">
+          <div class="scratch-card card-pulse-glow card-float-2 relative select-none w-[108px] h-[168px] min-[370px]:w-[118px] min-[370px]:h-[182px] min-[400px]:w-[126px] min-[400px]:h-[192px] sm:w-[148px] sm:h-[222px] md:w-[164px] md:h-[242px] -translate-y-1.5 sm:-translate-y-3 focus:outline-none transition-transform duration-300" tabindex="0" role="button" aria-label="Scratch card for Day. Press Space or Enter to scratch" data-card="day" style="filter:drop-shadow(0 12px 26px rgba(184,134,11,0.32)) drop-shadow(0 0 12px rgba(212,175,55,0.36));">
             <!-- Jharokha Arch Clipped Content -->
             <div class="relative w-full h-full overflow-hidden" style="clip-path:url(#jharokha-arch-clip);-webkit-clip-path:url(#jharokha-arch-clip);">
               <!-- 4. Revealed Content Underneath: Deep Maroon (#5A0F1F) with Gold Mandala & Gradient Serif -->
-              <div class="absolute inset-0 flex flex-col items-center justify-center p-3 text-center overflow-hidden" style="background:radial-gradient(circle at 50% 35%, #6E1528 0%, #5A0F1F 55%, #3B0813 100%);">
+              <div class="absolute inset-0 flex flex-col items-center justify-center p-2 sm:p-3 text-center overflow-hidden" style="background:radial-gradient(circle at 50% 35%, #6E1528 0%, #5A0F1F 55%, #3B0813 100%);">
                 <!-- Faint Gold Mandala Watermark -->
                 <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.14]" viewBox="0 0 100 100" fill="none" stroke="#D4AF37">
                   <circle cx="50" cy="52" r="30" stroke-width="0.8"/>
@@ -527,12 +529,12 @@ const ceremonies = [
                   <path d="M 50,22 L 50,82 M 20,52 L 80,52 M 29,31 L 71,73 M 29,73 L 71,31" stroke-width="0.5"/>
                 </svg>
                 <!-- Revealed Details: Big Gold Gradient Serif -->
-                <div class="relative z-10 flex flex-col items-center pt-5 sm:pt-6">
-                  <span class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.25em] uppercase text-[#F3E5AB] font-semibold mb-1">✦ शुभ दिन ✦</span>
-                  <span class="font-['Cinzel'] font-bold text-5xl sm:text-6xl md:text-7xl leading-none text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D6] via-[#DFB756] to-[#B8860B] drop-shadow-[0_2px_12px_rgba(212,175,55,0.45)]">11</span>
-                  <span class="font-['Montserrat'] text-[10px] sm:text-xs tracking-[0.25em] uppercase text-[#E5C158] font-medium mt-1.5">Friday</span>
-                  <span class="font-['Playfair_Display'] text-[11px] text-[#F3E5AB] italic mt-0.5">शुक्ल पक्ष</span>
-                  <span class="text-[#DFB756] text-[9px] sm:text-[10px] mt-2 opacity-80 tracking-widest">✦ ─ ❖ ─ ✦</span>
+                <div class="relative z-10 flex flex-col items-center pt-4 sm:pt-6">
+                  <span class="font-['Montserrat'] text-[8px] min-[380px]:text-[9px] sm:text-[10px] tracking-[0.22em] uppercase text-[#F3E5AB] font-semibold mb-0.5 sm:mb-1">✦ शुभ दिन ✦</span>
+                  <span class="font-['Cinzel'] font-bold text-4xl min-[380px]:text-5xl sm:text-6xl md:text-7xl leading-none text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D6] via-[#DFB756] to-[#B8860B] drop-shadow-[0_2px_12px_rgba(212,175,55,0.45)]">11</span>
+                  <span class="font-['Montserrat'] text-[9px] min-[380px]:text-[10px] sm:text-xs tracking-[0.22em] uppercase text-[#E5C158] font-medium mt-1">Friday</span>
+                  <span class="font-['Playfair_Display'] text-[10px] sm:text-[11px] text-[#F3E5AB] italic mt-0.5">शुक्ल पक्ष</span>
+                  <span class="text-[#DFB756] text-[8px] sm:text-[10px] mt-1.5 opacity-80 tracking-widest">✦ ─ ❖ ─ ✦</span>
                 </div>
               </div>
 
@@ -557,17 +559,17 @@ const ceremonies = [
         </div>
 
         <!-- YEAR CARD (Jharokha Arch) -->
-        <div class="flex flex-col items-center">
-          <span class="font-['Montserrat'] text-[10px] sm:text-xs tracking-[0.28em] uppercase text-[#A07828] font-normal mb-6 sm:mb-7 flex items-center gap-1.5">
-            <span class="text-[#B8860B] text-[9px]">✦</span>
+        <div class="flex flex-col items-center flex-shrink-0">
+          <span class="font-['Montserrat'] text-[9px] min-[380px]:text-[10px] sm:text-xs tracking-[0.22em] min-[380px]:tracking-[0.28em] uppercase text-[#A07828] font-normal mb-3 sm:mb-7 flex items-center gap-1 sm:gap-1.5">
+            <span class="text-[#B8860B] text-[8px] sm:text-[9px]">✦</span>
             <span>Year</span>
-            <span class="text-[#B8860B] text-[9px]">✦</span>
+            <span class="text-[#B8860B] text-[8px] sm:text-[9px]">✦</span>
           </span>
-          <div class="scratch-card card-pulse-glow card-float-3 relative select-none w-[115px] h-[175px] sm:w-[135px] sm:h-[205px] md:w-[150px] md:h-[225px] focus:outline-none transition-transform duration-300" tabindex="0" role="button" aria-label="Scratch card for Year. Press Space or Enter to scratch" data-card="year" style="filter:drop-shadow(0 10px 22px rgba(184,134,11,0.28)) drop-shadow(0 0 10px rgba(212,175,55,0.32));">
+          <div class="scratch-card card-pulse-glow card-float-3 relative select-none w-[96px] h-[152px] min-[370px]:w-[104px] min-[370px]:h-[164px] min-[400px]:w-[112px] min-[400px]:h-[174px] sm:w-[135px] sm:h-[205px] md:w-[150px] md:h-[225px] focus:outline-none transition-transform duration-300" tabindex="0" role="button" aria-label="Scratch card for Year. Press Space or Enter to scratch" data-card="year" style="filter:drop-shadow(0 10px 22px rgba(184,134,11,0.28)) drop-shadow(0 0 10px rgba(212,175,55,0.32));">
             <!-- Jharokha Arch Clipped Content -->
             <div class="relative w-full h-full overflow-hidden" style="clip-path:url(#jharokha-arch-clip);-webkit-clip-path:url(#jharokha-arch-clip);">
               <!-- 4. Revealed Content Underneath: Deep Maroon (#5A0F1F) with Gold Mandala & Gradient Serif -->
-              <div class="absolute inset-0 flex flex-col items-center justify-center p-3 text-center overflow-hidden" style="background:radial-gradient(circle at 50% 35%, #6E1528 0%, #5A0F1F 55%, #3B0813 100%);">
+              <div class="absolute inset-0 flex flex-col items-center justify-center p-2 sm:p-3 text-center overflow-hidden" style="background:radial-gradient(circle at 50% 35%, #6E1528 0%, #5A0F1F 55%, #3B0813 100%);">
                 <!-- Faint Gold Mandala Watermark -->
                 <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.14]" viewBox="0 0 100 100" fill="none" stroke="#D4AF37">
                   <circle cx="50" cy="52" r="30" stroke-width="0.8"/>
@@ -576,11 +578,11 @@ const ceremonies = [
                   <path d="M 50,22 L 50,82 M 20,52 L 80,52 M 29,31 L 71,73 M 29,73 L 71,31" stroke-width="0.5"/>
                 </svg>
                 <!-- Revealed Details: Big Gold Gradient Serif -->
-                <div class="relative z-10 flex flex-col items-center pt-5 sm:pt-6">
-                  <span class="font-['Cinzel'] font-bold text-3xl sm:text-4xl md:text-5xl tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D6] via-[#DFB756] to-[#B8860B] drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]">2026</span>
-                  <span class="font-['Montserrat'] text-[9px] sm:text-[10px] tracking-[0.25em] uppercase text-[#E5C158] font-medium mt-1.5">Shaka 1948</span>
-                  <span class="font-['Playfair_Display'] text-[11px] text-[#F3E5AB] italic mt-0.5">संवत् २०८३</span>
-                  <span class="text-[#DFB756] text-[8px] sm:text-[9px] mt-2 opacity-80 tracking-widest">✦ ─ ❖ ─ ✦</span>
+                <div class="relative z-10 flex flex-col items-center pt-4 sm:pt-6">
+                  <span class="font-['Cinzel'] font-bold text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D6] via-[#DFB756] to-[#B8860B] drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]">2026</span>
+                  <span class="font-['Montserrat'] text-[8px] min-[380px]:text-[9px] sm:text-[10px] tracking-[0.22em] uppercase text-[#E5C158] font-medium mt-1">Shaka 1948</span>
+                  <span class="font-['Playfair_Display'] text-[10px] sm:text-[11px] text-[#F3E5AB] italic mt-0.5">संवत् २०८३</span>
+                  <span class="text-[#DFB756] text-[7px] sm:text-[9px] mt-1.5 opacity-80 tracking-widest">✦ ─ ❖ ─ ✦</span>
                 </div>
               </div>
 
@@ -3578,7 +3580,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       .to('#hero-bride', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.3')
       .to('#hero-invite', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.4')
       .to('#hero-ctas', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
-      .to('#scroll-indicator', { opacity: 1, duration: 0.6 }, '-=0.1');
+      .to('#scroll-indicator', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.1');
   }
 
   // Set initial states
