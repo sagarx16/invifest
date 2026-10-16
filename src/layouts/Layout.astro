@@ -26,9 +26,10 @@ const siteUrl = 'https://invifestx16.vercel.app';
       try {
         var isTouch = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         if (isTouch) document.documentElement.classList.add('mobile-touch');
-        var hc = navigator.hardwareConcurrency || 4;
-        var dm = navigator.deviceMemory || 4;
-        if (hc <= 4 || dm <= 4) {
+        // Only enable lite mode on truly low-end devices where values are explicitly reported low
+        var hc = navigator.hardwareConcurrency;
+        var dm = navigator.deviceMemory;
+        if ((hc && hc <= 2) || (dm && dm <= 1)) {
           document.documentElement.classList.add('lite');
         }
       } catch (e) {}

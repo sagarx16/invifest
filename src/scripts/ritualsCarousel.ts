@@ -32,32 +32,34 @@ export function initRitualsCarousel(): () => void {
 
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Embla Options: loop, align center, duration 25 (buttery smooth glide), initial index 2
+  // Embla Options: loop, align center, duration 20 (snappy 60fps glide on mobile GPUs), initial index 2
   const options: EmblaOptionsType = {
     loop: true,
     align: 'center',
     skipSnaps: false,
     dragFree: false,
-    duration: 25,
+    duration: 20,
     startIndex: 2,
     watchDrag: true,
   };
 
-  // Autoplay plugin configuration: 2500ms delay (0.5s faster)
+  // Autoplay plugin configuration: 2800ms steady viewing duration, moves continuously by default
   const autoplayPlugin = Autoplay({
-    delay: 2500,
+    delay: 2800,
     stopOnInteraction: false,
-    stopOnMouseEnter: true,
+    stopOnMouseEnter: false,
+    stopOnFocusIn: false,
+    playOnInit: true,
   });
 
-  const plugins = isReducedMotion ? [] : [autoplayPlugin];
+  const plugins = [autoplayPlugin];
   const embla: EmblaCarouselType = EmblaCarousel(viewport, options, plugins);
   const slides = embla.slideNodes();
   const snapsCount = embla.scrollSnapList().length;
 
   let rafId: number | null = null;
   let isUserPaused = false;
-  let isContainerVisible = false;
+  let isContainerVisible = true;
   let prevActiveIndex = embla.selectedScrollSnap();
 
   // Cached slot width to prevent layout reflows on click/select
@@ -71,7 +73,20 @@ export function initRitualsCarousel(): () => void {
   };
   updateCachedSlotWidth();
 
-  // ── PREFETCH ADJACENT IMAGES ──
+  // ── PREFETCH & DECODE ALL RITUAL IMAGES ──
+  const prefetchAllImages = () => {
+    slides.forEach((slide) => {
+      const img = slide.querySelector<HTMLImageElement>('.ritual-card-img');
+      if (img) {
+        if (img.loading === 'lazy') img.loading = 'eager';
+        if ('decode' in img && !img.complete) {
+          img.decode().catch(() => {});
+        }
+      }
+    });
+  };
+  prefetchAllImages();
+
   const prefetchAdjacentImages = (centerIdx: number) => {
     if (!slides.length) return;
     const prevIdx = (centerIdx - 1 + slides.length) % slides.length;
@@ -79,9 +94,7 @@ export function initRitualsCarousel(): () => void {
     [prevIdx, nextIdx].forEach((idx) => {
       const img = slides[idx]?.querySelector<HTMLImageElement>('.ritual-card-img');
       if (img) {
-        if (img.loading === 'lazy') {
-          img.loading = 'eager';
-        }
+        if (img.loading === 'lazy') img.loading = 'eager';
         if ('decode' in img && !img.complete) {
           img.decode().catch(() => {});
         }
@@ -102,24 +115,47 @@ export function initRitualsCarousel(): () => void {
   const applyCoverflowScales = () => {
     const engine = embla.internalEngine();
     const scrollProgress = embla.scrollProgress();
+    const snaps = embla.scrollSnapList();
 
-    embla.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+    for (let snapIndex = 0; snapIndex < snaps.length; snapIndex++) {
+      const scrollSnap = snaps[snapIndex];
       let diffToTarget = scrollSnap - scrollProgress;
       const slidesInSnap = engine.slideRegistry[snapIndex];
 
-      slidesInSnap.forEach((slideIndex) => {
+      for (let i = 0; i < slidesInSnap.length; i++) {
+        const slideIndex = slidesInSnap[i];
         if (engine.options.loop) {
-          engine.slideLooper.loopPoints.forEach((loopItem) => {
+          const loopPoints = engine.slideLooper.loopPoints;
+          for (let lp = 0; lp < loopPoints.length; lp++) {
+            const loopItem = loopPoints[lp];
             const target = loopItem.target();
             if (slideIndex === loopItem.index && target !== 0) {
               const sign = Math.sign(target);
               if (sign === -1) diffToTarget = scrollSnap - (1 + scrollProgress);
               if (sign === 1) diffToTarget = scrollSnap + (1 - scrollProgress);
+              break;
             }
-          });
+          }
         }
 
         const distance = Math.abs(diffToTarget) * snapsCount;
+
+        // Skip intensive updates on slides that are completely offscreen (> 2.5 slides away)
+        const slide = slides[slideIndex];
+        const cardFrame = cardFrames[slideIndex];
+
+        if (distance > 2.5) {
+          if (slide && slide.style.zIndex !== '1') {
+            slide.style.zIndex = '1';
+            slide.classList.remove('is-active');
+          }
+          if (cardFrame && cardFrame.style.opacity !== '0.2') {
+            cardFrame.style.transform = 'translate3d(0, 0, 0) scale(0.72)';
+            cardFrame.style.opacity = '0.2';
+          }
+          continue;
+        }
+
         // Center: scale 1.0, Neighbours: ~0.88 with lower opacity (~0.65), farther: smaller
         const scale = isReducedMotion ? 1 : Math.max(0.78, 1 - distance * 0.12);
         const opacity = Math.max(0.42, 1 - distance * 0.35);
@@ -128,8 +164,6 @@ export function initRitualsCarousel(): () => void {
         const pullOffset = isReducedMotion ? 0 : -Math.sign(diffToTarget) * Math.min(distance, 1.2) * 26;
         const zIndex = Math.round(20 - Math.min(15, distance * 5));
 
-        const slide = slides[slideIndex];
-        const cardFrame = cardFrames[slideIndex];
         if (slide) {
           slide.style.zIndex = `${zIndex}`;
           const isCenter = distance < 0.35;
@@ -139,8 +173,8 @@ export function initRitualsCarousel(): () => void {
           cardFrame.style.transform = `translate3d(${pullOffset.toFixed(1)}px, 0, 0) scale(${scale.toFixed(3)})`;
           cardFrame.style.opacity = `${opacity.toFixed(3)}`;
         }
-      });
-    });
+      }
+    }
   };
 
   const onScroll = () => {
@@ -245,11 +279,27 @@ export function initRitualsCarousel(): () => void {
   };
   window.addEventListener('resize', handleResize, { passive: true });
 
+  // ── AUTOPLAY CONTROLS ──
+  const autoplay = embla.plugins().autoplay;
+
+  const restartAutoplayIfNeeded = () => {
+    if (!isUserPaused && !document.hidden && isContainerVisible) {
+      if (autoplay) {
+        if (!autoplay.isPlaying()) {
+          autoplay.play();
+        } else {
+          autoplay.reset();
+        }
+      }
+    }
+  };
+
   // ── DOT SLOT CLICKS ──
   dotSlots.forEach((slot, idx) => {
     slot.addEventListener('click', (e) => {
       e.preventDefault();
       embla.scrollTo(idx);
+      restartAutoplayIfNeeded();
     });
   });
 
@@ -257,11 +307,13 @@ export function initRitualsCarousel(): () => void {
   prevBtn?.addEventListener('click', (e) => {
     e.preventDefault();
     embla.scrollPrev();
+    restartAutoplayIfNeeded();
   });
 
   nextBtn?.addEventListener('click', (e) => {
     e.preventDefault();
     embla.scrollNext();
+    restartAutoplayIfNeeded();
   });
 
   // ── SIDE CARD CLICK TO CENTER ──
@@ -271,6 +323,7 @@ export function initRitualsCarousel(): () => void {
       if (embla.selectedScrollSnap() !== idx) {
         embla.scrollTo(idx);
       }
+      restartAutoplayIfNeeded();
     });
   });
 
@@ -279,15 +332,14 @@ export function initRitualsCarousel(): () => void {
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
       embla.scrollPrev();
+      restartAutoplayIfNeeded();
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       embla.scrollNext();
+      restartAutoplayIfNeeded();
     }
   };
   container.addEventListener('keydown', handleKeyDown);
-
-  // ── AUTOPLAY CONTROLS ──
-  const autoplay = embla.plugins().autoplay;
 
   const updateAutoplayUI = (playing: boolean) => {
     if (!autoplayBtn) return;
@@ -304,13 +356,13 @@ export function initRitualsCarousel(): () => void {
 
   const toggleAutoplay = () => {
     if (!autoplay) return;
-    if (autoplay.isPlaying()) {
+    if (!isUserPaused) {
       autoplay.stop();
       isUserPaused = true;
       updateAutoplayUI(false);
     } else {
-      autoplay.play();
       isUserPaused = false;
+      autoplay.play();
       updateAutoplayUI(true);
     }
   };
@@ -318,27 +370,25 @@ export function initRitualsCarousel(): () => void {
 
   embla.on('autoplay:play', () => updateAutoplayUI(true));
   embla.on('autoplay:stop', () => {
-    if (isUserPaused) updateAutoplayUI(false);
+    if (isUserPaused) {
+      updateAutoplayUI(false);
+    } else {
+      setTimeout(restartAutoplayIfNeeded, 300);
+    }
   });
 
+  // Re-arm autoplay after any manual swipe, drag, tap, or settle
+  embla.on('pointerUp', restartAutoplayIfNeeded);
+  embla.on('settle', restartAutoplayIfNeeded);
+  window.addEventListener('pointerup', restartAutoplayIfNeeded, { passive: true });
+  window.addEventListener('touchend', restartAutoplayIfNeeded, { passive: true });
+  window.addEventListener('touchcancel', restartAutoplayIfNeeded, { passive: true });
+
   // Initial UI state
-  updateAutoplayUI(!isReducedMotion);
+  updateAutoplayUI(true);
 
-  // ── HOVER, TAB VISIBILITY & INTERSECTION OBSERVER ──
-  const handleMouseEnter = () => {
-    if (!isUserPaused && autoplay?.isPlaying()) {
-      autoplay.stop();
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (!isUserPaused && !autoplay?.isPlaying() && isContainerVisible && !document.hidden) {
-      autoplay?.play();
-    }
-  };
-
-  container.addEventListener('mouseenter', handleMouseEnter, { passive: true });
-  container.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+  // ── TAB VISIBILITY & INTERSECTION OBSERVER ──
+  // Auto-moves continuously by default whenever the section is visible in screen
 
   const handleVisibility = () => {
     if (document.hidden) {
@@ -349,6 +399,7 @@ export function initRitualsCarousel(): () => void {
   };
   document.addEventListener('visibilitychange', handleVisibility, { passive: true });
 
+  const targetToObserve = document.getElementById('rituals') || container;
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       isContainerVisible = entry.isIntersecting;
@@ -360,8 +411,13 @@ export function initRitualsCarousel(): () => void {
         autoplay?.stop();
       }
     });
-  }, { threshold: 0.1 });
-  observer.observe(container);
+  }, { threshold: 0, rootMargin: '250px 0px' });
+  observer.observe(targetToObserve);
+
+  // Kick off autoplay immediately
+  if (!isUserPaused && !document.hidden) {
+    autoplay?.play();
+  }
 
   // ── MOBILE READ MORE ACCORDION ──
   const updateReadMoreButtons = () => {
@@ -413,9 +469,10 @@ export function initRitualsCarousel(): () => void {
     observer.disconnect();
     window.removeEventListener('resize', handleResize);
     window.removeEventListener('resize', updateReadMoreButtons);
+    window.removeEventListener('pointerup', restartAutoplayIfNeeded);
+    window.removeEventListener('touchend', restartAutoplayIfNeeded);
+    window.removeEventListener('touchcancel', restartAutoplayIfNeeded);
     document.removeEventListener('visibilitychange', handleVisibility);
-    container.removeEventListener('mouseenter', handleMouseEnter);
-    container.removeEventListener('mouseleave', handleMouseLeave);
     container.removeEventListener('keydown', handleKeyDown);
     autoplayBtn?.removeEventListener('click', toggleAutoplay);
     embla.destroy();

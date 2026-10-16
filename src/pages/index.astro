@@ -724,8 +724,12 @@ const ceremonies = [
 
       <div class="grid grid-cols-1 lg:grid-cols-11 gap-8 lg:gap-6 items-center">
         <!-- Groom Card -->
-        <div class="lg:col-span-5 couple-card glass-card rounded-3xl p-6 sm:p-9 flex flex-col items-center text-center relative overflow-visible group transition-all duration-500 cursor-pointer"
+        <div class="lg:col-span-5 couple-card glass-card rounded-3xl p-6 sm:p-9 flex flex-col items-center text-center relative overflow-visible group transition-all duration-500 cursor-pointer select-none active:scale-[0.99]"
              data-card="groom"
+             role="button"
+             tabindex="0"
+             aria-pressed="false"
+             aria-label="Mukesh Ojha - The Royal Groom. Tap to toggle detail photo."
              style="background: linear-gradient(160deg, rgba(255,253,248,0.96) 0%, rgba(252,247,238,0.92) 100%); border: 1px solid rgba(212,175,55,0.38); box-shadow: 0 16px 40px -12px rgba(184,134,11,0.14);">
           
           <!-- Subtle decorative corner filigree -->
@@ -741,12 +745,9 @@ const ceremonies = [
             <span class="couple-sparkle-float" style="top: 52%; left: 14%; animation-delay: 2.2s;">•</span>
           </div>
 
-          <!-- Arch & Detail Container as Accessible Interactive Button -->
-          <button
-            type="button"
-            class="relative mb-12 sm:mb-14 select-none portrait-interactive-wrap bg-transparent border-none p-0 cursor-pointer text-left block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-4 rounded-3xl"
-            aria-pressed="false"
-            aria-label="Toggle Mukesh Ojha detail photo"
+          <!-- Arch & Detail Container -->
+          <div
+            class="relative mb-12 sm:mb-14 select-none portrait-interactive-wrap block rounded-3xl"
             data-couple-toggle="groom"
           >
             
@@ -760,7 +761,7 @@ const ceremonies = [
                 formats={['avif', 'webp']}
                 fallbackFormat="jpg"
                 alt="Mukesh Ojha - The Royal Groom"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
@@ -774,7 +775,7 @@ const ceremonies = [
                 formats={['avif', 'webp']}
                 fallbackFormat="jpg"
                 alt="Mukesh Ojha - Detail: Rings & Royal Sherwani"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
@@ -826,7 +827,7 @@ const ceremonies = [
                       formats={['avif', 'webp']}
                       fallbackFormat="jpg"
                       alt="Groom detail: Rings & gold watch"
-                      loading="lazy"
+                      loading="eager"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
@@ -841,7 +842,7 @@ const ceremonies = [
                       formats={['avif', 'webp']}
                       fallbackFormat="jpg"
                       alt="Mukesh Ojha portrait"
-                      loading="lazy"
+                      loading="eager"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
@@ -855,7 +856,7 @@ const ceremonies = [
                 </div>
               </div>
             </div>
-          </button>
+          </div>
 
           <!-- Pills & Text -->
           <span class="px-3.5 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-['Montserrat'] font-semibold mb-3 border border-[#D4AF37]/40 shadow-sm" style="background:rgba(212,175,55,0.14);color:#8C6219;">The Royal Groom</span>
@@ -884,8 +885,12 @@ const ceremonies = [
         <div class="lg:col-span-1 hidden lg:flex items-center justify-center my-4 lg:my-0 relative pointer-events-none" aria-hidden="true"></div>
 
         <!-- Bride Card -->
-        <div class="lg:col-span-5 couple-card glass-card rounded-3xl p-6 sm:p-9 flex flex-col items-center text-center relative overflow-visible group transition-all duration-500 cursor-pointer"
+        <div class="lg:col-span-5 couple-card glass-card rounded-3xl p-6 sm:p-9 flex flex-col items-center text-center relative overflow-visible group transition-all duration-500 cursor-pointer select-none active:scale-[0.99]"
              data-card="bride"
+             role="button"
+             tabindex="0"
+             aria-pressed="false"
+             aria-label="Puja - The Radiant Bride. Tap to toggle detail photo."
              style="background: linear-gradient(160deg, rgba(255,253,248,0.96) 0%, rgba(252,243,246,0.92) 100%); border: 1px solid rgba(219,103,137,0.38); box-shadow: 0 16px 40px -12px rgba(196,85,111,0.14);">
           
           <!-- Subtle decorative corner filigree -->
@@ -901,12 +906,9 @@ const ceremonies = [
             <span class="couple-sparkle-float" style="top: 52%; right: 14%; animation-delay: 2.5s;">•</span>
           </div>
 
-          <!-- Arch & Detail Container as Accessible Interactive Button -->
-          <button
-            type="button"
-            class="relative mb-12 sm:mb-14 select-none portrait-interactive-wrap bg-transparent border-none p-0 cursor-pointer text-left block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4556F] focus-visible:ring-offset-4 rounded-3xl"
-            aria-pressed="false"
-            aria-label="Toggle Puja detail photo"
+          <!-- Arch & Detail Container -->
+          <div
+            class="relative mb-12 sm:mb-14 select-none portrait-interactive-wrap block rounded-3xl"
             data-couple-toggle="bride"
           >
             
@@ -920,7 +922,7 @@ const ceremonies = [
                 formats={['avif', 'webp']}
                 fallbackFormat="jpg"
                 alt="Puja - The Radiant Bride"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
@@ -934,7 +936,7 @@ const ceremonies = [
                 formats={['avif', 'webp']}
                 fallbackFormat="jpg"
                 alt="Puja - Detail: Mehendi hands holding ornate mirror (aarsi)"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
@@ -979,7 +981,7 @@ const ceremonies = [
                       formats={['avif', 'webp']}
                       fallbackFormat="jpg"
                       alt="Bride detail: Aarsi mirror & mehendi hands"
-                      loading="lazy"
+                      loading="eager"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
@@ -994,7 +996,7 @@ const ceremonies = [
                       formats={['avif', 'webp']}
                       fallbackFormat="jpg"
                       alt="Puja portrait"
-                      loading="lazy"
+                      loading="eager"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
@@ -1011,7 +1013,7 @@ const ceremonies = [
                 </div>
               </div>
             </div>
-          </button>
+          </div>
 
           <!-- Pills & Text -->
           <span class="px-3.5 py-1 rounded-full text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-['Montserrat'] font-semibold mb-3 border border-[#C4556F]/40 shadow-sm" style="background:rgba(219,103,137,0.14);color:#A62C4E;">The Radiant Bride</span>
@@ -1058,11 +1060,9 @@ const ceremonies = [
 
       <!-- Ceremonies Alternating Zigzag Timeline -->
       <div class="cer-timeline relative mx-auto">
-        <!-- Continuous Vertical Gold Line Track -->
+        <!-- Continuous Static Vertical Gold Line Track -->
         <div class="cer-timeline-track" aria-hidden="true">
           <div class="cer-timeline-line-base"></div>
-          <div class="cer-timeline-line-progress" id="cer-line-progress"></div>
-          <div class="cer-tracker-dot" id="cer-tracker-dot"></div>
         </div>
 
         {ceremonies.map((cer, index) => {
@@ -1134,7 +1134,7 @@ const ceremonies = [
                     formats={['avif', 'webp']}
                     fallbackFormat="jpg"
                     alt={cer.alt}
-                    loading="lazy"
+                    loading={index < 3 ? "eager" : "lazy"}
                     decoding="async"
                     widths={[400, 600, 800]}
                     sizes="(max-width: 768px) 100vw, 520px"
@@ -1238,7 +1238,7 @@ const ceremonies = [
                     formats={['avif', 'webp']}
                     fallbackFormat="jpg"
                     alt={slide.alt}
-                    loading="lazy"
+                    loading={idx < 6 ? "eager" : "lazy"}
                     decoding="async"
                     draggable="false"
                     widths={[360, 540, 720]}
@@ -1489,26 +1489,41 @@ const ceremonies = [
   <!-- Floating Music Controls (Bottom-Right: Circle Music Button) -->
   <aside id="music-widget-container" class="fixed z-40 flex items-center select-none" style="right:24px;bottom:max(24px,env(safe-area-inset-bottom));" aria-label="Wedding Music Player">
 
-    <!-- Circle Music Button (~48px Desktop, ~44px Mobile) -->
+    <!-- Minimalist Royal Sound Button (~44px Desktop, ~40px Mobile) -->
     <button
       id="music-circle-btn"
       type="button"
-      class="music-circle-btn relative rounded-full cursor-pointer flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]"
-      style="background:rgba(250,242,228,0.92);backdrop-filter:blur(16px);border:1.5px solid rgba(212,175,55,0.6);box-shadow:0 6px 22px rgba(160,120,70,0.18);"
+      class="music-circle-btn relative rounded-full cursor-pointer flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8860B]"
       aria-label="Pause music"
       aria-pressed="true"
     >
-      <!-- 3 Floating Musical Note Particles (Active while playing) -->
-      <span class="music-note-particle n1" aria-hidden="true">♪</span>
-      <span class="music-note-particle n2" aria-hidden="true">♫</span>
-      <span class="music-note-particle n3" aria-hidden="true">♩</span>
+      <!-- Dual Ethereal Ambient Glow Rings -->
+      <span class="music-ambient-glow" aria-hidden="true"></span>
+      <span class="music-ambient-glow-outer" aria-hidden="true"></span>
 
-      <!-- Musical Note Inline SVG with Strike-through line when paused -->
-      <svg class="music-icon-svg w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#8C6219] transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 18V5l12-2v13"></path>
-        <circle cx="6" cy="18" r="3" fill="currentColor"></circle>
-        <circle cx="18" cy="16" r="3" fill="currentColor"></circle>
-        <line class="music-mute-slash" x1="3" y1="3" x2="21" y2="21" stroke="#A62C4E" stroke-width="2.2"></line>
+      <!-- Royal Wedding Music Note & Sound Wave SVG -->
+      <svg class="music-icon-svg relative z-10 w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="goldMusicGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E5C158"></stop>
+            <stop offset="50%" stop-color="#D4AF37"></stop>
+            <stop offset="100%" stop-color="#8C6219"></stop>
+          </linearGradient>
+        </defs>
+
+        <!-- Musical Note Group (gentle rhythmic sway when playing) -->
+        <g class="music-note-group transition-all duration-300">
+          <path d="M9 18V5l10-2v13" stroke="url(#goldMusicGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          <circle cx="6" cy="18" r="3" fill="url(#goldMusicGrad)"></circle>
+          <circle cx="16" cy="16" r="3" fill="url(#goldMusicGrad)"></circle>
+        </g>
+
+        <!-- Subtle Radiating Sound Waves (Gentle gold pulse when playing) -->
+        <path class="music-sound-arc arc-1" d="M19.5 8.5a4 4 0 0 1 0 5" stroke="#D4AF37" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
+        <path class="music-sound-arc arc-2" d="M22 6.5a7 7 0 0 1 0 9" stroke="#B8860B" stroke-width="1.4" stroke-linecap="round" fill="none"></path>
+
+        <!-- Elegant Warm Antique Gold Mute Strike Line (smoothly appears when paused) -->
+        <line class="music-mute-line" x1="4.5" y1="4.5" x2="19.5" y2="19.5" stroke="#9E7628" stroke-width="1.35" stroke-linecap="round"></line>
       </svg>
     </button>
   </aside>
@@ -1645,23 +1660,25 @@ const ceremonies = [
   transition: color var(--slide-duration, 0.4s) ease var(--text-fade-delay, 0.1s);
 }
 
-/* Ken Burns slow subtle zoom on active slide */
-.ritual-card.is-active .ritual-card-img {
-  animation: kenBurnsZoom 8s ease-in-out infinite alternate;
-}
+/* Ken Burns slow subtle zoom on active slide (Desktop & Tablet only to protect Mobile 60fps) */
+@media (min-width: 768px) {
+  .ritual-card.is-active .ritual-card-img {
+    animation: kenBurnsZoom 8s ease-in-out infinite alternate;
+  }
 
-@keyframes kenBurnsZoom {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.06); }
-}
+  @keyframes kenBurnsZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.06); }
+  }
 
-.ritual-card.is-active .ritual-card-img.scale-110 {
-  animation: kenBurnsZoomSlide11 8s ease-in-out infinite alternate;
-}
+  .ritual-card.is-active .ritual-card-img.scale-110 {
+    animation: kenBurnsZoomSlide11 8s ease-in-out infinite alternate;
+  }
 
-@keyframes kenBurnsZoomSlide11 {
-  0% { transform: scale(1.1); }
-  100% { transform: scale(1.18); }
+  @keyframes kenBurnsZoomSlide11 {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1.18); }
+  }
 }
 
 /* Rituals Unified Control Bar (PocketBank Style) */
@@ -2026,45 +2043,152 @@ const ceremonies = [
   opacity: 0.4 !important;
 }
 
-/* Circle Music Button */
+/* ── MINIMALIST ROYAL MUSIC TOGGLE BUTTON ───────────────── */
 .music-circle-btn {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: radial-gradient(135% 135% at 30% 25%, rgba(255, 253, 248, 0.95) 0%, rgba(248, 240, 226, 0.88) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
+  box-shadow: 0 6px 20px -2px rgba(184, 134, 11, 0.22), 0 2px 6px rgba(0, 0, 0, 0.05), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+  overflow: visible !important;
+}
+
+.music-circle-btn:hover {
+  background: radial-gradient(135% 135% at 30% 25%, #FFFDF8 0%, #FAF0DE 100%);
+  border-color: rgba(212, 175, 55, 0.85);
+  box-shadow: 0 8px 24px -2px rgba(184, 134, 11, 0.3), inset 0 1px 2px #FFFFFF;
 }
 
 @media (max-width: 640px) {
   .music-circle-btn {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
   }
 }
 
-/* Strike-Through Slash on Music Icon */
-.music-mute-slash {
-  stroke: #A62C4E;
-  stroke-width: 2.2;
-  transition: opacity 0.25s ease;
-}
-
-.music-circle-btn.is-playing .music-mute-slash {
+/* Subtle Breathing Pulse Glow around button */
+.music-ambient-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  pointer-events: none;
   opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.3s ease;
 }
 
-.music-circle-btn.is-paused .music-mute-slash {
+.music-ambient-glow-outer {
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.3s ease;
+}
+
+.music-circle-btn.is-playing .music-ambient-glow {
   opacity: 1;
+  animation: musicBreathingGlow 2.8s ease-in-out infinite;
 }
 
-.music-circle-btn.is-paused .music-icon-svg {
-  opacity: 0.7;
-}
-
-.music-circle-btn.is-playing .music-icon-svg {
+.music-circle-btn.is-playing .music-ambient-glow-outer {
   opacity: 1;
+  animation: musicBreathingGlowOuter 2.8s ease-in-out infinite 0.4s;
+}
+
+@keyframes musicBreathingGlow {
+  0%, 100% {
+    transform: scale(0.98);
+    opacity: 0.3;
+    box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.7;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+  }
+}
+
+@keyframes musicBreathingGlowOuter {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.45;
+  }
+}
+
+/* Musical Note Sway Animation when playing */
+.music-circle-btn.is-playing .music-note-group {
+  animation: noteSway 2.4s ease-in-out infinite alternate;
+  transform-origin: 12px 12px;
+}
+
+@keyframes noteSway {
+  0% { transform: rotate(-3deg) scale(0.98); }
+  50% { transform: rotate(1deg) scale(1.02); }
+  100% { transform: rotate(4deg) scale(0.99); }
+}
+
+.music-circle-btn.is-paused .music-note-group {
+  opacity: 0.45;
+  transform: scale(0.95);
+}
+
+/* Radiating Sound Waves */
+.music-sound-arc {
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform-origin: 16px 12px;
+}
+
+.music-circle-btn.is-playing .arc-1 {
+  animation: soundArcPulse 1.6s ease-in-out infinite alternate;
+}
+
+.music-circle-btn.is-playing .arc-2 {
+  animation: soundArcPulse 1.6s ease-in-out infinite alternate 0.35s;
+}
+
+@keyframes soundArcPulse {
+  0% { opacity: 0.25; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1.08); }
+}
+
+.music-circle-btn.is-paused .music-sound-arc {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
+/* Warm Gold Diagonal Mute Slash Line */
+.music-mute-line {
+  transform: scale(0);
+  transform-origin: 12px 12px;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  opacity: 0;
+  stroke: #9E7628;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.9));
+}
+
+.music-circle-btn.is-paused .music-mute-line {
+  transform: scale(1);
+  opacity: 0.9;
 }
 
 /* Reduced Motion */
@@ -2577,19 +2701,9 @@ html.js #couple.couple-unconnected #couple-thread-path {
   position: absolute;
   inset: 0;
   width: 100%;
-  background: linear-gradient(to bottom, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.2) 85%, transparent 100%);
-}
-
-.cer-timeline-line-progress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: linear-gradient(to bottom, #D4AF37 0%, #B8860B 60%, #8C6219 100%);
-  transform-origin: top;
-  transform: scaleY(1);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.45);
+  background: linear-gradient(to bottom, #D4AF37 0%, #B8860B 50%, #D4AF37 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.35);
 }
 
 /* Ceremony Row on Desktop */
@@ -2974,20 +3088,20 @@ html.js .cer-animate-ready .cer-node {
 }
 
 /* Even Rows (01 Haldi, 03 Sangeet, 05 Reception): Text LEFT, Photo RIGHT on desktop
-   -> Photo slides in from RIGHT (translateX(80px) -> 0, opacity 0 -> 1, ~0.9s cubic-bezier(0.22, 1, 0.36, 1)) */
+   -> Photo slides in smoothly from RIGHT (softer 45px offset, 1.35s ultra-smooth cubic-bezier) */
 html.js .cer-animate-ready .cer-row--even .cer-photo-wrap {
   opacity: 0;
-  transform: translateX(80px);
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(45px);
+  transition: transform 1.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
 /* Odd Rows (02 Mehendi, 04 Vivah): Photo LEFT, Text RIGHT on desktop
-   -> Photo slides in from LEFT (translateX(-80px) -> 0, opacity 0 -> 1, ~0.9s cubic-bezier(0.22, 1, 0.36, 1)) */
+   -> Photo slides in smoothly from LEFT (softer -45px offset, 1.35s ultra-smooth cubic-bezier) */
 html.js .cer-animate-ready .cer-row--odd .cer-photo-wrap {
   opacity: 0;
-  transform: translateX(-80px);
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(-45px);
+  transition: transform 1.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
@@ -3016,46 +3130,44 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
 @media (max-width: 768px) {
   .cer-timeline {
     padding-left: 0;
+    padding-right: 0;
   }
 
-  /* Vertical line on left side (~24px from edge) */
+  /* Completely remove the vertical timeline line on mobile as requested */
   .cer-timeline-track {
-    left: 24px;
-    transform: translateX(-50%);
-  }
-
-  /* On mobile: gold progress line starts at scaleY(0) so it visibly draws on scroll */
-  .cer-timeline-line-progress {
-    transform: scaleY(0);
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.55);
+    display: none !important;
   }
 
   .cer-row {
     flex-direction: column;
     align-items: stretch;
-    padding-left: 54px;
-    margin-bottom: 56px;
-    gap: 1.25rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-bottom: 50px;
+    gap: 1rem;
   }
 
-  /* Single column order: Center node at top-left, then Photo, then Text */
+  /* Single column order: Center node at top, then Photo, then Text */
   .cer-center {
-    position: absolute;
-    left: 24px;
-    top: 0;
-    transform: translateX(-50%);
-    width: auto;
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
     height: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.25rem;
     order: 0 !important;
   }
 
   .cer-node {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
   }
 
   .cer-node span {
-    font-size: 12px;
+    font-size: 11.5px;
   }
 
   .cer-col-photo {
@@ -3078,6 +3190,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   .cer-card {
     padding: 0.95rem 1.05rem;
     border-radius: 16px;
+    max-width: 100%;
   }
 
   .cer-label {
@@ -3134,13 +3247,15 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     margin-right: auto;
   }
 
-  /* Mobile photo animation: slides in from side */
+  /* Mobile photo animation: soft, subtle and smooth */
   html.js .cer-animate-ready .cer-row--even .cer-photo-wrap {
-    transform: translateX(40px);
+    transform: translateX(25px);
+    transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   html.js .cer-animate-ready .cer-row--odd .cer-photo-wrap {
-    transform: translateX(-40px);
+    transform: translateX(-25px);
+    transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   html.js .cer-row.is-in-view .cer-photo-wrap {
@@ -3251,6 +3366,25 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     }
   }
 
+  // ── PRE-WARM & DECODE ALL KEY WEDDING PHOTOS (ZERO-DELAY LOADING) ──
+  function prewarmAllPhotos() {
+    const images = document.querySelectorAll<HTMLImageElement>(
+      '.arch-primary-img, .arch-detail-img, .ring-detail-img, .ring-primary-img, .aarsi-detail-img, .aarsi-primary-img, .cer-col-photo img, .ritual-card-img'
+    );
+    images.forEach((img) => {
+      if (img.loading === 'lazy') img.loading = 'eager';
+      if ('decode' in img && !img.complete) {
+        img.decode().catch(() => {});
+      }
+    });
+  }
+
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(prewarmAllPhotos, { timeout: 1500 });
+  } else {
+    setTimeout(prewarmAllPhotos, 800);
+  }
+
   // ── GRAND OPENING ENVELOPE CINEMATIC & HERO REVEAL ────────────────
   const openingCinematic = document.getElementById('opening-cinematic');
   const openingVideo = document.getElementById('opening-video') as HTMLVideoElement | null;
@@ -3302,6 +3436,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     });
 
     triggerRevealHero();
+    prewarmAllPhotos();
   }
 
   // Audio default ON for both landing video and inside wedding music
@@ -3570,98 +3705,93 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   const coupleCards = document.querySelectorAll<HTMLElement>('.couple-card');
 
   coupleCards.forEach((card) => {
-    const btn = card.querySelector<HTMLButtonElement>('[data-couple-toggle]');
     const hintTouch = card.querySelector<HTMLElement>('.hint-text-touch');
     const hintDesktop = card.querySelector<HTMLElement>('.hint-text-desktop');
-    let autoRevertTimeout: number | null = null;
+    let lastToggleTime = 0;
 
-    let startX = 0;
-    let startY = 0;
-    let isScrollGesture = false;
-    let startTime = 0;
-
-    const setSwappedState = (swapped: boolean, isTouch = false) => {
+    const setSwappedState = (swapped: boolean) => {
       if (swapped) {
         card.classList.add('is-swapped');
-        if (btn) btn.setAttribute('aria-pressed', 'true');
+        card.setAttribute('aria-pressed', 'true');
         if (hintTouch) hintTouch.textContent = 'TAP TO GO BACK';
         if (hintDesktop) hintDesktop.textContent = 'CLICK TO RESET';
         document.getElementById('couple')?.classList.add('has-tapped-thumb');
-
-        // Auto-revert to main photo after 7 seconds of inactivity on touch screens
-        if (isTouch) {
-          if (autoRevertTimeout) clearTimeout(autoRevertTimeout);
-          autoRevertTimeout = window.setTimeout(() => {
-            setSwappedState(false, false);
-          }, 7000);
-        }
       } else {
         card.classList.remove('is-swapped');
-        if (btn) btn.setAttribute('aria-pressed', 'false');
+        card.setAttribute('aria-pressed', 'false');
         if (hintTouch) hintTouch.textContent = 'TAP TO SEE MORE';
         if (hintDesktop) hintDesktop.textContent = 'HOVER TO PREVIEW';
-        if (autoRevertTimeout) {
-          clearTimeout(autoRevertTimeout);
-          autoRevertTimeout = null;
-        }
       }
     };
 
-    const toggle = (isTouch = false) => {
+    const toggle = () => {
       const willBeSwapped = !card.classList.contains('is-swapped');
-      setSwappedState(willBeSwapped, isTouch);
+      setSwappedState(willBeSwapped);
     };
 
-    // Unified pointer gesture recognizer: allows vertical scroll without triggering accidental swap
-    const interactiveArea = btn || card;
+    // Dedicated Mobile Touch Gesture Recognizer: fires on any tap anywhere in the box
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchMoved = false;
+    let touchStartTime = 0;
 
-    interactiveArea.addEventListener('pointerdown', (e: PointerEvent) => {
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      startX = e.clientX;
-      startY = e.clientY;
-      isScrollGesture = false;
-      startTime = Date.now();
-    }, { passive: true });
-
-    interactiveArea.addEventListener('pointermove', (e: PointerEvent) => {
-      if (isScrollGesture) return;
-      const dx = Math.abs(e.clientX - startX);
-      const dy = Math.abs(e.clientY - startY);
-      // Standard touch-slop threshold (14px): finger movement while scrolling is ignored
-      if (dx > 14 || dy > 14) {
-        isScrollGesture = true;
+    card.addEventListener('touchstart', (e: TouchEvent) => {
+      if (e.touches && e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchMoved = false;
+        touchStartTime = Date.now();
       }
     }, { passive: true });
 
-    interactiveArea.addEventListener('pointerup', (e: PointerEvent) => {
-      if (isScrollGesture) return;
-      if (Date.now() - startTime > 500) return;
-      const isTouch = e.pointerType === 'touch' || e.pointerType === 'pen';
-      toggle(isTouch);
+    card.addEventListener('touchmove', (e: TouchEvent) => {
+      if (touchMoved || !e.touches || !e.touches[0]) return;
+      const dx = Math.abs(e.touches[0].clientX - touchStartX);
+      const dy = Math.abs(e.touches[0].clientY - touchStartY);
+      // If finger moved > 18px in any direction, user is scrolling the page
+      if (dx > 18 || dy > 18) {
+        touchMoved = true;
+      }
+    }, { passive: true });
+
+    card.addEventListener('touchend', (e: TouchEvent) => {
+      if (touchMoved) return;
+      if (Date.now() - touchStartTime > 650) return; // Ignore long press
+      const now = Date.now();
+      if (now - lastToggleTime < 300) return; // Prevent double toggle
+      lastToggleTime = now;
+      toggle();
+    }, { passive: true });
+
+    // Click event for desktop mouse clicks & non-touch devices
+    card.addEventListener('click', (e: MouseEvent) => {
+      const now = Date.now();
+      // Debounce if touch event already handled it
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      toggle();
     });
 
     // Keyboard accessibility: Enter & Space toggle
-    if (btn) {
-      btn.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggle(false);
+    card.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+
+    // Desktop fine pointer hover hint update
+    if (!isTouchDevice) {
+      card.addEventListener('mouseenter', () => {
+        if (!card.classList.contains('is-swapped') && hintDesktop) {
+          hintDesktop.textContent = 'CLICK TO LOCK';
         }
       });
-
-      // Desktop fine pointer hover hint update
-      if (!isTouchDevice) {
-        btn.addEventListener('mouseenter', () => {
-          if (!card.classList.contains('is-swapped') && hintDesktop) {
-            hintDesktop.textContent = 'CLICK TO LOCK';
-          }
-        });
-        btn.addEventListener('mouseleave', () => {
-          if (!card.classList.contains('is-swapped') && hintDesktop) {
-            hintDesktop.textContent = 'HOVER TO PREVIEW';
-          }
-        });
-      }
+      card.addEventListener('mouseleave', () => {
+        if (!card.classList.contains('is-swapped') && hintDesktop) {
+          hintDesktop.textContent = 'HOVER TO PREVIEW';
+        }
+      });
     }
   });
 
@@ -4289,6 +4419,7 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       if (lockedCountdownCard) lockedCountdownCard.classList.remove('is-locked');
       if (scratchUnlockedContinue) scratchUnlockedContinue.classList.remove('is-locked');
       window.dispatchEvent(new Event('resize'));
+      prewarmAllPhotos();
       updateProgress(3);
       scratchCanvases.forEach((c) => {
         c.style.display = 'none';
@@ -4502,18 +4633,56 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
         }
       });
 
-      const stopScratching = (e: PointerEvent) => {
+      const stopScratching = (e?: PointerEvent | TouchEvent) => {
         if (isScratching) {
           isScratching = false;
           lastX = null;
           lastY = null;
-          try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+          if (e && 'pointerId' in e) {
+            try { canvas.releasePointerCapture((e as PointerEvent).pointerId); } catch (err) {}
+          }
           checkCompletion();
         }
       };
 
       canvas.addEventListener('pointerup', stopScratching);
       canvas.addEventListener('pointercancel', stopScratching);
+
+      // Explicit Mobile Touch Handlers (iOS Safari & Android Chrome)
+      canvas.addEventListener('touchstart', (e: TouchEvent) => {
+        if (e.touches.length > 0) {
+          e.preventDefault();
+          isScratching = true;
+          lastX = null;
+          lastY = null;
+          const touch = e.touches[0];
+          scratchAt(touch.clientX, touch.clientY);
+        }
+      }, { passive: false });
+
+      canvas.addEventListener('touchmove', (e: TouchEvent) => {
+        if (!isScratching || e.touches.length === 0) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        lastMoveX = touch.clientX;
+        lastMoveY = touch.clientY;
+        if (!scratchMoveRaf) {
+          scratchMoveRaf = requestAnimationFrame(() => {
+            if (isScratching) {
+              scratchAt(lastMoveX, lastMoveY);
+            }
+            scratchMoveRaf = null;
+          });
+        }
+      }, { passive: false });
+
+      canvas.addEventListener('touchend', (e: TouchEvent) => {
+        stopScratching(e);
+      }, { passive: false });
+
+      canvas.addEventListener('touchcancel', (e: TouchEvent) => {
+        stopScratching(e);
+      }, { passive: false });
 
       // Keyboard accessibility (Space / Enter triggers progressive scratch)
       if (card) {
@@ -4595,10 +4764,9 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
         }, 250);
       } catch (e) {}
 
-      // Unlock scroll gate & countdown plaque
+      // Keep user comfortably right at the scratch cards without any jarring automatic jump/scroll push
       if (lockedContentWrapper) {
         lockedContentWrapper.classList.remove('is-locked');
-        if (updateCerLineProgress) updateCerLineProgress();
       }
       if (lockedCountdownCard) {
         lockedCountdownCard.classList.remove('is-locked');
@@ -4627,21 +4795,9 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       if (lenis) lenis.resize();
       ScrollTrigger.refresh();
       window.dispatchEvent(new Event('resize'));
+      prewarmAllPhotos();
 
       updateProgress(3);
-
-      // Smooth scroll to countdown card (scrollIntoView behavior smooth, block center)
-      setTimeout(() => {
-        if (lockedCountdownCard) {
-          if (lenis) {
-            const rect = lockedCountdownCard.getBoundingClientRect();
-            const targetY = (window.scrollY || window.pageYOffset || 0) + rect.top - (window.innerHeight - rect.height) / 2;
-            lenis.scrollTo(targetY, { duration: 1.2 });
-          } else {
-            lockedCountdownCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-      }, 350);
 
       scratchContinueBtn?.addEventListener('click', (e) => {
         e.preventDefault();
@@ -4914,7 +5070,6 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   });
   // ── CEREMONIES TIMELINE ANIMATION (INTERSECTION OBSERVER & LINE DRAW) ──
   let ceremoniesObserver: IntersectionObserver | null = null;
-  let updateCerLineProgress: (() => void) | null = null;
 
   const setupCeremoniesAnimation = () => {
     const eventsSection = document.getElementById('events');
@@ -4923,10 +5078,6 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     if (ceremoniesObserver) {
       ceremoniesObserver.disconnect();
       ceremoniesObserver = null;
-    }
-    if (updateCerLineProgress) {
-      window.removeEventListener('scroll', updateCerLineProgress);
-      updateCerLineProgress = null;
     }
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -4958,67 +5109,6 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
       }
     });
 
-    // Gold vertical line smooth draw progress & sliding tracker dot on scroll
-    const lineProgress = document.getElementById('cer-line-progress');
-    const trackerDot = document.getElementById('cer-tracker-dot');
-    const timeline = eventsSection.querySelector<HTMLElement>('.cer-timeline');
-    const track = timeline?.querySelector<HTMLElement>('.cer-timeline-track');
-
-    if (lineProgress && timeline && track) {
-      let cerProgressRaf: number | null = null;
-      let isEventsNear = true;
-      const isMobileView = () => window.matchMedia('(max-width: 768px)').matches;
-
-      if (typeof IntersectionObserver !== 'undefined') {
-        const eventsNearObserver = new IntersectionObserver((entries) => {
-          isEventsNear = entries[0]?.isIntersecting ?? true;
-          if (isEventsNear) updateCerLineProgress();
-        }, { rootMargin: '350px 0px 350px 0px' });
-        eventsNearObserver.observe(eventsSection);
-      }
-
-      updateCerLineProgress = () => {
-        if (!isEventsNear) return;
-        if (cerProgressRaf) return;
-        cerProgressRaf = requestAnimationFrame(() => {
-          const trackRect = track.getBoundingClientRect();
-          const trackHeight = track.clientHeight;
-          if (!trackHeight || trackHeight <= 10) {
-            cerProgressRaf = null;
-            return;
-          }
-
-          const vh = window.innerHeight;
-          const isMobile = isMobileView();
-
-          // Trigger point: when top of track enters ~66% of viewport height
-          const triggerPoint = vh * 0.66;
-          const scrolledPast = triggerPoint - trackRect.top;
-          const progress = Math.min(1, Math.max(0, scrolledPast / trackHeight));
-
-          // Mobile: progress line actively draws down on scroll from 0 to 1
-          // Desktop: line stays fully visible (scaleY 1), while golden ball slides smoothly along line
-          if (isMobile) {
-            lineProgress.style.transform = `scaleY(${progress})`;
-          } else {
-            lineProgress.style.transform = 'scaleY(1)';
-          }
-
-          if (trackerDot) {
-            const currentY = progress * trackHeight;
-            trackerDot.style.transform = `translate3d(-50%, ${currentY}px, 0)`;
-            // On mobile, show golden ball once line starts drawing
-            trackerDot.style.opacity = (isMobile && progress <= 0.005) ? '0' : '1';
-          }
-
-          cerProgressRaf = null;
-        });
-      };
-
-      window.addEventListener('scroll', updateCerLineProgress, { passive: true });
-      window.addEventListener('resize', updateCerLineProgress, { passive: true });
-      updateCerLineProgress();
-    }
   };
 
   if (document.readyState === 'loading') {

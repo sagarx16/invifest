@@ -623,35 +623,6 @@ html.lenis, html.lenis body {
   animation: scrollBounceCue 2s ease-in-out infinite;
 }
 
-/* Floating Music Notes */
-.music-note-particle {
-  position: absolute;
-  color: #B8860B;
-  font-size: 13px;
-  font-weight: bold;
-  pointer-events: none;
-  opacity: 0;
-  transform: translate3d(0, 0, 0);
-}
-.music-playing .music-note-particle.n1 {
-  animation: floatMusicNote 3.2s ease-out infinite 0s;
-  left: 10%;
-}
-.music-playing .music-note-particle.n2 {
-  animation: floatMusicNote 3.2s ease-out infinite 1s;
-  left: 45%;
-}
-.music-playing .music-note-particle.n3 {
-  animation: floatMusicNote 3.2s ease-out infinite 2s;
-  left: 75%;
-}
-@keyframes floatMusicNote {
-  0% { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
-  25% { opacity: 0.9; }
-  80% { opacity: 0.5; }
-  100% { transform: translate3d(0, -42px, 0) scale(1.1); opacity: 0; }
-}
-
 /* Scratch card sparkle burst */
 .scratch-sparkle-particle {
   position: absolute;
@@ -713,7 +684,7 @@ html.lenis, html.lenis body {
   100% { transform: scale(1.85); opacity: 0; }
 }
 
-/* Date Row Sweep */
+/* Date Row Sweep: Smooth, slow, and luxurious */
 .cer-date-sweep-wrap {
   position: relative;
   overflow: hidden;
@@ -722,16 +693,18 @@ html.lenis, html.lenis body {
 .cer-date-sweep {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.38) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.45) 50%, transparent 100%);
   transform: translateX(-100%);
   pointer-events: none;
 }
 .cer-row.is-in-view .cer-date-sweep {
-  animation: dateSweepAnim 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.4s;
+  animation: dateSweepAnim 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.4s;
 }
 @keyframes dateSweepAnim {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(150%); }
+  0% { transform: translateX(-100%); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateX(160%); opacity: 0; }
 }
 
 /* Portrait Frame Float/Bobbing on Mobile */
@@ -781,7 +754,6 @@ html.lite .hero-ken-burns,
 html.lite .arch-portrait-frame,
 html.lite .hero-sparkle-dot,
 html.lite .couple-sparkle-float,
-html.lite .music-note-particle,
 html.lite .scroll-cue-bounce {
   animation: none !important;
 }
@@ -812,7 +784,6 @@ html.lite .couple-sparkle-float {
   }
 
   /* 2. Hardware layer promotion & containment on fixed / sticky UI to isolate scroll repaints */
-  #music-widget-container,
   #scroll-top-btn,
   #scroll-progress,
   #reading-progress,
@@ -823,6 +794,9 @@ html.lite .couple-sparkle-float {
   .preview-nav {
     transform: translateZ(0) !important;
     contain: layout paint !important;
+  }
+  #music-widget-container {
+    transform: translateZ(0) !important;
   }
 
   /* 3. Backdrop-filter removal + solid semi-transparent background fallback */
@@ -885,10 +859,10 @@ html.lite .couple-sparkle-float {
     background: rgba(255, 251, 245, 0.98) !important;
   }
 
-  /* 4. Touch action on scratch cards to keep vertical momentum scrolling 100% active */
+  /* 4. Touch action on scratch cards: allow full finger gesture scratching without scroll hijacking */
   .scratch-card,
   .scratch-canvas {
-    touch-action: pan-y !important;
+    touch-action: none !important;
   }
 
   /* 5. Content visibility on long sections to skip off-screen rendering */

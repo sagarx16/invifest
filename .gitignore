@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 # Sound effects backup
 _backup_sfx/
+.vercel
+.env*
