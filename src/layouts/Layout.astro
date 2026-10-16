@@ -91,11 +91,13 @@ const siteUrl = 'https://invifestx16.vercel.app';
       }
     </script>
 
-    <!-- Self-Hosted Optimized Fonts (Zero external DNS / network blocking) -->
-    <link rel="stylesheet" href="/fonts/fonts.css" />
-    <link rel="preload" href="/fonts/font_10.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Self-Hosted Non-Render-Blocking Fonts (Preload + Onload Swap Trick) -->
+    <link rel="preload" href="/fonts/fonts.css" as="style" />
+    <link rel="stylesheet" href="/fonts/fonts.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="/fonts/fonts.css" /></noscript>
     <link rel="preload" href="/fonts/font_8.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/font_2.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/font_13.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -203,56 +205,62 @@ const siteUrl = 'https://invifestx16.vercel.app';
         const textElements = document.querySelectorAll<HTMLElement>('[data-text-reveal]');
         if (!textElements.length) return;
 
-        textElements.forEach((el) => {
-          if (el.dataset.textRevealInit === 'true') return;
-          el.dataset.textRevealInit = 'true';
+        const isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
 
-          const originalText = el.textContent?.trim() || '';
-          if (!el.getAttribute('aria-label')) {
-            el.setAttribute('aria-label', originalText);
-          }
+        // On desktop: split text into elegant staggered word spans
+        // On mobile: skip DOM expansion (avoids 700+ extra spans and reflow overhead)
+        if (!isMobile) {
+          textElements.forEach((el) => {
+            if (el.dataset.textRevealInit === 'true') return;
+            el.dataset.textRevealInit = 'true';
 
-          const baseDelay = parseFloat(el.getAttribute('data-text-delay') || '0');
-          const stagger = parseFloat(el.getAttribute('data-text-stagger') || '0.045');
-
-          let wordIndex = 0;
-          function processNode(node: Node) {
-            if (node.nodeType === Node.TEXT_NODE) {
-              const text = node.textContent || '';
-              if (!text.trim()) return;
-
-              const chunks = text.split(/(\s+)/);
-              const frag = document.createDocumentFragment();
-
-              chunks.forEach((chunk) => {
-                if (/^\s+$/.test(chunk)) {
-                  frag.appendChild(document.createTextNode(chunk));
-                } else if (chunk) {
-                  const wordSpan = document.createElement('span');
-                  wordSpan.className = 'reveal-word';
-                  wordSpan.setAttribute('aria-hidden', 'true');
-
-                  const innerSpan = document.createElement('span');
-                  innerSpan.className = 'reveal-inner';
-                  innerSpan.style.transitionDelay = `${(baseDelay + wordIndex * stagger).toFixed(3)}s`;
-                  innerSpan.textContent = chunk;
-
-                  wordSpan.appendChild(innerSpan);
-                  frag.appendChild(wordSpan);
-                  wordIndex++;
-                }
-              });
-
-              node.parentNode?.replaceChild(frag, node);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-              const childEl = node as HTMLElement;
-              if (childEl.classList.contains('reveal-word') || childEl.classList.contains('reveal-inner')) return;
-              Array.from(childEl.childNodes).forEach(processNode);
+            const originalText = el.textContent?.trim() || '';
+            if (!el.getAttribute('aria-label')) {
+              el.setAttribute('aria-label', originalText);
             }
-          }
 
-          Array.from(el.childNodes).forEach(processNode);
-        });
+            const baseDelay = parseFloat(el.getAttribute('data-text-delay') || '0');
+            const stagger = parseFloat(el.getAttribute('data-text-stagger') || '0.045');
+
+            let wordIndex = 0;
+            function processNode(node: Node) {
+              if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent || '';
+                if (!text.trim()) return;
+
+                const chunks = text.split(/(\s+)/);
+                const frag = document.createDocumentFragment();
+
+                chunks.forEach((chunk) => {
+                  if (/^\s+$/.test(chunk)) {
+                    frag.appendChild(document.createTextNode(chunk));
+                  } else if (chunk) {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'reveal-word';
+                    wordSpan.setAttribute('aria-hidden', 'true');
+
+                    const innerSpan = document.createElement('span');
+                    innerSpan.className = 'reveal-inner';
+                    innerSpan.style.transitionDelay = `${(baseDelay + wordIndex * stagger).toFixed(3)}s`;
+                    innerSpan.textContent = chunk;
+
+                    wordSpan.appendChild(innerSpan);
+                    frag.appendChild(wordSpan);
+                    wordIndex++;
+                  }
+                });
+
+                node.parentNode?.replaceChild(frag, node);
+              } else if (node.nodeType === Node.ELEMENT_NODE) {
+                const childEl = node as HTMLElement;
+                if (childEl.classList.contains('reveal-word') || childEl.classList.contains('reveal-inner')) return;
+                Array.from(childEl.childNodes).forEach(processNode);
+              }
+            }
+
+            Array.from(el.childNodes).forEach(processNode);
+          });
+        }
 
         if ('IntersectionObserver' in window) {
           const textObserver = new IntersectionObserver((entries, obs) => {

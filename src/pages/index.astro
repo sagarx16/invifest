@@ -262,16 +262,16 @@ const ceremonies = [
   <!-- ========== GRAND OPENING ENVELOPE CINEMATIC (FULL WINDOW) ========== -->
   <div id="opening-cinematic" class="fixed inset-0 z-[10000] w-screen h-screen overflow-hidden select-none transition-all duration-1000 flex flex-col justify-between" style="background:#150D0A;">
     <!-- Ambient Blur Background Video Layer (fills widescreen behind) -->
+    <!-- Ambient Blur Background Video Layer (Desktop only, 0-cost on mobile) -->
     <video
       id="opening-video-ambient"
       playsinline
       muted
       loop
-      preload="auto"
-      poster="/images/video_thumb.jpg"
+      preload="none"
+      poster="/images/video_thumb.webp"
       class="hidden sm:block absolute inset-0 w-full h-full object-cover filter blur-3xl opacity-50 scale-110 pointer-events-none will-change-transform transform-gpu"
     >
-      <source src="/videos/opening.mp4" type="video/mp4" />
     </video>
 
     <!-- Main Full-Window Video Container -->
@@ -279,10 +279,11 @@ const ceremonies = [
       <video
         id="opening-video"
         playsinline
-        preload="auto"
-        poster="/images/video_thumb.jpg"
+        preload="metadata"
+        poster="/images/video_thumb.webp"
         class="w-full h-full object-cover sm:object-contain md:object-cover pointer-events-auto"
       >
+        <source src="/videos/opening-mobile.mp4" type="video/mp4" media="(max-width: 639px)" />
         <source src="/videos/opening.mp4" type="video/mp4" />
       </video>
     </div>
@@ -302,9 +303,9 @@ const ceremonies = [
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        widths={[400, 640, 800, 1200, 1920]}
-        sizes="(max-width: 768px) 800px, 100vw"
-        quality={82}
+        widths={[400, 640, 800, 1200, 1600]}
+        sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 100vw"
+        quality={75}
         class="hero-ken-burns w-full h-full object-cover object-[center_20%] sm:object-[center_28%] scale-100 transition-transform duration-1000"
       />
     </div>
@@ -763,11 +764,11 @@ const ceremonies = [
                 formats={['avif', 'webp']}
                 fallbackFormat="jpg"
                 alt="Mukesh Ojha - The Royal Groom"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
-                quality={80}
+                quality={75}
                 class="arch-primary-img w-full h-full object-cover object-top"
               />
               
@@ -777,11 +778,11 @@ const ceremonies = [
                 formats={['avif', 'webp']}
                 fallbackFormat="jpg"
                 alt="Mukesh Ojha - Detail: Rings & Royal Sherwani"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
-                quality={80}
+                quality={75}
                 class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
                 style="object-position: center 35%;"
               />
@@ -829,11 +830,11 @@ const ceremonies = [
                       formats={['avif', 'webp']}
                       fallbackFormat="jpg"
                       alt="Groom detail: Rings & gold watch"
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
-                      quality={80}
+                      quality={75}
                       class="ring-detail-img w-full h-full object-cover"
                       style="object-position: center 35%;"
                     />
@@ -844,11 +845,11 @@ const ceremonies = [
                       formats={['avif', 'webp']}
                       fallbackFormat="jpg"
                       alt="Mukesh Ojha portrait"
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
-                      quality={80}
+                      quality={75}
                       class="ring-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none"
                     />
                     
@@ -924,11 +925,11 @@ const ceremonies = [
                 formats={['avif', 'webp']}
                 fallbackFormat="jpg"
                 alt="Puja - The Radiant Bride"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
-                quality={80}
+                quality={75}
                 class="arch-primary-img w-full h-full object-cover object-top"
               />
               
@@ -938,11 +939,11 @@ const ceremonies = [
                 formats={['avif', 'webp']}
                 fallbackFormat="jpg"
                 alt="Puja - Detail: Mehendi hands holding ornate mirror (aarsi)"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
                 widths={[320, 480, 640]}
                 sizes="(max-width: 640px) 200px, 240px"
-                quality={80}
+                quality={75}
                 class="arch-detail-img absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
                 style="object-position: center 60%;"
               />
@@ -983,11 +984,11 @@ const ceremonies = [
                       formats={['avif', 'webp']}
                       fallbackFormat="jpg"
                       alt="Bride detail: Aarsi mirror & mehendi hands"
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
-                      quality={80}
+                      quality={75}
                       class="aarsi-detail-img w-full h-full object-cover"
                       style="object-position: center 60%;"
                     />
@@ -998,11 +999,11 @@ const ceremonies = [
                       formats={['avif', 'webp']}
                       fallbackFormat="jpg"
                       alt="Puja portrait"
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                       widths={[120, 240]}
                       sizes="104px"
-                      quality={80}
+                      quality={75}
                       class="aarsi-primary-img absolute inset-0 w-full h-full object-cover object-top opacity-0 pointer-events-none"
                     />
                     
@@ -1136,11 +1137,11 @@ const ceremonies = [
                     formats={['avif', 'webp']}
                     fallbackFormat="jpg"
                     alt={cer.alt}
-                    loading={index < 3 ? "eager" : "lazy"}
+                    loading="lazy"
                     decoding="async"
-                    widths={[400, 600, 800]}
-                    sizes="(max-width: 768px) 100vw, 520px"
-                    quality={80}
+                    widths={[360, 540, 720]}
+                    sizes="(max-width: 640px) 360px, (max-width: 1024px) 540px, 720px"
+                    quality={75}
                     class="w-full h-full object-cover"
                     style={`object-position: ${cer.imgPos};`}
                   />
@@ -1240,12 +1241,12 @@ const ceremonies = [
                     formats={['avif', 'webp']}
                     fallbackFormat="jpg"
                     alt={slide.alt}
-                    loading={idx < 6 ? "eager" : "lazy"}
+                    loading="lazy"
                     decoding="async"
                     draggable="false"
                     widths={[360, 540, 720]}
                     sizes="(max-width: 640px) 340px, 420px"
-                    quality={80}
+                    quality={75}
                     class={`ritual-card-img absolute inset-0 w-full h-full object-cover transition-transform duration-700 pointer-events-none select-none ${slide.scaleFix ? 'scale-110 origin-top' : ''}`}
                     style={`object-position: ${slide.objectPosition}; aspect-ratio: 370/550;`}
                   />
@@ -3286,7 +3287,6 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   // ── GSAP + ScrollTrigger animations ──────────────────────────────
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import Lenis from 'lenis';
   import { royalAudio } from '../lib/audio';
   import { initRitualsCarousel } from '../scripts/ritualsCarousel';
 
@@ -3297,41 +3297,43 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
   const isTouchDevice = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
   let lenis: any = null;
 
-  // On touch/mobile devices, use native GPU 120Hz momentum scrolling. Use Lenis only for desktop mouse wheel.
-  if (!prefersReducedMotion && !isTouchDevice) {
-    lenis = new Lenis({
-      duration: 1.15,
-      // Studio Freight / Apple signature exponential ease-out curve for buttery deceleration
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      autoRaf: false,
-    });
-    (window as any).lenis = lenis;
+  // On touch/mobile devices, use native GPU 120Hz momentum scrolling. Dynamically load Lenis ONLY on desktop.
+  if (!prefersReducedMotion && !isTouchDevice && window.innerWidth >= 768) {
+    import('lenis').then(({ default: LenisClass }) => {
+      lenis = new LenisClass({
+        duration: 1.15,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        autoRaf: false,
+      });
+      (window as any).lenis = lenis;
 
-    // Connect Lenis to ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+      lenis.on('scroll', ScrollTrigger.update);
 
-    // Hardware V-SYNC locked animation loop (adaptive to 60Hz and 120Hz ProMotion displays)
-    let lenisRafId: number | null = null;
-    function updateLenis(time: number) {
-      if (!document.hidden && lenis) {
-        lenis.raf(time);
-      }
-      lenisRafId = requestAnimationFrame(updateLenis);
-    }
-    lenisRafId = requestAnimationFrame(updateLenis);
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        if (lenisRafId) cancelAnimationFrame(lenisRafId);
-        lenisRafId = null;
-      } else if (!lenisRafId) {
+      let lenisRafId: number | null = null;
+      function updateLenis(time: number) {
+        if (!document.hidden && lenis) {
+          lenis.raf(time);
+        }
         lenisRafId = requestAnimationFrame(updateLenis);
       }
-    }, { passive: true });
+      lenisRafId = requestAnimationFrame(updateLenis);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          if (lenisRafId) cancelAnimationFrame(lenisRafId);
+          lenisRafId = null;
+        } else if (!lenisRafId) {
+          lenisRafId = requestAnimationFrame(updateLenis);
+        }
+      }, { passive: true });
+    }).catch(() => {});
+  }
+
+
 
     // Smooth anchor link gliding
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -3342,11 +3344,14 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
         const targetEl = document.querySelector(targetId);
         if (targetEl) {
           e.preventDefault();
-          lenis.scrollTo(targetEl, { offset: -10, duration: 1.25 });
+          if (lenis) {
+            lenis.scrollTo(targetEl, { offset: -10, duration: 1.25 });
+          } else {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
         }
       });
     });
-  }
 
   // ── LAZY OBSERVER HELPER FOR BELOW-THE-FOLD MODULES ─────────────
   function initWhenVisible(elementId: string, initFn: () => void, rootMargin = '250px 0px') {
@@ -3368,23 +3373,40 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
     }
   }
 
-  // ── PRE-WARM & DECODE ALL KEY WEDDING PHOTOS (ZERO-DELAY LOADING) ──
+  // ── GENTLE PHOTO PRE-WARMING (SKIPPED ON MOBILE & SLOW CONNECTIONS) ──
   function prewarmAllPhotos() {
-    const images = document.querySelectorAll<HTMLImageElement>(
-      '.arch-primary-img, .arch-detail-img, .ring-detail-img, .ring-primary-img, .aarsi-detail-img, .aarsi-primary-img, .cer-col-photo img, .ritual-card-img'
-    );
-    images.forEach((img) => {
-      if (img.loading === 'lazy') img.loading = 'eager';
-      if ('decode' in img && !img.complete) {
-        img.decode().catch(() => {});
-      }
-    });
+    try {
+      const nav = navigator as any;
+      const isSlowConn = nav.connection && (nav.connection.saveData || ['slow-2g', '2g', '3g'].includes(nav.connection.effectiveType));
+      const isMobile = window.innerWidth < 640 || ('ontouchstart' in window);
+      if (isSlowConn || isMobile) return;
+
+      // Desktop only: gently observe upcoming section images with 600px lookahead
+      if (!('IntersectionObserver' in window)) return;
+      const sections = document.querySelectorAll('#couple, #ceremonies');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const imgs = entry.target.querySelectorAll<HTMLImageElement>('img');
+            imgs.forEach((img) => {
+              if ('decode' in img && !img.complete) {
+                img.decode().catch(() => {});
+              }
+            });
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '600px 0px' });
+      sections.forEach((sec) => observer.observe(sec));
+    } catch (_) {}
   }
 
-  if ('requestIdleCallback' in window) {
-    (window as any).requestIdleCallback(prewarmAllPhotos, { timeout: 1500 });
-  } else {
-    setTimeout(prewarmAllPhotos, 800);
+  if (typeof window !== 'undefined' && window.innerWidth >= 640) {
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(prewarmAllPhotos, { timeout: 3000 });
+    } else {
+      setTimeout(prewarmAllPhotos, 2000);
+    }
   }
 
   // ── GRAND OPENING ENVELOPE CINEMATIC & HERO REVEAL ────────────────
@@ -3517,7 +3539,11 @@ html.js .cer-row.is-in-view .cer-photo-wrap {
         });
       }
 
-      if (openingVideoAmbient) {
+      if (openingVideoAmbient && window.innerWidth >= 640) {
+        if (!openingVideoAmbient.src) {
+          openingVideoAmbient.src = '/videos/opening.mp4';
+          openingVideoAmbient.load();
+        }
         openingVideoAmbient.play().catch(() => {});
       }
 
